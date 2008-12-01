@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubePlugin", "YouTubePlugin\YouTubePlugin.csproj", "{36F4C9AA-F433-4CDA-9D9A-BC4D4732E693}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{13687C8F-D781-49F7-A373-E73CD761CC97}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36F4C9AA-F433-4CDA-9D9A-BC4D4732E693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F4C9AA-F433-4CDA-9D9A-BC4D4732E693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F4C9AA-F433-4CDA-9D9A-BC4D4732E693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F4C9AA-F433-4CDA-9D9A-BC4D4732E693}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13687C8F-D781-49F7-A373-E73CD761CC97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13687C8F-D781-49F7-A373-E73CD761CC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13687C8F-D781-49F7-A373-E73CD761CC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13687C8F-D781-49F7-A373-E73CD761CC97}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
