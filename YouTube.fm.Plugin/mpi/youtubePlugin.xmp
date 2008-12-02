@@ -8,34 +8,34 @@
 			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\AxInterop.ShockwaveFlashObjects.dll</Source>
 			<Id>01050</Id>
 			<Option />
-			<Guid>b51becc1-202c-4ff4-8327-b29259d2ff26</Guid>
+			<Guid>6660129c-f1c2-4459-a146-206257cdf294</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.Client.dll</FileName>
 			<Type>Plugin</Type>
 			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTubePlugin\YouTubePlugin\bin\Debug\Google.GData.Client.dll</Source>
+			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Client.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>9c7aba3c-fad4-4156-a43a-5bf98cf46f05</Guid>
+			<Guid>5c0b85c3-9f9e-43f7-af11-c58383ffdbcd</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.Extensions.dll</FileName>
 			<Type>Plugin</Type>
 			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTubePlugin\YouTubePlugin\bin\Debug\Google.GData.Extensions.dll</Source>
+			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Extensions.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>d386e9f8-92c8-4d97-ab55-01eb9443b786</Guid>
+			<Guid>fb1040b8-2132-433e-a026-2190333530a5</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.YouTube.dll</FileName>
 			<Type>Plugin</Type>
 			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTubePlugin\YouTubePlugin\bin\Debug\Google.GData.YouTube.dll</Source>
+			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.YouTube.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>0f62532c-34c1-4c1c-9218-d5f03d8ae6fe</Guid>
+			<Guid>c8c42d9b-892f-414b-ba33-8b0ca7217ef3</Guid>
 		</File>
 		<File>
 			<FileName>Interop.ShockwaveFlashObjects.dll</FileName>
@@ -44,7 +44,7 @@
 			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\Interop.ShockwaveFlashObjects.dll</Source>
 			<Id>01050</Id>
 			<Option />
-			<Guid>6864d12b-be9d-4d98-bd18-0b47ea9c7c71</Guid>
+			<Guid>c57329a8-962f-4971-b8fb-5f62dd0c563f</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlayer.dll</FileName>
@@ -53,7 +53,7 @@
 			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\YouTubePlayer.dll</Source>
 			<Id>01050</Id>
 			<Option />
-			<Guid>9287c967-2246-4752-aae4-a08cf37be4a3</Guid>
+			<Guid>98e69042-c4c0-473c-94d9-89506ecc41f8</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -62,16 +62,16 @@
 			<Source>skin\Blue3wide\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>c3ce5319-d169-45a4-8457-dc2399a37478</Guid>
+			<Guid>a66bc105-1335-4c35-8dfd-6d678d05bedd</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlugin.dll</FileName>
 			<Type>Plugin</Type>
 			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTubePlugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
+			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>4d994b2f-92eb-46f0-8049-9b3b78190794</Guid>
+			<Guid>a8f06e76-452e-437a-9c28-2de2dc65452c</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -80,7 +80,7 @@
 			<Source>skin\Blue3wide\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>e7293f3f-be60-4e38-b014-5f2f35fddf6a</Guid>
+			<Guid>cd4cedf0-308e-41a8-9794-3125d3936fe8</Guid>
 		</File>
 	</FileList>
 	<StringList />
@@ -88,12 +88,12 @@
 	<SetupGroups />
 	<SetupGroupMappings />
 	<Option>
-		<BuildFileName>D:\devel\vs2005\YouTubePlugin\mpi\LastTube.0.1.0.mpi</BuildFileName>
-		<ProiectFileName>D:\devel\vs2005\YouTubePlugin\mpi\youtubePlugin.xmp</ProiectFileName>
-		<ProiectName>LastTube</ProiectName>
+		<BuildFileName>D:\devel\vs2005\YouTube.fm.Plugin\mpi\YouTube.fm.0.1.1.mpi</BuildFileName>
+		<ProiectFileName>D:\devel\vs2005\YouTube.fm.Plugin\mpi\youtubePlugin.xmp</ProiectFileName>
+		<ProiectName>YouTube.fm</ProiectName>
 		<Author>Dukus</Author>
 		<UpdateURL>http://www.team-mediaportal.com</UpdateURL>
-		<Version>0.1.0</Version>
+		<Version>0.1.1</Version>
 		<Description />
 		<Group>Video/Movies</Group>
 		<Release>Test</Release>
@@ -104,7 +104,7 @@
 		<MinExtensionVersion />
 		<MaxExtensionVersion />
 		<ForumURL />
-		<WebURL />
+		<WebURL>http://code.google.com/p/youtube-fm-for-mediaportal/</WebURL>
 		<CreationDate>27-11-08</CreationDate>
 		<SingleGroupSelect>False</SingleGroupSelect>
 	</Properties>

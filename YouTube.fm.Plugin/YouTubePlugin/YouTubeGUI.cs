@@ -893,11 +893,6 @@ namespace YouTubePlugin
     //}
 
 
-    string GetBestUrl(ThumbnailCollection th)
-    {
-      return th[th.Count - 1].Url;
-    }
-
     void addVideos(YouTubeFeed videos, bool level,YouTubeQuery qu)
     {
       if (level)

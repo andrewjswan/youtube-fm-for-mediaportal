@@ -34,42 +34,44 @@ namespace YouTubePlugin
 
     public void SetLabels(YouTubeEntry vid, string type)
     {
-      //ClearLabels(type);
-      //GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Video.Title", vid.Video.Title);
-      //GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Video.Year", vid.Video.CopyrightYear.ToString());
-      //GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Video.Rating", vid.Video.Rating.ToString());
-      //GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Video.Image", GetLocalImageFileName(vid.Image.Url));
-      //GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Artist.Name", vid.Artist.Name);
-      //GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Artist.Image", GetLocalImageFileName(provider.GetArtistImage(vid.Artist.Id,400)));
+      ClearLabels(type);
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", vid.Rating.Average.ToString());
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image", GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments",vid.Comments.ToString());
+      if (vid.Title.Text.Contains("-"))
+      {
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", vid.Title.Text.Split('-')[1]);
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", vid.Title.Text.Split('-')[0]);
+      }
+      else
+      {
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", vid.Title.Text);
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
+      }
+      //GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Image", GetLocalImageFileName(provider.GetArtistImage(vid.Artist.Id,400)));
       //if (vid.Albums.Count > 0)
-      //  GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Album1.Title", vid.Albums[0].Release.Title);
+      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Album1.Title", vid.Albums[0].Release.Title);
       //if (vid.Albums.Count > 1)
-      //  GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Album2.Title", vid.Albums[1].Release.Title);
+      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Album2.Title", vid.Albums[1].Release.Title);
       //if (vid.Categories.Count > 0)
       //{
-      //  GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Category1.Title", vid.Categories[0].Name);
-      //  GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Category1.Type", vid.Categories[0].Type.ToString());
+      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Category1.Title", vid.Categories[0].Name);
+      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Category1.Type", vid.Categories[0].Type.ToString());
       //}
       //if (vid.Categories.Count > 1)
       //{
-      //  GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Category2.Title", vid.Categories[1].Name);
-      //  GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Category2.Type", vid.Categories[1].Type.ToString());
+      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Category2.Title", vid.Categories[1].Name);
+      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Category2.Type", vid.Categories[1].Type.ToString());
       //}
     }
 
     public void ClearLabels(string type)
     {
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Video.Title", " ");
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Video.Year", " ");
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Video.Rating", " ");
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Artist.Name", " ");
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Artist.Image", " ");
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Album1.Title", " ");
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Album2.Title", " ");
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Category1.Title", " ");
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Category1.Type", " ");
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Category2.Title", " ");
-      GUIPropertyManager.SetProperty("#YahooMusic." + type + ".Category2.Type", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
     }
 
     public string FormatTitle(YouTubeEntry vid)
@@ -83,7 +85,12 @@ namespace YouTubePlugin
       //s = s.Replace("%rating%", vid.Video.Rating.ToString());
       return string.Format("{0}", vid.Title.Text);
     }
-    
+
+    public string GetBestUrl(ThumbnailCollection th)
+    {
+      return th[th.Count - 1].Url;
+    }
+
     public string GetLocalImageFileName(string strURL)
     {
       if (strURL == "")
@@ -137,7 +144,7 @@ namespace YouTubePlugin
         //}
         if (vid.Media.Contents.Count > 0)
         {
-          string PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", getIDSimple(vid.Id.AbsoluteUri));
+          string PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
           if (!string.IsNullOrEmpty(PlayblackUrl))
           {
             g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
@@ -152,18 +159,12 @@ namespace YouTubePlugin
         else
         {
           g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
-          g_Player.PlayVideoStream(youtubecatch2(vid.AlternateUri.Content), vid.Title.Text);
+          g_Player.PlayVideoStream(Youtube2MP.youtubecatch2(vid.AlternateUri.Content), vid.Title.Text);
           g_Player.ShowFullScreenWindow();
         }
       }
     }
 
-
-    private string getIDSimple(string googleID)
-    {
-      int lastSlash = googleID.LastIndexOf("/");
-      return googleID.Substring(lastSlash + 1);
-    }
 
     void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
     {
@@ -191,11 +192,11 @@ namespace YouTubePlugin
       {
         if (vid.Media.Contents.Count > 0)
         {
-          PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", getIDSimple(vid.Id.AbsoluteUri));
+          PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
         }
         else
         {
-          PlayblackUrl = youtubecatch2(vid.AlternateUri.Content);
+          PlayblackUrl = Youtube2MP.youtubecatch2(vid.AlternateUri.Content);
         }
 
         list.Add(pItem);
@@ -211,45 +212,5 @@ namespace YouTubePlugin
       }
     }
 
-    private string youtubecatch2(string url)
-    {
-      string str = getContent(url);
-      StreamWriter wr = new StreamWriter(File.Create(MediaPortal.Util.Utils.EncryptLine(url)));
-      wr.Write(str);
-      wr.Close();
-      int i = 0;
-      int i1 = 0;
-      string str1 = "/watch_fullscreen?";
-      i = str.IndexOf(str1, System.StringComparison.CurrentCultureIgnoreCase);
-      i1 = str.IndexOf(";", i, System.StringComparison.CurrentCultureIgnoreCase);
-      string str3 = str.Substring(i + str1.Length, i1 - (i + str1.Length));
-      string str7 = str3.Substring(str3.IndexOf("&title=") + 7);
-      str7 = str7.Substring(0, str7.Length - 1);
-      return string.Concat("http://youtube.com/get_video?", str3.Substring(str3.IndexOf("video_id"), str3.IndexOf("&", str3.IndexOf("video_id")) - str3.IndexOf("video_id")), str3.Substring(str3.IndexOf("&l"), str3.IndexOf("&", str3.IndexOf("&l") + 1) - str3.IndexOf("&l")), str3.Substring(str3.IndexOf("&t"), str3.IndexOf("&", str3.IndexOf("&t") + 1) - str3.IndexOf("&t")));
-    }
-
-    private string getContent(string url)
-    {
-      string str;
-      try
-      {
-        string str1 = "where=46038";
-        System.Net.HttpWebRequest httpWebRequest = System.Net.WebRequest.Create(url) as System.Net.HttpWebRequest;
-        httpWebRequest.Method = "POST";
-        httpWebRequest.ContentLength = (long)str1.Length;
-        httpWebRequest.ContentType = "application/x-www-form-urlencoded";
-        System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(httpWebRequest.GetRequestStream());
-        streamWriter.Write(str1);
-        streamWriter.Close();
-        System.IO.StreamReader streamReader = new System.IO.StreamReader((httpWebRequest.GetResponse() as System.Net.HttpWebResponse).GetResponseStream());
-        str = streamReader.ReadToEnd();
-        streamReader.Close();
-      }
-      catch (System.Exception exception1)
-      {
-        str = string.Concat("Error: ", exception1.Message.ToString());
-      }
-      return str;
-    }
   }
 }

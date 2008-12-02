@@ -122,7 +122,7 @@ namespace YouTubePlugin
     {
       using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
       {
-        this.PluginName = xmlreader.GetValueAsString("youtubevideos", "PluginName", "LastTube");
+        this.PluginName = xmlreader.GetValueAsString("youtubevideos", "PluginName", "YouTube.fm");
         this.InitialDisplay = xmlreader.GetValueAsInt("youtubevideos", "InitialDisplay", 3);
         this.User = xmlreader.GetValueAsString("youtubevideos", "user", string.Empty);
         this.Password = xmlreader.GetValueAsString("youtubevideos", "password", string.Empty);
@@ -162,7 +162,7 @@ namespace YouTubePlugin
 
     public Settings()
     {
-      this.PluginName = "LastTube";
+      this.PluginName = "YouTube.fm";
       this.User = "";
       this.Password = "";
       this.SearchHistory = new List<string>();
