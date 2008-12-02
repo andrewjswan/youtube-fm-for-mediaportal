@@ -45,6 +45,15 @@ namespace YouTubePlayer
 			//_log = services.Get<ILog>();
 		}
 
+
+    private string videoId;
+    public string VideoId
+    {
+      get { return videoId; }
+      set { videoId = value; }
+    }
+
+
 		public override string Description()
 		{
       return "YouTube Video Flash Player";
@@ -107,6 +116,17 @@ namespace YouTubePlayer
         return false;
 		}
 
+    static public string getIDSimple2(string googleID)
+    {
+      int lastSlash = googleID.LastIndexOf("/");
+      string id = "";
+      if (googleID.Contains("&"))
+        id = googleID.Substring(lastSlash + 1, googleID.IndexOf('&') - lastSlash - 1);
+      else
+        id = googleID.Substring(lastSlash + 1);
+      return id;
+    }
+
     private string getIDSimple(string googleID)
     {
       int lastSlash = googleID.LastIndexOf("/");
@@ -116,7 +136,7 @@ namespace YouTubePlayer
 		public override bool Play(string strFile)
 		{
 			Log.Info("Playing flv with YoutubeFlvPlayer :{0}",strFile);
-			try
+      try
 			{
         //Uri site = new Uri(strFile);
         if (FlvControl != null)
@@ -128,19 +148,20 @@ namespace YouTubePlayer
        
         FlvControl = new FlashControl();
         FlvControl.Player.AllowScriptAccess = "always";
-        
+
+        Log.Debug("Flash version : {0} ", FlvControl.Player.FlashVersion());
+
 				FlvControl.Player.FlashCall += new _IShockwaveFlashEvents_FlashCallEventHandler(OnFlashCall);
         FlvControl.Player.FSCommand += new _IShockwaveFlashEvents_FSCommandEventHandler(Player_FSCommand);
         //FlvControl.Player.FlashVars = site.Query.Replace("?", "&") + "&eh=myCallbackEventHandler&token=AA7Zx0hd0JeezyPS6TqLB0_1UnEUMZybQEmzIAWcIa7UHPEHNg--";
         FlvControl.Player.OnProgress += new _IShockwaveFlashEvents_OnProgressEventHandler(Player_OnProgress);
         FlvControl.Player.AllowScriptAccess = "always";
-        FlvControl.Player.LoadMovie(0, string.Format("http://www.youtube.com/v/{0}&color1=0x2b405b&color2=0x6b8ab6&fs=1&autoplay=1&enablejsapi=1&playerapiid=ytplayer", video_id));
+        //FlvControl.Player.LoadMovie(0, string.Format("http://www.youtube.com/v/{0}&color1=0x2b405b&color2=0x6b8ab6&fs=1&autoplay=1&enablejsapi=1&playerapiid=ytplayer", video_id));
+        FlvControl.Player.LoadMovie(0, "http://www.youtube.com/apiplayer?enablejsapi=1");
+
         FlvControl.Player.AllowScriptAccess = "always";
-        //FlvControl.Player.SetVariable("allowScriptAccess", "always");
-        //FlvControl.Player.LoadMovie(0, strFile);
 
-        //FlvControl.Player.CallFunction("<invoke name=\"addEventListener\"><arguments><string>\"onStateChange\"</string><string>\"onStateChange\"</string></arguments></invoke>");
-
+        this.VideoId = getIDSimple2(strFile);
 				//FlvControl.Player.Movie = System.IO.Directory.GetCurrentDirectory()+"\\player.swf";
         		
 
@@ -176,7 +197,6 @@ namespace YouTubePlayer
 			}
 			return false;
 		}
-
 
     void Player_OnProgress(object sender, _IShockwaveFlashEvents_OnProgressEvent e)
     {
@@ -233,71 +253,15 @@ namespace YouTubePlayer
 			String lsName = list[0].Attributes["name"].Value;
 			list = document.GetElementsByTagName("arguments");
 			String lsState = list[0].FirstChild.InnerText;
-      GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAY_ITEM, 0, 0, 0, 0, 0, null); 
-      if (lsName.Equals("myCallbackEventHandler"))
+      GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAY_ITEM, 0, 0, 0, 0, 0, null);
+      if (lsName.Equals("onYouTubePlayerReady"))
 			{
-				switch (lsState)
-				{
-          case "itemBegin":
-            _playState = PlayState.Playing;
-//            GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAY_ITEM, 0, 0, 0, 0, 0, null);
-            msg.Object = foEvent.request;
-            GUIWindowManager.SendThreadMessage(msg);
-            break;
-          case "itemEnd":
-//            GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAY_ITEM, 0, 0, 0, 0, 0, null);
-            msg.Object = foEvent.request;
-            GUIWindowManager.SendThreadMessage(msg);
-            //_playState = PlayState.Ended;
-            break;
-          case "done":
-            _playState = PlayState.Ended;
-            break;
-          case "init":
-            _playState = PlayState.Init;
-            break;
-          case "streamPlay":
-            _playState = PlayState.Playing;
-            break;
-          case "streamPause":
-            _playState = PlayState.Paused;
-            break;
-          case "streamStop":
-            _playState = PlayState.Ended;
-            break;
-          case "streamError":
-            _playState = PlayState.Ended;
-            break;
-
-          //switch(list[0].ChildNodes[1].InnerText){
-            //  case "0":
-            //  case "1":
-            //    if(_playState == PlayState.Playing){
-            //      _playState = PlayState.Paused;
-            //    }
-            //    else {
-            //      _playState = PlayState.Init;
-            //    }
-            //    break;
-            //  case "2":
-            //    _playState = PlayState.Playing;
-            //    break;
-            //  case "3":
-            //    _playState = PlayState.Ended;
-            //    break;
-            //}
-						
-						
-	//					break;
-					case "time":
-						_currentPosition = Convert.ToInt32(list[0].ChildNodes[1].InnerText);
-						_duration = _currentPosition+ Convert.ToInt32(list[0].ChildNodes[2].InnerText);
-						
-						break;
-						
-				}
-			}
+        Log.Debug("Player is loaded playing id:{0}", VideoId);
+        FlvControl.Player.CallFunction("<invoke name=\"loadVideoById\"><arguments><string>" + VideoId + "</string></arguments></invoke>");
+      }
 		}
+
+
 		public override  bool CanSeek()
 		{
 			return true;
@@ -308,35 +272,6 @@ namespace YouTubePlayer
       if (foAction.wID == Action.ActionType.ACTION_SHOW_GUI || foAction.wID == Action.ActionType.ACTION_SHOW_FULLSCREEN)
       {
         SetVideoWindow();
-      }
-      
-      if (foAction.wID == Action.ActionType.ACTION_NEXT_ITEM)
-      {
-        try
-        {
-          if (_playState == PlayState.Playing || _playState == PlayState.Paused)
-          {
-            Log.Debug("Flv Stop {0}", FlvControl.Player.CallFunction("<invoke name=\"playNext\"></invoke>"));
-          }
-        }
-        catch
-        {
-
-        }
-      }
-      
-      if (foAction.wID == Action.ActionType.ACTION_PREV_ITEM)
-      {
-        try
-        {
-          if (_playState == PlayState.Playing || _playState == PlayState.Paused)
-          {
-            Log.Debug("Flv Stop {0}", FlvControl.Player.CallFunction("<invoke name=\"playPrevious\"></invoke>"));
-          }
-        }
-        catch
-        {
-        }
       }
 		}
 
