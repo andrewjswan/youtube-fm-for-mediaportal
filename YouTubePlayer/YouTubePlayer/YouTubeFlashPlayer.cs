@@ -8,6 +8,8 @@ using MediaPortal.Player;
 using MediaPortal.GUI.Library;
 using MediaPortal.Configuration;
 using MediaPortal.Utils;
+using System.Web;
+using System.Net;
 using System.Xml;
 
 namespace YouTubePlayer
@@ -112,6 +114,8 @@ namespace YouTubePlayer
 
       if (filename.Contains("http://www.youtube.com/v"))
         return true;
+      else if (filename.Contains("http://youtube.com/get_video"))
+        return true;
       else
         return false;
 		}
@@ -157,8 +161,19 @@ namespace YouTubePlayer
         FlvControl.Player.OnProgress += new _IShockwaveFlashEvents_OnProgressEventHandler(Player_OnProgress);
         FlvControl.Player.AllowScriptAccess = "always";
         //FlvControl.Player.LoadMovie(0, string.Format("http://www.youtube.com/v/{0}&color1=0x2b405b&color2=0x6b8ab6&fs=1&autoplay=1&enablejsapi=1&playerapiid=ytplayer", video_id));
-        FlvControl.Player.LoadMovie(0, "http://www.youtube.com/apiplayer?enablejsapi=1");
+        if (strFile.Contains("http://www.youtube.com/v"))
+        {
+          FlvControl.Player.LoadMovie(0, "http://www.youtube.com/apiplayer?enablejsapi=1");
+        }
+        else
+        {
+          FlvControl.Player.LoadMovie(0, Config.GetFile(Config.Dir.Plugins, "ExternalPlayers", "yt.swf"));
+          //FlvControl.Player.FlashVars = String.Format("&file={0}&autostart=true&enablejs=true&allowfullscreen=true", HttpUtility.UrlDecode(strFile));
+          FlvControl.Player.FlashVars = String.Format("&file={0}&autostart=true&enablejs=true&backcolor=0x000000&frontcolor=0xCCCCCC&showicons=false&showvolume=false&showdigits=false&displayheight={1}&allowfullscreen=true", strFile.Replace("&", "%26").Replace("?", "%3f"), 9999);
 
+          Log.Debug("flash vars: {0}", String.Format("&file={0}&autostart=true&enablejs=true&allowfullscreen=true", HttpUtility.UrlEncode(strFile)));
+          Log.Debug("flash vars: {0}", FlvControl.Player.FlashVars);
+        }
         FlvControl.Player.AllowScriptAccess = "always";
 
         this.VideoId = getIDSimple2(strFile);
@@ -173,8 +188,7 @@ namespace YouTubePlayer
 				GUIWindowManager.SendThreadMessage(msg);
 				_notifyPlaying = true;
 				FlvControl.ClientSize = new Size(0, 0);
-				FlvControl.Visible = true;
-				FlvControl.Enabled = false;
+        FlvControl.Enabled = true;
         FlvControl.SendToBack();
 				_needUpdate = true;
 				_isFullScreen = GUIGraphicsContext.IsFullScreenVideo;
@@ -189,6 +203,7 @@ namespace YouTubePlayer
 				_playState = PlayState.Playing;
 				_updateTimer = DateTime.Now;
 				SetVideoWindow();
+        FlvControl.Visible = true;
 				return true;
 			}
 			catch (Exception ex)
