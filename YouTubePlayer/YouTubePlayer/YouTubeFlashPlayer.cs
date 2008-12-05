@@ -114,8 +114,8 @@ namespace YouTubePlayer
 
       if (filename.Contains("http://www.youtube.com/v"))
         return true;
-      else if (filename.Contains("http://youtube.com/get_video"))
-        return true;
+      //else if (filename.Contains("http://youtube.com/get_video"))
+      //  return true;
       else
         return false;
 		}
@@ -176,20 +176,22 @@ namespace YouTubePlayer
         }
         FlvControl.Player.AllowScriptAccess = "always";
 
-        this.VideoId = getIDSimple2(strFile);
-				//FlvControl.Player.Movie = System.IO.Directory.GetCurrentDirectory()+"\\player.swf";
-        		
+        GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAYBACK_STARTED, 0, 0, 0, 0, 0, null);
+        msg.Label = strFile;
+        GUIWindowManager.SendThreadMessage(msg);
 
-				GUIGraphicsContext.form.Controls.Add(FlvControl);
+        this.VideoId = getIDSimple2(strFile);
+
+        GUIGraphicsContext.form.SuspendLayout();
 				GUIWindowManager.OnNewAction +=new OnActionHandler(OnAction2);
-				
-				GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAYBACK_STARTED, 0, 0, 0, 0, 0, null);
-				msg.Label = strFile;
-				GUIWindowManager.SendThreadMessage(msg);
+
 				_notifyPlaying = true;
+        FlvControl.Visible = false;
 				FlvControl.ClientSize = new Size(0, 0);
-        FlvControl.Enabled = true;
-        FlvControl.SendToBack();
+        FlvControl.Enabled = false;
+        FlvControl.TabIndex = 0;
+        GUIGraphicsContext.form.Controls.Add(FlvControl);
+
 				_needUpdate = true;
 				_isFullScreen = GUIGraphicsContext.IsFullScreenVideo;
 				_positionX = GUIGraphicsContext.VideoWindow.Left;
@@ -203,7 +205,7 @@ namespace YouTubePlayer
 				_playState = PlayState.Playing;
 				_updateTimer = DateTime.Now;
 				SetVideoWindow();
-        FlvControl.Visible = true;
+        GUIGraphicsContext.form.ResumeLayout(false);        
 				return true;
 			}
 			catch (Exception ex)
@@ -271,6 +273,7 @@ namespace YouTubePlayer
       GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAY_ITEM, 0, 0, 0, 0, 0, null);
       if (lsName.Equals("onYouTubePlayerReady"))
 			{
+        FlvControl.Visible = true;
         Log.Debug("Player is loaded playing id:{0}", VideoId);
         FlvControl.Player.CallFunction("<invoke name=\"loadVideoById\"><arguments><string>" + VideoId + "</string></arguments></invoke>");
       }
@@ -531,7 +534,6 @@ namespace YouTubePlayer
 
 		public override void  SetVideoWindow()
 		{
-			
 			if (FlvControl == null) return;
 			if (GUIGraphicsContext.IsFullScreenVideo != _isFullScreen)
 			{
@@ -572,7 +574,7 @@ namespace YouTubePlayer
 
 				_videoRectangle = new Rectangle(_positionX, _positionY, FlvControl.ClientSize.Width, FlvControl.ClientSize.Height);
 				_sourceRectangle = _videoRectangle;
-				//Log.Write("AudioPlayer:set window:({0},{1})-({2},{3})",_positionX,_positionY,_positionX+FlvControl.ClientSize.Width,_positionY+FlvControl.ClientSize.Height);
+        Log.Debug("YouTubePlayer:set window:({0},{1})-({2},{3})", _positionX, _positionY, _positionX + FlvControl.ClientSize.Width, _positionY + FlvControl.ClientSize.Height);
 			}
 			
 			//GUIGraphicsContext.form.Controls[0].Enabled = false;
@@ -598,9 +600,9 @@ namespace YouTubePlayer
         catch
         {
         }
+        FlvControl.ClientSize = new Size(0, 0);
         FlvControl.Player.Visible = false;
 				FlvControl.Visible = false;
-				FlvControl.ClientSize = new Size(0, 0);
         GUIGraphicsContext.form.Controls[0].Enabled = false;
         GUIGraphicsContext.form.Controls[0].Visible = false;
         FlvControl.Dispose();
