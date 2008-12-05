@@ -28,6 +28,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Text;
+using System.Runtime.CompilerServices;
+
 
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
@@ -48,7 +50,7 @@ namespace YouTubePlugin
   /// <summary>
   /// Summary description for Class1.
   /// </summary>
-  public class YouTubeGUIPlaylist : GUIWindow
+  public class YouTubeGUIPlaylist : YoutubeGUIBase
   {
     public enum ScrobbleMode
     {
@@ -135,9 +137,10 @@ namespace YouTubePlugin
     private List<string> _scrobbleUsers = new List<string>(1);
     private AudioscrobblerUtils ascrobbler = null;
     private ScrobblerUtilsRequest _lastRequest;
-    protected PlayListPlayer playlistPlayer;
     protected View currentView = View.List;
     protected string _currentPlaying = string.Empty;
+    public bool _announceNowPlaying = true;
+
     
     #endregion
 
@@ -208,6 +211,8 @@ namespace YouTubePlugin
         _enableScrobbling = xmlreader.GetValueAsBool("plugins", "Audioscrobbler", false);
         _currentScrobbleUser = xmlreader.GetValueAsString("audioscrobbler", "user", "Username");
         _useSimilarRandom = xmlreader.GetValueAsBool("audioscrobbler", "usesimilarrandom", true);
+        _announceNowPlaying = xmlreader.GetValueAsBool("audioscrobbler", "EnableNowPlaying", true);
+
       }
 
       _scrobbleUsers = mdb.GetAllScrobbleUsers();
@@ -220,7 +225,19 @@ namespace YouTubePlugin
       //added by Sam
       GUIWindowManager.Receivers += new SendMessageHandler(this.OnThreadMessage);
       GUIWindowManager.OnNewAction += new OnActionHandler(this.OnNewAction);
+      g_Player.PlayBackStarted += new g_Player.StartedHandler(OnPlayBackStarted);
+      g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
+
+
       return Load(GUIGraphicsContext.Skin + @"\youtubeplaylist.xml");
+    }
+
+    void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
+    {
+      if (filename.Contains("youtube."))
+      {
+        ClearLabels("NowPlaying");
+      }
     }
 
     public override void DeInit()
@@ -613,6 +630,10 @@ namespace YouTubePlugin
       else if (control == btnClear)
       {
         ClearPlayList();
+      }
+      else if (control == btnNowPlaying)
+      {
+        GUIWindowManager.ActivateWindow(29052);
       }
       //else if (control == btnPlay)
       //{
@@ -1260,7 +1281,7 @@ namespace YouTubePlugin
       }
     }
 
-    bool AddRandomSongToPlaylist(ref Song song)
+    bool AddRandomSongToPlaylist(ref Song song,ref YouTubeFeed vidr)
     {
       //check duplication
       PlayList playlist = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
@@ -1290,9 +1311,11 @@ namespace YouTubePlugin
 
       MusicTag tag = new MusicTag();
       tag = song.ToMusicTag();
-
-      playlistItem.MusicTag = tag;
-
+      foreach (YouTubeEntry entry in vidr.Entries)
+      {
+        if (Youtube2MP.PlaybackUrl(entry) == playlistItem.FileName)
+          playlistItem.MusicTag = entry;
+      }
       playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP).Add(playlistItem);
       return true;
     }
@@ -1657,7 +1680,168 @@ namespace YouTubePlugin
 
       GUIGraphicsContext.form.Invoke(new ThreadRefreshList(DoRefreshList));
     }
+
+    private void OnPlayBackStarted(g_Player.MediaType type, string filename)
+    {
+      try
+      {
+        if (filename.Contains("youtube."))
+        {
+          YouTubeEntry en = new YouTubeEntry();
+          Song song = new Song();
+          Youtube2MP.YoutubeEntry2Song(filename, ref song, ref en);
+          Youtube2MP.NowPlayingEntry = en;
+          Youtube2MP.NowPlayingSong = song;
+
+          SetLabels(en, "NowPlaying");
+
+          Thread stateThread = new Thread(new ParameterizedThreadStart(PlaybackStartedThread));
+          stateThread.IsBackground = true;
+          stateThread.Name = "Scrobbler event";
+          stateThread.Start((object)filename);
+
+          Thread LoadThread = new Thread(new ThreadStart(OnSongLoadedThread));
+          LoadThread.IsBackground = true;
+          LoadThread.Name = "Scrobbler loader";
+          LoadThread.Start();
+        }
+      }
+      catch (Exception ex)
+      {
+        Log.Error("Audioscrobbler plugin: Error creating threads on playback start - {0}", ex.Message);
+      }
+    }
     
+    private void PlaybackStartedThread(object aParam)
+    {
+      if(Youtube2MP.NowPlayingSong==null)
+        return;
+
+        AudioscrobblerBase.CurrentPlayingSong.Clear();
+        AudioscrobblerBase.CurrentPlayingSong = Youtube2MP.NowPlayingSong;
+        //AudioscrobblerBase.CurrentPlayingSong.FileName = Youtube2MP.NowPlayingEntry.Title.Text;
+        QueueLastSong();
+        OnStateChangedEvent();
+    }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
+    private void OnStateChangedEvent()
+    {
+       //Log.Debug("Audioscrobbler plugin: found database track for: {0}", g_Player.CurrentFile);        
+        SetStartTime();
+        OnSongChangedEvent();
+      
+   }
+
+    private void SetStartTime()
+    {
+      TimeSpan _playingSecs = new TimeSpan(0, 0, 1);
+      try
+      {
+        _playingSecs = TimeSpan.FromSeconds(g_Player.CurrentPosition);
+        AudioscrobblerBase.CurrentPlayingSong.DateTimePlayed = DateTime.UtcNow - _playingSecs;
+//        _lastPosition = Convert.ToInt32(g_Player.Player.CurrentPosition);
+      }
+      catch (Exception)
+      {
+        AudioscrobblerBase.CurrentPlayingSong.DateTimePlayed = DateTime.UtcNow;
+//        _lastPosition = 1;
+      }
+      Log.Info("Audioscrobbler plugin: Detected new track as: {0} - {1} started at: {2}", AudioscrobblerBase.CurrentPlayingSong.Artist, AudioscrobblerBase.CurrentPlayingSong.Title, AudioscrobblerBase.CurrentPlayingSong.DateTimePlayed.ToLocalTime().ToLongTimeString());
+    }
+
+    private void OnSongChangedEvent()
+    {
+      try
+      {
+        //_alertTime = INFINITE_TIME;
+
+        // Only submit if we have reasonable info about the song
+        if (AudioscrobblerBase.CurrentPlayingSong.Artist == String.Empty || AudioscrobblerBase.CurrentPlayingSong.Title == String.Empty)
+        {
+          Log.Info("Audioscrobbler plugin: {0}", "no tags found ignoring song");
+          return;
+        }
+
+        if (_announceNowPlaying)
+        {
+          for (int i = 0; i < 12; i++)
+          {
+            // try to wait for 6 seconds to give an maybe ongoing submit a chance to finish before the announce
+            // as otherwise the now playing track might not show up on the website
+            if (AudioscrobblerBase.CurrentSubmitSong.AudioScrobblerStatus == SongStatus.Init)
+              break;
+            Thread.Sleep(500);
+          }
+          AudioscrobblerBase.DoAnnounceNowPlaying();
+        }
+
+        //_alertTime = GetAlertTime();
+
+        //if (_alertTime != INFINITE_TIME)
+        //{
+          AudioscrobblerBase.CurrentPlayingSong.AudioScrobblerStatus = SongStatus.Loaded;
+        //  startStopSongLengthTimer(true, _alertTime - _playingSecs.Seconds);
+        //}
+      }
+      catch (Exception ex)
+      {
+        Log.Error("Audioscrobbler plugin: Error in song change event - {0}", ex.Message);
+      }
+    }
+    /// <summary>
+    /// Launch the actual submit
+    /// </summary>
+    private void QueueLastSong()
+    {
+      // Submit marked tracks and those which have an action attached
+      if ((AudioscrobblerBase.CurrentSubmitSong.AudioScrobblerStatus == SongStatus.Cached) ||
+          (AudioscrobblerBase.CurrentSubmitSong.AudioScrobblerStatus == SongStatus.Loaded && AudioscrobblerBase.CurrentSubmitSong.AudioscrobblerAction != SongAction.N))
+      {
+        AudioscrobblerBase.pushQueue(AudioscrobblerBase.CurrentSubmitSong);
+        AudioscrobblerBase.CurrentSubmitSong.Clear();
+
+        //if (SubmitQueued != null)
+        //  SubmitQueued();
+      }
+    }
+
+    private void OnSongLoadedThread()
+    {
+      int i = 0;
+      try
+      {
+        for (i = 0; i < 15; i++)
+        {
+          if (AudioscrobblerBase.CurrentSubmitSong.AudioScrobblerStatus == SongStatus.Init)
+            break;
+          Thread.Sleep(1000);
+        }
+        Log.Debug("Audioscrobbler plugin: Waited {0} seconds for reinit of submit track", i);
+
+        for (i = 0; i < 15; i++)
+        {
+          if (AudioscrobblerBase.CurrentPlayingSong.AudioScrobblerStatus == SongStatus.Loaded)
+            break;
+          Thread.Sleep(1000);
+        }
+        Log.Debug("Audioscrobbler plugin: Waited {0} seconds for lookup of current track", i);
+
+        if (AudioscrobblerBase.CurrentPlayingSong.Artist != String.Empty)
+        {
+          // Don't hand over the reference        
+          AudioscrobblerBase.CurrentSubmitSong = AudioscrobblerBase.CurrentPlayingSong.Clone();
+          Log.Info("Audioscrobbler plugin: Song loading thread sets submit song - {0}", AudioscrobblerBase.CurrentSubmitSong.ToLastFMMatchString(true));
+        }
+        else
+          Log.Debug("Audioscrobbler plugin: Song loading thread could not set the current for submit - {0}", AudioscrobblerBase.CurrentPlayingSong.ToLastFMMatchString(true));
+      }
+      catch (Exception ex)
+      {
+        Log.Error("Audioscrobbler plugin: Error in song load thread {0}", ex.Message);
+      }
+    }
+
     private void DoRefreshList()
     {
       if (facadeView != null)
@@ -1680,8 +1864,8 @@ namespace YouTubePlugin
       double avgPlayCount = 0;
       int songsAdded = 0;
       int j = 0;
-
-      Youtube2MP.GetSongsByArtist(Artist_, ref songList);
+      YouTubeFeed vidr = null;
+      Youtube2MP.GetSongsByArtist(Artist_, ref songList, ref vidr);
 
       //      Log.Debug("GUIMusicPlaylist: ScrobbleSimilarArtists found {0} songs allowed to add", Convert.ToString(songList.Count));
 
@@ -1772,7 +1956,7 @@ namespace YouTubePlugin
 
         //        Log.Debug("GUIMusicPlaylist: ScrobbleSimilarArtists tries to add this song - {0}", refSong.ToShortString());
 
-        if (AddRandomSongToPlaylist(ref refSong))
+        if (AddRandomSongToPlaylist(ref refSong,ref vidr))
         {
           songsAdded++;
           _totalScrobbledSongs++;

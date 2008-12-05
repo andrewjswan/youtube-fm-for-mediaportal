@@ -41,6 +41,10 @@ namespace YouTubePlugin
       if (vid.Title.Text.Contains("-"))
       {
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", vid.Title.Text.Split('-')[1]);
+        if (type == "NowPlaying")
+        {
+          GUIPropertyManager.SetProperty("#Play.Current.Title", vid.Title.Text.Split('-')[1]);
+        }
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", vid.Title.Text.Split('-')[0]);
       }
       else
@@ -135,13 +139,6 @@ namespace YouTubePlugin
       if (vid != null)
       {
       
-        //SetLabels(vid, "NowPlaying");
-        //foreach (MediaContent mediaContent in vid.Media.Contents)
-        //{
-        //  Log.Debug("\tMedia Location: " + mediaContent.Attributes["url"].ToString());
-        //  Log.Debug("\tMedia Type: " + mediaContent.Attributes["format"]);
-        //  Log.Debug("\tDuration: " + mediaContent.Attributes["duration"]);
-        //}
         if (vid.Media.Contents.Count > 0)
         {
           string PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
@@ -159,7 +156,8 @@ namespace YouTubePlugin
         else
         {
           g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
-          g_Player.PlayVideoStream(Youtube2MP.youtubecatch2(vid.AlternateUri.Content), vid.Title.Text);
+          //g_Player.PlayVideoStream(Youtube2MP.youtubecatch1(vid.AlternateUri.Content), vid.Title.Text);
+          g_Player.PlayVideoStream(Youtube2MP.youtubecatch1(vid.Id.AbsoluteUri), vid.Title.Text);
           g_Player.ShowFullScreenWindow();
         }
       }
@@ -196,7 +194,7 @@ namespace YouTubePlugin
         }
         else
         {
-          PlayblackUrl = Youtube2MP.youtubecatch2(vid.AlternateUri.Content);
+          PlayblackUrl = Youtube2MP.youtubecatch1(vid.Id.AbsoluteUri);
         }
 
         list.Add(pItem);

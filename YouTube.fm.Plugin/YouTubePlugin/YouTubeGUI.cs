@@ -345,7 +345,7 @@ namespace YouTubePlugin
       }
       else if (control == btnNowPlaying)
       {
-        GUIWindowManager.ActivateWindow(27052);
+        GUIWindowManager.ActivateWindow(29052);
       }
       base.OnClicked(controlId, control, actionType);
     }
@@ -358,9 +358,9 @@ namespace YouTubePlugin
         if (dlg == null) return;
         dlg.Reset();
         dlg.SetHeading("Search History");
-        foreach (string s in _setting.SearchHistory)
+        for (int i = _setting.SearchHistory.Count; i > 0; i--)
         {
-          dlg.Add(s);
+          dlg.Add(_setting.SearchHistory[i-1]);
         }
         dlg.DoModal(GetID);
         if (dlg.SelectedId == -1) return;
@@ -579,8 +579,9 @@ namespace YouTubePlugin
         SaveListState(true);
         addVideos(vidr, false,query);
         UpdateGui();
-        if (!_setting.SearchHistory.Contains(searchString.Trim()))
-          _setting.SearchHistory.Add(searchString.Trim());
+        if (_setting.SearchHistory.Contains(searchString.Trim()))
+          _setting.SearchHistory.Remove(searchString.Trim());
+        _setting.SearchHistory.Add(searchString.Trim());
       }
       else
       {
@@ -655,6 +656,7 @@ namespace YouTubePlugin
       dlg.Reset();
       dlg.SetHeading(498); // menu
       dlg.Add("Related Videos");
+      dlg.Add("All videos from this user : "+videoEntry.Authors[0].Name);
       dlg.Add("Add to playlist");
       dlg.Add("Add to favorites"); 
       dlg.DoModal(GetID);
@@ -682,12 +684,32 @@ namespace YouTubePlugin
             }
           }
           break;
-        case 1:
+        case 1: //playall
+          {
+            if (videoEntry.RelatedVideosUri != null)
+            {
+              YouTubeQuery query = new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", videoEntry.Authors[0].Name));
+              YouTubeFeed vidr = service.Query(query);
+              if (vidr.Entries.Count > 0)
+              {
+                SaveListState(true);
+                addVideos(vidr, false, query);
+                UpdateGui();
+              }
+              else
+              {
+                Err_message("No item was found !");
+              }
+
+            }
+          }
+          break;
+        case 2:
           {
             AddItemToPlayList(selectedItem);
           }
           break;
-        case 2:
+        case 3:
           {
             try
             {
@@ -913,8 +935,17 @@ namespace YouTubePlugin
         item.Label = entry.Title.Text; //ae.Entry.Author.Name + " - " + ae.Entry.Title.Content;
         item.Label2 = "";
         item.IsFolder = false;
-        item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
-        item.Rating = (float)entry.Rating.Average;
+        
+        try
+        {
+          item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
+          item.Rating = (float)entry.Rating.Average;
+        }
+        catch
+        {
+
+        }
+
         string imageFile = GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
         if (File.Exists(imageFile))
         {

@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Text;
+using System.Web;
+using System.Xml;
 
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
@@ -24,6 +28,7 @@ namespace YouTubePlugin
 
     public static Settings _settings;
 
+    
     public static string PlaybackUrl(YouTubeEntry vid)
     {
       string PlayblackUrl = "";
@@ -33,7 +38,7 @@ namespace YouTubePlugin
       }
       else
       {
-        PlayblackUrl = youtubecatch2(vid.AlternateUri.Content);
+        PlayblackUrl = youtubecatch1(vid.Id.AbsoluteUri);
       }
 
       return PlayblackUrl;
@@ -58,13 +63,11 @@ namespace YouTubePlugin
       return song;
     }
 
-    public static bool YoutubeEntry2Song(string fileurl, ref Song song)
+    public static bool YoutubeEntry2Song(string fileurl, ref Song song, ref YouTubeEntry en)
     {
-      YouTubeEntry en = null;
-      if (fileurl.Contains("http://www.youtube.com/v/"))
+      if (fileurl.Contains("youtube."))
       {
         String videoEntryUrl = "http://gdata.youtube.com/feeds/api/videos/" + getIDSimple(fileurl);
-        //Log.Error("Get video id : {0}", videoEntryUrl);
         en = (YouTubeEntry)service.Get(videoEntryUrl);
       }
       if (en == null)
@@ -78,35 +81,80 @@ namespace YouTubePlugin
       }
       else
         song.Artist = title;
+
       song.FileName = fileurl;
+      song.Duration = Convert.ToInt32(en.Duration.Seconds);
+      song.Track = 0;
+      song.URL = fileurl;
+      song.TimesPlayed = 1;
 
       return true;
     }
 
+    
+    static private YouTubeEntry nowplayingentry;
+
+    static public YouTubeEntry NowPlayingEntry
+    {
+      get { return nowplayingentry; }
+      set { nowplayingentry = value; }
+    }
+
+    static private Song nowPlayingSong;
+
+    static public Song NowPlayingSong
+    {
+      get { return nowPlayingSong; }
+      set { nowPlayingSong = value; }
+    }
+
+    
+    public static bool YoutubeEntry2Song(string fileurl, ref Song song)
+    {
+      YouTubeEntry en=new YouTubeEntry();
+      return YoutubeEntry2Song(fileurl, ref song, ref en);
+    }
+
     static public string getIDSimple(string googleID)
     {
-      int lastSlash = googleID.LastIndexOf("/");
       string id="";
-      if (googleID.Contains("&"))
-        id = googleID.Substring(lastSlash + 1, googleID.IndexOf('&') - lastSlash - 1);
+      if (!googleID.Contains("video_id"))
+      {
+        int lastSlash = googleID.LastIndexOf("/");
+        if (googleID.Contains("&"))
+          id = googleID.Substring(lastSlash + 1, googleID.IndexOf('&') - lastSlash - 1);
+        else
+          id = googleID.Substring(lastSlash + 1);
+      }
       else
-        id = googleID.Substring(lastSlash + 1);
+      {
+        Uri erl = new Uri(googleID);
+        string[] param = erl.Query.Substring(1).Split('&');
+        foreach (string s in param)
+        {
+          if (s.Split('=')[0] == "video_id")
+          {
+             id = s.Split('=')[1];
+          }
+        }
+      }
       return id;
     }
 
 
-    public static bool GetSongsByArtist(string artist,ref List<Song> songs)
+    public static bool GetSongsByArtist(string artist,ref List<Song> songs,ref YouTubeFeed vidr)
     {
+      Log.Debug("Youtube GetSongsByArtist for : {0}", artist);
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
       query.VQ = artist;
       //order results by the number of views (most viewed first)
-      query.OrderBy = "viewCount";
+      query.OrderBy = "relevance";
       //exclude restricted content from the search
       query.NumberToRetrieve = 20;
       query.Racy = "exclude";
       query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
 
-      YouTubeFeed vidr = service.Query(query);
+      vidr = service.Query(query);
       foreach (YouTubeEntry entry in vidr.Entries)
       {
         if (entry.Title.Text.Contains("-"))
@@ -126,11 +174,56 @@ namespace YouTubePlugin
       string str3 = str.Substring(i + str1.Length, i1 - (i + str1.Length));
       string str7 = str3.Substring(str3.IndexOf("&title=") + 7);
       str7 = str7.Substring(0, str7.Length - 1);
-      return string.Concat("http://youtube.com/get_video?", str3.Substring(str3.IndexOf("video_id"), str3.IndexOf("&", str3.IndexOf("video_id")) - str3.IndexOf("video_id")), str3.Substring(str3.IndexOf("&l"), str3.IndexOf("&", str3.IndexOf("&l") + 1) - str3.IndexOf("&l")), str3.Substring(str3.IndexOf("&t"), str3.IndexOf("&", str3.IndexOf("&t") + 1) - str3.IndexOf("&t")));
+      return string.Concat("http://youtube.com/get_video?", str3.Substring(str3.IndexOf("video_id"), str3.IndexOf("&", str3.IndexOf("video_id")) - str3.IndexOf("video_id")), str3.Substring(str3.IndexOf("&l"), str3.IndexOf("&", str3.IndexOf("&l") + 1) - str3.IndexOf("&l")), str3.Substring(str3.IndexOf("&t"), str3.IndexOf("&", str3.IndexOf("&t") + 1) - str3.IndexOf("&t")));//+ "&fmt=18"
       //return string.Concat("http://www.youtube.com/v/", str3.Substring(str3.IndexOf("video_id"), str3.IndexOf("&", str3.IndexOf("video_id")) - str3.IndexOf("video_id")),"?",str3.Substring(str3.IndexOf("&l"), str3.IndexOf("&", str3.IndexOf("&l") + 1) - str3.IndexOf("&l")), str3.Substring(str3.IndexOf("&t"), str3.IndexOf("&", str3.IndexOf("&t") + 1) - str3.IndexOf("&t")));
    
     }
-    
+
+    static public string youtubecatch1(string url)
+    {
+      Stream response = RetrieveData(string.Format("http://www.youtube.com/api2_rest?method=youtube.videos.get_video_token&video_id={0}", getIDSimple(url)));
+      StreamReader reader = new StreamReader(response, System.Text.Encoding.UTF8, true);
+      String sXmlData = reader.ReadToEnd().Replace('\0', ' ');
+      response.Close();
+      reader.Close();
+      XmlDocument doc = new XmlDocument();
+      doc.LoadXml(sXmlData);
+      XmlNode node = doc.SelectSingleNode("/ut_response/t");
+      return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), node.InnerText);
+    }
+
+    static private Stream RetrieveData(string sUrl)
+    {
+      Log.Debug(sUrl);
+      if (sUrl == null || sUrl.Length < 1 || sUrl[0] == '/')
+      {
+        return null;
+      }
+      //sUrl = this.Settings.UpdateUrl(sUrl);
+      HttpWebRequest request = null;
+      HttpWebResponse response = null;
+      try
+      {
+        request = (HttpWebRequest)WebRequest.Create(sUrl);
+        request.Timeout = 20000;
+        response = (HttpWebResponse)request.GetResponse();
+
+        if (response != null) // Get the stream associated with the response.
+          return response.GetResponseStream();
+
+      }
+      catch (Exception e)
+      {
+        Log.Error(e);
+      }
+      finally
+      {
+        //if (response != null) response.Close(); // screws up the decompression
+      }
+
+      return null;
+    }
+
     static private string getContent(string url)
     {
       string str;

@@ -2,58 +2,13 @@
 	<ver>1.00.000</ver>
 	<FileList>
 		<File>
-			<FileName>AxInterop.ShockwaveFlashObjects.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>External Player</SubType>
-			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\AxInterop.ShockwaveFlashObjects.dll</Source>
-			<Id>01050</Id>
-			<Option />
-			<Guid>6660129c-f1c2-4459-a146-206257cdf294</Guid>
-		</File>
-		<File>
-			<FileName>Google.GData.Client.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Client.dll</Source>
-			<Id>01010</Id>
-			<Option />
-			<Guid>5c0b85c3-9f9e-43f7-af11-c58383ffdbcd</Guid>
-		</File>
-		<File>
-			<FileName>Google.GData.Extensions.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Extensions.dll</Source>
-			<Id>01010</Id>
-			<Option />
-			<Guid>fb1040b8-2132-433e-a026-2190333530a5</Guid>
-		</File>
-		<File>
-			<FileName>Google.GData.YouTube.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.YouTube.dll</Source>
-			<Id>01010</Id>
-			<Option />
-			<Guid>c8c42d9b-892f-414b-ba33-8b0ca7217ef3</Guid>
-		</File>
-		<File>
-			<FileName>Interop.ShockwaveFlashObjects.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>External Player</SubType>
-			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\Interop.ShockwaveFlashObjects.dll</Source>
-			<Id>01050</Id>
-			<Option />
-			<Guid>c57329a8-962f-4971-b8fb-5f62dd0c563f</Guid>
-		</File>
-		<File>
-			<FileName>YouTubePlayer.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>External Player</SubType>
-			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\YouTubePlayer.dll</Source>
-			<Id>01050</Id>
-			<Option />
-			<Guid>98e69042-c4c0-473c-94d9-89506ecc41f8</Guid>
+			<FileName>youtubeinfo.xml</FileName>
+			<Type>Skin</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>skin\Blue3wide\youtubeinfo.xml</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=|DefaultFile=True|</Option>
+			<Guid>354b3791-91b9-48dc-a40d-3f8b2479d385</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -62,16 +17,7 @@
 			<Source>skin\Blue3wide\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>a66bc105-1335-4c35-8dfd-6d678d05bedd</Guid>
-		</File>
-		<File>
-			<FileName>YouTubePlugin.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
-			<Id>01010</Id>
-			<Option />
-			<Guid>a8f06e76-452e-437a-9c28-2de2dc65452c</Guid>
+			<Guid>04172935-03af-4c20-aa2f-d304b9eecf6f</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -80,7 +26,70 @@
 			<Source>skin\Blue3wide\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>cd4cedf0-308e-41a8-9794-3125d3936fe8</Guid>
+			<Guid>bee00d47-5bc5-4a64-b398-255ec72a1cfd</Guid>
+		</File>
+		<File>
+			<FileName>AxInterop.ShockwaveFlashObjects.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>External Player</SubType>
+			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\AxInterop.ShockwaveFlashObjects.dll</Source>
+			<Id>01050</Id>
+			<Option />
+			<Guid>a7974ebc-51e3-4aa6-86f2-0667d6d9892d</Guid>
+		</File>
+		<File>
+			<FileName>Interop.ShockwaveFlashObjects.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>External Player</SubType>
+			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\Interop.ShockwaveFlashObjects.dll</Source>
+			<Id>01050</Id>
+			<Option />
+			<Guid>b04d7a1b-cfa0-4dbc-b76e-f3190394ef05</Guid>
+		</File>
+		<File>
+			<FileName>YouTubePlayer.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>External Player</SubType>
+			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\YouTubePlayer.dll</Source>
+			<Id>01050</Id>
+			<Option />
+			<Guid>5fb43039-fc6a-4b6c-887f-1ab22b3fbede</Guid>
+		</File>
+		<File>
+			<FileName>Google.GData.Client.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Client.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>39734d34-9ddc-49a1-afbe-a0d8068e9c07</Guid>
+		</File>
+		<File>
+			<FileName>Google.GData.Extensions.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Extensions.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>c5386283-438c-4337-a9bc-8c0bf9278e4c</Guid>
+		</File>
+		<File>
+			<FileName>Google.GData.YouTube.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.YouTube.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>f90a217a-c7eb-4ed7-aa6f-0c7ab522bec8</Guid>
+		</File>
+		<File>
+			<FileName>YouTubePlugin.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>dd312f77-219a-4e03-b102-5451e9d19dd6</Guid>
 		</File>
 	</FileList>
 	<StringList />
@@ -88,12 +97,12 @@
 	<SetupGroups />
 	<SetupGroupMappings />
 	<Option>
-		<BuildFileName>D:\devel\vs2005\YouTube.fm.Plugin\mpi\YouTube.fm.0.1.1.mpi</BuildFileName>
+		<BuildFileName>D:\devel\vs2005\YouTube.fm.Plugin\mpi\YouTube.fm.0.2.mpi</BuildFileName>
 		<ProiectFileName>D:\devel\vs2005\YouTube.fm.Plugin\mpi\youtubePlugin.xmp</ProiectFileName>
 		<ProiectName>YouTube.fm</ProiectName>
 		<Author>Dukus</Author>
 		<UpdateURL>http://www.team-mediaportal.com</UpdateURL>
-		<Version>0.1.1</Version>
+		<Version>0.2</Version>
 		<Description />
 		<Group>Video/Movies</Group>
 		<Release>Test</Release>

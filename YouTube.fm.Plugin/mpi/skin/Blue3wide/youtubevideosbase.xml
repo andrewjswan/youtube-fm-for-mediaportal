@@ -212,8 +212,22 @@
           <label>Playlist</label>
           <onright>50</onright>
           <onup>4</onup>
+          <ondown>8</ondown>
+       </control>
+
+	   	 <control>
+          <description>Now playing</description>
+          <type>button</type>
+          <id>8</id>
+            <posX>71</posX>
+            <posY>337</posY>		  
+          <label>Now playing</label>
+          <onright>50</onright>
+          <onup>7</onup>
           <ondown>50</ondown>
        </control>
+	   
+	   
           <control>
             <description>Lastfmbutton</description>
             <type>button</type>

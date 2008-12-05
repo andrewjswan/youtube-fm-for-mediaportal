@@ -63,8 +63,41 @@ namespace Test
 
     private string getIDSimple(string googleID)
     {
-      int lastSlash = googleID.LastIndexOf("/");
-      return googleID.Substring(lastSlash + 1);
+      string id = "";
+      if (!googleID.Contains("video_id"))
+      {
+        int lastSlash = googleID.LastIndexOf("/");
+        if (googleID.Contains("&"))
+          id = googleID.Substring(lastSlash + 1, googleID.IndexOf('&') - lastSlash - 1);
+        else
+          id = googleID.Substring(lastSlash + 1);
+      }
+      else
+      {
+        Uri erl = new Uri(googleID);
+        string[] param = erl.Query.Substring(1).Split('&');
+        foreach (string s in param)
+        {
+          if (s.Split('=')[0] == "video_id")
+          {
+            id = s.Split('=')[1];
+          }
+        }
+      }
+      return id;
+    }
+
+    private void button2_Click(object sender, EventArgs e)
+    {
+      Uri erl = new Uri("http://youtube.com/get_video?video_id=cQ25-glGRzI&l=227&t=OEgsToPDskK4mr5t7upaosaZRUrbUzLH");
+      string[] param = erl.Query.Substring(1).Split('&');
+      foreach (string s in param)
+      {
+        if (s.Split('=')[0] == "video_id")
+        {
+          string id = s.Split('=')[1];
+        }
+      }
     }
   }
 

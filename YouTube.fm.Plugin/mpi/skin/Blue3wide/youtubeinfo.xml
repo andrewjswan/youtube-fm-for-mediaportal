@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <id>29052</id>
+  <defaultcontrol>5</defaultcontrol>
+  <allowoverlay>no</allowoverlay>
+  <define>#header.hover:hover_musicvideo.png</define>
+  <define>#header.title:YouTube Videos</define>
+  <define>#header.label:YouTube Videos</define>
+  <define>#header.image:videos_logo.png</define>
+  <controls>
+
+    <import>common.window.xml</import>
+    <import>common.time.xml</import>
+    
+
+    <control>
+      <description>Video Image</description>
+      <type>videowindow</type>
+      <id>1</id>
+      <posX>630</posX>
+      <posY>180</posY>
+      <height>470</height>
+      <width>470</width>
+      <keepaspectratio>yes</keepaspectratio>
+    </control>
+
+    <control>
+      <description>meta label</description>
+      <type>label</type>
+      <id>47</id>
+      <posX>245</posX>
+      <posY>475</posY>
+      <label>#Youtube.fm.NowPlaying.Video.Title</label>
+      <font>font12</font>
+      <align>left</align>
+      <textcolor>ffffffff</textcolor>
+    </control>
+
+    <control>
+      <description>meta label</description>
+      <type>label</type>
+      <id>47</id>
+      <posX>245</posX>
+      <posY>525</posY>
+      <label>#Youtube.fm.NowPlaying.Artist.Name</label>
+      <font>font12</font>
+      <align>left</align>
+      <textcolor>ffffffff</textcolor>
+    </control>
+
+    <control>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>1000</posX>
+      <posY>145</posY>
+      <width>120</width>
+      <height>24</height>
+      <textureWidth>24</textureWidth>
+      <textureHeight>24</textureHeight>
+      <subitems>
+        <subitem>greystar.png</subitem>
+        <subitem>starbest.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>right</align>
+      <imagesToDraw>5</imagesToDraw>
+      <percentage>#Youtube.fm.NowPlaying.Video.Rating</percentage>
+    </control>
+
+  
+
+    <control>
+        <description>similar videos</description>
+        <type>thumbnailpanel</type>
+        <id>50</id>
+        <posX>30</posX>
+        <posY>90</posY>		
+        <width>410</width>
+        <height>610</height>
+        <spinWidth>24</spinWidth>
+        <spinHeight>24</spinHeight>
+        <spinPosX>600</spinPosX>
+        <spinPosY>330</spinPosY>
+        <spinAlign>Right</spinAlign>
+        <scrollOffset>2</scrollOffset>
+        <onright>1</onright>
+	<onleft>1</onleft>
+	
+	<textureUp>page_up_nofocus.png</textureUp>
+    <textureDown>page_down_nofocus.png</textureDown>
+    <textureUpFocus>page_up_focus.png</textureUpFocus>
+    <textureDownFocus>page_down_focus.png</textureDownFocus>
+    <itemWidth>400</itemWidth>
+    <itemHeight>200</itemHeight>
+    <thumbWidth>300</thumbWidth>
+    <thumbHeight>150</thumbHeight>
+    <thumbPosX>10</thumbPosX>
+    <thumbPosY>10</thumbPosY>
+	
+	
+    </control>
+
+
+
+  </controls>
+</window>
