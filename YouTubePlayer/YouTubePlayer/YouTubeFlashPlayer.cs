@@ -114,8 +114,8 @@ namespace YouTubePlayer
 
       if (filename.Contains("http://www.youtube.com/v"))
         return true;
-      //else if (filename.Contains("http://youtube.com/get_video"))
-      //  return true;
+      else if (filename.Contains("http://www.youtube.com/watch"))
+        return true;
       else
         return false;
 		}
@@ -164,15 +164,18 @@ namespace YouTubePlayer
         if (strFile.Contains("http://www.youtube.com/v"))
         {
           FlvControl.Player.LoadMovie(0, "http://www.youtube.com/apiplayer?enablejsapi=1");
+          FlvControl.Visible = false;
         }
         else
         {
-          FlvControl.Player.LoadMovie(0, Config.GetFile(Config.Dir.Plugins, "ExternalPlayers", "yt.swf"));
-          //FlvControl.Player.FlashVars = String.Format("&file={0}&autostart=true&enablejs=true&allowfullscreen=true", HttpUtility.UrlDecode(strFile));
-          FlvControl.Player.FlashVars = String.Format("&file={0}&autostart=true&enablejs=true&backcolor=0x000000&frontcolor=0xCCCCCC&showicons=false&showvolume=false&showdigits=false&displayheight={1}&allowfullscreen=true", strFile.Replace("&", "%26").Replace("?", "%3f"), 9999);
+          FlvControl.Player.LoadMovie(0, string.Format("http://www.youtubeflashplayer.com/youtubeflashplayer.swf?vurl={0}&sn=http://&logo=http://www.youtubeflashplayer.com/images/youtubeplayericon.png&showlogo=false&showcontrol=false&autohide=false&delaytime=&autoplay=true&loopplay=false&", HttpUtility.UrlEncode(strFile)));
+          FlvControl.Visible = true;
+          //FlvControl.Player.LoadMovie(0, Config.GetFile(Config.Dir.Plugins, "ExternalPlayers", "yt.swf"));
+          ////FlvControl.Player.FlashVars = String.Format("&file={0}&autostart=true&enablejs=true&allowfullscreen=true", HttpUtility.UrlDecode(strFile));
+          //FlvControl.Player.FlashVars = String.Format("&file={0}&autostart=true&enablejs=true&backcolor=0x000000&frontcolor=0xCCCCCC&showicons=false&showvolume=false&showdigits=false&displayheight={1}&allowfullscreen=true", strFile.Replace("&", "%26").Replace("?", "%3f"), 9999);
 
-          Log.Debug("flash vars: {0}", String.Format("&file={0}&autostart=true&enablejs=true&allowfullscreen=true", HttpUtility.UrlEncode(strFile)));
-          Log.Debug("flash vars: {0}", FlvControl.Player.FlashVars);
+          //Log.Debug("flash vars: {0}", String.Format("&file={0}&autostart=true&enablejs=true&allowfullscreen=true", HttpUtility.UrlEncode(strFile)));
+          //Log.Debug("flash vars: {0}", FlvControl.Player.FlashVars);
         }
         FlvControl.Player.AllowScriptAccess = "always";
 
@@ -186,7 +189,6 @@ namespace YouTubePlayer
 				GUIWindowManager.OnNewAction +=new OnActionHandler(OnAction2);
 
 				_notifyPlaying = true;
-        FlvControl.Visible = false;
 				FlvControl.ClientSize = new Size(0, 0);
         FlvControl.Enabled = false;
         FlvControl.TabIndex = 0;
@@ -515,10 +517,10 @@ namespace YouTubePlayer
 		{
 			//Log.Info("in Process");
 			//UpdateStatus();
-			if (_needUpdate)
-			{
-				SetVideoWindow();
-			}
+      if (_needUpdate)
+      {
+        SetVideoWindow();
+      }
 			if (CurrentPosition >= 10.0)
 			{
 				if (_notifyPlaying)
