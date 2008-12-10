@@ -1,52 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
   <id>29052</id>
-  <defaultcontrol>5</defaultcontrol>
+  <defaultcontrol>50</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <define>#header.hover:hover_musicvideo.png</define>
   <define>#header.title:YouTube Videos</define>
   <define>#header.label:YouTube Videos</define>
-  <define>#header.image:videos_logo.png</define>
+  <define>#header.image:-</define>
   <controls>
 
-    <import>common.window.xml</import>
+    <import>common.window.video.xml</import>
+	
+    <control>
+      <description>Fan Art</description>
+      <type>image</type>
+      <id>95</id>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1366</width>
+      <height>768</height>
+      <texture>#Youtube.fm.NowPlaying.Video.FanArt</texture>
+      <animation effect="fade" start="0" end="100" time="3000">WindowOpen</animation>
+      <animation effect="fade" start="0" end="100" time="200">Visible</animation>
+      <animation effect="fade" start="100" end="0" time="200" delay="200">Hidden</animation>
+    </control>
+  
     <import>common.time.xml</import>
-    
-
-    <control>
-      <description>Video Image</description>
-      <type>videowindow</type>
-      <id>1</id>
-      <posX>630</posX>
-      <posY>180</posY>
-      <height>470</height>
-      <width>470</width>
-      <keepaspectratio>yes</keepaspectratio>
-    </control>
-
-    <control>
-      <description>meta label</description>
-      <type>label</type>
-      <id>47</id>
-      <posX>245</posX>
-      <posY>475</posY>
-      <label>#Youtube.fm.NowPlaying.Video.Title</label>
-      <font>font12</font>
-      <align>left</align>
-      <textcolor>ffffffff</textcolor>
-    </control>
-
-    <control>
-      <description>meta label</description>
-      <type>label</type>
-      <id>47</id>
-      <posX>245</posX>
-      <posY>525</posY>
-      <label>#Youtube.fm.NowPlaying.Artist.Name</label>
-      <font>font12</font>
-      <align>left</align>
-      <textcolor>ffffffff</textcolor>
-    </control>
 
     <control>
       <type>imagelist</type>
@@ -67,20 +46,66 @@
       <percentage>#Youtube.fm.NowPlaying.Video.Rating</percentage>
     </control>
 
-  
+	<control>
+      <description>video rectangle</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>689</posX>
+      <posY>179</posY>
+      <width>503</width>
+      <height>347</height>
+      <texture>Picture_cover.png</texture>
+      <animation effect="fade" time="250">WindowClose</animation>
+      <animation effect="fade" time="250">WindowOpen</animation>
+    </control>
+	
+    <control>
+      <description>Video Image</description>
+      <type>videowindow</type>
+      <id>1</id>
+      <posX>710</posX>
+      <posY>180</posY>
+      <width>480</width>
+      <height>324</height>	  
+      <keepaspectratio>yes</keepaspectratio>
+    </control>
+
+    <control>
+      <description>meta label</description>
+      <type>label</type>
+      <id>47</id>
+      <posX>71</posX>
+      <posY>32</posY>
+      <label>#Youtube.fm.NowPlaying.Video.Title</label>
+      <font>font12</font>
+      <align>left</align>
+      <textcolor>ffffffff</textcolor>
+    </control>
+
+    <control>
+      <description>meta label</description>
+      <type>label</type>
+      <id>47</id>
+      <posX>71</posX>
+      <posY>52</posY>
+      <label>#Youtube.fm.NowPlaying.Artist.Name</label>
+      <font>font12</font>
+      <align>left</align>
+      <textcolor>ffffffff</textcolor>
+    </control>
 
     <control>
         <description>similar videos</description>
         <type>thumbnailpanel</type>
         <id>50</id>
         <posX>30</posX>
-        <posY>90</posY>		
-        <width>410</width>
-        <height>610</height>
+        <posY>550</posY>		
+        <width>1300</width>
+        <height>300</height>
         <spinWidth>24</spinWidth>
         <spinHeight>24</spinHeight>
-        <spinPosX>600</spinPosX>
-        <spinPosY>330</spinPosY>
+        <spinPosX>60</spinPosX>
+        <spinPosY>687</spinPosY>
         <spinAlign>Right</spinAlign>
         <scrollOffset>2</scrollOffset>
         <onright>1</onright>
@@ -90,12 +115,15 @@
     <textureDown>page_down_nofocus.png</textureDown>
     <textureUpFocus>page_up_focus.png</textureUpFocus>
     <textureDownFocus>page_down_focus.png</textureDownFocus>
-    <itemWidth>400</itemWidth>
+	
+<!--     <itemWidth>400</itemWidth>
     <itemHeight>200</itemHeight>
+    <textureWidth>350</textureWidth>
+    <textureHeight>172</textureHeight>	
     <thumbWidth>300</thumbWidth>
     <thumbHeight>150</thumbHeight>
-    <thumbPosX>10</thumbPosX>
-    <thumbPosY>10</thumbPosY>
+    <thumbPosX>15</thumbPosX>
+    <thumbPosY>15</thumbPosY> -->
 	
 	
     </control>

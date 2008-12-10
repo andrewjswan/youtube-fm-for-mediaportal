@@ -31,6 +31,10 @@ namespace YouTubePlugin
   {
     public Settings _setting = new Settings();
     protected PlayListPlayer playlistPlayer;
+    public System.Timers.Timer updateStationLogoTimer = new System.Timers.Timer(1 * 1000);
+    public WebClient Client = new WebClient();
+    public Queue downloaQueue = new Queue();
+
 
     public void SetLabels(YouTubeEntry vid, string type)
     {
@@ -46,6 +50,7 @@ namespace YouTubePlugin
           GUIPropertyManager.SetProperty("#Play.Current.Title", vid.Title.Text.Split('-')[1]);
         }
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", vid.Title.Text.Split('-')[0]);
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FanArt", GetFanArtImage(vid.Title.Text.Split('-')[0]));
       }
       else
       {
@@ -76,6 +81,7 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FanArt", " ");
     }
 
     public string FormatTitle(YouTubeEntry vid)
@@ -105,8 +111,13 @@ namespace YouTubePlugin
 
     public bool filterVideoContens(YouTubeEntry vid)
     {
-      //if (_setting.ShowPlayableOnly && string.IsNullOrEmpty(vid.Video.Id))
-      //  return false;
+      if (_setting.MusicFilter && _setting.UseExtremFilter)
+      {
+        if (vid.Title.Text.Contains("-"))
+          return true;
+        else
+          return false;
+      }
       return true;
     }
 
@@ -134,31 +145,38 @@ namespace YouTubePlugin
       }
     }
 
-    public void DoPlay(YouTubeEntry vid)
+    public void DoPlay(YouTubeEntry vid,bool fullscr)
     {
       if (vid != null)
       {
-      
-        if (vid.Media.Contents.Count > 0)
+        g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
+
+        if (_setting.UseYouTubePlayer)
         {
-          string PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
-          if (!string.IsNullOrEmpty(PlayblackUrl))
+          if (vid.Media.Contents.Count > 0)
           {
-            g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
-            g_Player.Play(PlayblackUrl);
-            g_Player.ShowFullScreenWindow();
+            g_Player.Play(string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri)));
           }
           else
           {
-            Err_message("Error Playing file !!!");
+            g_Player.Play(vid.AlternateUri.ToString());
           }
         }
         else
         {
-          g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
-          //g_Player.PlayVideoStream(Youtube2MP.youtubecatch1(vid.AlternateUri.Content), vid.Title.Text);
-          g_Player.PlayVideoStream(Youtube2MP.youtubecatch1(vid.Id.AbsoluteUri), vid.Title.Text);
-          g_Player.ShowFullScreenWindow();
+          g_Player.PlayVideoStream(Youtube2MP.StreamPlaybackUrl(vid));
+        }
+
+        if (fullscr)
+        {
+          if (_setting.ShowNowPlaying)
+          {
+            GUIWindowManager.ActivateWindow(29052);
+          }
+          else
+          {
+            g_Player.ShowFullScreenWindow();
+          }
         }
       }
     }
@@ -174,7 +192,11 @@ namespace YouTubePlugin
     public void AddItemToPlayList(GUIListItem pItem)
     {
       playlistPlayer = PlayListPlayer.SingletonPlayer;
-      PlayList playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+      PlayList playList ;
+      if (_setting.UseYouTubePlayer)
+        playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+      else
+        playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
       AddItemToPlayList(pItem, ref playList);
     }
 
@@ -188,19 +210,25 @@ namespace YouTubePlugin
       YouTubeEntry vid = pItem.MusicTag as YouTubeEntry;
       if (vid != null)
       {
-        if (vid.Media.Contents.Count > 0)
+        if (!Youtube2MP._settings.UseYouTubePlayer)
         {
-          PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
+          PlayblackUrl = Youtube2MP.StreamPlaybackUrl(vid);
         }
         else
         {
-          PlayblackUrl = Youtube2MP.youtubecatch1(vid.Id.AbsoluteUri);
+          if (vid.Media.Contents.Count > 0)
+          {
+            PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
+          }
+          else
+          {
+            PlayblackUrl = vid.AlternateUri.ToString();
+          }
         }
-
         list.Add(pItem);
         PlayListItem playlistItem = new PlayListItem();
         playlistItem.Type = PlayListItem.PlayListItemType.VideoStream;// Playlists.PlayListItem.PlayListItemType.Audio;
-
+        
         playlistItem.FileName = PlayblackUrl;
         playlistItem.Description = pItem.Label;
         MusicTag tag = new MusicTag();
@@ -210,5 +238,9 @@ namespace YouTubePlugin
       }
     }
 
+    public string GetFanArtImage(string artist)
+    {
+      return String.Format(@"{0}\{1}_fanart.jpg", Thumbs.MusicArtists, MediaPortal.Util.Utils.MakeFileName(artist));
+    }
   }
 }

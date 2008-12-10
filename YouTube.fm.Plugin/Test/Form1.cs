@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using YouTubePlugin.DataProvider;
 
 using Google.GData.Client;
 using Google.GData.Extensions;
@@ -89,15 +90,8 @@ namespace Test
 
     private void button2_Click(object sender, EventArgs e)
     {
-      Uri erl = new Uri("http://youtube.com/get_video?video_id=cQ25-glGRzI&l=227&t=OEgsToPDskK4mr5t7upaosaZRUrbUzLH");
-      string[] param = erl.Query.Substring(1).Split('&');
-      foreach (string s in param)
-      {
-        if (s.Split('=')[0] == "video_id")
-        {
-          string id = s.Split('=')[1];
-        }
-      }
+      HTBFanArt prov = new HTBFanArt();
+      prov.Search("leona lewis");
     }
   }
 

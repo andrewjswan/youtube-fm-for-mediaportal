@@ -32,6 +32,9 @@ namespace YouTubePlugin
       _settings.InitialCat = comboBox_startup.SelectedIndex;
       _settings.MusicFilter = checkBox_filter.Checked;
       _settings.Time = checkBox_time.Checked;
+      _settings.ShowNowPlaying = checkBox_nowplaying.Checked;
+      _settings.UseYouTubePlayer = checkBox_useplayer.Checked;
+      _settings.UseExtremFilter = checkBox_extremfilter.Checked;
       foreach (string s in listBox_history.Items)
       {
         _settings.SearchHistory.Add(s);
@@ -55,6 +58,9 @@ namespace YouTubePlugin
       listBox_history.Items.AddRange(_settings.SearchHistory.ToArray());
       checkBox_filter.Checked = _settings.MusicFilter;
       checkBox_time.Checked = _settings.Time;
+      checkBox_nowplaying.Checked = _settings.ShowNowPlaying;
+      checkBox_useplayer.Checked = _settings.UseYouTubePlayer;
+      checkBox_extremfilter.Checked = _settings.UseExtremFilter;
       switch (_settings.InitialDisplay)
       {
        case 1:
@@ -138,7 +144,6 @@ namespace YouTubePlugin
         radioButton2.Checked = false;
       }
     }
-
 
   }
 }

@@ -140,6 +140,7 @@ namespace YouTubePlugin
     protected View currentView = View.List;
     protected string _currentPlaying = string.Empty;
     public bool _announceNowPlaying = true;
+    public PlayListType _playlistType = PlayListType.PLAYLIST_VIDEO_TEMP;
 
     
     #endregion
@@ -226,10 +227,25 @@ namespace YouTubePlugin
       GUIWindowManager.Receivers += new SendMessageHandler(this.OnThreadMessage);
       GUIWindowManager.OnNewAction += new OnActionHandler(this.OnNewAction);
       g_Player.PlayBackStarted += new g_Player.StartedHandler(OnPlayBackStarted);
+      g_Player.PlayBackEnded += new g_Player.EndedHandler(g_Player_PlayBackEnded);
       g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
 
 
       return Load(GUIGraphicsContext.Skin + @"\youtubeplaylist.xml");
+    }
+
+    void g_Player_PlayBackEnded(g_Player.MediaType type, string filename)
+    {
+      if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 0)
+      {
+        playlistPlayer.CurrentPlaylistType = _playlistType;
+        Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
+        playlistPlayer.CurrentPlaylistType = _playlistType;
+        if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 1)
+        {
+          playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName);
+        }
+      }
     }
 
     void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
@@ -273,7 +289,16 @@ namespace YouTubePlugin
     // Fires every time - especially ACTION_MUSIC_PLAY even if we're already playing stuff
     private void OnNewAction(Action action)
     {
-      //if ((action.wID == Action.ActionType.ACTION_MUSIC_PLAY || action.wID == Action.ActionType.ACTION_PLAY) && GUIWindowManager.ActiveWindow == GetID)
+      if (action.wID == Action.ActionType.ACTION_NEXT_ITEM)
+      {
+        if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 0)
+        {
+          playlistPlayer.CurrentPlaylistType = _playlistType;
+          Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
+          playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName);
+        }
+      }
+            //if ((action.wID == Action.ActionType.ACTION_MUSIC_PLAY || action.wID == Action.ActionType.ACTION_PLAY) && GUIWindowManager.ActiveWindow == GetID)
       //  try
       //  {
       //    // Avoid double action if e.g. jumped to playlist screen.
@@ -319,13 +344,13 @@ namespace YouTubePlugin
        || action.wID == Action.ActionType.ACTION_PREV_ITEM
      )
       {
-        if (playlistPlayer.CurrentPlaylistType != PlayListType.PLAYLIST_VIDEO_TEMP)
+        if (playlistPlayer.CurrentPlaylistType != _playlistType)
         {
-          playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO_TEMP;
+          playlistPlayer.CurrentPlaylistType = _playlistType;
 
           if (string.IsNullOrEmpty(g_Player.CurrentFile))
           {
-            PlayList playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+            PlayList playList = playlistPlayer.GetPlaylist(_playlistType);
 
             if (playList != null && playList.Count > 0)
             {
@@ -343,6 +368,16 @@ namespace YouTubePlugin
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
+
+      if (Youtube2MP._settings.UseYouTubePlayer)
+      {
+        _playlistType = PlayListType.PLAYLIST_VIDEO_TEMP;
+      }
+      else
+      {
+        _playlistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
+      }
+
       currentView = View.PlayList;
       facadeView.View = GUIFacadeControl.ViewMode.Playlist;
 
@@ -686,7 +721,7 @@ namespace YouTubePlugin
       }
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1) return;
-      PlayList playList = PlayListPlayer.SingletonPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+      PlayList playList = PlayListPlayer.SingletonPlayer.GetPlaylist(_playlistType);
       playList.Clear();
       foreach (PlaylistsEntry entry in userPlaylists.Entries)
       {
@@ -772,7 +807,7 @@ namespace YouTubePlugin
 
             if (m_iLastControl == facadeView.GetID && facadeView.Count <= 0)
             {
-              if (GUIWindowManager.ActiveWindow == (int)GUIWindow.Window.WINDOW_MUSIC_PLAYLIST)
+              if (GUIWindowManager.ActiveWindow == (int)GetID)
               {
                 m_iLastControl = btnNowPlaying.GetID;
                 GUIControl.FocusControl(GetID, m_iLastControl);
@@ -788,7 +823,7 @@ namespace YouTubePlugin
 
     protected virtual void UpdateButtonStates()
     {
-      if (GUIWindowManager.ActiveWindow == (int)GUIWindow.Window.WINDOW_MUSIC_PLAYLIST)
+      if (GUIWindowManager.ActiveWindow == (int)GetID)
       {
         if (facadeView != null)
         {
@@ -856,52 +891,6 @@ namespace YouTubePlugin
           break;
       }
       btnViewAs.Label = strLine;
-
-      //switch (CurrentSortMethod)
-      //{
-      //  case MusicSort.SortMethod.Name:
-      //    strLine = GUILocalizeStrings.Get(103);
-      //    break;
-      //  case MusicSort.SortMethod.Date:
-      //    strLine = GUILocalizeStrings.Get(104);
-      //    break;
-      //  case MusicSort.SortMethod.Year:
-      //    strLine = GUILocalizeStrings.Get(104);    // Also display Date for Year
-      //    break;
-      //  case MusicSort.SortMethod.Size:
-      //    strLine = GUILocalizeStrings.Get(105);
-      //    break;
-      //  case MusicSort.SortMethod.Track:
-      //    strLine = GUILocalizeStrings.Get(266);
-      //    break;
-      //  case MusicSort.SortMethod.Duration:
-      //    strLine = GUILocalizeStrings.Get(267);
-      //    break;
-      //  case MusicSort.SortMethod.Title:
-      //    strLine = GUILocalizeStrings.Get(268);
-      //    break;
-      //  case MusicSort.SortMethod.Artist:
-      //    strLine = GUILocalizeStrings.Get(269);
-      //    break;
-      //  case MusicSort.SortMethod.Album:
-      //    strLine = GUILocalizeStrings.Get(270);
-      //    break;
-      //  case MusicSort.SortMethod.Filename:
-      //    strLine = GUILocalizeStrings.Get(363);
-      //    break;
-      //  case MusicSort.SortMethod.Rating:
-      //    strLine = GUILocalizeStrings.Get(367);
-      //    break;
-      //  case MusicSort.SortMethod.AlbumArtist:
-      //    strLine = GUILocalizeStrings.Get(269);    // Also display Artist for AlbumArtist
-      //    break;
-      //}
-
-      //if (btnSortBy != null)
-      //{
-      //  btnSortBy.Label = strLine;
-      //  btnSortBy.IsAscending = CurrentSortAsc;
-      //}
     }
 
     protected  void OnClick(int iItem)
@@ -913,8 +902,12 @@ namespace YouTubePlugin
         return;
 
       string strPath = item.Path;
-      playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO_TEMP;
+      playlistPlayer.CurrentPlaylistType = _playlistType;
       playlistPlayer.Reset();
+      if (!Youtube2MP._settings.UseYouTubePlayer)
+      {
+        playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName);
+      }
       playlistPlayer.Play(iItem);
       SelectCurrentPlayingSong();
       UpdateButtonStates();
@@ -956,16 +949,18 @@ namespace YouTubePlugin
 
         //special case for when the next button is pressed - stopping the prev song does not cause a Playback_Ended event
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STARTED:
-          if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_VIDEO_TEMP && playlistPlayer.CurrentSong != 0)
+          if (playlistPlayer.CurrentPlaylistType == _playlistType && playlistPlayer.CurrentSong != 0)
           {
-            //DoScrobbleLookups();
+            if (!Youtube2MP._settings.UseYouTubePlayer)
+              DoScrobbleLookups();
           }
           break;
         // delaying internet lookups for smooth playback start
         case GUIMessage.MessageType.GUI_MSG_PLAYING_10SEC:
-          if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_VIDEO_TEMP && ScrobblerOn && _enableScrobbling) // && playlistPlayer.CurrentSong != 0)
+          if (playlistPlayer.CurrentPlaylistType == _playlistType && ScrobblerOn && _enableScrobbling) // && playlistPlayer.CurrentSong != 0)
           {
-            DoScrobbleLookups();
+            if (Youtube2MP._settings.UseYouTubePlayer)
+              DoScrobbleLookups();
           }
           break;
       }
@@ -1017,10 +1012,10 @@ namespace YouTubePlugin
 
           List<GUIListItem> itemlist = new List<GUIListItem>();
 
-          PlayList playlist = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+          PlayList playlist = playlistPlayer.GetPlaylist(_playlistType);
           /* copy playlist from general playlist*/
           int iCurrentSong = -1;
-          if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_VIDEO_TEMP)
+          if (playlistPlayer.CurrentPlaylistType == _playlistType)
             iCurrentSong = playlistPlayer.CurrentSong;
 
           string strFileName;
@@ -1061,7 +1056,7 @@ namespace YouTubePlugin
           //	Search current playlist item
           if ((m_nTempPlayListWindow == GetID && m_strTempPlayListDirectory.IndexOf(m_strDirectory) >= 0 && g_Player.Playing
             && playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_MUSIC_TEMP)
-            || (GUIWindowManager.ActiveWindow == (int)GUIWindow.Window.WINDOW_MUSIC_PLAYLIST && playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_VIDEO_TEMP
+            || (GUIWindowManager.ActiveWindow == (int)GUIWindow.Window.WINDOW_MUSIC_PLAYLIST && playlistPlayer.CurrentPlaylistType == _playlistType
             && g_Player.Playing))
           {
             iCurrentSong = playlistPlayer.CurrentSong;
@@ -1152,8 +1147,8 @@ namespace YouTubePlugin
     void ClearPlayList()
     {
       ClearFileItems();
-      playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP).Clear();
-      if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_VIDEO_TEMP)
+      playlistPlayer.GetPlaylist(_playlistType).Clear();
+      if (playlistPlayer.CurrentPlaylistType == _playlistType)
         playlistPlayer.Reset();
       ClearScrobbleStartTrack();
       LoadDirectory(string.Empty);
@@ -1169,7 +1164,7 @@ namespace YouTubePlugin
         return;
       string strFileName = pItem.Path;
 
-      playlistPlayer.Remove(PlayListType.PLAYLIST_VIDEO_TEMP, strFileName);
+      playlistPlayer.Remove(_playlistType, strFileName);
 
       LoadDirectory(m_strDirectory);
       UpdateButtonStates();
@@ -1180,21 +1175,21 @@ namespace YouTubePlugin
     void ShufflePlayList()
     {
       ClearFileItems();
-      PlayList playlist = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+      PlayList playlist = playlistPlayer.GetPlaylist(_playlistType);
 
       if (playlist.Count <= 0)
         return;
       string strFileName = string.Empty;
       if (playlistPlayer.CurrentSong >= 0)
       {
-        if (g_Player.Playing && playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_VIDEO_TEMP)
+        if (g_Player.Playing && playlistPlayer.CurrentPlaylistType == _playlistType)
         {
           PlayListItem item = playlist[playlistPlayer.CurrentSong];
           strFileName = item.FileName;
         }
       }
       playlist.Shuffle();
-      if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_VIDEO_TEMP)
+      if (playlistPlayer.CurrentPlaylistType == _playlistType)
         playlistPlayer.Reset();
 
       if (strFileName.Length > 0)
@@ -1224,7 +1219,7 @@ namespace YouTubePlugin
         strNewFileName = keyboard.Text;
         YouTubeQuery query = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(null));
         PlaylistsFeed userPlaylists = Youtube2MP.service.GetPlaylists(query);
-        PlayList playList = PlayListPlayer.SingletonPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+        PlayList playList = PlayListPlayer.SingletonPlayer.GetPlaylist(_playlistType);
         foreach (PlaylistsEntry entry in userPlaylists.Entries)
         {
           if (entry.Title.Text == strNewFileName)
@@ -1253,7 +1248,7 @@ namespace YouTubePlugin
 
     void SelectCurrentPlayingSong()
     {
-      if (g_Player.Playing && playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_VIDEO_TEMP)
+      if (g_Player.Playing && playlistPlayer.CurrentPlaylistType == _playlistType)
       {
         if (GUIWindowManager.ActiveWindow ==GetID)
         {
@@ -1284,7 +1279,7 @@ namespace YouTubePlugin
     bool AddRandomSongToPlaylist(ref Song song,ref YouTubeFeed vidr)
     {
       //check duplication
-      PlayList playlist = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+      PlayList playlist = playlistPlayer.GetPlaylist(_playlistType);
       for (int i = 0; i < playlist.Count; i++)
       {
         PlayListItem item = playlist[i];
@@ -1314,18 +1309,25 @@ namespace YouTubePlugin
       foreach (YouTubeEntry entry in vidr.Entries)
       {
         if (Youtube2MP.PlaybackUrl(entry) == playlistItem.FileName)
+        {
           playlistItem.MusicTag = entry;
+          if (!Youtube2MP._settings.UseYouTubePlayer)
+          {
+            playlistItem.FileName = Youtube2MP.StreamPlaybackUrl(entry);
+          }
+        }
       }
-      playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP).Add(playlistItem);
+
+      playlistPlayer.GetPlaylist(_playlistType).Add(playlistItem);
       return true;
     }
 
     private void MovePlayListItemUp()
     {
       if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_NONE)
-        playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO_TEMP;
+        playlistPlayer.CurrentPlaylistType = _playlistType;
 
-      if (playlistPlayer.CurrentPlaylistType != PlayListType.PLAYLIST_VIDEO_TEMP
+      if (playlistPlayer.CurrentPlaylistType != _playlistType
           || facadeView.View != GUIFacadeControl.ViewMode.Playlist
           || facadeView.PlayListView == null)
       {
@@ -1334,7 +1336,7 @@ namespace YouTubePlugin
 
       int iItem = facadeView.SelectedListItemIndex;
 
-      PlayList playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+      PlayList playList = playlistPlayer.GetPlaylist(_playlistType);
       playList.MovePlayListItemUp(iItem);
       int selectedIndex = facadeView.MoveItemUp(iItem, true);
 
@@ -1348,9 +1350,9 @@ namespace YouTubePlugin
     private void MovePlayListItemDown()
     {
       if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_NONE)
-        playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO_TEMP;
+        playlistPlayer.CurrentPlaylistType = _playlistType;
 
-      if (playlistPlayer.CurrentPlaylistType != PlayListType.PLAYLIST_VIDEO_TEMP
+      if (playlistPlayer.CurrentPlaylistType != _playlistType
           || facadeView.View != GUIFacadeControl.ViewMode.Playlist
           || facadeView.PlayListView == null)
       {
@@ -1358,7 +1360,7 @@ namespace YouTubePlugin
       }
 
       int iItem = facadeView.SelectedListItemIndex;
-      PlayList playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+      PlayList playList = playlistPlayer.GetPlaylist(_playlistType);
 
       playList.MovePlayListItemDown(iItem);
       int selectedIndex = facadeView.MoveItemDown(iItem, true);
@@ -1372,9 +1374,9 @@ namespace YouTubePlugin
     private void DeletePlayListItem()
     {
       if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_NONE)
-        playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO_TEMP;
+        playlistPlayer.CurrentPlaylistType = _playlistType;
 
-      if (playlistPlayer.CurrentPlaylistType != PlayListType.PLAYLIST_VIDEO_TEMP
+      if (playlistPlayer.CurrentPlaylistType != _playlistType
           || facadeView.View != GUIFacadeControl.ViewMode.Playlist
           || facadeView.PlayListView == null)
       {
@@ -1417,7 +1419,7 @@ namespace YouTubePlugin
     {
       if (ScrobblerOn)
       {
-        PlayList playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+        PlayList playList = playlistPlayer.GetPlaylist(_playlistType);
 
         if (playList != null)
         {
@@ -1494,7 +1496,7 @@ namespace YouTubePlugin
 
     void DoScrobbleLookups()
     {
-      PlayList currentPlaylist = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+      PlayList currentPlaylist = playlistPlayer.GetPlaylist(_playlistType);
 
       MusicDatabase dbs = MusicDatabase.Instance;
       Song current10SekSong = new Song();
@@ -1516,6 +1518,11 @@ namespace YouTubePlugin
           if (g_Player.Player.CurrentFile != null && g_Player.Player.CurrentFile != string.Empty)
           {
             strFile = g_Player.Player.CurrentFile;
+            if (!strFile.Contains("youtube."))
+            {
+              playlistPlayer.CurrentPlaylistType = _playlistType;
+              strFile = playlistPlayer.GetCurrentItem().FileName;
+            }
             bool songFound = Youtube2MP.YoutubeEntry2Song(strFile, ref current10SekSong);
             if (songFound)
             {
@@ -1683,6 +1690,10 @@ namespace YouTubePlugin
 
     private void OnPlayBackStarted(g_Player.MediaType type, string filename)
     {
+      if (!filename.Contains("youtube."))
+      {
+        filename = playlistPlayer.GetCurrentItem().FileName;
+      }
       try
       {
         if (filename.Contains("youtube."))
@@ -1692,7 +1703,11 @@ namespace YouTubePlugin
           Youtube2MP.YoutubeEntry2Song(filename, ref song, ref en);
           Youtube2MP.NowPlayingEntry = en;
           Youtube2MP.NowPlayingSong = song;
-
+          playlistPlayer.CurrentPlaylistType = _playlistType;
+          if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetNextItem() != null)
+          {
+            playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName);
+          }
           SetLabels(en, "NowPlaying");
 
           Thread stateThread = new Thread(new ParameterizedThreadStart(PlaybackStartedThread));
@@ -1708,7 +1723,8 @@ namespace YouTubePlugin
       }
       catch (Exception ex)
       {
-        Log.Error("Audioscrobbler plugin: Error creating threads on playback start - {0}", ex.Message);
+        Log.Error("Audioscrobbler plugin: Error creating threads on playback start - {0} {1}", ex.Message);
+        Log.Error(ex);
       }
     }
     
@@ -1719,7 +1735,6 @@ namespace YouTubePlugin
 
         AudioscrobblerBase.CurrentPlayingSong.Clear();
         AudioscrobblerBase.CurrentPlayingSong = Youtube2MP.NowPlayingSong;
-        //AudioscrobblerBase.CurrentPlayingSong.FileName = Youtube2MP.NowPlayingEntry.Title.Text;
         QueueLastSong();
         OnStateChangedEvent();
     }
@@ -1859,9 +1874,8 @@ namespace YouTubePlugin
     {
 
       MusicDatabase dbs = MusicDatabase.Instance;
-      PlayList list = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
+      PlayList list = playlistPlayer.GetPlaylist(_playlistType);
       List<Song> songList = new List<Song>();      
-      double avgPlayCount = 0;
       int songsAdded = 0;
       int j = 0;
       YouTubeFeed vidr = null;

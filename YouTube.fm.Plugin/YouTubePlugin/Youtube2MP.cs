@@ -28,17 +28,34 @@ namespace YouTubePlugin
 
     public static Settings _settings;
 
-    
+
+    public static string StreamPlaybackUrl(YouTubeEntry vid)
+    {
+      return youtubecatch1(vid.Id.AbsoluteUri);
+    }
+
+    public static string StreamPlaybackUrl(string vidurl)
+    {
+      return youtubecatch1("/" + getIDSimple(vidurl));
+    }
+
     public static string PlaybackUrl(YouTubeEntry vid)
     {
       string PlayblackUrl = "";
-      if (vid.Media.Contents.Count > 0)
+      if (_settings.UseYouTubePlayer)
       {
-        PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", getIDSimple(vid.Id.AbsoluteUri));
+        if (vid.Media.Contents.Count > 0)
+        {
+          PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", getIDSimple(vid.Id.AbsoluteUri));
+        }
+        else
+        {
+          PlayblackUrl = vid.Id.AbsoluteUri;
+        }
       }
       else
       {
-        PlayblackUrl = youtubecatch1(vid.Id.AbsoluteUri);
+        PlayblackUrl = vid.Id.AbsoluteUri;
       }
 
       return PlayblackUrl;
@@ -50,8 +67,8 @@ namespace YouTubePlugin
       string title = en.Title.Text;
       if (title.Contains("-"))
       {
-        song.Artist = title.Split('-')[0];
-        song.Title = title.Split('-')[1];
+        song.Artist = title.Split('-')[0].Trim();
+        song.Title = title.Split('-')[1].Trim();
       }
       else
         song.Artist = title;
@@ -76,8 +93,8 @@ namespace YouTubePlugin
       string title = en.Title.Text;
       if (title.Contains("-"))
       {
-        song.Artist = title.Split('-')[0];
-        song.Title = title.Split('-')[1];
+        song.Artist = title.Split('-')[0].Trim();
+        song.Title = title.Split('-')[1].Trim();
       }
       else
         song.Artist = title;
@@ -111,22 +128,14 @@ namespace YouTubePlugin
     
     public static bool YoutubeEntry2Song(string fileurl, ref Song song)
     {
-      YouTubeEntry en=new YouTubeEntry();
+      YouTubeEntry en = null;
       return YoutubeEntry2Song(fileurl, ref song, ref en);
     }
 
     static public string getIDSimple(string googleID)
     {
       string id="";
-      if (!googleID.Contains("video_id"))
-      {
-        int lastSlash = googleID.LastIndexOf("/");
-        if (googleID.Contains("&"))
-          id = googleID.Substring(lastSlash + 1, googleID.IndexOf('&') - lastSlash - 1);
-        else
-          id = googleID.Substring(lastSlash + 1);
-      }
-      else
+      if (googleID.Contains("video_id"))
       {
         Uri erl = new Uri(googleID);
         string[] param = erl.Query.Substring(1).Split('&');
@@ -134,9 +143,29 @@ namespace YouTubePlugin
         {
           if (s.Split('=')[0] == "video_id")
           {
-             id = s.Split('=')[1];
+            id = s.Split('=')[1];
           }
         }
+      }
+      else if (googleID.Contains("v="))
+      {
+        Uri erl = new Uri(googleID);
+        string[] param = erl.Query.Substring(1).Split('&');
+        foreach (string s in param)
+        {
+          if (s.Split('=')[0] == "v")
+          {
+            id = s.Split('=')[1];
+          }
+        }
+      }
+      else
+      {
+        int lastSlash = googleID.LastIndexOf("/");
+        if (googleID.Contains("&"))
+          id = googleID.Substring(lastSlash + 1, googleID.IndexOf('&') - lastSlash - 1);
+        else
+          id = googleID.Substring(lastSlash + 1);
       }
       return id;
     }
@@ -157,7 +186,7 @@ namespace YouTubePlugin
       vidr = service.Query(query);
       foreach (YouTubeEntry entry in vidr.Entries)
       {
-        if (entry.Title.Text.Contains("-"))
+        if (entry.Title.Text.ToUpper().Contains(artist.ToUpper().Trim())&&entry.Title.Text.Contains("-"))
           songs.Add(YoutubeEntry2Song(entry));
       }
       return true;
@@ -194,7 +223,6 @@ namespace YouTubePlugin
 
     static private Stream RetrieveData(string sUrl)
     {
-      Log.Debug(sUrl);
       if (sUrl == null || sUrl.Length < 1 || sUrl[0] == '/')
       {
         return null;

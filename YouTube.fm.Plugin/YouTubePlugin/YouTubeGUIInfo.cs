@@ -23,6 +23,8 @@ using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
 
+using YouTubePlugin.DataProvider;
+
 namespace YouTubePlugin
 {
 
@@ -33,8 +35,13 @@ namespace YouTubePlugin
     protected GUIThumbnailPanel listControl = null;
     [SkinControlAttribute(5)]
     protected GUIButtonControl btnPlay = null;
-
+    [SkinControlAttribute(95)]
+    protected GUIImage imgFanArt = null;
     #endregion
+
+#region variabiles
+    List<GUIListItem> relatated = new List<GUIListItem>();
+#endregion
 
     public override int GetID
     {
@@ -55,23 +62,96 @@ namespace YouTubePlugin
 
     public override bool Init()
     {
+      updateStationLogoTimer.Elapsed += new ElapsedEventHandler(updateStationLogoTimer_Elapsed);
+      updateStationLogoTimer.Enabled = false;
+      g_Player.PlayBackStarted += new g_Player.StartedHandler(g_Player_PlayBackStarted);
+      updateStationLogoTimer.Interval = 3 * 1000;
       return Load(GUIGraphicsContext.Skin + @"\youtubeinfo.xml");
+    }
+
+    void g_Player_PlayBackStarted(g_Player.MediaType type, string filename)
+    {
+      updateStationLogoTimer.Enabled = true; 
+    }
+
+    
+    void updateStationLogoTimer_Elapsed(object sender, ElapsedEventArgs e)
+    {
+      imgFanArt.Visible = false;
+      updateStationLogoTimer.Enabled = false;
+      Log.Error(Youtube2MP.NowPlayingSong.Artist);
+      if (Youtube2MP.NowPlayingSong != null)
+      {
+        HTBFanArt fanart = new HTBFanArt();
+        string file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
+        if (!File.Exists(file))
+        {
+          fanart.Search(Youtube2MP.NowPlayingSong.Artist);
+          if (fanart.ImageUrls.Count > 0)
+          {
+            Client.DownloadFile(fanart.ImageUrls[0].Url, file);
+            Log.Error(fanart.ImageUrls[0].Url);
+            GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
+            imgFanArt.Visible = true;
+          }
+          else
+          {
+            //imgFanArt.Visible = false;
+          }
+        }
+        else
+        {
+          GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
+          imgFanArt.Visible = true;
+        }
+        LoadRelatated();
+      }
+      else
+      {
+        //imgFanArt.Visible = false;
+      }
+    
+    }
+
+    private void LoadRelatated()
+    {
+      if (Youtube2MP.NowPlayingEntry.RelatedVideosUri != null)
+      {
+        GUIControl.ClearControl(GetID, listControl.GetID);
+        relatated.Clear();
+        YouTubeQuery query = new YouTubeQuery(Youtube2MP.NowPlayingEntry.RelatedVideosUri.Content);
+        YouTubeFeed vidr = Youtube2MP.service.Query(query);
+        if (vidr.Entries.Count > 0)
+        {
+          addVideos(vidr, query);
+        }
+      }
     }
 
     protected override void OnPageLoad()
     {
-      if (Youtube2MP.NowPlayingEntry != null)
+      foreach (GUIListItem item in relatated)
       {
-        if (Youtube2MP.NowPlayingEntry.RelatedVideosUri != null)
-        {
-          YouTubeQuery query = new YouTubeQuery(Youtube2MP.NowPlayingEntry.RelatedVideosUri.Content);
-          YouTubeFeed vidr = Youtube2MP.service.Query(query);
-          if (vidr.Entries.Count > 0)
-          {
-            addVideos(vidr,  query);
-          }
-        }
+        listControl.Add(item);
       }
+      //updateStationLogoTimer.Enabled = true;
+     
+      //if (Youtube2MP.NowPlayingEntry != null)
+      //{
+      //  if (File.Exists(GetFanArtImage(Youtube2MP.NowPlayingSong.Artist)))
+      //  {
+      //    GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", GetFanArtImage(Youtube2MP.NowPlayingSong.Artist));
+      //    imgFanArt.Visible = true;
+      //    updateStationLogoTimer.Enabled = false;
+      //  }
+      //  else
+      //  {
+      //    imgFanArt.Visible = false;
+      //    updateStationLogoTimer.Enabled = true;
+      //  }
+
+
+      //}
       base.OnPageLoad();
     }
 
@@ -93,7 +173,7 @@ namespace YouTubePlugin
         // execute only for enter keys
         if (actionType == Action.ActionType.ACTION_SELECT_ITEM)
         {
-          DoPlay(listControl.SelectedListItem.MusicTag as YouTubeEntry);
+          DoPlay(listControl.SelectedListItem.MusicTag as YouTubeEntry, false);
         }
       }
       base.OnClicked(controlId, control, actionType);
@@ -134,6 +214,7 @@ namespace YouTubePlugin
         }
         item.MusicTag = entry;
         listControl.Add(item);
+        relatated.Add(item);
       }
     }
 

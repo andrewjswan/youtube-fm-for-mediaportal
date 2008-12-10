@@ -52,7 +52,7 @@ namespace Test
       // 
       // button2
       // 
-      this.button2.Location = new System.Drawing.Point(447, 88);
+      this.button2.Location = new System.Drawing.Point(470, 75);
       this.button2.Name = "button2";
       this.button2.Size = new System.Drawing.Size(114, 27);
       this.button2.TabIndex = 2;

@@ -86,10 +86,8 @@ namespace YouTubePlugin
 
     #region locale vars
 
-    private WebClient Client = new WebClient();
-    private Queue downloaQueue = new Queue();
+
     private Stack NavigationStack = new Stack();
-    private System.Timers.Timer updateStationLogoTimer = new System.Timers.Timer(1 * 1000);
     private DownloadFileObject curentDownlodingFile;
     MapSettings mapSettings = new MapSettings();
     YouTubeQuery.UploadTime uploadtime = YouTubeQuery.UploadTime.AllTime;
@@ -377,6 +375,11 @@ namespace YouTubePlugin
       
       //order results by the number of views (most viewed first)
       query.OrderBy = "viewCount";
+      query.StartIndex = 1;
+      if (_setting.UseExtremFilter)
+        query.NumberToRetrieve = 50;
+      else
+        query.NumberToRetrieve = 20;
       //exclude restricted content from the search
       query.Racy = "exclude";
       if (uploadtime != YouTubeQuery.UploadTime.AllTime)
@@ -499,6 +502,7 @@ namespace YouTubePlugin
     {
       // update the gui
       UpdateGui();
+      base.Process();
     }
 
     protected void OnShowSortOptions()
@@ -521,7 +525,7 @@ namespace YouTubePlugin
           if (qu != null)
           {
             YouTubeFeed vidr = service.Query(qu);
-
+            Log.Error(qu.Uri.ToString());
             if (vidr.Entries.Count > 0)
             {
               SaveListState(true);
@@ -533,7 +537,7 @@ namespace YouTubePlugin
           YouTubeEntry vide = selectedItem.MusicTag as YouTubeEntry;
           if (vide != null)
           {
-            DoPlay(vide);
+            DoPlay(vide, true);
           }
         }
         else
@@ -917,6 +921,7 @@ namespace YouTubePlugin
 
     void addVideos(YouTubeFeed videos, bool level,YouTubeQuery qu)
     {
+      int count = 0;
       if (level)
       {
         GUIListItem item = new GUIListItem();
@@ -930,49 +935,51 @@ namespace YouTubePlugin
       downloaQueue.Clear();
       foreach (YouTubeEntry entry in videos.Entries)
       {
-        GUIListItem item = new GUIListItem();
-        // and add station name & bitrate
-        item.Label = entry.Title.Text; //ae.Entry.Author.Name + " - " + ae.Entry.Title.Content;
-        item.Label2 = "";
-        item.IsFolder = false;
-        
-        try
+        if (filterVideoContens(entry))
         {
-          item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
-          item.Rating = (float)entry.Rating.Average;
-        }
-        catch
-        {
+          GUIListItem item = new GUIListItem();
+          // and add station name & bitrate
+          item.Label = entry.Title.Text; //ae.Entry.Author.Name + " - " + ae.Entry.Title.Content;
+          item.Label2 = "";
+          item.IsFolder = false;
+          count++;
+          try
+          {
+            item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
+            item.Rating = (float)entry.Rating.Average;
+          }
+          catch
+          {
 
-        }
+          }
 
-        string imageFile = GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
-        if (File.Exists(imageFile))
-        {
-          item.ThumbnailImage = imageFile;
-          item.IconImage = "defaultVideoBig.png";
-          item.IconImageBig = imageFile;
-        }
-        else
-        {
-          MediaPortal.Util.Utils.SetDefaultIcons(item);
-          DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
-        }
-        item.MusicTag = entry;
-        listControl.Add(item);
+          string imageFile = GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
+          if (File.Exists(imageFile))
+          {
+            item.ThumbnailImage = imageFile;
+            item.IconImage = "defaultVideoBig.png";
+            item.IconImageBig = imageFile;
+          }
+          else
+          {
+            MediaPortal.Util.Utils.SetDefaultIcons(item);
+            DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
+          }
+          item.MusicTag = entry;
+          listControl.Add(item);
+        } 
       }
-      if (qu.NumberToRetrieve > 0)
+      if (qu.NumberToRetrieve > 0 && listControl.Count >= qu.NumberToRetrieve)
       {
         GUIListItem item = new GUIListItem();
         // and add station name & bitrate
-        item.Label = string.Format("Next Page {0} - {1} ", qu.StartIndex + qu.NumberToRetrieve, qu.StartIndex + qu.NumberToRetrieve + qu.NumberToRetrieve);
+        item.Label = string.Format("Next Page {0} - {1} ", qu.StartIndex + count, qu.StartIndex + qu.NumberToRetrieve + count);
         qu.StartIndex += qu.NumberToRetrieve;
         item.Label2 = "";
         item.IsFolder = true;
         MediaPortal.Util.Utils.SetDefaultIcons(item);
         item.MusicTag = qu;
         listControl.Add(item);
-
       }
       UpdateGui();
       updateStationLogoTimer.Enabled = true;

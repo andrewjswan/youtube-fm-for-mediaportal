@@ -117,6 +117,30 @@ namespace YouTubePlugin
       set { time = value; }
     }
 
+    private bool showNowPlaying;
+
+    public bool ShowNowPlaying
+    {
+      get { return showNowPlaying; }
+      set { showNowPlaying = value; }
+    }
+
+    private bool useYouTubePlayer;
+
+    public bool UseYouTubePlayer
+    {
+      get { return useYouTubePlayer; }
+      set { useYouTubePlayer = value; }
+    }
+
+    private bool useExtremFilter;
+
+    public bool UseExtremFilter
+    {
+      get { return useExtremFilter; }
+      set { useExtremFilter = value; }
+    }
+
 
     public void Load()
     {
@@ -131,6 +155,9 @@ namespace YouTubePlugin
         this.MusicFilter = xmlreader.GetValueAsBool("youtubevideos", "MusicFilter", true);
         string his = xmlreader.GetValueAsString("youtubevideos", "searchhistory", string.Empty);
         this.Time = xmlreader.GetValueAsBool("youtubevideos", "time", false);
+        this.ShowNowPlaying = xmlreader.GetValueAsBool("youtubevideos", "ShowNowPlaying", true);
+        this.UseYouTubePlayer = xmlreader.GetValueAsBool("youtubevideos", "UseYouTubePlayer", false);
+        this.UseExtremFilter = xmlreader.GetValueAsBool("youtubevideos", "UseExtremFilter", false);
         foreach (string s in his.Split('|'))
         {
           if (!string.IsNullOrEmpty(s.Trim()))
@@ -151,6 +178,9 @@ namespace YouTubePlugin
         xmlwriter.SetValue("youtubevideos", "InitialSearch", this.InitialSearch);
         xmlwriter.SetValueAsBool("youtubevideos", "MusicFilter", this.MusicFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "time", this.Time);
+        xmlwriter.SetValueAsBool("youtubevideos", "ShowNowPlaying", this.ShowNowPlaying);
+        xmlwriter.SetValueAsBool("youtubevideos", "UseYouTubePlayer", this.UseYouTubePlayer);
+        xmlwriter.SetValueAsBool("youtubevideos", "UseExtremFilter", this.UseExtremFilter);
         string his = "";
         foreach (string s in SearchHistory)
         {

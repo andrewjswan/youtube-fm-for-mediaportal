@@ -39,6 +39,9 @@ namespace YouTubePlugin
       this.label3 = new System.Windows.Forms.Label();
       this.tabControl1 = new System.Windows.Forms.TabControl();
       this.tabPage1 = new System.Windows.Forms.TabPage();
+      this.checkBox_useplayer = new System.Windows.Forms.CheckBox();
+      this.checkBox_nowplaying = new System.Windows.Forms.CheckBox();
+      this.checkBox_time = new System.Windows.Forms.CheckBox();
       this.checkBox_filter = new System.Windows.Forms.CheckBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
       this.comboBox_startup = new System.Windows.Forms.ComboBox();
@@ -52,7 +55,7 @@ namespace YouTubePlugin
       this.textBox1 = new System.Windows.Forms.TextBox();
       this.button3 = new System.Windows.Forms.Button();
       this.listBox_history = new System.Windows.Forms.ListBox();
-      this.checkBox_time = new System.Windows.Forms.CheckBox();
+      this.checkBox_extremfilter = new System.Windows.Forms.CheckBox();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
@@ -153,6 +156,9 @@ namespace YouTubePlugin
       // 
       // tabPage1
       // 
+      this.tabPage1.Controls.Add(this.checkBox_extremfilter);
+      this.tabPage1.Controls.Add(this.checkBox_useplayer);
+      this.tabPage1.Controls.Add(this.checkBox_nowplaying);
       this.tabPage1.Controls.Add(this.checkBox_time);
       this.tabPage1.Controls.Add(this.checkBox_filter);
       this.tabPage1.Controls.Add(this.groupBox2);
@@ -167,10 +173,40 @@ namespace YouTubePlugin
       this.tabPage1.Text = "General";
       this.tabPage1.UseVisualStyleBackColor = true;
       // 
+      // checkBox_useplayer
+      // 
+      this.checkBox_useplayer.AutoSize = true;
+      this.checkBox_useplayer.Location = new System.Drawing.Point(292, 100);
+      this.checkBox_useplayer.Name = "checkBox_useplayer";
+      this.checkBox_useplayer.Size = new System.Drawing.Size(191, 17);
+      this.checkBox_useplayer.TabIndex = 9;
+      this.checkBox_useplayer.Text = "Use \"Youtube Video Player\" plugin";
+      this.checkBox_useplayer.UseVisualStyleBackColor = true;
+      // 
+      // checkBox_nowplaying
+      // 
+      this.checkBox_nowplaying.AutoSize = true;
+      this.checkBox_nowplaying.Location = new System.Drawing.Point(292, 77);
+      this.checkBox_nowplaying.Name = "checkBox_nowplaying";
+      this.checkBox_nowplaying.Size = new System.Drawing.Size(215, 17);
+      this.checkBox_nowplaying.TabIndex = 8;
+      this.checkBox_nowplaying.Text = "Show NowPlaying in place of Fullscreen";
+      this.checkBox_nowplaying.UseVisualStyleBackColor = true;
+      // 
+      // checkBox_time
+      // 
+      this.checkBox_time.AutoSize = true;
+      this.checkBox_time.Location = new System.Drawing.Point(292, 54);
+      this.checkBox_time.Name = "checkBox_time";
+      this.checkBox_time.Size = new System.Drawing.Size(113, 17);
+      this.checkBox_time.TabIndex = 7;
+      this.checkBox_time.Text = "Ask for time period";
+      this.checkBox_time.UseVisualStyleBackColor = true;
+      // 
       // checkBox_filter
       // 
       this.checkBox_filter.AutoSize = true;
-      this.checkBox_filter.Location = new System.Drawing.Point(318, 31);
+      this.checkBox_filter.Location = new System.Drawing.Point(292, 31);
       this.checkBox_filter.Name = "checkBox_filter";
       this.checkBox_filter.Size = new System.Drawing.Size(159, 17);
       this.checkBox_filter.TabIndex = 6;
@@ -304,15 +340,15 @@ namespace YouTubePlugin
       this.listBox_history.Size = new System.Drawing.Size(181, 316);
       this.listBox_history.TabIndex = 0;
       // 
-      // checkBox_time
+      // checkBox_extremfilter
       // 
-      this.checkBox_time.AutoSize = true;
-      this.checkBox_time.Location = new System.Drawing.Point(318, 54);
-      this.checkBox_time.Name = "checkBox_time";
-      this.checkBox_time.Size = new System.Drawing.Size(113, 17);
-      this.checkBox_time.TabIndex = 7;
-      this.checkBox_time.Text = "Ask for time period";
-      this.checkBox_time.UseVisualStyleBackColor = true;
+      this.checkBox_extremfilter.AutoSize = true;
+      this.checkBox_extremfilter.Location = new System.Drawing.Point(292, 123);
+      this.checkBox_extremfilter.Name = "checkBox_extremfilter";
+      this.checkBox_extremfilter.Size = new System.Drawing.Size(165, 17);
+      this.checkBox_extremfilter.TabIndex = 10;
+      this.checkBox_extremfilter.Text = "Use extrem filter music videos";
+      this.checkBox_extremfilter.UseVisualStyleBackColor = true;
       // 
       // SetupForm
       // 
@@ -365,5 +401,8 @@ namespace YouTubePlugin
     private System.Windows.Forms.TextBox textBox_startup;
     private System.Windows.Forms.CheckBox checkBox_filter;
     private System.Windows.Forms.CheckBox checkBox_time;
+    private System.Windows.Forms.CheckBox checkBox_nowplaying;
+    private System.Windows.Forms.CheckBox checkBox_useplayer;
+    private System.Windows.Forms.CheckBox checkBox_extremfilter;
   }
 }
