@@ -575,6 +575,7 @@ namespace YouTubePlugin
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
       query = SetParamToYouTubeQuery(query);
       query.VQ = searchString;
+      query.OrderBy = "relevance";
 
       YouTubeFeed vidr = service.Query(query);
 

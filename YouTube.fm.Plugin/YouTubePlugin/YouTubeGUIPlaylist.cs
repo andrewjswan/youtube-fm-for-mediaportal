@@ -240,7 +240,6 @@ namespace YouTubePlugin
       {
         playlistPlayer.CurrentPlaylistType = _playlistType;
         Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
-        playlistPlayer.CurrentPlaylistType = _playlistType;
         if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 1)
         {
           playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName);
@@ -250,10 +249,10 @@ namespace YouTubePlugin
 
     void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
     {
-      if (filename.Contains("youtube."))
-      {
+      //if (filename.Contains("youtube."))
+      //{
         ClearLabels("NowPlaying");
-      }
+      //}
     }
 
     public override void DeInit()
@@ -1690,6 +1689,9 @@ namespace YouTubePlugin
 
     private void OnPlayBackStarted(g_Player.MediaType type, string filename)
     {
+      playlistPlayer.CurrentPlaylistType = _playlistType;
+      if (playlistPlayer.GetCurrentItem() == null)
+        return;
       if (!filename.Contains("youtube."))
       {
         filename = playlistPlayer.GetCurrentItem().FileName;
@@ -1703,7 +1705,7 @@ namespace YouTubePlugin
           Youtube2MP.YoutubeEntry2Song(filename, ref song, ref en);
           Youtube2MP.NowPlayingEntry = en;
           Youtube2MP.NowPlayingSong = song;
-          playlistPlayer.CurrentPlaylistType = _playlistType;
+
           if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetNextItem() != null)
           {
             playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName);
