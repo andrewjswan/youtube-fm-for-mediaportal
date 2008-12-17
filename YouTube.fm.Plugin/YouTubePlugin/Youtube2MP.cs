@@ -211,6 +211,8 @@ namespace YouTubePlugin
     static public string youtubecatch1(string url)
     {
       Stream response = RetrieveData(string.Format("http://www.youtube.com/api2_rest?method=youtube.videos.get_video_token&video_id={0}", getIDSimple(url)));
+      if (response == null)
+        return "";
       StreamReader reader = new StreamReader(response, System.Text.Encoding.UTF8, true);
       String sXmlData = reader.ReadToEnd().Replace('\0', ' ');
       response.Close();

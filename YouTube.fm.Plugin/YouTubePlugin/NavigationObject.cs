@@ -37,18 +37,28 @@ namespace YouTubePlugin
       set { position = value; }
     }
 
-    public NavigationObject(GUIListControl control, string tit, int pos)
+    public NavigationObject(GUIListControl control, string tit, int pos, View curview)
     {
       Items = new List<GUIListItem>();
-      GetItems(control, tit, pos);
+      GetItems(control, tit, pos, curview);
     }
 
-    public void GetItems(GUIListControl control, string tit,int pos)
+    public void GetItems(GUIListControl control, string tit, int pos, View curview)
     {
       Title = tit;
       Position = pos;
+      CurrentView = curview;
       Items = control.ListItems.GetRange(0, control.ListItems.Count);
     }
+
+    private View curentView;
+
+    public View CurrentView
+    {
+      get { return curentView; }
+      set { curentView = value; }
+    }
+
 
     public void SetItems(GUIFacadeControl control)
     {

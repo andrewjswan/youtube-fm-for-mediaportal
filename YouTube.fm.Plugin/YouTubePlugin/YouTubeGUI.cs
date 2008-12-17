@@ -28,6 +28,16 @@ using Google.GData.Extensions.MediaRss;
 
 namespace YouTubePlugin
 {
+  public enum View
+  {
+    List = 0,
+    Icons = 1,
+    BigIcons = 2,
+    Albums = 3,
+    PlayList = 4,
+    Filmstrip = 5
+  }
+
   public class YouTubeGUI : YoutubeGUIBase, ISetupForm 
   {
 
@@ -74,15 +84,6 @@ namespace YouTubePlugin
 
     #endregion
 
-    enum View
-    {
-      List = 0,
-      Icons = 1,
-      BigIcons = 2,
-      Albums = 3,
-      PlayList = 4,
-      Filmstrip = 5
-    }
 
     #region locale vars
 
@@ -603,6 +604,8 @@ namespace YouTubePlugin
         obj.SetItems(listControl);
         listControl.SelectedListItemIndex = obj.Position;
         GUIPropertyManager.SetProperty("#header.label", obj.Title);
+        mapSettings.ViewAs = (int)obj.CurrentView;
+        ShowPanel();
       }
     }
     
@@ -1007,7 +1010,7 @@ namespace YouTubePlugin
     {
       if (listControl.ListView.ListItems.Count > 0)
       {
-        NavigationStack.Push(new NavigationObject(listControl.ListView, GUIPropertyManager.GetProperty("#header.label"), listControl.SelectedListItemIndex));
+        NavigationStack.Push(new NavigationObject(listControl.ListView, GUIPropertyManager.GetProperty("#header.label"), listControl.SelectedListItemIndex, (View)mapSettings.ViewAs));
       }
       if (clear)
       {

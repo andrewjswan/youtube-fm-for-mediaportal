@@ -1710,6 +1710,7 @@ namespace YouTubePlugin
           {
             playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName);
           }
+
           SetLabels(en, "NowPlaying");
 
           Thread stateThread = new Thread(new ParameterizedThreadStart(PlaybackStartedThread));
