@@ -1517,10 +1517,17 @@ namespace YouTubePlugin
           if (g_Player.Player.CurrentFile != null && g_Player.Player.CurrentFile != string.Empty)
           {
             strFile = g_Player.Player.CurrentFile;
+            playlistPlayer.CurrentPlaylistType = _playlistType;
             if (!strFile.Contains("youtube."))
             {
-              playlistPlayer.CurrentPlaylistType = _playlistType;
-              strFile = playlistPlayer.GetCurrentItem().FileName;
+              if (playlistPlayer.GetCurrentItem() != null)
+                strFile = playlistPlayer.GetCurrentItem().FileName;
+              else 
+                strFile = string.Empty;
+            }
+            if (string.IsNullOrEmpty(strFile) || !strFile.Contains("youtube."))
+            {
+              return;
             }
             bool songFound = Youtube2MP.YoutubeEntry2Song(strFile, ref current10SekSong);
             if (songFound)
@@ -1536,7 +1543,7 @@ namespace YouTubePlugin
               }
               catch (Exception ex)
               {
-                Log.Error("ScrobbleLookupThread: exception on lookup Similar - {0}", ex.Message);
+                Log.Error("YouTubePlaylist ScrobbleLookupThread: exception on lookup Similar - {0}", ex.Message);
               }
 
             }
@@ -1552,7 +1559,7 @@ namespace YouTubePlugin
           }
           catch (Exception ex)
           {
-            Log.Error("ScrobbleLookupThread: exception on lookup Neighbourhood - {0}", ex.Message);
+            Log.Error("YouTubePlaylist ScrobbleLookupThread: exception on lookup Neighbourhood - {0}", ex.Message);
           }
           //}
           break;
@@ -1566,7 +1573,7 @@ namespace YouTubePlugin
           }
           catch (Exception ex)
           {
-            Log.Error("ScrobbleLookupThread: exception on lookup - Friends {0}", ex.Message);
+            Log.Error("YouTubePlaylist ScrobbleLookupThread: exception on lookup - Friends {0}", ex.Message);
           }
           //}
           break;
@@ -1591,7 +1598,7 @@ namespace YouTubePlugin
           }
           catch (Exception ex)
           {
-            Log.Error("ScrobbleLookupThread: exception on lookup - Random {0}", ex.Message);
+            Log.Error("YouTubePlaylist ScrobbleLookupThread: exception on lookup - Random {0}", ex.Message);
           }
           break;
       }
@@ -1605,7 +1612,7 @@ namespace YouTubePlugin
       if (request2.Equals(_lastRequest))
         OnScrobbleLookupsCompleted(SimilarArtists);
       else
-        Log.Warn("GUIMusicPlaylist: OnUpdateSimilarArtistsCompleted: unexpected response for request: {0}", request2.Type);
+        Log.Warn("YouTubePlaylist: OnUpdateSimilarArtistsCompleted: unexpected response for request: {0}", request2.Type);
     }
 
     public void OnUpdateNeighboursArtistsCompleted(NeighboursArtistsRequest request, List<Song> NeighboursArtists)
@@ -1613,7 +1620,7 @@ namespace YouTubePlugin
       if (request.Equals(_lastRequest))
         OnScrobbleLookupsCompleted(NeighboursArtists);
       else
-        Log.Warn("GUIMusicPlaylist: OnUpdateNeighboursArtistsCompleted: unexpected response for request: {0}", request.Type);
+        Log.Warn("YouTubePlaylist: OnUpdateNeighboursArtistsCompleted: unexpected response for request: {0}", request.Type);
     }
 
     public void OnUpdateFriendsArtistsCompleted(FriendsArtistsRequest request, List<Song> FriendsArtists)
@@ -1621,7 +1628,7 @@ namespace YouTubePlugin
       if (request.Equals(_lastRequest))
         OnScrobbleLookupsCompleted(FriendsArtists);
       else
-        Log.Warn("GUIMusicPlaylist: OnUpdateFriendsArtistsCompleted: unexpected response for request: {0}", request.Type);
+        Log.Warn("YouTubePlaylist: OnUpdateFriendsArtistsCompleted: unexpected response for request: {0}", request.Type);
     }
 
     public void OnUpdateRandomTracksCompleted(RandomTracksRequest request, List<Song> RandomTracks)
@@ -1629,7 +1636,7 @@ namespace YouTubePlugin
       if (request.Equals(_lastRequest))
         OnScrobbleLookupsCompleted(RandomTracks);
       else
-        Log.Warn("GUIMusicPlaylist: OnUpdateRandomTracksCompleted: unexpected response for request: {0}", request.Type);
+        Log.Warn("YouTubePlaylist: OnUpdateRandomTracksCompleted: unexpected response for request: {0}", request.Type);
     }
 
     public void OnUpdateUnheardTracksCompleted(UnheardTracksRequest request, List<Song> UnheardTracks)
@@ -1637,7 +1644,7 @@ namespace YouTubePlugin
       if (request.Equals(_lastRequest))
         OnScrobbleLookupsCompleted(UnheardTracks);
       else
-        Log.Warn("GUIMusicPlaylist: OnUpdateRandomTracksCompleted: unexpected response for request: {0}", request.Type);
+        Log.Warn("YouTubePlaylist: OnUpdateRandomTracksCompleted: unexpected response for request: {0}", request.Type);
     }
 
     public void OnUpdateFavoriteTracksCompleted(FavoriteTracksRequest request, List<Song> FavoriteTracks)
@@ -1645,7 +1652,7 @@ namespace YouTubePlugin
       if (request.Equals(_lastRequest))
         OnScrobbleLookupsCompleted(FavoriteTracks);
       else
-        Log.Warn("GUIMusicPlaylist: OnUpdateRandomTracksCompleted: unexpected response for request: {0}", request.Type);
+        Log.Warn("YouTubePlaylist: OnUpdateRandomTracksCompleted: unexpected response for request: {0}", request.Type);
     }
 
     void OnScrobbleLookupsCompleted(List<Song> LookupArtists)
@@ -1689,13 +1696,17 @@ namespace YouTubePlugin
 
     private void OnPlayBackStarted(g_Player.MediaType type, string filename)
     {
-      playlistPlayer.CurrentPlaylistType = _playlistType;
-      if (playlistPlayer.GetCurrentItem() == null)
-        return;
-      if (!filename.Contains("youtube."))
-      {
-        filename = playlistPlayer.GetCurrentItem().FileName;
-      }
+
+        if (playlistPlayer.GetCurrentItem() == null)
+          return;
+        if (!filename.Contains("youtube."))
+        {
+          if (playlistPlayer.GetPlaylist(_playlistType).Count > 0)
+          {
+            playlistPlayer.CurrentPlaylistType = _playlistType;
+            filename = playlistPlayer.GetCurrentItem().FileName;
+          }
+        }
       try
       {
         if (filename.Contains("youtube."))
@@ -1726,7 +1737,7 @@ namespace YouTubePlugin
       }
       catch (Exception ex)
       {
-        Log.Error("Audioscrobbler plugin: Error creating threads on playback start - {0} {1}", ex.Message);
+        Log.Error("YouTube.Fm plugin: Error creating threads on playback start - {0} {1}", ex.Message);
         Log.Error(ex);
       }
     }
