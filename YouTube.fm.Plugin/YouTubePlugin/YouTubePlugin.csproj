@@ -64,7 +64,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DataProvider\FanArtItem.cs" />
     <Compile Include="DataProvider\HTBFanArt.cs" />
     <Compile Include="DownloadFileObject.cs" />

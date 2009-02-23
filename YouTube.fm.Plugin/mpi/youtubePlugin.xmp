@@ -8,7 +8,7 @@
 			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\AxInterop.ShockwaveFlashObjects.dll</Source>
 			<Id>01050</Id>
 			<Option />
-			<Guid>f94d28b9-a6da-4c52-a06d-e2b9f4de696e</Guid>
+			<Guid>7f04f3ed-6521-4c6f-8035-3fc05cdb66d2</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.Client.dll</FileName>
@@ -17,7 +17,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Client.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>22d1cbe0-c85c-4ba4-887c-362ca4f53f92</Guid>
+			<Guid>4d14d00f-1dab-4335-97eb-062d1df2ce15</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.Extensions.dll</FileName>
@@ -26,7 +26,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Extensions.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>4b303796-369e-46ca-b490-2d93125e1e52</Guid>
+			<Guid>6796e421-6c4b-477d-a078-18eff82d84a1</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.YouTube.dll</FileName>
@@ -35,7 +35,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.YouTube.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>5961aecb-34ff-4de0-86bf-7ee7ee73373a</Guid>
+			<Guid>9aa66614-80c0-41cb-961d-759349b43bc0</Guid>
 		</File>
 		<File>
 			<FileName>Interop.ShockwaveFlashObjects.dll</FileName>
@@ -44,7 +44,7 @@
 			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\Interop.ShockwaveFlashObjects.dll</Source>
 			<Id>01050</Id>
 			<Option />
-			<Guid>49a3545d-598e-4f78-9761-c8be13398912</Guid>
+			<Guid>17b14adc-d476-4c71-9163-60ab1ac144e2</Guid>
 		</File>
 		<File>
 			<FileName>youtubeinfo.xml</FileName>
@@ -53,7 +53,7 @@
 			<Source>skin\Blue3wide\youtubeinfo.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>2bee3087-17ed-4a15-a396-eaaddb10d5cc</Guid>
+			<Guid>2f4fbe56-8c8e-458d-bd21-db0f5badd609</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlayer.dll</FileName>
@@ -62,7 +62,7 @@
 			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\YouTubePlayer.dll</Source>
 			<Id>01050</Id>
 			<Option />
-			<Guid>36f27caa-9b59-4053-97ba-aceaf937b3f8</Guid>
+			<Guid>a5a85bad-b4f9-4ff5-b351-8d6fb53e45a3</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -71,7 +71,7 @@
 			<Source>skin\Blue3wide\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>86f7764e-b8aa-48a9-a1a1-8cba41df86e7</Guid>
+			<Guid>70e5d830-ecce-432a-b2b8-c9e0a44b1492</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlugin.dll</FileName>
@@ -80,7 +80,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>8755be7b-db66-41a8-b22f-6168868b279f</Guid>
+			<Guid>1007fc9e-d356-4bd6-8e7a-a3aea3610d8e</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -89,7 +89,7 @@
 			<Source>skin\Blue3wide\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>16c3b369-c47d-4486-a661-6d35028382e2</Guid>
+			<Guid>0b388e44-3dc9-4d85-8ff1-0d0eefbac3fe</Guid>
 		</File>
 	</FileList>
 	<StringList />
@@ -106,15 +106,108 @@
 		<Description />
 		<Group>Video/Movies</Group>
 		<Release>Beta</Release>
+		<Script>//css_reference "core.dll";
+//css_reference "Databases.dll";
+//css_reference "utils.dll";
+//css_reference "MPInstaller.Library.dll";
+//css_reference "plugins\Windows\Dialogs.dll";
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Windows.Forms;
+using System.Text;
+
+using MediaPortal.Dialogs;
+using MediaPortal.GUI.Library;
+using MediaPortal.MPInstaller;
+
+  class InstallScript : MPInstallerScript
+  {
+
+    public InstallScript()
+    {
+
+    }
+
+    /// &lt;summary&gt;
+    /// Execute when the package is downloaded via GUI 
+    /// &lt;/summary&gt;
+    public override void GUI_GetOptions()
+    {
+      base.GUI_GetOptions();
+    }
+
+    /// &lt;summary&gt;
+    /// Test if version is compatible and show warning
+    /// This use when installing via GUI
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override bool GUI_Warning()
+    {
+      return base.GUI_Warning();
+    }
+
+    /// &lt;summary&gt;
+    /// Test if version is compatible and show warning
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override bool Warning()
+    {
+  MessageBox.Show("Warning");
+      return base.Warning();
+    }
+    /// &lt;summary&gt;
+    /// Inits this instance.
+    /// executed when the package it is loaded
+    /// &lt;/summary&gt;
+    public override void Init()
+    {
+  MessageBox.Show("Init");
+      base.Init();
+    }
+
+    /// &lt;summary&gt;
+    /// Installs the current package.
+    /// &lt;/summary&gt;
+    /// &lt;param name="pb"&gt;ProgressBar for overall progress (can bee null) &lt;/param&gt;
+    /// &lt;param name="pb1"&gt;ProgressBar for current copied file (can bee null)&lt;/param&gt;
+    /// &lt;param name="listbox"&gt;Listbox for file listing(can bee null) &lt;/param&gt;
+    public override void Install(ProgressBar pb, ProgressBar pb1, ListBox listbox)
+    {
+  MessageBox.Show("Install");
+      base.Install(pb, pb1, listbox);
+    }
+
+    /// &lt;summary&gt;
+    /// Called when [install file procesed].
+    /// &lt;/summary&gt;
+    /// &lt;param name="mpiFileInfo"&gt;The mpi file info.&lt;/param&gt;
+    public override void OnInstallFileProcesed(MPIFileList mpiFileInfo)
+    {
+
+    }
+
+    /// &lt;summary&gt;
+    /// Called when [install done].
+    /// &lt;/summary&gt;
+    public override void OnInstallDone()
+    {
+   MessageBox.Show("On install done");
+    }
+
+  }
+</Script>
 	</Option>
 	<Properties>
-		<MPMaxVersion>1.*</MPMaxVersion>
-		<MPMinVersion>0.2.3.0</MPMinVersion>
+		<MPMaxVersion>1.0*.00.00</MPMaxVersion>
+		<MPMinVersion>1.2.3.0</MPMinVersion>
 		<MinExtensionVersion />
 		<MaxExtensionVersion />
 		<ForumURL />
 		<WebURL>http://code.google.com/p/youtube-fm-for-mediaportal/</WebURL>
 		<CreationDate>03-11-08</CreationDate>
 		<SingleGroupSelect>True</SingleGroupSelect>
+		<ClearSkinCache>False</ClearSkinCache>
 	</Properties>
 </MPinstaler>

@@ -382,7 +382,7 @@ namespace YouTubePlugin
       else
         query.NumberToRetrieve = 20;
       //exclude restricted content from the search
-      query.Racy = "exclude";
+      query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
       if (uploadtime != YouTubeQuery.UploadTime.AllTime)
         query.Time = uploadtime;
       if (_setting.MusicFilter)
@@ -575,7 +575,7 @@ namespace YouTubePlugin
     {
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
       query = SetParamToYouTubeQuery(query);
-      query.VQ = searchString;
+      query.Query = searchString;
       query.OrderBy = "relevance";
 
       YouTubeFeed vidr = service.Query(query);

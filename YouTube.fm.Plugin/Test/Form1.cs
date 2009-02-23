@@ -27,39 +27,22 @@ namespace Test
     private void button1_Click(object sender, EventArgs e)
     {
       Uri ur = new Uri("http://gdata.youtube.com/feeds/api/videos/fSgGV1llVHM&f=gdata_playlists&c=ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0&d=U1YkMvELc_arPNsH4kYosmD9LlbsOl3qUImVMV6ramM");
-      YouTubeQuery query = new YouTubeQuery(YouTubeQuery.CreateFavoritesUri(null));
-      service.setUserCredentials("dukusi@gmail.com", "mikimiki");
+      YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
       //order results by the number of views (most viewed first)
       query.OrderBy = "viewCount";
       
       //exclude restricted content from the search
-      query.Racy = "exclude";
+      query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
 
       //search for puppies!
-//      query.VQ = "puppy";
+      query.Query = "madonna";
       query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
 
       YouTubeFeed videoFeed = service.Query(query);
 
-      query = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(null));
-      PlaylistsFeed userPlaylists = service.GetPlaylists(query);
+      //query = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(null));
+      //PlaylistsFeed userPlaylists = service.GetPlaylists(query);
 
-
-
-      foreach (PlaylistsEntry entry in userPlaylists.Entries)
-      {
-        if (entry.Title.Text == "test 2")
-        {
-          YouTubeQuery playlistQuery = new YouTubeQuery(entry.FeedLink.Href);
-          PlaylistFeed playlistFeed = service.GetPlaylist(playlistQuery);
-
-          foreach (YouTubeEntry playlistEntry in playlistFeed.Entries)
-          {
-            
-            //AddItemToPlayList((YouTubeEntry)playlistEntry, ref playList);
-          }
-        }
-      }
     }
 
     private string getIDSimple(string googleID)

@@ -1229,13 +1229,11 @@ namespace YouTubePlugin
 
         PlaylistsEntry newPlaylist = new PlaylistsEntry();
         newPlaylist.Title.Text = strNewFileName;
-        newPlaylist.Description = "Created or modified in MediaPortal";
+        newPlaylist.Summary.Text = "Created or modified in MediaPortal";
         PlaylistsEntry createdPlaylist = (PlaylistsEntry)Youtube2MP.service.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), newPlaylist);
 
         foreach (PlayListItem playitem in playList)
         {
-          //playitem.MusicTag
-          //string videoEntryUrl = "http://gdata.youtube.com/feeds/api/videos/ADos_xW4_J0";
           YouTubeEntry videoEntry = (YouTubeEntry)playitem.MusicTag;
           PlaylistEntry newPlaylistEntry = new PlaylistEntry();
           newPlaylistEntry.Id = videoEntry.Id;
@@ -1247,6 +1245,8 @@ namespace YouTubePlugin
 
     void SelectCurrentPlayingSong()
     {
+      if (GUIWindowManager.ActiveWindow != 29051)
+        return;
       if (g_Player.Playing && playlistPlayer.CurrentPlaylistType == _playlistType)
       {
         if (GUIWindowManager.ActiveWindow ==GetID)
@@ -1696,14 +1696,15 @@ namespace YouTubePlugin
 
     private void OnPlayBackStarted(g_Player.MediaType type, string filename)
     {
-
+      Log.Error(playlistPlayer.CurrentPlaylistType.ToString());
+      if (playlistPlayer.CurrentPlaylistType != _playlistType)
+        return;
         if (playlistPlayer.GetCurrentItem() == null)
           return;
         if (!filename.Contains("youtube."))
         {
           if (playlistPlayer.GetPlaylist(_playlistType).Count > 0)
           {
-            playlistPlayer.CurrentPlaylistType = _playlistType;
             filename = playlistPlayer.GetCurrentItem().FileName;
           }
         }

@@ -96,7 +96,7 @@ namespace YouTubePlugin
       return string.Format("{0}", vid.Title.Text);
     }
 
-    public string GetBestUrl(ThumbnailCollection th)
+    public string GetBestUrl(ExtensionCollection<MediaThumbnail> th)
     {
       return th[th.Count - 1].Url;
     }
@@ -150,7 +150,6 @@ namespace YouTubePlugin
       if (vid != null)
       {
         g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
-
         if (_setting.UseYouTubePlayer)
         {
           if (vid.Media.Contents.Count > 0)

@@ -28,10 +28,13 @@ namespace YouTubePlugin
 
     public static Settings _settings;
 
+    public static Dictionary<string, string> UrlHolder = new Dictionary<string, string>();
+
 
     public static string StreamPlaybackUrl(YouTubeEntry vid)
     {
-      return youtubecatch1(vid.Id.AbsoluteUri);
+      //return youtubecatch1(vid.Id.AbsoluteUri);
+      return youtubecatch1(vid.AlternateUri.Content);
     }
 
     public static string StreamPlaybackUrl(string vidurl)
@@ -134,6 +137,7 @@ namespace YouTubePlugin
 
     static public string getIDSimple(string googleID)
     {
+      Log.Error(googleID);
       string id="";
       if (googleID.Contains("video_id"))
       {
@@ -175,12 +179,12 @@ namespace YouTubePlugin
     {
       Log.Debug("Youtube GetSongsByArtist for : {0}", artist);
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
-      query.VQ = artist;
+      query.Query = artist;
       //order results by the number of views (most viewed first)
       query.OrderBy = "relevance";
       //exclude restricted content from the search
       query.NumberToRetrieve = 20;
-      query.Racy = "exclude";
+      query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
       query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
 
       vidr = service.Query(query);
