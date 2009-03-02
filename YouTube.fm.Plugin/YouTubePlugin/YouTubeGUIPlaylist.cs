@@ -28,6 +28,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Text;
+using System.Timers;
 using System.Runtime.CompilerServices;
 
 
@@ -44,6 +45,7 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
+using Timer = System.Timers.Timer;
 
 namespace YouTubePlugin
 {
@@ -114,6 +116,15 @@ namespace YouTubePlugin
     const int REINSERT_AFTER_THIS_MANY_SONGS = 10;
 
     #region Variables
+    private const int MIN_DURATION = 30;
+    private const int MAX_DURATION = 86400; // 24h
+
+    private const int INFINITE_TIME = Int32.MaxValue;
+    private int _alertTime;
+    private Timer SongLengthTimer;
+    private TimeSpan _playingSecs = new TimeSpan(0, 0, 1);
+    private int _lastPosition = 0;
+
     MusicDatabase mdb = null;
     DirectoryHistory m_history = new DirectoryHistory();
     string m_strDirectory = string.Empty;
@@ -242,7 +253,7 @@ namespace YouTubePlugin
         Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
         if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 1)
         {
-          playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName);
+          playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, VideoQuality.Normal);
         }
       }
     }
@@ -294,7 +305,7 @@ namespace YouTubePlugin
         {
           playlistPlayer.CurrentPlaylistType = _playlistType;
           Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
-          playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName);
+          playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, VideoQuality.Normal);
         }
       }
             //if ((action.wID == Action.ActionType.ACTION_MUSIC_PLAY || action.wID == Action.ActionType.ACTION_PLAY) && GUIWindowManager.ActiveWindow == GetID)
@@ -726,7 +737,7 @@ namespace YouTubePlugin
       {
         if (entry.Title.Text == dlg.SelectedLabelText)
         {
-          YouTubeQuery playlistQuery = new YouTubeQuery(entry.FeedLink.Href);
+          YouTubeQuery playlistQuery = new YouTubeQuery(entry.Content.Src.Content);
           PlaylistFeed playlistFeed = Youtube2MP.service.GetPlaylist(playlistQuery);
 
           foreach (YouTubeEntry playlistEntry in playlistFeed.Entries)
@@ -747,7 +758,14 @@ namespace YouTubePlugin
       List<GUIListItem> list = new List<GUIListItem>();
       GUIListItem pItem = new GUIListItem(vid.Title.Text);
       pItem.MusicTag = vid;
-      pItem.Duration = Convert.ToInt32(vid.Duration.Seconds);
+      try
+      {
+        pItem.Duration = Convert.ToInt32(vid.Duration.Seconds);
+      }
+      catch (Exception)
+      {
+      }
+
       if (vid != null)
       {
         if (vid.Media.Contents.Count > 0)
@@ -905,7 +923,7 @@ namespace YouTubePlugin
       playlistPlayer.Reset();
       if (!Youtube2MP._settings.UseYouTubePlayer)
       {
-        playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName);
+        playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName, VideoQuality.Normal);
       }
       playlistPlayer.Play(iItem);
       SelectCurrentPlayingSong();
@@ -1094,13 +1112,6 @@ namespace YouTubePlugin
             if (rootItem.Label == "..")
               iTotalItems--;
           }
-
-          //set object count label
-          //if (totalPlayingTime.TotalSeconds > 0)
-          //  GUIPropertyManager.SetProperty("#itemcount", Util.Utils.GetSongCountLabel(iTotalItems, (int)totalPlayingTime.TotalSeconds));
-          //else
-          //  GUIPropertyManager.SetProperty("#itemcount", Util.Utils.GetObjectCountLabel(iTotalItems));
-
           SetLabels();
           for (int i = 0; i < facadeView.Count; ++i)
           {
@@ -1229,15 +1240,18 @@ namespace YouTubePlugin
 
         PlaylistsEntry newPlaylist = new PlaylistsEntry();
         newPlaylist.Title.Text = strNewFileName;
+        //newPlaylist.Description = "Created or modified in MediaPortal";
         newPlaylist.Summary.Text = "Created or modified in MediaPortal";
         PlaylistsEntry createdPlaylist = (PlaylistsEntry)Youtube2MP.service.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), newPlaylist);
 
         foreach (PlayListItem playitem in playList)
         {
+          //playitem.MusicTag
+          //string videoEntryUrl = "http://gdata.youtube.com/feeds/api/videos/ADos_xW4_J0";
           YouTubeEntry videoEntry = (YouTubeEntry)playitem.MusicTag;
           PlaylistEntry newPlaylistEntry = new PlaylistEntry();
           newPlaylistEntry.Id = videoEntry.Id;
-          PlaylistEntry createdPlaylistEntry = (PlaylistEntry)Youtube2MP.service.Insert(new Uri(createdPlaylist.FeedLink.Href), newPlaylistEntry);
+          PlaylistEntry createdPlaylistEntry = (PlaylistEntry)Youtube2MP.service.Insert(new Uri(createdPlaylist.Content.Src.Content), newPlaylistEntry);
         }
 
       }
@@ -1312,7 +1326,7 @@ namespace YouTubePlugin
           playlistItem.MusicTag = entry;
           if (!Youtube2MP._settings.UseYouTubePlayer)
           {
-            playlistItem.FileName = Youtube2MP.StreamPlaybackUrl(entry);
+            playlistItem.FileName = Youtube2MP.StreamPlaybackUrl(entry, VideoQuality.Normal);
           }
         }
       }
@@ -1696,16 +1710,11 @@ namespace YouTubePlugin
 
     private void OnPlayBackStarted(g_Player.MediaType type, string filename)
     {
-      Log.Error(playlistPlayer.CurrentPlaylistType.ToString());
-      if (playlistPlayer.CurrentPlaylistType != _playlistType)
-        return;
-        if (playlistPlayer.GetCurrentItem() == null)
-          return;
         if (!filename.Contains("youtube."))
         {
-          if (playlistPlayer.GetPlaylist(_playlistType).Count > 0)
+          if (Youtube2MP.UrlHolder.ContainsKey(filename))
           {
-            filename = playlistPlayer.GetCurrentItem().FileName;
+            filename = Youtube2MP.StreamPlaybackUrl(Youtube2MP.UrlHolder[filename], VideoQuality.Normal);
           }
         }
       try
@@ -1717,13 +1726,18 @@ namespace YouTubePlugin
           Youtube2MP.YoutubeEntry2Song(filename, ref song, ref en);
           Youtube2MP.NowPlayingEntry = en;
           Youtube2MP.NowPlayingSong = song;
+          SetLabels(en, "NowPlaying");
+
+          if (playlistPlayer.CurrentPlaylistType != _playlistType)
+            return;
+
+          if (playlistPlayer.GetCurrentItem() == null)
+            return;
 
           if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetNextItem() != null)
           {
-            playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName);
+            playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, VideoQuality.Normal);
           }
-
-          SetLabels(en, "NowPlaying");
 
           Thread stateThread = new Thread(new ParameterizedThreadStart(PlaybackStartedThread));
           stateThread.IsBackground = true;
@@ -1770,14 +1784,14 @@ namespace YouTubePlugin
       {
         _playingSecs = TimeSpan.FromSeconds(g_Player.CurrentPosition);
         AudioscrobblerBase.CurrentPlayingSong.DateTimePlayed = DateTime.UtcNow - _playingSecs;
-//        _lastPosition = Convert.ToInt32(g_Player.Player.CurrentPosition);
+        _lastPosition = Convert.ToInt32(g_Player.Player.CurrentPosition);
       }
       catch (Exception)
       {
         AudioscrobblerBase.CurrentPlayingSong.DateTimePlayed = DateTime.UtcNow;
-//        _lastPosition = 1;
+        _lastPosition = 1;
       }
-      Log.Info("Audioscrobbler plugin: Detected new track as: {0} - {1} started at: {2}", AudioscrobblerBase.CurrentPlayingSong.Artist, AudioscrobblerBase.CurrentPlayingSong.Title, AudioscrobblerBase.CurrentPlayingSong.DateTimePlayed.ToLocalTime().ToLongTimeString());
+      Log.Info("Youtube.Fm plugin: Detected new track as: {0} - {1} started at: {2}", AudioscrobblerBase.CurrentPlayingSong.Artist, AudioscrobblerBase.CurrentPlayingSong.Title, AudioscrobblerBase.CurrentPlayingSong.DateTimePlayed.ToLocalTime().ToLongTimeString());
     }
 
     private void OnSongChangedEvent()
@@ -1789,7 +1803,7 @@ namespace YouTubePlugin
         // Only submit if we have reasonable info about the song
         if (AudioscrobblerBase.CurrentPlayingSong.Artist == String.Empty || AudioscrobblerBase.CurrentPlayingSong.Title == String.Empty)
         {
-          Log.Info("Audioscrobbler plugin: {0}", "no tags found ignoring song");
+          Log.Info("Youtube.Fm plugin: {0}", "no tags found ignoring song");
           return;
         }
 
@@ -1806,19 +1820,95 @@ namespace YouTubePlugin
           AudioscrobblerBase.DoAnnounceNowPlaying();
         }
 
-        //_alertTime = GetAlertTime();
+        _alertTime = GetAlertTime();
 
-        //if (_alertTime != INFINITE_TIME)
-        //{
+        if (_alertTime != INFINITE_TIME)
+        {
           AudioscrobblerBase.CurrentPlayingSong.AudioScrobblerStatus = SongStatus.Loaded;
-        //  startStopSongLengthTimer(true, _alertTime - _playingSecs.Seconds);
-        //}
+          //startStopSongLengthTimer(true, _alertTime - _playingSecs.Seconds);
+        }
       }
       catch (Exception ex)
       {
-        Log.Error("Audioscrobbler plugin: Error in song change event - {0}", ex.Message);
+        Log.Error("Youtube.Fm plugin: Error in song change event - {0}", ex.Message);
       }
     }
+
+    private int GetAlertTime()
+    {
+      if (AudioscrobblerBase.CurrentPlayingSong.Duration > MAX_DURATION)
+      {
+        Log.Info("Youtube.Fm plugin: Ignoring long song {0}", AudioscrobblerBase.CurrentPlayingSong.ToShortString());
+        return INFINITE_TIME;
+      }
+      else if (AudioscrobblerBase.CurrentPlayingSong.Duration < MIN_DURATION)
+      {
+        Log.Info("Youtube.Fm plugin: Ignoring short song {0}", AudioscrobblerBase.CurrentPlayingSong.ToShortString());
+        return INFINITE_TIME;
+      }
+      // If the duration is less then 480 secs, alert when the song
+      // is half over, otherwise after 240 seconds.
+      if (AudioscrobblerBase.CurrentPlayingSong.Duration < 480)
+      {
+        return AudioscrobblerBase.CurrentPlayingSong.Duration / 2;
+      }
+      else
+      {
+        return 240;
+      }
+    }
+
+    private void startStopSongLengthTimer(bool startNow, int intervalLength)
+    {
+      try
+      {
+        if (SongLengthTimer != null)
+        {
+          SongLengthTimer.Close();
+        }
+        else
+        {
+          SongLengthTimer = new Timer();
+          SongLengthTimer.AutoReset = false;
+          SongLengthTimer.Interval = INFINITE_TIME;
+          SongLengthTimer.Elapsed += new ElapsedEventHandler(OnLengthTickEvent);
+        }
+
+        if (startNow)
+        {
+          Log.Info("Youtube.Fm plugin: Starting song length timer with an interval of {0} seconds",
+                   intervalLength.ToString());
+          SongLengthTimer.Interval = intervalLength * 1000;
+          SongLengthTimer.Start();
+        }
+        else
+        {
+          SongLengthTimer.Stop();
+        }
+      }
+      catch (Exception tex)
+      {
+        Log.Error("Youtube.Fm plugin: Issue with song length timer - start: {0} interval: {1} error: {2}",
+                  startNow.ToString(), intervalLength.ToString(), tex.Message);
+      }
+    }
+
+    public void OnLengthTickEvent(object trash_, ElapsedEventArgs args_)
+    {
+      if (AudioscrobblerBase.CurrentSubmitSong.AudioScrobblerStatus == SongStatus.Loaded)
+      {
+        AudioscrobblerBase.CurrentSubmitSong.AudioScrobblerStatus = SongStatus.Cached;
+        Log.Info("Youtube.Fm plugin: Cached song for submit: {0}",
+                 AudioscrobblerBase.CurrentSubmitSong.ToShortString());
+      }
+      else
+      {
+        Log.Debug("Youtube.Fm plugin: NOT caching song: {0} because status is {1}",
+                  AudioscrobblerBase.CurrentSubmitSong.ToShortString(),
+                  AudioscrobblerBase.CurrentSubmitSong.AudioScrobblerStatus.ToString());
+      }
+    }
+
     /// <summary>
     /// Launch the actual submit
     /// </summary>
@@ -2044,7 +2134,7 @@ namespace YouTubePlugin
             //handler.SetLabel(item.AlbumInfoTag as Song, ref item);
           }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
           //Log.Error("GUIMusicPlaylist: exception occured - item without Albumtag? - {0} / {1}", ex.Message, ex.StackTrace);
         }

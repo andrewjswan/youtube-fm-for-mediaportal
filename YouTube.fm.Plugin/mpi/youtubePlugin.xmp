@@ -8,7 +8,7 @@
 			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\AxInterop.ShockwaveFlashObjects.dll</Source>
 			<Id>01050</Id>
 			<Option />
-			<Guid>7f04f3ed-6521-4c6f-8035-3fc05cdb66d2</Guid>
+			<Guid>04ff3d9f-7bfc-4e4b-bcd2-98a20d8c420e</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.Client.dll</FileName>
@@ -17,7 +17,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Client.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>4d14d00f-1dab-4335-97eb-062d1df2ce15</Guid>
+			<Guid>cc9c5211-aded-40c2-8a72-aab4d0ae1c8c</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.Extensions.dll</FileName>
@@ -26,7 +26,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Extensions.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>6796e421-6c4b-477d-a078-18eff82d84a1</Guid>
+			<Guid>a1fbae66-c664-44ee-85d5-0df56ba21a8a</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.YouTube.dll</FileName>
@@ -35,7 +35,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.YouTube.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>9aa66614-80c0-41cb-961d-759349b43bc0</Guid>
+			<Guid>61737f55-e44f-43d5-84fd-c25b453e8230</Guid>
 		</File>
 		<File>
 			<FileName>Interop.ShockwaveFlashObjects.dll</FileName>
@@ -44,7 +44,7 @@
 			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\Interop.ShockwaveFlashObjects.dll</Source>
 			<Id>01050</Id>
 			<Option />
-			<Guid>17b14adc-d476-4c71-9163-60ab1ac144e2</Guid>
+			<Guid>d3473190-1b7a-41f6-90c1-f5b43633c378</Guid>
 		</File>
 		<File>
 			<FileName>youtubeinfo.xml</FileName>
@@ -53,7 +53,7 @@
 			<Source>skin\Blue3wide\youtubeinfo.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>2f4fbe56-8c8e-458d-bd21-db0f5badd609</Guid>
+			<Guid>0c5f4120-400f-4382-a221-75a78f49b381</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlayer.dll</FileName>
@@ -62,7 +62,7 @@
 			<Source>D:\devel\vs2005\YouTubePlayer\YouTubePlayer\bin\Debug\YouTubePlayer.dll</Source>
 			<Id>01050</Id>
 			<Option />
-			<Guid>a5a85bad-b4f9-4ff5-b351-8d6fb53e45a3</Guid>
+			<Guid>623201fa-fbae-4eb3-be46-c646bdc52647</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -71,7 +71,7 @@
 			<Source>skin\Blue3wide\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>70e5d830-ecce-432a-b2b8-c9e0a44b1492</Guid>
+			<Guid>3b1135ac-320e-422f-83bc-13caabc7ab5e</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlugin.dll</FileName>
@@ -80,7 +80,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>1007fc9e-d356-4bd6-8e7a-a3aea3610d8e</Guid>
+			<Guid>646a5d4a-64dc-4168-aa81-eff121d82a27</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -89,7 +89,7 @@
 			<Source>skin\Blue3wide\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>0b388e44-3dc9-4d85-8ff1-0d0eefbac3fe</Guid>
+			<Guid>aea7c40b-9148-4066-b0a6-4fad01996fea</Guid>
 		</File>
 	</FileList>
 	<StringList />
@@ -97,111 +97,19 @@
 	<SetupGroups />
 	<SetupGroupMappings />
 	<Option>
-		<BuildFileName>D:\devel\vs2005\YouTube.fm.Plugin\mpi\YouTube.fm.0.3.2.mpi</BuildFileName>
+		<BuildFileName>D:\devel\vs2005\YouTube.fm.Plugin\mpi\YouTube.fm.0.3.5.mpi</BuildFileName>
 		<ProiectFileName>D:\devel\vs2005\YouTube.fm.Plugin\mpi\youtubePlugin.xmp</ProiectFileName>
 		<ProiectName>YouTube.fm</ProiectName>
 		<Author>Dukus</Author>
 		<UpdateURL>http://www.team-mediaportal.com</UpdateURL>
-		<Version>0.3.3</Version>
+		<Version>0.3.5</Version>
 		<Description />
 		<Group>Video/Movies</Group>
 		<Release>Beta</Release>
-		<Script>//css_reference "core.dll";
-//css_reference "Databases.dll";
-//css_reference "utils.dll";
-//css_reference "MPInstaller.Library.dll";
-//css_reference "plugins\Windows\Dialogs.dll";
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Windows.Forms;
-using System.Text;
-
-using MediaPortal.Dialogs;
-using MediaPortal.GUI.Library;
-using MediaPortal.MPInstaller;
-
-  class InstallScript : MPInstallerScript
-  {
-
-    public InstallScript()
-    {
-
-    }
-
-    /// &lt;summary&gt;
-    /// Execute when the package is downloaded via GUI 
-    /// &lt;/summary&gt;
-    public override void GUI_GetOptions()
-    {
-      base.GUI_GetOptions();
-    }
-
-    /// &lt;summary&gt;
-    /// Test if version is compatible and show warning
-    /// This use when installing via GUI
-    /// &lt;/summary&gt;
-    /// &lt;returns&gt;&lt;/returns&gt;
-    public override bool GUI_Warning()
-    {
-      return base.GUI_Warning();
-    }
-
-    /// &lt;summary&gt;
-    /// Test if version is compatible and show warning
-    /// &lt;/summary&gt;
-    /// &lt;returns&gt;&lt;/returns&gt;
-    public override bool Warning()
-    {
-  MessageBox.Show("Warning");
-      return base.Warning();
-    }
-    /// &lt;summary&gt;
-    /// Inits this instance.
-    /// executed when the package it is loaded
-    /// &lt;/summary&gt;
-    public override void Init()
-    {
-  MessageBox.Show("Init");
-      base.Init();
-    }
-
-    /// &lt;summary&gt;
-    /// Installs the current package.
-    /// &lt;/summary&gt;
-    /// &lt;param name="pb"&gt;ProgressBar for overall progress (can bee null) &lt;/param&gt;
-    /// &lt;param name="pb1"&gt;ProgressBar for current copied file (can bee null)&lt;/param&gt;
-    /// &lt;param name="listbox"&gt;Listbox for file listing(can bee null) &lt;/param&gt;
-    public override void Install(ProgressBar pb, ProgressBar pb1, ListBox listbox)
-    {
-  MessageBox.Show("Install");
-      base.Install(pb, pb1, listbox);
-    }
-
-    /// &lt;summary&gt;
-    /// Called when [install file procesed].
-    /// &lt;/summary&gt;
-    /// &lt;param name="mpiFileInfo"&gt;The mpi file info.&lt;/param&gt;
-    public override void OnInstallFileProcesed(MPIFileList mpiFileInfo)
-    {
-
-    }
-
-    /// &lt;summary&gt;
-    /// Called when [install done].
-    /// &lt;/summary&gt;
-    public override void OnInstallDone()
-    {
-   MessageBox.Show("On install done");
-    }
-
-  }
-</Script>
 	</Option>
 	<Properties>
-		<MPMaxVersion>1.0*.00.00</MPMaxVersion>
-		<MPMinVersion>1.2.3.0</MPMinVersion>
+		<MPMaxVersion>1.0.0.0</MPMaxVersion>
+		<MPMinVersion>1.0.0.0</MPMinVersion>
 		<MinExtensionVersion />
 		<MaxExtensionVersion />
 		<ForumURL />

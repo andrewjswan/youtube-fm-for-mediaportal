@@ -103,11 +103,11 @@ namespace YouTubePlugin
     protected GUIFacadeControl listControl = null;
     //[SkinControlAttribute(2)]
     //protected GUISortButtonControl sortButton = null;
-    [SkinControlAttribute(4)]
+    [SkinControlAttribute(2)]
     protected GUIButtonControl homeButton = null;
     [SkinControlAttribute(3)]
     protected GUIButtonControl btnSwitchView = null;
-    [SkinControlAttribute(2)]
+    [SkinControlAttribute(5)]
     protected GUIButtonControl searchButton = null;
     [SkinControlAttribute(6)]
     protected GUIButtonControl searchHistoryButton = null;
@@ -382,6 +382,7 @@ namespace YouTubePlugin
       else
         query.NumberToRetrieve = 20;
       //exclude restricted content from the search
+      //query.Racy = "exclude";
       query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
       if (uploadtime != YouTubeQuery.UploadTime.AllTime)
         query.Time = uploadtime;
@@ -515,7 +516,7 @@ namespace YouTubePlugin
 
     private void DoListSelection()
     {
-      GUIWaitCursor.Show();
+      //GUIWaitCursor.Show();
       GUIListItem selectedItem = listControl.SelectedListItem;
       if (selectedItem != null)
       {
@@ -575,6 +576,7 @@ namespace YouTubePlugin
     {
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
       query = SetParamToYouTubeQuery(query);
+      //query.VQ = searchString;
       query.Query = searchString;
       query.OrderBy = "relevance";
 
@@ -714,7 +716,7 @@ namespace YouTubePlugin
           break;
         case 2:
           {
-            AddItemToPlayList(selectedItem);
+            AddItemToPlayList(selectedItem, SelectQuality());
           }
           break;
         case 3:
@@ -943,7 +945,7 @@ namespace YouTubePlugin
         {
           GUIListItem item = new GUIListItem();
           // and add station name & bitrate
-          item.Label = entry.Title.Text; //ae.Entry.Author.Name + " - " + ae.Entry.Title.Content;
+          item.Label = entry.Title.Text; 
           item.Label2 = "";
           item.IsFolder = false;
           count++;

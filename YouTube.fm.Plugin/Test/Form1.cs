@@ -35,8 +35,8 @@ namespace Test
       query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
 
       //search for puppies!
-      query.Query = "madonna";
-      query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
+      query.Query = textBox1.Text;
+      //query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
 
       YouTubeFeed videoFeed = service.Query(query);
 

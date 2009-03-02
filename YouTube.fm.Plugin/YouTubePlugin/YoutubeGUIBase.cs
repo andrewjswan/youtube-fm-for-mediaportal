@@ -95,7 +95,7 @@ namespace YouTubePlugin
       //s = s.Replace("%rating%", vid.Video.Rating.ToString());
       return string.Format("{0}", vid.Title.Text);
     }
-
+  
     public string GetBestUrl(ExtensionCollection<MediaThumbnail> th)
     {
       return th[th.Count - 1].Url;
@@ -147,26 +147,32 @@ namespace YouTubePlugin
 
     public void DoPlay(YouTubeEntry vid,bool fullscr)
     {
+      bool isplaying = false;
       if (vid != null)
       {
         g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
+
         if (_setting.UseYouTubePlayer)
         {
           if (vid.Media.Contents.Count > 0)
           {
-            g_Player.Play(string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri)));
+            if (g_Player.Play(string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri))))
+              isplaying = true;
           }
           else
           {
-            g_Player.Play(vid.AlternateUri.ToString());
+            if (g_Player.Play(vid.AlternateUri.ToString()))
+              isplaying = true;
           }
         }
         else
         {
-          g_Player.PlayVideoStream(Youtube2MP.StreamPlaybackUrl(vid));
+          VideoQuality qa = SelectQuality();
+          if (g_Player.PlayVideoStream(Youtube2MP.StreamPlaybackUrl(vid, qa)))
+            isplaying = true;
         }
 
-        if (fullscr)
+        if (isplaying && fullscr)
         {
           if (_setting.ShowNowPlaying)
           {
@@ -177,9 +183,35 @@ namespace YouTubePlugin
             g_Player.ShowFullScreenWindow();
           }
         }
+        if (!isplaying)
+        {
+          Err_message("Unable to playback the item ! ");
+        }
       }
     }
 
+    public VideoQuality SelectQuality()
+    {
+      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+      if (dlg == null) return VideoQuality.Normal;
+      dlg.Reset();
+      dlg.SetHeading("Select video quality");
+      dlg.Add("Normal quality");
+      dlg.Add("High quality");
+      dlg.Add("HD quality");
+      dlg.DoModal(GetID);
+      if (dlg.SelectedId == -1) return VideoQuality.Normal;
+      switch (dlg.SelectedLabel)
+      {
+        case 0:
+          return VideoQuality.Normal;
+        case 1:
+          return VideoQuality.High;
+        case 2:
+          return VideoQuality.HD;
+      }
+      return VideoQuality.Normal;
+    }
 
     void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
     {
@@ -188,18 +220,18 @@ namespace YouTubePlugin
       ClearLabels("NowPlaying");
     }
 
-    public void AddItemToPlayList(GUIListItem pItem)
+    public void AddItemToPlayList(GUIListItem pItem, VideoQuality qa)
     {
       playlistPlayer = PlayListPlayer.SingletonPlayer;
-      PlayList playList ;
+      PlayList playList;
       if (_setting.UseYouTubePlayer)
         playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
       else
         playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
-      AddItemToPlayList(pItem, ref playList);
+      AddItemToPlayList(pItem, ref playList, qa);
     }
 
-    public void AddItemToPlayList(GUIListItem pItem, ref PlayList playList)
+    public void AddItemToPlayList(GUIListItem pItem, ref PlayList playList,VideoQuality qa)
     {
       if (playList == null || pItem == null)
         return;
@@ -211,7 +243,7 @@ namespace YouTubePlugin
       {
         if (!Youtube2MP._settings.UseYouTubePlayer)
         {
-          PlayblackUrl = Youtube2MP.StreamPlaybackUrl(vid);
+          PlayblackUrl = Youtube2MP.StreamPlaybackUrl(vid, qa);
         }
         else
         {

@@ -65,7 +65,7 @@ namespace YouTubePlugin
       updateStationLogoTimer.Elapsed += new ElapsedEventHandler(updateStationLogoTimer_Elapsed);
       updateStationLogoTimer.Enabled = false;
       g_Player.PlayBackStarted += new g_Player.StartedHandler(g_Player_PlayBackStarted);
-      updateStationLogoTimer.Interval = 3 * 1000;
+      updateStationLogoTimer.Interval = 1 * 1000;
       return Load(GUIGraphicsContext.Skin + @"\youtubeinfo.xml");
     }
 

@@ -22,24 +22,39 @@ using Google.GData.Extensions.MediaRss;
 
 namespace YouTubePlugin
 {
+  public enum VideoQuality : int
+  {
+    Normal = 0,
+    High = 1,
+    HD = 2,
+  }
+
   static public class Youtube2MP
   {
     public static YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
 
     public static Settings _settings;
 
-    public static Dictionary<string, string> UrlHolder = new Dictionary<string, string>();
+    public static Dictionary<string, YouTubeEntry> UrlHolder = new Dictionary<string, YouTubeEntry>();
 
-
-    public static string StreamPlaybackUrl(YouTubeEntry vid)
+    public static string StreamPlaybackUrl(YouTubeEntry vid, VideoQuality qu)
     {
       //return youtubecatch1(vid.Id.AbsoluteUri);
-      return youtubecatch1(vid.AlternateUri.Content);
+      string url = youtubecatch1(vid.AlternateUri.Content, qu);
+      if (UrlHolder.ContainsKey(vid.Title.Text))
+      {
+        UrlHolder[vid.Title.Text] = vid;
+      }
+      else
+      {
+        UrlHolder.Add(vid.Title.Text, vid);
+      }
+      return url;
     }
 
-    public static string StreamPlaybackUrl(string vidurl)
+    public static string StreamPlaybackUrl(string vidurl, VideoQuality qu)
     {
-      return youtubecatch1("/" + getIDSimple(vidurl));
+      return youtubecatch1("/" + getIDSimple(vidurl), qu);
     }
 
     public static string PlaybackUrl(YouTubeEntry vid)
@@ -137,7 +152,6 @@ namespace YouTubePlugin
 
     static public string getIDSimple(string googleID)
     {
-      Log.Error(googleID);
       string id="";
       if (googleID.Contains("video_id"))
       {
@@ -150,6 +164,14 @@ namespace YouTubePlugin
             id = s.Split('=')[1];
           }
         }
+      }
+      else if (googleID.Contains("video:"))
+      {
+          int lastVideo = googleID.LastIndexOf("video:");
+          if (googleID.IndexOf(":", lastVideo+6) != -1)
+              id = googleID.Substring(lastVideo+6, googleID.IndexOf(":", lastVideo+6)-(lastVideo+6));
+          else
+              id = googleID.Substring(lastVideo+6);
       }
       else if (googleID.Contains("v="))
       {
@@ -179,12 +201,14 @@ namespace YouTubePlugin
     {
       Log.Debug("Youtube GetSongsByArtist for : {0}", artist);
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
+      //query.VQ = artist;
       query.Query = artist;
       //order results by the number of views (most viewed first)
       query.OrderBy = "relevance";
       //exclude restricted content from the search
       query.NumberToRetrieve = 20;
-      query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
+      //query.Racy = "exclude";
+      query.SafeSearch = YouTubeQuery.SafeSearchValues.Strict;
       query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
 
       vidr = service.Query(query);
@@ -212,7 +236,7 @@ namespace YouTubePlugin
    
     }
 
-    static public string youtubecatch1(string url)
+    static public string youtubecatch1(string url,VideoQuality qa)
     {
       Stream response = RetrieveData(string.Format("http://www.youtube.com/api2_rest?method=youtube.videos.get_video_token&video_id={0}", getIDSimple(url)));
       if (response == null)
@@ -224,6 +248,15 @@ namespace YouTubePlugin
       XmlDocument doc = new XmlDocument();
       doc.LoadXml(sXmlData);
       XmlNode node = doc.SelectSingleNode("/ut_response/t");
+      switch (qa)
+      {
+        case VideoQuality.Normal:
+          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), node.InnerText);
+        case VideoQuality.High:
+          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=18&ext=.flv", getIDSimple(url), node.InnerText);
+        case VideoQuality.HD:
+          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=22&ext=.flv", getIDSimple(url), node.InnerText);
+      }
       return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), node.InnerText);
     }
 
