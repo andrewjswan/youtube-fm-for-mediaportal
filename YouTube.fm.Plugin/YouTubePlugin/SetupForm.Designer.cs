@@ -39,6 +39,10 @@ namespace YouTubePlugin
       this.label3 = new System.Windows.Forms.Label();
       this.tabControl1 = new System.Windows.Forms.TabControl();
       this.tabPage1 = new System.Windows.Forms.TabPage();
+      this.checkBox_sms = new System.Windows.Forms.CheckBox();
+      this.label4 = new System.Windows.Forms.Label();
+      this.comboBox_videoquality = new System.Windows.Forms.ComboBox();
+      this.checkBox_extremfilter = new System.Windows.Forms.CheckBox();
       this.checkBox_useplayer = new System.Windows.Forms.CheckBox();
       this.checkBox_nowplaying = new System.Windows.Forms.CheckBox();
       this.checkBox_time = new System.Windows.Forms.CheckBox();
@@ -55,12 +59,17 @@ namespace YouTubePlugin
       this.textBox1 = new System.Windows.Forms.TextBox();
       this.button3 = new System.Windows.Forms.Button();
       this.listBox_history = new System.Windows.Forms.ListBox();
-      this.checkBox_extremfilter = new System.Windows.Forms.CheckBox();
+      this.tabPage3 = new System.Windows.Forms.TabPage();
+      this.label5 = new System.Windows.Forms.Label();
+      this.comboBox_action = new System.Windows.Forms.ComboBox();
+      this.textBox_char = new System.Windows.Forms.TextBox();
+      this.label6 = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.tabPage2.SuspendLayout();
+      this.tabPage3.SuspendLayout();
       this.SuspendLayout();
       // 
       // button1
@@ -100,6 +109,7 @@ namespace YouTubePlugin
       // 
       this.textBox_passw.Location = new System.Drawing.Point(6, 71);
       this.textBox_passw.Name = "textBox_passw";
+      this.textBox_passw.PasswordChar = '*';
       this.textBox_passw.Size = new System.Drawing.Size(242, 20);
       this.textBox_passw.TabIndex = 6;
       // 
@@ -148,6 +158,7 @@ namespace YouTubePlugin
       // 
       this.tabControl1.Controls.Add(this.tabPage1);
       this.tabControl1.Controls.Add(this.tabPage2);
+      this.tabControl1.Controls.Add(this.tabPage3);
       this.tabControl1.Location = new System.Drawing.Point(1, 2);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
@@ -156,6 +167,9 @@ namespace YouTubePlugin
       // 
       // tabPage1
       // 
+      this.tabPage1.Controls.Add(this.checkBox_sms);
+      this.tabPage1.Controls.Add(this.label4);
+      this.tabPage1.Controls.Add(this.comboBox_videoquality);
       this.tabPage1.Controls.Add(this.checkBox_extremfilter);
       this.tabPage1.Controls.Add(this.checkBox_useplayer);
       this.tabPage1.Controls.Add(this.checkBox_nowplaying);
@@ -172,6 +186,50 @@ namespace YouTubePlugin
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "General";
       this.tabPage1.UseVisualStyleBackColor = true;
+      // 
+      // checkBox_sms
+      // 
+      this.checkBox_sms.AutoSize = true;
+      this.checkBox_sms.Location = new System.Drawing.Point(292, 146);
+      this.checkBox_sms.Name = "checkBox_sms";
+      this.checkBox_sms.Size = new System.Drawing.Size(142, 17);
+      this.checkBox_sms.TabIndex = 13;
+      this.checkBox_sms.Text = "Use SMS style keyboard";
+      this.checkBox_sms.UseVisualStyleBackColor = true;
+      // 
+      // label4
+      // 
+      this.label4.AutoSize = true;
+      this.label4.Location = new System.Drawing.Point(298, 278);
+      this.label4.Name = "label4";
+      this.label4.Size = new System.Drawing.Size(67, 13);
+      this.label4.TabIndex = 12;
+      this.label4.Text = "Video quality";
+      // 
+      // comboBox_videoquality
+      // 
+      this.comboBox_videoquality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comboBox_videoquality.FormattingEnabled = true;
+      this.comboBox_videoquality.Items.AddRange(new object[] {
+            "Normal quality",
+            "High quality",
+            "HD quality",
+            "Based on Title",
+            "Ask"});
+      this.comboBox_videoquality.Location = new System.Drawing.Point(298, 297);
+      this.comboBox_videoquality.Name = "comboBox_videoquality";
+      this.comboBox_videoquality.Size = new System.Drawing.Size(209, 21);
+      this.comboBox_videoquality.TabIndex = 11;
+      // 
+      // checkBox_extremfilter
+      // 
+      this.checkBox_extremfilter.AutoSize = true;
+      this.checkBox_extremfilter.Location = new System.Drawing.Point(292, 123);
+      this.checkBox_extremfilter.Name = "checkBox_extremfilter";
+      this.checkBox_extremfilter.Size = new System.Drawing.Size(165, 17);
+      this.checkBox_extremfilter.TabIndex = 10;
+      this.checkBox_extremfilter.Text = "Use extrem filter music videos";
+      this.checkBox_extremfilter.UseVisualStyleBackColor = true;
       // 
       // checkBox_useplayer
       // 
@@ -340,15 +398,53 @@ namespace YouTubePlugin
       this.listBox_history.Size = new System.Drawing.Size(181, 316);
       this.listBox_history.TabIndex = 0;
       // 
-      // checkBox_extremfilter
+      // tabPage3
       // 
-      this.checkBox_extremfilter.AutoSize = true;
-      this.checkBox_extremfilter.Location = new System.Drawing.Point(292, 123);
-      this.checkBox_extremfilter.Name = "checkBox_extremfilter";
-      this.checkBox_extremfilter.Size = new System.Drawing.Size(165, 17);
-      this.checkBox_extremfilter.TabIndex = 10;
-      this.checkBox_extremfilter.Text = "Use extrem filter music videos";
-      this.checkBox_extremfilter.UseVisualStyleBackColor = true;
+      this.tabPage3.Controls.Add(this.label6);
+      this.tabPage3.Controls.Add(this.textBox_char);
+      this.tabPage3.Controls.Add(this.label5);
+      this.tabPage3.Controls.Add(this.comboBox_action);
+      this.tabPage3.Location = new System.Drawing.Point(4, 22);
+      this.tabPage3.Name = "tabPage3";
+      this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPage3.Size = new System.Drawing.Size(535, 330);
+      this.tabPage3.TabIndex = 2;
+      this.tabPage3.Text = "Instant play";
+      this.tabPage3.UseVisualStyleBackColor = true;
+      // 
+      // label5
+      // 
+      this.label5.AutoSize = true;
+      this.label5.Location = new System.Drawing.Point(7, 5);
+      this.label5.Name = "label5";
+      this.label5.Size = new System.Drawing.Size(69, 13);
+      this.label5.TabIndex = 1;
+      this.label5.Text = "Tigger action";
+      // 
+      // comboBox_action
+      // 
+      this.comboBox_action.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comboBox_action.FormattingEnabled = true;
+      this.comboBox_action.Location = new System.Drawing.Point(6, 21);
+      this.comboBox_action.Name = "comboBox_action";
+      this.comboBox_action.Size = new System.Drawing.Size(288, 21);
+      this.comboBox_action.TabIndex = 0;
+      // 
+      // textBox_char
+      // 
+      this.textBox_char.Location = new System.Drawing.Point(42, 48);
+      this.textBox_char.Name = "textBox_char";
+      this.textBox_char.Size = new System.Drawing.Size(35, 20);
+      this.textBox_char.TabIndex = 2;
+      // 
+      // label6
+      // 
+      this.label6.AutoSize = true;
+      this.label6.Location = new System.Drawing.Point(7, 51);
+      this.label6.Name = "label6";
+      this.label6.Size = new System.Drawing.Size(29, 13);
+      this.label6.TabIndex = 3;
+      this.label6.Text = "Char";
       // 
       // SetupForm
       // 
@@ -370,6 +466,8 @@ namespace YouTubePlugin
       this.groupBox2.PerformLayout();
       this.tabPage2.ResumeLayout(false);
       this.tabPage2.PerformLayout();
+      this.tabPage3.ResumeLayout(false);
+      this.tabPage3.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -404,5 +502,13 @@ namespace YouTubePlugin
     private System.Windows.Forms.CheckBox checkBox_nowplaying;
     private System.Windows.Forms.CheckBox checkBox_useplayer;
     private System.Windows.Forms.CheckBox checkBox_extremfilter;
+    private System.Windows.Forms.Label label4;
+    private System.Windows.Forms.ComboBox comboBox_videoquality;
+    private System.Windows.Forms.CheckBox checkBox_sms;
+    private System.Windows.Forms.TabPage tabPage3;
+    private System.Windows.Forms.Label label5;
+    private System.Windows.Forms.ComboBox comboBox_action;
+    private System.Windows.Forms.Label label6;
+    private System.Windows.Forms.TextBox textBox_char;
   }
 }

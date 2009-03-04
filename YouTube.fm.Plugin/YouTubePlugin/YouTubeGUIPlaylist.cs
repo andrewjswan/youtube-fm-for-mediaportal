@@ -26,6 +26,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.ComponentModel;
+using System.Web;
 using System.Threading;
 using System.Text;
 using System.Timers;
@@ -178,7 +181,12 @@ namespace YouTubePlugin
     {
       GetID = 29051;
       playlistPlayer = PlayListPlayer.SingletonPlayer;
-      _virtualDirectory.AddDrives();
+      updateStationLogoTimer.AutoReset = true;
+      updateStationLogoTimer.Enabled = false;
+      updateStationLogoTimer.Elapsed += new ElapsedEventHandler(OnDownloadTimedEvent);
+      Client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadLogoEnd);
+
+      //_virtualDirectory.AddDrives();
       _virtualDirectory.SetExtensions(MediaPortal.Util.Utils.AudioExtensions);
     }
 
@@ -296,9 +304,70 @@ namespace YouTubePlugin
       return true;
     }
 
+    private void InstantPlay()
+    {
+      string artist = GUIPropertyManager.GetProperty("#Play.Current.Artist");
+      string title = GUIPropertyManager.GetProperty("#Play.Current.Title");
+      
+      if (string.IsNullOrEmpty(artist) || string.IsNullOrEmpty(title))
+      {
+        Err_message("No artis or title defined !");
+        return;
+      }
+
+      string searchString = string.Format("{0} {1}", artist, title);
+      YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
+      query = SetParamToYouTubeQuery(query, false);
+      query.Query = searchString;
+      query.OrderBy = "relevance";
+
+      YouTubeFeed vidr = Youtube2MP.service.Query(query);
+
+      if (vidr.Entries.Count > 0)
+      {
+        GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+        List<YouTubeEntry> items = new List<YouTubeEntry>();
+        if (dlg == null) return;
+        dlg.Reset();
+        //dlg.SetHeading(25653); // Sort options
+        foreach (YouTubeEntry entry in vidr.Entries)
+        {
+          GUIListItem item = new GUIListItem();
+          item.Label = entry.Title.Text;
+          item.Label2 = "";
+          dlg.Add(item);
+          items.Add(entry);
+        }
+        dlg.DoModal(GetID);
+        if (dlg.SelectedId == -1) return;
+        DoPlay(items[dlg.SelectedId], true);
+      }
+      else
+      {
+        Err_message("No item was found !");
+      }
+    }
+
     // Fires every time - especially ACTION_MUSIC_PLAY even if we're already playing stuff
     private void OnNewAction(Action action)
     {
+      if (action.wID == Youtube2MP._settings.InstantAction)
+      {
+        if (Youtube2MP._settings.InstantAction == Action.ActionType.ACTION_KEY_PRESSED)
+        {
+          if (action.m_key != null)
+          {
+            if (Convert.ToChar(action.m_key.KeyChar).ToString() == Youtube2MP._settings.InstantChar)
+            {
+              InstantPlay();
+            }
+          }
+        }
+        else
+        {
+          InstantPlay();
+        }
+      }
       if (action.wID == Action.ActionType.ACTION_NEXT_ITEM)
       {
         if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 0)
@@ -1092,11 +1161,21 @@ namespace YouTubePlugin
           int iItem = 0;
           foreach (GUIListItem item in itemlist)
           {
-            MusicTag tag = item.MusicTag as MusicTag;
+            YouTubeEntry tag = item.MusicTag as YouTubeEntry;
             if (tag != null)
             {
-              if (tag.Duration > 0)
-                totalPlayingTime = totalPlayingTime.Add(new TimeSpan(0, 0, tag.Duration));
+              string imageFile = GetLocalImageFileName(GetBestUrl(tag.Media.Thumbnails));
+              if (File.Exists(imageFile))
+              {
+                item.ThumbnailImage = imageFile;
+                item.IconImage = imageFile;
+                item.IconImageBig = imageFile;
+              }
+              else
+              {
+                MediaPortal.Util.Utils.SetDefaultIcons(item);
+                DownloadImage(GetBestUrl(tag.Media.Thumbnails), item);
+              }
             }
             facadeView.Add(item);
             //	synchronize playlist with current directory
@@ -1138,7 +1217,7 @@ namespace YouTubePlugin
         catch (Exception ex)
         {
           GUIWaitCursor.Hide();
-          Log.Error("GUIMusicPlaylist: An error occured while loading the directory - {0}", ex.Message);
+          Log.Error("GUIYoutubePlaylist: An error occured while loading the list - {0}", ex.Message);
         }
       }
     }
@@ -1218,7 +1297,16 @@ namespace YouTubePlugin
     void SavePlayList()
     {
       string strNewFileName = string.Empty;
-      VirtualKeyboard keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
+      VirtualKeyboard keyboard;
+      // display an virtual keyboard
+      if (Youtube2MP._settings.UseSMSStyleKeyBoard)
+      {
+        keyboard = (SmsStyledKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_SMS_KEYBOARD);
+      }
+      else
+      {
+        keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
+      } 
       if (null == keyboard) return;
       keyboard.Reset();
       keyboard.Text = strNewFileName;

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using MediaPortal.Configuration;
 
+using MediaPortal.Configuration;
+using MediaPortal.GUI.Library;
 
 namespace YouTubePlugin
 {
@@ -141,6 +142,38 @@ namespace YouTubePlugin
       set { useExtremFilter = value; }
     }
 
+    private int videoQuality;
+
+    public int VideoQuality
+    {
+      get { return videoQuality; }
+      set { videoQuality = value; }
+    }
+
+    private bool useSMSStyleKeyBoard;
+
+    public bool UseSMSStyleKeyBoard
+    {
+      get { return useSMSStyleKeyBoard; }
+      set { useSMSStyleKeyBoard = value; }
+    }
+
+    private Action.ActionType instantAction;
+
+    public Action.ActionType InstantAction
+    {
+      get { return instantAction; }
+      set { instantAction = value; }
+    }
+
+    private string instantChar;
+
+    public string InstantChar
+    {
+      get { return instantChar; }
+      set { instantChar = value; }
+    }
+
 
     public void Load()
     {
@@ -151,8 +184,12 @@ namespace YouTubePlugin
         this.User = xmlreader.GetValueAsString("youtubevideos", "user", string.Empty);
         this.Password = xmlreader.GetValueAsString("youtubevideos", "password", string.Empty);
         this.InitialCat = xmlreader.GetValueAsInt("youtubevideos", "InitialCat", 1);
+        this.VideoQuality = xmlreader.GetValueAsInt("youtubevideos", "VideoQuality", 0);
+        this.InstantAction = (Action.ActionType)xmlreader.GetValueAsInt("youtubevideos", "InstantAction", (int)(Action.ActionType.ACTION_REMOTE_BLUE_BUTTON));
         this.InitialSearch = xmlreader.GetValueAsString("youtubevideos", "InitialSearch", string.Empty);
+        this.InstantChar = xmlreader.GetValueAsString("youtubevideos", "InstantChar", "M");
         this.MusicFilter = xmlreader.GetValueAsBool("youtubevideos", "MusicFilter", true);
+        this.UseSMSStyleKeyBoard = xmlreader.GetValueAsBool("youtubevideos", "UseSMSStyleKeyBoard", true);
         string his = xmlreader.GetValueAsString("youtubevideos", "searchhistory", string.Empty);
         this.Time = xmlreader.GetValueAsBool("youtubevideos", "time", false);
         this.ShowNowPlaying = xmlreader.GetValueAsBool("youtubevideos", "ShowNowPlaying", true);
@@ -174,13 +211,17 @@ namespace YouTubePlugin
         xmlwriter.SetValue("youtubevideos", "InitialDisplay", this.InitialDisplay);
         xmlwriter.SetValue("youtubevideos", "user", User);
         xmlwriter.SetValue("youtubevideos", "password", Password);
-        xmlwriter.SetValue("youtubevideos", "InitialDisplay", this.InitialDisplay);
+        xmlwriter.SetValue("youtubevideos", "InitialCat", this.InitialCat);
         xmlwriter.SetValue("youtubevideos", "InitialSearch", this.InitialSearch);
+        xmlwriter.SetValue("youtubevideos", "VideoQuality", this.VideoQuality);
+        xmlwriter.SetValue("youtubevideos", "InstantAction", (int)this.InstantAction);
+        xmlwriter.SetValue("youtubevideos", "InstantChar", this.InstantChar);
         xmlwriter.SetValueAsBool("youtubevideos", "MusicFilter", this.MusicFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "time", this.Time);
         xmlwriter.SetValueAsBool("youtubevideos", "ShowNowPlaying", this.ShowNowPlaying);
         xmlwriter.SetValueAsBool("youtubevideos", "UseYouTubePlayer", this.UseYouTubePlayer);
         xmlwriter.SetValueAsBool("youtubevideos", "UseExtremFilter", this.UseExtremFilter);
+        xmlwriter.SetValueAsBool("youtubevideos", "UseSMSStyleKeyBoard", this.UseSMSStyleKeyBoard);
         string his = "";
         foreach (string s in SearchHistory)
         {

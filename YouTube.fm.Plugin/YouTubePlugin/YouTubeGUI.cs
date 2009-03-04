@@ -89,9 +89,7 @@ namespace YouTubePlugin
 
 
     private Stack NavigationStack = new Stack();
-    private DownloadFileObject curentDownlodingFile;
     MapSettings mapSettings = new MapSettings();
-    YouTubeQuery.UploadTime uploadtime = YouTubeQuery.UploadTime.AllTime;
 
     YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
 
@@ -224,7 +222,7 @@ namespace YouTubePlugin
         {
           ClearLabels("Curent");
           ClearLabels("NowPlaying");
-          GUIPropertyManager.SetProperty("#header.label", _setting.PluginName);
+          GUIPropertyManager.SetProperty("#header.title", _setting.PluginName);
           switch (_setting.InitialDisplay)
           {
             case 1:
@@ -252,7 +250,11 @@ namespace YouTubePlugin
     private void InitList(string queryuri)
     {
       YouTubeQuery query = new YouTubeQuery(queryuri);
-      query = SetParamToYouTubeQuery(query);
+      
+      if (queryuri == YouTubeQuery.CreateFavoritesUri(null))
+        query = SetParamToYouTubeQuery(query, true);
+      else
+        query = SetParamToYouTubeQuery(query, false);
 
       YouTubeFeed vidr = service.Query(query);
 
@@ -260,7 +262,7 @@ namespace YouTubePlugin
       {
         SaveListState(true);
         addVideos(vidr, false,query);
-        GUIPropertyManager.SetProperty("#header.label", vidr.Title.Text);
+        GUIPropertyManager.SetProperty("#header.title", vidr.Title.Text);
         UpdateGui();
       }
       else
@@ -369,29 +371,6 @@ namespace YouTubePlugin
       {
         Err_message("No search history was found");
       }
-    }
-
-    private YouTubeQuery SetParamToYouTubeQuery(YouTubeQuery query)
-    {
-      
-      //order results by the number of views (most viewed first)
-      query.OrderBy = "viewCount";
-      query.StartIndex = 1;
-      if (_setting.UseExtremFilter)
-        query.NumberToRetrieve = 50;
-      else
-        query.NumberToRetrieve = 20;
-      //exclude restricted content from the search
-      //query.Racy = "exclude";
-      query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
-      if (uploadtime != YouTubeQuery.UploadTime.AllTime)
-        query.Time = uploadtime;
-      if (_setting.MusicFilter)
-      {
-        query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
-      }
-      //search for puppies!
-      return query;
     }
 
 
@@ -554,9 +533,18 @@ namespace YouTubePlugin
     private void DoSearch()
     {
       string searchString = "";
+      VirtualKeyboard keyboard;
       // display an virtual keyboard
-      VirtualKeyboard keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
+      if (_setting.UseSMSStyleKeyBoard)
+      {
+        keyboard = (SmsStyledKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_SMS_KEYBOARD);
+      }
+      else
+      {
+        keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
+      }
       if (null == keyboard) return;
+
       keyboard.Reset();
       keyboard.Text = searchString;
       keyboard.DoModal(GetWindowId());
@@ -575,7 +563,7 @@ namespace YouTubePlugin
     private void SearchVideo(string searchString)
     {
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
-      query = SetParamToYouTubeQuery(query);
+      query = SetParamToYouTubeQuery(query, false);
       //query.VQ = searchString;
       query.Query = searchString;
       query.OrderBy = "relevance";
@@ -605,7 +593,7 @@ namespace YouTubePlugin
         NavigationObject obj = NavigationStack.Pop() as NavigationObject;
         obj.SetItems(listControl);
         listControl.SelectedListItemIndex = obj.Position;
-        GUIPropertyManager.SetProperty("#header.label", obj.Title);
+        GUIPropertyManager.SetProperty("#header.title", obj.Title);
         mapSettings.ViewAs = (int)obj.CurrentView;
         ShowPanel();
       }
@@ -694,7 +682,7 @@ namespace YouTubePlugin
             }
           }
           break;
-        case 1: //playall
+        case 1: //relatated
           {
             if (videoEntry.RelatedVideosUri != null)
             {
@@ -716,7 +704,7 @@ namespace YouTubePlugin
           break;
         case 2:
           {
-            AddItemToPlayList(selectedItem, SelectQuality());
+            AddItemToPlayList(selectedItem, SelectQuality(videoEntry));
           }
           break;
         case 3:
@@ -822,64 +810,7 @@ namespace YouTubePlugin
 
     #endregion
 
-    #region download manager
 
-
-
-    private string DownloadImage(string Url)
-    {
-      //string localFile = GetLocalImageFileName(Url);
-      //if (!File.Exists(localFile) && !string.IsNullOrEmpty(Url))
-      //{
-      //  downloaQueue.Enqueue(new DownloadFileObject(localFile, Url));
-      //}
-      return DownloadImage(Url, null);
-    }
-
-    private string DownloadImage(string Url, string localFile,GUIListItem item)
-    {
-      if (!File.Exists(localFile) && !string.IsNullOrEmpty(Url))
-      {
-        downloaQueue.Enqueue(new DownloadFileObject(localFile, Url, item));
-      }
-      return localFile;
-    }
-
-    private string DownloadImage(string Url, GUIListItem listitem)
-    {
-      string localFile = GetLocalImageFileName(Url);
-      if (!File.Exists(localFile) && !string.IsNullOrEmpty(Url))
-      {
-        downloaQueue.Enqueue(new DownloadFileObject(localFile, Url, listitem));
-      }
-      return localFile;
-    }
-    
-    private void OnDownloadTimedEvent(object source, ElapsedEventArgs e)
-    {
-      if (!Client.IsBusy && downloaQueue.Count>0)
-      {
-        curentDownlodingFile = (DownloadFileObject)downloaQueue.Dequeue();
-        Client.DownloadFileAsync(new Uri(curentDownlodingFile.Url), Path.GetTempPath() + @"\station.png");
-      }
-    }
-
-    private void DownloadLogoEnd(object sender, AsyncCompletedEventArgs e)
-    {
-      if (e.Error == null)
-      {
-        File.Copy(Path.GetTempPath() + @"\station.png", curentDownlodingFile.FileName, true);
-        if (curentDownlodingFile.ListItem != null && File.Exists(curentDownlodingFile.FileName))
-        {
-          curentDownlodingFile.ListItem.ThumbnailImage = curentDownlodingFile.FileName;
-          curentDownlodingFile.ListItem.IconImageBig = curentDownlodingFile.FileName;
-          curentDownlodingFile.ListItem.RefreshCoverArt();
-        }
-        UpdateGui();
-      }
-    }            
-
-    #endregion
 
 
     //void addArtists(MTVArtistResponse artists)
@@ -963,7 +894,8 @@ namespace YouTubePlugin
           if (File.Exists(imageFile))
           {
             item.ThumbnailImage = imageFile;
-            item.IconImage = "defaultVideoBig.png";
+            //item.IconImage = "defaultVideoBig.png";
+            item.IconImage = imageFile;
             item.IconImageBig = imageFile;
           }
           else
@@ -1012,7 +944,7 @@ namespace YouTubePlugin
     {
       if (listControl.ListView.ListItems.Count > 0)
       {
-        NavigationStack.Push(new NavigationObject(listControl.ListView, GUIPropertyManager.GetProperty("#header.label"), listControl.SelectedListItemIndex, (View)mapSettings.ViewAs));
+        NavigationStack.Push(new NavigationObject(listControl.ListView, GUIPropertyManager.GetProperty("#header.title"), listControl.SelectedListItemIndex, (View)mapSettings.ViewAs));
       }
       if (clear)
       {

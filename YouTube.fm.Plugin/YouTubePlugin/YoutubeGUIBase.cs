@@ -31,10 +31,11 @@ namespace YouTubePlugin
   {
     public Settings _setting = new Settings();
     protected PlayListPlayer playlistPlayer;
-    public System.Timers.Timer updateStationLogoTimer = new System.Timers.Timer(1 * 1000);
+    public System.Timers.Timer updateStationLogoTimer = new System.Timers.Timer(0.3 * 1000);
     public WebClient Client = new WebClient();
     public Queue downloaQueue = new Queue();
-
+    private DownloadFileObject curentDownlodingFile;
+    protected YouTubeQuery.UploadTime uploadtime = YouTubeQuery.UploadTime.AllTime;
 
     public void SetLabels(YouTubeEntry vid, string type)
     {
@@ -167,7 +168,7 @@ namespace YouTubePlugin
         }
         else
         {
-          VideoQuality qa = SelectQuality();
+          VideoQuality qa = SelectQuality(vid);
           if (g_Player.PlayVideoStream(Youtube2MP.StreamPlaybackUrl(vid, qa)))
             isplaying = true;
         }
@@ -190,18 +191,9 @@ namespace YouTubePlugin
       }
     }
 
-    public VideoQuality SelectQuality()
+    public VideoQuality SelectQuality(YouTubeEntry vid)
     {
-      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
-      if (dlg == null) return VideoQuality.Normal;
-      dlg.Reset();
-      dlg.SetHeading("Select video quality");
-      dlg.Add("Normal quality");
-      dlg.Add("High quality");
-      dlg.Add("HD quality");
-      dlg.DoModal(GetID);
-      if (dlg.SelectedId == -1) return VideoQuality.Normal;
-      switch (dlg.SelectedLabel)
+      switch (_setting.VideoQuality)
       {
         case 0:
           return VideoQuality.Normal;
@@ -209,6 +201,37 @@ namespace YouTubePlugin
           return VideoQuality.High;
         case 2:
           return VideoQuality.HD;
+        case 3:
+          {
+            string title = vid.Title.Text;
+            if (title.Contains("HQ"))
+              return VideoQuality.High;
+            if (title.Contains("HD"))
+              return VideoQuality.HD;
+            break;
+          }
+        case 4:
+          {
+            GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+            if (dlg == null) return VideoQuality.Normal;
+            dlg.Reset();
+            dlg.SetHeading("Select video quality");
+            dlg.Add("Normal quality");
+            dlg.Add("High quality");
+            dlg.Add("HD quality");
+            dlg.DoModal(GetID);
+            if (dlg.SelectedId == -1) return VideoQuality.Normal;
+            switch (dlg.SelectedLabel)
+            {
+              case 0:
+                return VideoQuality.Normal;
+              case 1:
+                return VideoQuality.High;
+              case 2:
+                return VideoQuality.HD;
+            }
+          }
+          break;
       }
       return VideoQuality.Normal;
     }
@@ -273,5 +296,86 @@ namespace YouTubePlugin
     {
       return String.Format(@"{0}\{1}_fanart.jpg", Thumbs.MusicArtists, MediaPortal.Util.Utils.MakeFileName(artist));
     }
+
+    #region download manager
+
+
+
+    private string DownloadImage(string Url)
+    {
+      //string localFile = GetLocalImageFileName(Url);
+      //if (!File.Exists(localFile) && !string.IsNullOrEmpty(Url))
+      //{
+      //  downloaQueue.Enqueue(new DownloadFileObject(localFile, Url));
+      //}
+      return DownloadImage(Url, null);
+    }
+
+    private string DownloadImage(string Url, string localFile, GUIListItem item)
+    {
+      if (!File.Exists(localFile) && !string.IsNullOrEmpty(Url))
+      {
+        downloaQueue.Enqueue(new DownloadFileObject(localFile, Url, item));
+      }
+      return localFile;
+    }
+
+    public string DownloadImage(string Url, GUIListItem listitem)
+    {
+      string localFile = GetLocalImageFileName(Url);
+      if (!File.Exists(localFile) && !string.IsNullOrEmpty(Url))
+      {
+        downloaQueue.Enqueue(new DownloadFileObject(localFile, Url, listitem));
+      }
+      return localFile;
+    }
+
+    public void OnDownloadTimedEvent(object source, ElapsedEventArgs e)
+    {
+      if (!Client.IsBusy && downloaQueue.Count > 0)
+      {
+        curentDownlodingFile = (DownloadFileObject)downloaQueue.Dequeue();
+        Client.DownloadFileAsync(new Uri(curentDownlodingFile.Url), Path.GetTempPath() + @"\station.png");
+      }
+    }
+
+    public void DownloadLogoEnd(object sender, AsyncCompletedEventArgs e)
+    {
+      if (e.Error == null)
+      {
+        File.Copy(Path.GetTempPath() + @"\station.png", curentDownlodingFile.FileName, true);
+        if (curentDownlodingFile.ListItem != null && File.Exists(curentDownlodingFile.FileName))
+        {
+          curentDownlodingFile.ListItem.ThumbnailImage = curentDownlodingFile.FileName;
+          curentDownlodingFile.ListItem.IconImageBig = curentDownlodingFile.FileName;
+          curentDownlodingFile.ListItem.RefreshCoverArt();
+        }
+        //UpdateGui();
+      }
+    }
+   
+    protected  YouTubeQuery SetParamToYouTubeQuery(YouTubeQuery query, bool safe)
+    {
+
+      //order results by the number of views (most viewed first)
+      query.OrderBy = "viewCount";
+      query.StartIndex = 1;
+      if (_setting.UseExtremFilter)
+        query.NumberToRetrieve = 50;
+      else
+        query.NumberToRetrieve = 20;
+      ////exclude restricted content from the search
+      //query.Racy = "exclude";
+      query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
+      if (uploadtime != YouTubeQuery.UploadTime.AllTime)
+        query.Time = uploadtime;
+      if (_setting.MusicFilter && !safe)
+      {
+        query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
+      }
+
+      return query;
+    }
+    #endregion
   }
 }

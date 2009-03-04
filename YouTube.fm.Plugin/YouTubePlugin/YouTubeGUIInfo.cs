@@ -74,7 +74,29 @@ namespace YouTubePlugin
       updateStationLogoTimer.Enabled = true; 
     }
 
-    
+    protected override void OnShowContextMenu()
+    {
+      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+      if (dlg == null)
+        return;
+      dlg.Reset();
+      dlg.SetHeading(498); // menu
+      dlg.AddLocalizedString(970);//prev screen
+      dlg.Add("Fullscreen");
+      dlg.DoModal(GetID);
+      if (dlg.SelectedId == -1)
+        return;
+      switch (dlg.SelectedLabel)
+      { 
+        case 0:
+          GUIWindowManager.ShowPreviousWindow();
+          break;
+        case 1:
+          g_Player.ShowFullScreenWindow();
+          break;
+      }
+    }
+
     void updateStationLogoTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
       imgFanArt.Visible = false;

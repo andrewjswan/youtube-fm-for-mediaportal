@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +11,8 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
+
+using MediaPortal.GUI.Library;
 
 
 namespace YouTubePlugin
@@ -35,32 +38,56 @@ namespace YouTubePlugin
       _settings.ShowNowPlaying = checkBox_nowplaying.Checked;
       _settings.UseYouTubePlayer = checkBox_useplayer.Checked;
       _settings.UseExtremFilter = checkBox_extremfilter.Checked;
+      _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
+      _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
+      _settings.InstantAction = (Action.ActionType)comboBox_action.SelectedValue;
+      _settings.InstantChar = textBox_char.Text;
       foreach (string s in listBox_history.Items)
       {
         _settings.SearchHistory.Add(s);
       }
-      _settings.Save();
       if (radioButton1.Checked)
         _settings.InitialDisplay = 1;
       if (radioButton2.Checked)
         _settings.InitialDisplay = 2;
       if (radioButton3.Checked)
         _settings.InitialDisplay = 3;
-
+      _settings.Save();
       this.Close();
     }
 
+    private ArrayList GenerateActionList()
+    {
+      ArrayList ret = new ArrayList();
+      string[] names = Enum.GetNames(typeof(Action.ActionType));
+      int[] values = (int[])Enum.GetValues(typeof(Action.ActionType));
+      for (int i = 0; i < names.Length; i++)
+      {
+        ret.Add(new ActionEntry(names[i], values[i]));
+      }
+      return ret;
+    }
+
+
     private void SetupForm_Load(object sender, EventArgs e)
     {
+      comboBox_action.DataSource = GenerateActionList();
+      comboBox_action.DisplayMember = "ActionName";
+      comboBox_action.ValueMember = "ActionID";
+
       textBox_user.Text = _settings.User;
       textBox_passw.Text = _settings.Password;
       textBox_pluginname.Text = _settings.PluginName;
+      textBox_char.Text = _settings.InstantChar;
       listBox_history.Items.AddRange(_settings.SearchHistory.ToArray());
       checkBox_filter.Checked = _settings.MusicFilter;
       checkBox_time.Checked = _settings.Time;
       checkBox_nowplaying.Checked = _settings.ShowNowPlaying;
       checkBox_useplayer.Checked = _settings.UseYouTubePlayer;
       checkBox_extremfilter.Checked = _settings.UseExtremFilter;
+      comboBox_videoquality.SelectedIndex = _settings.VideoQuality;
+      checkBox_sms.Checked = _settings.UseSMSStyleKeyBoard;
+      comboBox_action.SelectedValue = (int)_settings.InstantAction;
       switch (_settings.InitialDisplay)
       {
        case 1:
@@ -146,4 +173,34 @@ namespace YouTubePlugin
     }
 
   }
+
+  class ActionEntry
+  {
+    private string actionName;
+    private int actionID;
+
+    public string ActionName
+    {
+      get
+      {
+        return actionName;
+      }
+    }
+
+    public int ActionID
+    {
+      get
+      {
+        return actionID;
+      }
+    }
+
+    public ActionEntry(string Name, int ID)
+    {
+
+      this.actionName = Name;
+      this.actionID = ID;
+    }
+  }
+
 }
