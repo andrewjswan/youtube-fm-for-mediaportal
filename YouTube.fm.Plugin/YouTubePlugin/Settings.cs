@@ -166,9 +166,9 @@ namespace YouTubePlugin
       set { instantAction = value; }
     }
 
-    private string instantChar;
+    private int instantChar;
 
-    public string InstantChar
+    public int InstantChar
     {
       get { return instantChar; }
       set { instantChar = value; }
@@ -185,9 +185,9 @@ namespace YouTubePlugin
         this.Password = xmlreader.GetValueAsString("youtubevideos", "password", string.Empty);
         this.InitialCat = xmlreader.GetValueAsInt("youtubevideos", "InitialCat", 1);
         this.VideoQuality = xmlreader.GetValueAsInt("youtubevideos", "VideoQuality", 0);
-        this.InstantAction = (Action.ActionType)xmlreader.GetValueAsInt("youtubevideos", "InstantAction", (int)(Action.ActionType.ACTION_REMOTE_BLUE_BUTTON));
+        this.InstantAction = (Action.ActionType)xmlreader.GetValueAsInt("youtubevideos", "InstantAction", (int)(Action.ActionType.REMOTE_1));
         this.InitialSearch = xmlreader.GetValueAsString("youtubevideos", "InitialSearch", string.Empty);
-        this.InstantChar = xmlreader.GetValueAsString("youtubevideos", "InstantChar", "M");
+        this.InstantChar = xmlreader.GetValueAsInt("youtubevideos", "InstantCharInt", 01);
         this.MusicFilter = xmlreader.GetValueAsBool("youtubevideos", "MusicFilter", true);
         this.UseSMSStyleKeyBoard = xmlreader.GetValueAsBool("youtubevideos", "UseSMSStyleKeyBoard", true);
         string his = xmlreader.GetValueAsString("youtubevideos", "searchhistory", string.Empty);
@@ -215,7 +215,7 @@ namespace YouTubePlugin
         xmlwriter.SetValue("youtubevideos", "InitialSearch", this.InitialSearch);
         xmlwriter.SetValue("youtubevideos", "VideoQuality", this.VideoQuality);
         xmlwriter.SetValue("youtubevideos", "InstantAction", (int)this.InstantAction);
-        xmlwriter.SetValue("youtubevideos", "InstantChar", this.InstantChar);
+        xmlwriter.SetValue("youtubevideos", "InstantCharInt", this.InstantChar);
         xmlwriter.SetValueAsBool("youtubevideos", "MusicFilter", this.MusicFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "time", this.Time);
         xmlwriter.SetValueAsBool("youtubevideos", "ShowNowPlaying", this.ShowNowPlaying);

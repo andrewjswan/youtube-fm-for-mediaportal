@@ -306,13 +306,22 @@ namespace YouTubePlugin
 
     private void InstantPlay()
     {
-      string artist = GUIPropertyManager.GetProperty("#Play.Current.Artist");
-      string title = GUIPropertyManager.GetProperty("#Play.Current.Title");
-      
-      if (string.IsNullOrEmpty(artist) || string.IsNullOrEmpty(title))
+      string artist = "";
+      string title = "";
+
+      title = GUIPropertyManager.GetProperty("#selecteditem");
+
+      if (string.IsNullOrEmpty(artist) && string.IsNullOrEmpty(title))
+      {
+        artist = GUIPropertyManager.GetProperty("#Play.Current.Artist");
+        title = GUIPropertyManager.GetProperty("#Play.Current.Title");
+      }
+
+      if (string.IsNullOrEmpty(title))
       {
         Err_message("No artis or title defined !");
         return;
+
       }
 
       string searchString = string.Format("{0} {1}", artist, title);
@@ -357,7 +366,7 @@ namespace YouTubePlugin
         {
           if (action.m_key != null)
           {
-            if (Convert.ToChar(action.m_key.KeyChar).ToString() == Youtube2MP._settings.InstantChar)
+            if (action.m_key.KeyChar == Youtube2MP._settings.InstantChar)
             {
               InstantPlay();
             }

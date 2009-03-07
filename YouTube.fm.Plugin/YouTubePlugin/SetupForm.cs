@@ -41,7 +41,14 @@ namespace YouTubePlugin
       _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
       _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
       _settings.InstantAction = (Action.ActionType)comboBox_action.SelectedValue;
-      _settings.InstantChar = textBox_char.Text;
+      try
+      {
+      }
+      catch (Exception)
+      {
+        _settings.InstantChar = 0;
+      }
+
       foreach (string s in listBox_history.Items)
       {
         _settings.SearchHistory.Add(s);
@@ -78,7 +85,7 @@ namespace YouTubePlugin
       textBox_user.Text = _settings.User;
       textBox_passw.Text = _settings.Password;
       textBox_pluginname.Text = _settings.PluginName;
-      textBox_char.Text = _settings.InstantChar;
+      textBox_char.Text = _settings.InstantChar.ToString();
       listBox_history.Items.AddRange(_settings.SearchHistory.ToArray());
       checkBox_filter.Checked = _settings.MusicFilter;
       checkBox_time.Checked = _settings.Time;
@@ -170,6 +177,11 @@ namespace YouTubePlugin
         radioButton1.Checked = false;
         radioButton2.Checked = false;
       }
+    }
+
+    private void tabPage3_Click(object sender, EventArgs e)
+    {
+
     }
 
   }

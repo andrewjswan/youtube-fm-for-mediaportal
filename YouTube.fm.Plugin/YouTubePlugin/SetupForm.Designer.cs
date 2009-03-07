@@ -60,10 +60,10 @@ namespace YouTubePlugin
       this.button3 = new System.Windows.Forms.Button();
       this.listBox_history = new System.Windows.Forms.ListBox();
       this.tabPage3 = new System.Windows.Forms.TabPage();
+      this.label6 = new System.Windows.Forms.Label();
+      this.textBox_char = new System.Windows.Forms.TextBox();
       this.label5 = new System.Windows.Forms.Label();
       this.comboBox_action = new System.Windows.Forms.ComboBox();
-      this.textBox_char = new System.Windows.Forms.TextBox();
-      this.label6 = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
@@ -411,15 +411,32 @@ namespace YouTubePlugin
       this.tabPage3.TabIndex = 2;
       this.tabPage3.Text = "Instant play";
       this.tabPage3.UseVisualStyleBackColor = true;
+      this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
+      // 
+      // label6
+      // 
+      this.label6.AutoSize = true;
+      this.label6.Location = new System.Drawing.Point(7, 51);
+      this.label6.Name = "label6";
+      this.label6.Size = new System.Drawing.Size(56, 13);
+      this.label6.TabIndex = 3;
+      this.label6.Text = "Char code";
+      // 
+      // textBox_char
+      // 
+      this.textBox_char.Location = new System.Drawing.Point(71, 48);
+      this.textBox_char.Name = "textBox_char";
+      this.textBox_char.Size = new System.Drawing.Size(37, 20);
+      this.textBox_char.TabIndex = 2;
       // 
       // label5
       // 
       this.label5.AutoSize = true;
       this.label5.Location = new System.Drawing.Point(7, 5);
       this.label5.Name = "label5";
-      this.label5.Size = new System.Drawing.Size(69, 13);
+      this.label5.Size = new System.Drawing.Size(90, 13);
       this.label5.TabIndex = 1;
-      this.label5.Text = "Tigger action";
+      this.label5.Text = "Action to activate";
       // 
       // comboBox_action
       // 
@@ -429,22 +446,6 @@ namespace YouTubePlugin
       this.comboBox_action.Name = "comboBox_action";
       this.comboBox_action.Size = new System.Drawing.Size(288, 21);
       this.comboBox_action.TabIndex = 0;
-      // 
-      // textBox_char
-      // 
-      this.textBox_char.Location = new System.Drawing.Point(42, 48);
-      this.textBox_char.Name = "textBox_char";
-      this.textBox_char.Size = new System.Drawing.Size(35, 20);
-      this.textBox_char.TabIndex = 2;
-      // 
-      // label6
-      // 
-      this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(7, 51);
-      this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(29, 13);
-      this.label6.TabIndex = 3;
-      this.label6.Text = "Char";
       // 
       // SetupForm
       // 

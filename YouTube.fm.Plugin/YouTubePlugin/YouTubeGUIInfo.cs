@@ -65,7 +65,7 @@ namespace YouTubePlugin
       updateStationLogoTimer.Elapsed += new ElapsedEventHandler(updateStationLogoTimer_Elapsed);
       updateStationLogoTimer.Enabled = false;
       g_Player.PlayBackStarted += new g_Player.StartedHandler(g_Player_PlayBackStarted);
-      updateStationLogoTimer.Interval = 1 * 1000;
+      updateStationLogoTimer.Interval = 0.5 * 1000;
       return Load(GUIGraphicsContext.Skin + @"\youtubeinfo.xml");
     }
 
@@ -127,6 +127,7 @@ namespace YouTubePlugin
           imgFanArt.Visible = true;
         }
         LoadRelatated();
+        GUIControl.FocusControl(GetID, listControl.GetID);
       }
       else
       {
@@ -174,6 +175,7 @@ namespace YouTubePlugin
 
 
       //}
+      GUIControl.FocusControl(GetID, listControl.GetID);
       base.OnPageLoad();
     }
 

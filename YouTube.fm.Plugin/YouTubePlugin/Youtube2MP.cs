@@ -253,9 +253,9 @@ namespace YouTubePlugin
         case VideoQuality.Normal:
           return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), node.InnerText);
         case VideoQuality.High:
-          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=18&ext=.flv", getIDSimple(url), node.InnerText);
+          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=18&ext=.mp4", getIDSimple(url), node.InnerText);
         case VideoQuality.HD:
-          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=22&ext=.flv", getIDSimple(url), node.InnerText);
+          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=22&ext=.mp4", getIDSimple(url), node.InnerText);
       }
       return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), node.InnerText);
     }

@@ -11,6 +11,7 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
+using Google.YouTube;
 
 
 namespace Test
@@ -36,14 +37,99 @@ namespace Test
 
       //search for puppies!
       query.Query = textBox1.Text;
-      //query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
+      query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
 
       YouTubeFeed videoFeed = service.Query(query);
+      YouTubeEntry en = (YouTubeEntry)videoFeed.Entries[0];
+      Google.GData.YouTube.MediaGroup gr = en.Media;
+      //printVideoFeed(videoFeed);
 
       //query = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(null));
       //PlaylistsFeed userPlaylists = service.GetPlaylists(query);
 
+
     }
+
+    //static void printVideoFeed(YouTubeFeed feed)
+    //{
+    //  foreach (YouTubeEntry entry in feed.Entries)
+    //  {
+    //    printVideoEntry(entry);
+    //  }
+    //}
+
+    //static void printVideoEntry(Video video)
+    //{
+    //  Console.WriteLine("Title: " + video.Title);
+    //  Console.WriteLine(video.Description);
+    //  Console.WriteLine("Keywords: " + video.Keywords);
+    //  Console.WriteLine("Uploaded by: " + video.Uploader);
+    //  if (video.YouTubeEntry.Location != null)
+    //  {
+    //    Console.WriteLine("Latitude: " + video.YouTubeEntry.Location.Latitude);
+    //    Console.WriteLine("Longitude: " + video.YouTubeEntry.Location.Longitude);
+    //  }
+    //  if (video.Media != null && video.Media.Rating != null)
+    //  {
+    //    Console.WriteLine("Restricted in: " + video.Media.Rating.Country);
+    //  }
+
+    //  if (video.IsDraft)
+    //  {
+    //    Console.WriteLine("Video is not live.");
+    //    string stateName = video.Status.Name;
+    //    if (stateName == "processing")
+    //    {
+    //      Console.WriteLine("Video is still being processed.");
+    //    }
+    //    else if (stateName == "rejected")
+    //    {
+    //      Console.Write("Video has been rejected because: ");
+    //      Console.WriteLine(video.Status.Value);
+    //      Console.Write("For help visit: ");
+    //      Console.WriteLine(video.Status.Help);
+    //    }
+    //    else if (stateName == "failed")
+    //    {
+    //      Console.Write("Video failed uploading because:");
+    //      Console.WriteLine(video.Status.Value);
+
+    //      Console.Write("For help visit: ");
+    //      Console.WriteLine(video.Status.Help);
+    //    }
+
+    //    if (video.ReadOnly == false)
+    //    {
+    //      Console.WriteLine("Video is editable by the current user.");
+    //    }
+
+    //    if (video.RatingAverage != -1)
+    //    {
+    //      Console.WriteLine("Average rating: " + video.RatingAverage);
+    //    }
+    //    if (video.ViewCount != -1)
+    //    {
+    //      Console.WriteLine("View count: " + video.ViewCount);
+    //    }
+
+    //    Console.WriteLine("Thumbnails:");
+    //    foreach (MediaThumbnail thumbnail in video.Thumbnails)
+    //    {
+    //      Console.WriteLine("\tThumbnail URL: " + thumbnail.Url);
+    //      Console.WriteLine("\tThumbnail time index: " + thumbnail.Time);
+    //    }
+
+    //    Console.WriteLine("Media:");
+    //    foreach (Google.GData.YouTube.MediaContent mediaContent in video.Contents)
+    //    {
+    //      Console.WriteLine("\tMedia Location: " + mediaContent.Url);
+    //      Console.WriteLine("\tMedia Type: " + mediaContent.Format);
+    //      Console.WriteLine("\tDuration: " + mediaContent.Duration);
+    //    }
+    //  }
+    //}
+
+
 
     private string getIDSimple(string googleID)
     {

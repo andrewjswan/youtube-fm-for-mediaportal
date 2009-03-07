@@ -193,7 +193,7 @@ namespace YouTubePlugin
 
     public VideoQuality SelectQuality(YouTubeEntry vid)
     {
-      switch (_setting.VideoQuality)
+      switch (Youtube2MP._settings.VideoQuality)
       {
         case 0:
           return VideoQuality.Normal;
