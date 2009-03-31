@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Net;
 using System.Windows.Forms;
 using YouTubePlugin.DataProvider;
 
@@ -12,13 +13,14 @@ using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
-
+using YouTubePlugin;
 
 namespace Test
 {
   public partial class Form1 : Form
   {
     YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
+    YouTubeRequest request = new YouTubeRequest(new YouTubeRequestSettings("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg"));
 
     public Form1()
     {
@@ -42,10 +44,20 @@ namespace Test
       YouTubeFeed videoFeed = service.Query(query);
       YouTubeEntry en = (YouTubeEntry)videoFeed.Entries[0];
       Google.GData.YouTube.MediaGroup gr = en.Media;
-      //printVideoFeed(videoFeed);
 
-      //query = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(null));
-      //PlaylistsFeed userPlaylists = service.GetPlaylists(query);
+      VideoInfo info = new VideoInfo();
+      info.Get("yUHNUjEs7rQ");
+      //Video v = request.Retrieve<Video>(videoEntryUrl);
+     
+
+
+      //Feed<Comment> comments = request.GetComments(v);
+
+      //string cm = "";
+      //foreach (Comment c in comments.Entries)
+      //{
+      //  cm += c.Author + c.Content + "------------------------------------------";
+      //}
 
 
     }

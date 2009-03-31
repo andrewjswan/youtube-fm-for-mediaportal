@@ -260,6 +260,7 @@ namespace YouTubePlugin
       this.checkBox_time.TabIndex = 7;
       this.checkBox_time.Text = "Ask for time period";
       this.checkBox_time.UseVisualStyleBackColor = true;
+      this.checkBox_time.CheckedChanged += new System.EventHandler(this.checkBox_time_CheckedChanged);
       // 
       // checkBox_filter
       // 

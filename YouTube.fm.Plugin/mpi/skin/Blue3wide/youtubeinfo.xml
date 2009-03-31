@@ -33,7 +33,7 @@
       <type>fadelabel</type>
       <id>101</id>
       <posX>1173</posX>
-      <posY>520</posY>
+      <posY>470</posY>
       <width>711</width>
       <label>#selecteditem</label>
       <font>font14</font>
@@ -77,8 +77,8 @@
       <description>Video Image</description>
       <type>videowindow</type>
       <id>1</id>
-      <posX>710</posX>
-      <posY>180</posY>
+      <posX>50</posX>
+      <posY>80</posY>
       <width>480</width>
       <height>324</height>	  
 	   <action>18</action>
@@ -116,7 +116,7 @@
         <type>thumbnailpanel</type>
         <id>50</id>
         <posX>30</posX>
-        <posY>550</posY>		
+        <posY>500</posY>		
         <width>1300</width>
         <height>300</height>
         <spinWidth>24</spinWidth>
@@ -124,9 +124,34 @@
         <spinPosX>60</spinPosX>
         <spinPosY>687</spinPosY>
         <spinAlign>Right</spinAlign>
-        <scrollOffset>2</scrollOffset>
+        <scrollOffset>1</scrollOffset>
         <onright>1</onright>
-		<spinCanFocus>no</spinCanFocus>
+    	 <unfocusedAlpha>120</unfocusedAlpha>
+		 <imageFolderFocus>thumbborder.png</imageFolderFocus>
+
+
+		
+		            <!-- smallicons -->
+            <itemWidth>185</itemWidth>
+            <itemHeight>200</itemHeight>
+            <textureWidth>170</textureWidth>
+            <textureHeight>170</textureHeight>
+            <thumbWidth>156</thumbWidth>
+            <thumbHeight>156</thumbHeight>
+            <thumbPosX>7</thumbPosX>
+            <thumbPosY>7</thumbPosY>
+            <!-- largeicons -->
+            <itemWidthBig>185</itemWidthBig>
+            <itemHeightBig>200</itemHeightBig>
+            <textureWidthBig>170</textureWidthBig>
+            <textureHeightBig>170</textureHeightBig>
+            <thumbWidthBig>156</thumbWidthBig>
+            <thumbHeightBig>156</thumbHeightBig>
+            <thumbPosXBig>7</thumbPosXBig>
+            <thumbPosYBig>7</thumbPosYBig>
+            <thumbZoom>yes</thumbZoom>
+            <enableFocusZoom>yes</enableFocusZoom>
+			
 	<onleft>1</onleft>
 	
 	<textureUp>page_up_nofocus.png</textureUp>

@@ -23,6 +23,7 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
+using Google.YouTube;
 
 
 namespace YouTubePlugin
@@ -40,9 +41,18 @@ namespace YouTubePlugin
     public void SetLabels(YouTubeEntry vid, string type)
     {
       ClearLabels(type);
-      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", vid.Rating.Average.ToString());
-      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image", GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
-      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments",vid.Comments.ToString());
+      try
+      {
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", vid.Rating.Average.ToString());
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.ViewCount", vid.Statistics.ViewCount);
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount", vid.Statistics.WatchCount);
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount", vid.Statistics.FavoriteCount);
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image", GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
+      }
+      catch
+      {
+
+      }
       if (vid.Title.Text.Contains("-"))
       {
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", vid.Title.Text.Split('-')[1]);
@@ -58,20 +68,17 @@ namespace YouTubePlugin
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", vid.Title.Text);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
       }
-      //GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Image", GetLocalImageFileName(provider.GetArtistImage(vid.Artist.Id,400)));
-      //if (vid.Albums.Count > 0)
-      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Album1.Title", vid.Albums[0].Release.Title);
-      //if (vid.Albums.Count > 1)
-      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Album2.Title", vid.Albums[1].Release.Title);
-      //if (vid.Categories.Count > 0)
+      //if (type == "NowPlaying")
       //{
-      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Category1.Title", vid.Categories[0].Name);
-      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Category1.Type", vid.Categories[0].Type.ToString());
-      //}
-      //if (vid.Categories.Count > 1)
-      //{
-      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Category2.Title", vid.Categories[1].Name);
-      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Category2.Type", vid.Categories[1].Type.ToString());
+      //  Video v = new Video();
+      //  v.YouTubeEntry = vid;
+      //  Feed<Comments> comments = Youtube2MP.request.GetComments(v);
+      //  string cm = "";
+      //  foreach (Comment c in comments.Entries)
+      //  {
+      //    cm += c.Author + c.Content + "------------------------------------------";
+      //  }
+      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", cm);
       //}
     }
 
@@ -79,6 +86,9 @@ namespace YouTubePlugin
     {
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.ViewCount", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
@@ -99,7 +109,14 @@ namespace YouTubePlugin
   
     public string GetBestUrl(ExtensionCollection<MediaThumbnail> th)
     {
-      return th[th.Count - 1].Url;
+      if (th.Count > 0)
+      {
+        return th[th.Count - 1].Url;
+      }
+      else
+      {
+        return string.Empty;
+      }
     }
 
     public string GetLocalImageFileName(string strURL)
@@ -168,7 +185,11 @@ namespace YouTubePlugin
         }
         else
         {
-          VideoQuality qa = SelectQuality(vid);
+          VideoInfo qa = SelectQuality(vid);
+          
+          if (qa.Quality == VideoQuality.Unknow)
+            return;
+          
           if (g_Player.PlayVideoStream(Youtube2MP.StreamPlaybackUrl(vid, qa)))
             isplaying = true;
         }
@@ -191,59 +212,83 @@ namespace YouTubePlugin
       }
     }
 
-    public VideoQuality SelectQuality(YouTubeEntry vid)
+    public VideoInfo SelectQuality(YouTubeEntry vid)
     {
+      VideoInfo info = new VideoInfo();
+      info.Get(Youtube2MP.getIDSimple(vid.AlternateUri.Content));
+      if (!string.IsNullOrEmpty(info.Reason))
+      {
+        Err_message(info.Reason);
+        info.Quality = VideoQuality.Unknow;
+        return info;
+      }
+
       switch (Youtube2MP._settings.VideoQuality)
       {
         case 0:
-          return VideoQuality.Normal;
+          info.Quality = VideoQuality.Normal;
+          break;
         case 1:
-          return VideoQuality.High;
+          info.Quality = VideoQuality.High;
+          break;
         case 2:
-          return VideoQuality.HD;
+          info.Quality = VideoQuality.HD;
+          break;
         case 3:
           {
             string title = vid.Title.Text;
             if (title.Contains("HQ"))
-              return VideoQuality.High;
+              info.Quality = VideoQuality.High;
             if (title.Contains("HD"))
-              return VideoQuality.HD;
+              info.Quality = VideoQuality.HD;
             break;
           }
         case 4:
           {
             GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
-            if (dlg == null) return VideoQuality.Normal;
+            if (dlg == null) info.Quality = VideoQuality.Normal;
             dlg.Reset();
             dlg.SetHeading("Select video quality");
             dlg.Add("Normal quality");
             dlg.Add("High quality");
-            dlg.Add("HD quality");
+            if (info.FmtMap.Contains("22/"))
+            {
+              dlg.Add("HD quality");
+            }
             dlg.DoModal(GetID);
-            if (dlg.SelectedId == -1) return VideoQuality.Normal;
+            if (dlg.SelectedId == -1) info.Quality = VideoQuality.Unknow;
             switch (dlg.SelectedLabel)
             {
               case 0:
-                return VideoQuality.Normal;
+                info.Quality = VideoQuality.Normal;
+                break;
               case 1:
-                return VideoQuality.High;
+                info.Quality = VideoQuality.High;
+                break;
               case 2:
-                return VideoQuality.HD;
+                info.Quality = VideoQuality.HD;
+                break;
             }
           }
           break;
       }
-      return VideoQuality.Normal;
+      return info;
     }
 
     void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
     {
-      g_Player.Release();
-      g_Player.PlayBackStopped -= g_Player_PlayBackStopped;
-      ClearLabels("NowPlaying");
+      try
+      {
+        g_Player.Release();
+        g_Player.PlayBackStopped -= g_Player_PlayBackStopped;
+        ClearLabels("NowPlaying");
+      }
+      catch
+      {
+      }
     }
 
-    public void AddItemToPlayList(GUIListItem pItem, VideoQuality qa)
+    public void AddItemToPlayList(GUIListItem pItem, VideoInfo qa)
     {
       playlistPlayer = PlayListPlayer.SingletonPlayer;
       PlayList playList;
@@ -254,7 +299,7 @@ namespace YouTubePlugin
       AddItemToPlayList(pItem, ref playList, qa);
     }
 
-    public void AddItemToPlayList(GUIListItem pItem, ref PlayList playList,VideoQuality qa)
+    public void AddItemToPlayList(GUIListItem pItem, ref PlayList playList,VideoInfo qa)
     {
       if (playList == null || pItem == null)
         return;

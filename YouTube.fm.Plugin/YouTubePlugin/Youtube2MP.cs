@@ -19,6 +19,7 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
+using Google.YouTube;
 
 namespace YouTubePlugin
 {
@@ -27,17 +28,19 @@ namespace YouTubePlugin
     Normal = 0,
     High = 1,
     HD = 2,
+    Unknow = 3,
   }
 
   static public class Youtube2MP
   {
     public static YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
 
+    public static YouTubeRequest request = new YouTubeRequest(new YouTubeRequestSettings("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg"));
     public static Settings _settings;
 
     public static Dictionary<string, YouTubeEntry> UrlHolder = new Dictionary<string, YouTubeEntry>();
 
-    public static string StreamPlaybackUrl(YouTubeEntry vid, VideoQuality qu)
+    public static string StreamPlaybackUrl(YouTubeEntry vid, VideoInfo qu)
     {
       //return youtubecatch1(vid.Id.AbsoluteUri);
       string url = youtubecatch1(vid.AlternateUri.Content, qu);
@@ -52,7 +55,7 @@ namespace YouTubePlugin
       return url;
     }
 
-    public static string StreamPlaybackUrl(string vidurl, VideoQuality qu)
+    public static string StreamPlaybackUrl(string vidurl, VideoInfo qu)
     {
       return youtubecatch1("/" + getIDSimple(vidurl), qu);
     }
@@ -118,7 +121,14 @@ namespace YouTubePlugin
         song.Artist = title;
 
       song.FileName = fileurl;
-      song.Duration = Convert.ToInt32(en.Duration.Seconds);
+      try
+      {
+        song.Duration = Convert.ToInt32(en.Duration.Seconds);
+      }
+      catch
+      {
+        song.Duration = 0;
+      }
       song.Track = 0;
       song.URL = fileurl;
       song.TimesPlayed = 1;
@@ -236,28 +246,32 @@ namespace YouTubePlugin
    
     }
 
-    static public string youtubecatch1(string url,VideoQuality qa)
+    static public string youtubecatch1(string url,VideoInfo qa)
     {
-      Stream response = RetrieveData(string.Format("http://www.youtube.com/api2_rest?method=youtube.videos.get_video_token&video_id={0}", getIDSimple(url)));
-      if (response == null)
-        return "";
-      StreamReader reader = new StreamReader(response, System.Text.Encoding.UTF8, true);
-      String sXmlData = reader.ReadToEnd().Replace('\0', ' ');
-      response.Close();
-      reader.Close();
-      XmlDocument doc = new XmlDocument();
-      doc.LoadXml(sXmlData);
-      XmlNode node = doc.SelectSingleNode("/ut_response/t");
-      switch (qa)
+      if (string.IsNullOrEmpty(qa.Token) || !qa.IsInited)
+      {
+        qa.Get(getIDSimple(url));
+      }
+      //Stream response = RetrieveData(string.Format("http://www.youtube.com/api2_rest?method=youtube.videos.get_video_token&video_id={0}", getIDSimple(url)));
+      //if (response == null)
+      //  return "";
+      //StreamReader reader = new StreamReader(response, System.Text.Encoding.UTF8, true);
+      //String sXmlData = reader.ReadToEnd().Replace('\0', ' ');
+      //response.Close();
+      //reader.Close();
+      //XmlDocument doc = new XmlDocument();
+      //doc.LoadXml(sXmlData);
+      //XmlNode node = doc.SelectSingleNode("/ut_response/t");
+      switch (qa.Quality)
       {
         case VideoQuality.Normal:
-          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), node.InnerText);
+          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), qa.Token);
         case VideoQuality.High:
-          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=18&ext=.mp4", getIDSimple(url), node.InnerText);
+          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=18&ext=.mp4", getIDSimple(url), qa.Token);
         case VideoQuality.HD:
-          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=22&ext=.mp4", getIDSimple(url), node.InnerText);
+          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=22&ext=.mp4", getIDSimple(url), qa.Token);
       }
-      return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), node.InnerText);
+      return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), qa.Token);
     }
 
     static private Stream RetrieveData(string sUrl)

@@ -41,6 +41,8 @@ namespace YouTubePlugin
 
 #region variabiles
     List<GUIListItem> relatated = new List<GUIListItem>();
+    public System.Timers.Timer infoTimer = new System.Timers.Timer(0.3 * 1000);
+
 #endregion
 
     public override int GetID
@@ -57,21 +59,36 @@ namespace YouTubePlugin
 
     public YouTubeGUIInfo()
     {
-
+      updateStationLogoTimer.AutoReset = true;
+      updateStationLogoTimer.Enabled = false;
+      updateStationLogoTimer.Elapsed += new ElapsedEventHandler(OnDownloadTimedEvent);
+      Client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadLogoEnd);
     }
 
     public override bool Init()
     {
-      updateStationLogoTimer.Elapsed += new ElapsedEventHandler(updateStationLogoTimer_Elapsed);
-      updateStationLogoTimer.Enabled = false;
+      infoTimer.Elapsed += new ElapsedEventHandler(updateStationLogoTimer_Elapsed);
+      infoTimer.Enabled = false;
       g_Player.PlayBackStarted += new g_Player.StartedHandler(g_Player_PlayBackStarted);
-      updateStationLogoTimer.Interval = 0.5 * 1000;
+      infoTimer.Interval = 0.5 * 1000;
       return Load(GUIGraphicsContext.Skin + @"\youtubeinfo.xml");
     }
 
     void g_Player_PlayBackStarted(g_Player.MediaType type, string filename)
     {
-      updateStationLogoTimer.Enabled = true; 
+      try
+      {
+        if (listControl != null)
+        {
+          GUIControl.ClearControl(GetID, listControl.GetID);
+          relatated.Clear();
+        }
+        infoTimer.Enabled = true;
+      }
+      catch
+      {
+
+      }
     }
 
     protected override void OnShowContextMenu()
@@ -100,10 +117,14 @@ namespace YouTubePlugin
     void updateStationLogoTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
       imgFanArt.Visible = false;
-      updateStationLogoTimer.Enabled = false;
-      Log.Error(Youtube2MP.NowPlayingSong.Artist);
+      infoTimer.Enabled = false;
       if (Youtube2MP.NowPlayingSong != null)
       {
+        GUIPropertyManager.SetProperty("#Play.Current.Title",Youtube2MP.NowPlayingSong.Title );
+        GUIPropertyManager.SetProperty("#Play.Current.Artist", Youtube2MP.NowPlayingSong.Artist);
+        GUIPropertyManager.SetProperty("#Play.Current.Thumb", GetBestUrl(Youtube2MP.NowPlayingEntry.Media.Thumbnails));
+        
+        LoadRelatated();
         HTBFanArt fanart = new HTBFanArt();
         string file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
         if (!File.Exists(file))
@@ -126,7 +147,6 @@ namespace YouTubePlugin
           GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
           imgFanArt.Visible = true;
         }
-        LoadRelatated();
         GUIControl.FocusControl(GetID, listControl.GetID);
       }
       else
@@ -234,26 +254,26 @@ namespace YouTubePlugin
         {
           MediaPortal.Util.Utils.SetDefaultIcons(item);
           item.OnRetrieveArt += new GUIListItem.RetrieveCoverArtHandler(item_OnRetrieveArt);
+          DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
           //DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
         }
         item.MusicTag = entry;
         listControl.Add(item);
         relatated.Add(item);
       }
+      updateStationLogoTimer.Enabled = true; ;
     }
 
     void item_OnRetrieveArt(GUIListItem item)
     {
       YouTubeEntry entry = item.MusicTag as YouTubeEntry;
       string imageFile = GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
-      if (!File.Exists(imageFile))
+      if (File.Exists(imageFile))
       {
-        WebClient client = new WebClient();
-        client.DownloadFile(new Uri(GetBestUrl(entry.Media.Thumbnails)), imageFile);
+        item.ThumbnailImage = imageFile;
+        item.IconImage = "defaultVideoBig.png";
+        item.IconImageBig = imageFile;
       }
-      item.ThumbnailImage = imageFile;
-      item.IconImage = "defaultVideoBig.png";
-      item.IconImageBig = imageFile;
     }
 
   }

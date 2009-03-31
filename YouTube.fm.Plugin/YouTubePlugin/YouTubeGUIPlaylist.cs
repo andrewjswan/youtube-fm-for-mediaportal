@@ -255,23 +255,32 @@ namespace YouTubePlugin
 
     void g_Player_PlayBackEnded(g_Player.MediaType type, string filename)
     {
-      if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 0)
+      try
       {
-        playlistPlayer.CurrentPlaylistType = _playlistType;
-        Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
-        if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 1)
+        if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 0)
         {
-          playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, VideoQuality.Normal);
+          playlistPlayer.CurrentPlaylistType = _playlistType;
+          Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
+          if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 1)
+          {
+            playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, new VideoInfo());
+          }
         }
+      }
+      catch
+      {
       }
     }
 
     void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
     {
-      //if (filename.Contains("youtube."))
-      //{
+      try
+      {
         ClearLabels("NowPlaying");
-      //}
+      }
+      catch
+      {
+      }
     }
 
     public override void DeInit()
@@ -360,50 +369,38 @@ namespace YouTubePlugin
     // Fires every time - especially ACTION_MUSIC_PLAY even if we're already playing stuff
     private void OnNewAction(Action action)
     {
-      if (action.wID == Youtube2MP._settings.InstantAction)
+      try
       {
-        if (Youtube2MP._settings.InstantAction == Action.ActionType.ACTION_KEY_PRESSED)
+        if (action.wID == Youtube2MP._settings.InstantAction)
         {
-          if (action.m_key != null)
+          if (Youtube2MP._settings.InstantAction == Action.ActionType.ACTION_KEY_PRESSED)
           {
-            if (action.m_key.KeyChar == Youtube2MP._settings.InstantChar)
+            if (action.m_key != null)
             {
-              InstantPlay();
+              if (action.m_key.KeyChar == Youtube2MP._settings.InstantChar)
+              {
+                InstantPlay();
+              }
             }
           }
+          else
+          {
+            InstantPlay();
+          }
         }
-        else
+        if (action.wID == Action.ActionType.ACTION_NEXT_ITEM)
         {
-          InstantPlay();
+          if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 0)
+          {
+            playlistPlayer.CurrentPlaylistType = _playlistType;
+            Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
+            playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, new VideoInfo());
+          }
         }
       }
-      if (action.wID == Action.ActionType.ACTION_NEXT_ITEM)
+      catch
       {
-        if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 0)
-        {
-          playlistPlayer.CurrentPlaylistType = _playlistType;
-          Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
-          playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, VideoQuality.Normal);
-        }
       }
-            //if ((action.wID == Action.ActionType.ACTION_MUSIC_PLAY || action.wID == Action.ActionType.ACTION_PLAY) && GUIWindowManager.ActiveWindow == GetID)
-      //  try
-      //  {
-      //    // Avoid double action if e.g. jumped to playlist screen.
-      //    if (base.PlayNowJumpTo != PlayNowJumpToType.CurrentPlaylistAlways && base.PlayNowJumpTo != PlayNowJumpToType.CurrentPlaylistMultipleItems)
-      //    {
-      //      if (playlistPlayer.CurrentPlaylistType != PlayListType.PLAYLIST_MUSIC)
-      //        playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MUSIC;
-
-      //      playlistPlayer.Play(facadeView.SelectedListItemIndex);
-      //      bool didJump = DoPlayNowJumpTo(facadeView.Count);
-      //      Log.Debug("GUIMusicPlaylist: Doing play now jump to: {0} ({1})", PlayNowJumpTo, didJump);
-      //    }
-      //  }
-      //  catch (Exception ex)
-      //  {
-      //    Log.Error("GUIMusicPlaylist: Error in ACTION_PLAY: {0}", ex.Message);
-      //  }
     }
 
     public override void OnAction(Action action)
@@ -1001,7 +998,7 @@ namespace YouTubePlugin
       playlistPlayer.Reset();
       if (!Youtube2MP._settings.UseYouTubePlayer)
       {
-        playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName, VideoQuality.Normal);
+        playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName, new VideoInfo());
       }
       playlistPlayer.Play(iItem);
       SelectCurrentPlayingSong();
@@ -1036,28 +1033,34 @@ namespace YouTubePlugin
 
     void OnThreadMessage(GUIMessage message)
     {
-      switch (message.Message)
+      try
       {
-        case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
-          ClearScrobbleStartTrack();
-          break;
+        switch (message.Message)
+        {
+          case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
+            ClearScrobbleStartTrack();
+            break;
 
-        //special case for when the next button is pressed - stopping the prev song does not cause a Playback_Ended event
-        case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STARTED:
-          if (playlistPlayer.CurrentPlaylistType == _playlistType && playlistPlayer.CurrentSong != 0)
-          {
-            if (!Youtube2MP._settings.UseYouTubePlayer)
-              DoScrobbleLookups();
-          }
-          break;
-        // delaying internet lookups for smooth playback start
-        case GUIMessage.MessageType.GUI_MSG_PLAYING_10SEC:
-          if (playlistPlayer.CurrentPlaylistType == _playlistType && ScrobblerOn && _enableScrobbling) // && playlistPlayer.CurrentSong != 0)
-          {
-            if (Youtube2MP._settings.UseYouTubePlayer)
-              DoScrobbleLookups();
-          }
-          break;
+          //special case for when the next button is pressed - stopping the prev song does not cause a Playback_Ended event
+          case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STARTED:
+            if (playlistPlayer.CurrentPlaylistType == _playlistType && playlistPlayer.CurrentSong != 0)
+            {
+              if (!Youtube2MP._settings.UseYouTubePlayer)
+                DoScrobbleLookups();
+            }
+            break;
+          // delaying internet lookups for smooth playback start
+          case GUIMessage.MessageType.GUI_MSG_PLAYING_10SEC:
+            if (playlistPlayer.CurrentPlaylistType == _playlistType && ScrobblerOn && _enableScrobbling) // && playlistPlayer.CurrentSong != 0)
+            {
+              if (Youtube2MP._settings.UseYouTubePlayer)
+                DoScrobbleLookups();
+            }
+            break;
+        }
+      }
+      catch
+      {
       }
     }
 
@@ -1093,7 +1096,7 @@ namespace YouTubePlugin
         GUIWaitCursor.Show();
         try
         {
-          TimeSpan totalPlayingTime = new TimeSpan();
+          //TimeSpan totalPlayingTime = new TimeSpan();
           GUIListItem SelectedItem = facadeView.SelectedListItem;
           if (SelectedItem != null)
           {
@@ -1423,7 +1426,7 @@ namespace YouTubePlugin
           playlistItem.MusicTag = entry;
           if (!Youtube2MP._settings.UseYouTubePlayer)
           {
-            playlistItem.FileName = Youtube2MP.StreamPlaybackUrl(entry, VideoQuality.Normal);
+            playlistItem.FileName = Youtube2MP.StreamPlaybackUrl(entry, new VideoInfo());
           }
         }
       }
@@ -1811,7 +1814,7 @@ namespace YouTubePlugin
         {
           if (Youtube2MP.UrlHolder.ContainsKey(filename))
           {
-            filename = Youtube2MP.StreamPlaybackUrl(Youtube2MP.UrlHolder[filename], VideoQuality.Normal);
+            filename = Youtube2MP.StreamPlaybackUrl(Youtube2MP.UrlHolder[filename], new VideoInfo());
           }
         }
       try
@@ -1833,7 +1836,7 @@ namespace YouTubePlugin
 
           if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetNextItem() != null)
           {
-            playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, VideoQuality.Normal);
+            playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, new VideoInfo());
           }
 
           Thread stateThread = new Thread(new ParameterizedThreadStart(PlaybackStartedThread));

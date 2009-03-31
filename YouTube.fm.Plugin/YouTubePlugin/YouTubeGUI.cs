@@ -506,7 +506,7 @@ namespace YouTubePlugin
           if (qu != null)
           {
             YouTubeFeed vidr = service.Query(qu);
-            Log.Error(qu.Uri.ToString());
+            Log.Debug("Next page: {0}",qu.Uri.ToString());
             if (vidr.Entries.Count > 0)
             {
               SaveListState(true);
@@ -537,7 +537,14 @@ namespace YouTubePlugin
       // display an virtual keyboard
       if (_setting.UseSMSStyleKeyBoard)
       {
-        keyboard = (SmsStyledKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_SMS_KEYBOARD);
+        try
+        {
+          keyboard = (SmsStyledKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_SMS_KEYBOARD);
+        }
+        catch
+        {
+          keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
+        }
       }
       else
       {
@@ -656,7 +663,8 @@ namespace YouTubePlugin
       dlg.Add("Related Videos");
       dlg.Add("All videos from this user : "+videoEntry.Authors[0].Name);
       dlg.Add("Add to playlist");
-      dlg.Add("Add to favorites"); 
+      dlg.Add("Add to favorites");
+      dlg.Add("Options"); 
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
         return;
@@ -704,7 +712,11 @@ namespace YouTubePlugin
           break;
         case 2:
           {
-            AddItemToPlayList(selectedItem, SelectQuality(videoEntry));
+            VideoInfo inf = SelectQuality(videoEntry);
+            if (inf.Quality != VideoQuality.Unknow)
+            {
+              AddItemToPlayList(selectedItem, inf);
+            }
           }
           break;
         case 3:
@@ -719,7 +731,51 @@ namespace YouTubePlugin
             }
           }
           break;
+        case 4:
+          DoOptions();
+          break;
       }
+    }
+
+
+    private void DoOptions()
+    {
+      bool shouldexit = false;
+            GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+      if (dlg == null)
+        return;
+      do
+      {
+        dlg.Reset();
+        dlg.SetHeading(498); // menu
+        dlg.Add(string.Format("NowPlaying in place of Fullscreen: {0}", _setting.ShowNowPlaying));
+        dlg.Add(string.Format("Ask for time period: {0}", _setting.Time));
+        dlg.Add(string.Format("Enable music videos filtering: {0}", _setting.MusicFilter));
+        dlg.Add(string.Format("Use extrem filter music videos: {0}", _setting.UseExtremFilter));
+        dlg.Add(string.Format("Use SMS style keyboard: {0}", _setting.UseSMSStyleKeyBoard));
+        dlg.DoModal(GetID);
+        if (dlg.SelectedId == -1)
+          return;
+        switch (dlg.SelectedLabel)
+        {
+          case 0:
+            _setting.ShowNowPlaying = !_setting.ShowNowPlaying;
+            break;
+          case 1:
+            _setting.Time = !_setting.Time;
+            break;
+          case 2:
+            _setting.MusicFilter = !_setting.MusicFilter;
+            break;
+          case 3:
+            _setting.UseExtremFilter = !_setting.UseExtremFilter;
+            break;
+          case 4:
+            _setting.UseSMSStyleKeyBoard = !_setting.UseSMSStyleKeyBoard;
+            break;
+        }
+
+      } while (!shouldexit);
     }
 
     private void DoInfo()
@@ -730,21 +786,7 @@ namespace YouTubePlugin
       //GUIWindowManager.ActivateWindow(27051);
     }
 
-    /// <summary>
-    /// Does the option.
-    /// </summary>
-    private void DoOption()
-    {
-      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
-      if (dlg == null)
-        return;
-      dlg.Reset();
-      dlg.SetHeading(127073); // menu
-      dlg.DoModal(GetID);
-      if (dlg.SelectedId == -1)
-        return;
-    }
-
+  
     /// <summary>
     /// Adds to favorites.
     /// </summary>
@@ -867,7 +909,7 @@ namespace YouTubePlugin
         MediaPortal.Util.Utils.SetDefaultIcons(item);
         listControl.Add(item);
       }
-      GUIPropertyManager.SetProperty("#header.label", videos.Title.Text);
+      GUIPropertyManager.SetProperty("#header.title", videos.Title.Text);
       updateStationLogoTimer.Enabled = false;
       downloaQueue.Clear();
       foreach (YouTubeEntry entry in videos.Entries)
@@ -904,16 +946,17 @@ namespace YouTubePlugin
             DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
           }
           item.MusicTag = entry;
+          item.OnItemSelected+=new GUIListItem.ItemSelectedHandler(item_OnItemSelected);
           listControl.Add(item);
         } 
       }
-      if (qu.NumberToRetrieve > 0 && listControl.Count >= qu.NumberToRetrieve)
+      if (qu.NumberToRetrieve > 0 && videos.TotalResults > qu.NumberToRetrieve)
       {
         GUIListItem item = new GUIListItem();
-        // and add station name & bitrate
         item.Label = string.Format("Next Page {0} - {1} ", qu.StartIndex + count, qu.StartIndex + qu.NumberToRetrieve + count);
         qu.StartIndex += qu.NumberToRetrieve;
-        item.Label2 = "";
+        item.Label = "";
+        item.Label2 = "Next page";
         item.IsFolder = true;
         MediaPortal.Util.Utils.SetDefaultIcons(item);
         item.MusicTag = qu;
@@ -928,15 +971,11 @@ namespace YouTubePlugin
       YouTubeEntry vid = item.MusicTag as YouTubeEntry ;
       if (vid != null)
       {
-        //if (File.Exists(Utils.GetLargeCoverArtName(Thumbs.MusicArtists, vid.Entry.Author.FullName)))
-        //{
-        //  listControl.FilmstripView.InfoImageFileName = Utils.GetLargeCoverArtName(Thumbs.MusicArtists, vid.Entry.Author.FullName);
-        //}
-        //else
-        //{
-        //  listControl.FilmstripView.InfoImageFileName = GetLocalImageFileName(vid.Entry.Thumbnail.Url);
-        //}
         SetLabels(vid, "Curent");
+      }
+      else
+      {
+        ClearLabels("Curent"); ;
       }
     }
 
