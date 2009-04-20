@@ -530,6 +530,11 @@ namespace YouTubePlugin
       //throw new Exception("The method or operation is not implemented.");
     }
 
+    private VirtualKeyboard LoadSMSKey()
+    {
+      return (SmsStyledKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_SMS_KEYBOARD); 
+    }
+
     private void DoSearch()
     {
       string searchString = "";
@@ -539,7 +544,7 @@ namespace YouTubePlugin
       {
         try
         {
-          keyboard = (SmsStyledKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_SMS_KEYBOARD);
+          keyboard = LoadSMSKey();
         }
         catch
         {

@@ -171,8 +171,7 @@ namespace Test
 
     private void button2_Click(object sender, EventArgs e)
     {
-      HTBFanArt prov = new HTBFanArt();
-      prov.Search("leona lewis");
+      textBox2.Text = System.Web.HttpUtility.UrlDecode(textBox2.Text);
     }
   }
 

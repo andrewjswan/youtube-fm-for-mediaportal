@@ -234,6 +234,7 @@ namespace YouTubePlugin
       // checkBox_useplayer
       // 
       this.checkBox_useplayer.AutoSize = true;
+      this.checkBox_useplayer.Enabled = false;
       this.checkBox_useplayer.Location = new System.Drawing.Point(292, 100);
       this.checkBox_useplayer.Name = "checkBox_useplayer";
       this.checkBox_useplayer.Size = new System.Drawing.Size(191, 17);

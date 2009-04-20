@@ -154,7 +154,7 @@ namespace YouTubePlugin
     protected View currentView = View.List;
     protected string _currentPlaying = string.Empty;
     public bool _announceNowPlaying = true;
-    public PlayListType _playlistType = PlayListType.PLAYLIST_VIDEO_TEMP;
+    public PlayListType _playlistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
 
     
     #endregion
@@ -255,12 +255,15 @@ namespace YouTubePlugin
 
     void g_Player_PlayBackEnded(g_Player.MediaType type, string filename)
     {
+      if (playlistPlayer.CurrentPlaylistType == _playlistType)
+      {
+        return;
+      }
       try
       {
         if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 0)
         {
-          playlistPlayer.CurrentPlaylistType = _playlistType;
-          Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
+          Log.Debug("YouTube Playlist : Geting next item PlayBack Url: {0}", _playlistType);
           if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 1)
           {
             playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, new VideoInfo());
@@ -274,6 +277,10 @@ namespace YouTubePlugin
 
     void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
     {
+      if (playlistPlayer.CurrentPlaylistType == _playlistType)
+      {
+        return;
+      }
       try
       {
         ClearLabels("NowPlaying");
@@ -1810,6 +1817,11 @@ namespace YouTubePlugin
 
     private void OnPlayBackStarted(g_Player.MediaType type, string filename)
     {
+      if (playlistPlayer.CurrentPlaylistType == _playlistType)
+      {
+        return;
+      }
+
         if (!filename.Contains("youtube."))
         {
           if (Youtube2MP.UrlHolder.ContainsKey(filename))
@@ -1821,6 +1833,7 @@ namespace YouTubePlugin
       {
         if (filename.Contains("youtube."))
         {
+          Log.Debug("YouTube.fm playback started");
           YouTubeEntry en = new YouTubeEntry();
           Song song = new Song();
           Youtube2MP.YoutubeEntry2Song(filename, ref song, ref en);
@@ -2037,7 +2050,7 @@ namespace YouTubePlugin
             break;
           Thread.Sleep(1000);
         }
-        Log.Debug("Audioscrobbler plugin: Waited {0} seconds for reinit of submit track", i);
+        Log.Debug("YouTube.Fm plugin: Waited {0} seconds for reinit of submit track", i);
 
         for (i = 0; i < 15; i++)
         {
@@ -2045,20 +2058,20 @@ namespace YouTubePlugin
             break;
           Thread.Sleep(1000);
         }
-        Log.Debug("Audioscrobbler plugin: Waited {0} seconds for lookup of current track", i);
+        Log.Debug("YouTube.Fm plugin: Waited {0} seconds for lookup of current track", i);
 
         if (AudioscrobblerBase.CurrentPlayingSong.Artist != String.Empty)
         {
           // Don't hand over the reference        
           AudioscrobblerBase.CurrentSubmitSong = AudioscrobblerBase.CurrentPlayingSong.Clone();
-          Log.Info("Audioscrobbler plugin: Song loading thread sets submit song - {0}", AudioscrobblerBase.CurrentSubmitSong.ToLastFMMatchString(true));
+          Log.Info("YouTube.Fm plugin: Song loading thread sets submit song - {0}", AudioscrobblerBase.CurrentSubmitSong.ToLastFMMatchString(true));
         }
         else
-          Log.Debug("Audioscrobbler plugin: Song loading thread could not set the current for submit - {0}", AudioscrobblerBase.CurrentPlayingSong.ToLastFMMatchString(true));
+          Log.Debug("YouTube.Fm plugin: Song loading thread could not set the current for submit - {0}", AudioscrobblerBase.CurrentPlayingSong.ToLastFMMatchString(true));
       }
       catch (Exception ex)
       {
-        Log.Error("Audioscrobbler plugin: Error in song load thread {0}", ex.Message);
+        Log.Error("YouTube.Fm plugin: Error in song load thread {0}", ex.Message);
       }
     }
 

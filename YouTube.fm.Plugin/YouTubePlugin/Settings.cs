@@ -130,7 +130,7 @@ namespace YouTubePlugin
 
     public bool UseYouTubePlayer
     {
-      get { return useYouTubePlayer; }
+      get { return false; }
       set { useYouTubePlayer = value; }
     }
 
