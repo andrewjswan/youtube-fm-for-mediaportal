@@ -8,7 +8,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Client.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>e3014993-5933-41bd-90ba-e91b2fd1e594</Guid>
+			<Guid>9d013ce2-7a17-48c5-b95d-f9a91118b657</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.Extensions.dll</FileName>
@@ -17,7 +17,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.Extensions.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>b2836fc5-c72e-4e69-b2c8-037ff592f4bd</Guid>
+			<Guid>55083c6f-a9c5-4f95-99bc-9b2100df1cc1</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.YouTube.dll</FileName>
@@ -26,7 +26,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\Google.GData.YouTube.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>00efac15-9c6d-4f8b-a88c-ee15c6fd6896</Guid>
+			<Guid>ef8eb205-a282-4dbe-b2fa-8e0e03e08505</Guid>
 		</File>
 		<File>
 			<FileName>youtubeinfo.xml</FileName>
@@ -35,7 +35,7 @@
 			<Source>skin\Blue3wide\youtubeinfo.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>93c5d032-cb84-456e-ba77-dc16adbe90a9</Guid>
+			<Guid>1bcc12f2-4112-4c48-8630-b0fe51861062</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -44,7 +44,7 @@
 			<Source>skin\Blue3wide\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>08b890c4-f22e-49ea-8011-7fb357985112</Guid>
+			<Guid>1927e10b-d5c1-44c1-80d1-64754ba314aa</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlugin.dll</FileName>
@@ -53,7 +53,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>b065917b-cec6-4150-a1a4-f1dec384c062</Guid>
+			<Guid>1251b731-48dd-4c51-91d3-e982fb8a9be7</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -62,7 +62,7 @@
 			<Source>skin\Blue3wide\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>230b98b8-5adc-4a8b-947f-8f936eb92bac</Guid>
+			<Guid>9cd2f3bd-1cfe-4630-8cd7-41be066ec340</Guid>
 		</File>
 	</FileList>
 	<StringList />
@@ -75,7 +75,7 @@
 		<ProiectName>YouTube.fm</ProiectName>
 		<Author>Dukus</Author>
 		<UpdateURL>http://www.team-mediaportal.com</UpdateURL>
-		<Version>0.4.3</Version>
+		<Version>0.5</Version>
 		<Description />
 		<Group>Video/Movies</Group>
 		<Release>Beta</Release>
