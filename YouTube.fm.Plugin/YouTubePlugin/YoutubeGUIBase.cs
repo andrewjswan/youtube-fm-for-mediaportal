@@ -48,6 +48,7 @@ namespace YouTubePlugin
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount", vid.Statistics.WatchCount);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount", vid.Statistics.FavoriteCount);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image", GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", vid.Summary.Text);
       }
       catch
       {
@@ -68,18 +69,18 @@ namespace YouTubePlugin
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", vid.Title.Text);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
       }
-      //if (type == "NowPlaying")
-      //{
-      //  Video v = new Video();
-      //  v.YouTubeEntry = vid;
-      //  Feed<Comments> comments = Youtube2MP.request.GetComments(v);
-      //  string cm = "";
-      //  foreach (Comment c in comments.Entries)
-      //  {
-      //    cm += c.Author + c.Content + "------------------------------------------";
-      //  }
-      //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", cm);
-      //}
+      if (type == "NowPlaying")
+      {
+        Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.VideoId);
+        Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+        Feed<Comment> comments = Youtube2MP.request.GetComments(video);
+        string cm = "";
+        foreach (Comment c in comments.Entries)
+        {
+          cm += c.Content + "\n------------------------------------------\n";
+        }
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", cm);
+      }
     }
 
     public void ClearLabels(string type)
@@ -93,17 +94,12 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FanArt", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", " ");
     }
 
     public string FormatTitle(YouTubeEntry vid)
     {
-      //if (string.IsNullOrEmpty(_setting.Format_Title))
-      //  return vid.Video.Title;
-      //string s = _setting.Format_Title;
-      //s = s.Replace("%title%", vid.Video.Title);
-      //s = s.Replace("%artist%", vid.Artist.Name);
-      //s = s.Replace("%year%", vid.Video.CopyrightYear.ToString());
-      //s = s.Replace("%rating%", vid.Video.Rating.ToString());
+
       return string.Format("{0}", vid.Title.Text);
     }
   
@@ -237,9 +233,9 @@ namespace YouTubePlugin
         case 3:
           {
             string title = vid.Title.Text;
-            if (title.Contains("HQ"))
+            if (info.FmtMap.Contains("18"))
               info.Quality = VideoQuality.High;
-            if (title.Contains("HD"))
+            if (info.FmtMap.Contains("22"))
               info.Quality = VideoQuality.HD;
             break;
           }

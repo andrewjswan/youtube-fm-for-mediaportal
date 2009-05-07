@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <id>29052</id>
+  <defaultcontrol>50</defaultcontrol>
+  <allowoverlay>no</allowoverlay>
+  <define>#header.hover:hover_youtubefm.png</define>
+  <define>#header.title:YouTube Videos</define>
+  <define>#header.label:YouTube Videos</define>
+  <define>#header.image:-</define>
+  <controls>
+
+    <control>
+      <description>music background image</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1280</width>
+      <height>720</height>
+      <texture>#header.hover</texture>
+      <animation effect="fade" time="400" delay="0">WindowOpen</animation>
+    </control>
+    
+    <control>
+      <description>music overlay image</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1280</width>
+      <height>720</height>
+      <texture>movieviewbg.png</texture>
+    </control>
+
+    <control>
+      <description>Fan Art</description>
+      <type>image</type>
+      <id>95</id>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1280</width>
+      <height>720</height>
+      <texture>#Youtube.fm.NowPlaying.Video.FanArt</texture>
+      <animation effect="fade" start="0" end="100" time="3000">WindowOpen</animation>
+      <animation effect="fade" start="0" end="100" time="200">Visible</animation>
+      <animation effect="fade" start="100" end="0" time="200" delay="200">Hidden</animation>
+    </control>
+  
+    <control>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+      <description>Selected item Label</description>
+      <type>fadelabel</type>
+      <id>101</id>
+      <posX>1200</posX>
+      <posY>270</posY>
+      <width>600</width>
+      <label>#selecteditem</label>
+      <font>mediastream12tc</font>
+      <align>right</align>
+      <textcolor>White</textcolor>
+    </control>
+	
+    <control>
+      <type>imagelist</type>
+      <id>1</id>
+      <posX>380</posX>
+      <posY>160</posY>
+      <width>140</width>
+      <height>60</height>
+      <textureWidth>60</textureWidth>
+      <textureHeight>60</textureHeight>
+      <subitems>
+        <subitem>greystar.png</subitem>
+        <subitem>starbest.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>5</imagesToDraw>
+      <percentage>#Youtube.fm.NowPlaying.Video.Rating</percentage>
+    </control>
+
+    <control>
+      <description>Video Image</description>
+      <type>videowindow</type>
+      <id>1</id>
+      <posX>20</posX>
+      <posY>80</posY>
+      <width>350 	</width>
+      <height>200</height>	  
+	   <action>18</action>
+	  <textureFocus>tv_green_border.png</textureFocus>
+      <keepaspectratio>yes</keepaspectratio>
+	  <visible>Player.HasVideo</visible>
+    </control>
+
+    <control>
+      <description>Video Song Title</description>
+      <type>label</type>
+      <id>47</id>
+      <posX>370</posX>
+      <posY>130</posY>
+      <label>#Youtube.fm.NowPlaying.Video.Title</label>
+      <font>mediastream16tc</font>
+      <align>left</align>
+      <textcolor>ffffffff</textcolor>
+    </control>
+
+    <control>
+      <description>Video Artist Title</description>
+      <type>label</type>
+      <id>47</id>
+      <posX>380</posX>
+      <posY>100</posY>
+      <label>#Youtube.fm.NowPlaying.Artist.Name</label>
+      <font>mediastream16tc</font>
+      <align>left</align>
+      <textcolor>ffffffff</textcolor>
+    </control>
+
+				<control>
+
+					<description>Thumbnail Panel</description>
+					<type>thumbnailpanel</type>
+					<id>50</id>
+					<posX>17</posX>
+					<posY>310</posY>
+					<unfocusedAlpha>160</unfocusedAlpha>
+					<width>1254</width>
+					<height>420</height>
+					<imageFolder>defaultepisodethumb.png</imageFolder>
+					<imageFolderFocus>onlinevideos_thumbborder.png</imageFolderFocus>
+					<!-- smallicons -->
+					<itemWidth>156</itemWidth>
+					<itemHeight>118</itemHeight>
+					<textureWidth>154</textureWidth>
+					<textureHeight>116</textureHeight>
+					<thumbWidth>141</thumbWidth>
+					<thumbHeight>106</thumbHeight>
+					<thumbPosX>7</thumbPosX>
+					<thumbPosY>5</thumbPosY>
+					<!-- largeicons -->
+					<itemWidthBig>251</itemWidthBig>
+					<itemHeightBig>186</itemHeightBig>
+					<textureWidthBig>244</textureWidthBig>
+					<textureHeightBig>183</textureHeightBig>
+					<thumbWidthBig>226</thumbWidthBig>
+					<thumbHeightBig>170</thumbHeightBig>
+					<thumbPosXBig>9</thumbPosXBig>
+					<thumbPosYBig>6</thumbPosYBig>
+					<thumbZoom>no</thumbZoom>
+					<enableFocusZoom>no</enableFocusZoom>
+					<onleft>2</onleft>
+					<onright>2</onright>
+				</control>
+
+    <import>common.window.xml</import>
+    <import>common.time.xml</import>
+
+  </controls>
+</window>

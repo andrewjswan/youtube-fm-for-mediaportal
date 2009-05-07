@@ -45,6 +45,15 @@ namespace Test
       YouTubeEntry en = (YouTubeEntry)videoFeed.Entries[0];
       Google.GData.YouTube.MediaGroup gr = en.Media;
 
+      Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + en.VideoId);
+      Video video = request.Retrieve<Video>(videoEntryUrl);
+      Feed<Comment> comments = request.GetComments(video);
+        string cm = "";
+        foreach (Comment c in comments.Entries)
+        {
+          cm +=  c.Content + "\n------------------------------------------\n";
+        }
+
       VideoInfo info = new VideoInfo();
       info.Get("yUHNUjEs7rQ");
       //Video v = request.Retrieve<Video>(videoEntryUrl);

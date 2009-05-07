@@ -666,8 +666,10 @@ namespace YouTubePlugin
       dlg.Reset();
       dlg.SetHeading(498); // menu
       dlg.Add("Related Videos");
+      dlg.Add("Video responses for this video");
       dlg.Add("All videos from this user : "+videoEntry.Authors[0].Name);
       dlg.Add("Add to playlist");
+      dlg.Add("Add All to playlist");
       dlg.Add("Add to favorites");
       dlg.Add("Options"); 
       dlg.DoModal(GetID);
@@ -675,7 +677,7 @@ namespace YouTubePlugin
         return;
       switch (dlg.SelectedLabel)
       {
-        case 0: //playall
+        case 0: //relatated
           {
             if (videoEntry.RelatedVideosUri != null)
             {
@@ -697,6 +699,26 @@ namespace YouTubePlugin
           break;
         case 1: //relatated
           {
+            if (videoEntry.VideoResponsesUri != null)
+            {
+              YouTubeQuery query = new YouTubeQuery(videoEntry.VideoResponsesUri.Content);
+              YouTubeFeed vidr = service.Query(query);
+              if (vidr.Entries.Count > 0)
+              {
+                SaveListState(true);
+                addVideos(vidr, false, query);
+                UpdateGui();
+              }
+              else
+              {
+                Err_message("No response was found !");
+              }
+
+            }
+          }
+          break;
+        case 2: //relatated
+          {
             if (videoEntry.RelatedVideosUri != null)
             {
               YouTubeQuery query = new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", videoEntry.Authors[0].Name));
@@ -715,7 +737,7 @@ namespace YouTubePlugin
             }
           }
           break;
-        case 2:
+        case 3:
           {
             VideoInfo inf = SelectQuality(videoEntry);
             if (inf.Quality != VideoQuality.Unknow)
@@ -724,7 +746,22 @@ namespace YouTubePlugin
             }
           }
           break;
-        case 3:
+        case 4:
+          {
+            VideoInfo inf = SelectQuality(videoEntry);
+            bool a = Youtube2MP._settings.UseYouTubePlayer;
+            Youtube2MP._settings.UseYouTubePlayer = true;
+            foreach (GUIListItem item in listControl.ListView.ListItems)
+            {
+              VideoInfo info = new VideoInfo();
+              if (Youtube2MP._settings.VideoQuality == 4)
+                info.Quality = inf.Quality;
+              AddItemToPlayList(item, inf);
+            }
+            Youtube2MP._settings.UseYouTubePlayer = a;
+          }
+          break;
+        case 5:
           {
             try
             {
@@ -736,7 +773,7 @@ namespace YouTubePlugin
             }
           }
           break;
-        case 4:
+        case 6:
           DoOptions();
           break;
       }

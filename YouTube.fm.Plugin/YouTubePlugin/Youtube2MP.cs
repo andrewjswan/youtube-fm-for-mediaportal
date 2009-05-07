@@ -252,16 +252,10 @@ namespace YouTubePlugin
       {
         qa.Get(getIDSimple(url));
       }
-      //Stream response = RetrieveData(string.Format("http://www.youtube.com/api2_rest?method=youtube.videos.get_video_token&video_id={0}", getIDSimple(url)));
-      //if (response == null)
-      //  return "";
-      //StreamReader reader = new StreamReader(response, System.Text.Encoding.UTF8, true);
-      //String sXmlData = reader.ReadToEnd().Replace('\0', ' ');
-      //response.Close();
-      //reader.Close();
-      //XmlDocument doc = new XmlDocument();
-      //doc.LoadXml(sXmlData);
-      //XmlNode node = doc.SelectSingleNode("/ut_response/t");
+      if (qa.Quality == VideoQuality.HD && !qa.FmtMap.Contains("22/"))
+      {
+        qa.Quality = VideoQuality.High;
+      }
       switch (qa.Quality)
       {
         case VideoQuality.Normal:

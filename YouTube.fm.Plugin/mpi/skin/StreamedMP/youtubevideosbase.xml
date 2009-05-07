@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--version="1.0" encoding="utf-8" standalone="yes"-->
+<window>
+  <id>29050</id>
+  <defaultcontrol>2</defaultcontrol>
+  <allowoverlay>yes</allowoverlay>
+  <define>#header.label:</define>
+  <define>#header.image:youtubefm_logo.png</define>
+  <define>#header.hover:hover_youtubefm.png</define>
+  <controls>
+
+    <control>
+      <description>music background image</description>
+      <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
+      <type>image</type>
+      <id>0</id>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1280</width>
+      <height>720</height>
+      <texture>#header.hover</texture>
+    </control>
+
+    <control>
+      <description>music overlay image</description>
+      <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
+      <type>image</type>
+      <id>0</id>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1280</width>
+      <height>720</height>
+      <texture>mainoverlay.png</texture>
+    </control>
+
+
+    <control>
+      <id>500</id>
+      <type>image</type>
+      <posX>170</posX>
+      <posY>250</posY>
+      <width>348</width>
+      <height>348</height>
+      <visible>facadeview.list|facadeview.album+Control.HasFocus(50)</visible>
+      <texture flipY="true" diffuse="Thumb_Mask.png">#selectedthumb</texture>
+      <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <id>500</id>
+      <type>image</type>
+      <posX>170</posX>
+      <posY>250</posY>
+      <width>348</width>
+      <height>348</height>
+      <texture>albumnocover.png</texture>
+      <visible>facadeview.list+!control.hasthumb(500)|facadeview.album+!control.hasthumb(500)</visible>
+      <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
+    </control>
+
+    <control>
+      <id>500</id>
+      <type>image</type>
+      <posX>755</posX>
+      <posY>280</posY>
+      <width>348</width>
+      <height>348</height>
+      <texture flipY="true" diffuse="Thumb_Mask.png">#selectedthumb</texture>
+      <visible>facadeview.smallicons | facadeview.largeicons</visible>
+      <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
+    </control>
+
+
+    <control>
+      <type>actiongroup</type>
+      <description>action menu</description>
+      <defaultcontrol>2</defaultcontrol>
+      <onexit>50</onexit>
+      <dimColor>00ffffff</dimColor>
+      <control>
+        <type>image</type>
+        <posX>1002</posX>
+        <posY>0</posY>
+        <width>278</width>
+        <height>720</height>
+        <texture>hiddenmenu_right.png</texture>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
+
+      <control>
+        <id>0</id>
+        <label>YOUTUBE.FM </label>
+        <type>label</type>
+        <font>mediastream12tc</font>
+        <posX>1040</posX>
+        <posY>225</posY>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
+
+      <control>
+        <type>group</type>
+        <description>group element</description>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+        <posX>1040</posX>
+        <posY>250</posY>
+        <width>220</width>
+        <height>720</height>
+        <layout>StackLayout</layout>
+
+	<control>
+          <description>Search Button</description>
+          <type>button</type>
+          <id>5</id>	
+          <label>Search</label>
+          <onright>50</onright>
+          <ondown>6</ondown>
+        </control>
+
+	<control>
+	  <description>Search History</description>
+	  <type>button</type>
+	  <id>6</id>
+	  <label>Search History </label>
+	  <onright>50</onright>
+	  <onup>5</onup>
+	  <ondown>3</ondown>
+	</control>
+      
+	<control>
+          <description>Swich view</description>
+          <type>button</type>
+          <id>3</id>		
+          <label></label>
+          <onright>50</onright>
+          <onup>6</onup>
+          <ondown>2</ondown>
+	</control>
+	  
+	<control>
+          <description>Home</description>
+          <type>button</type>
+          <id>2</id>	
+          <label>Views</label>
+          <onright>50</onright>
+          <onup>3</onup>
+          <ondown>7</ondown>
+	</control>
+      
+	<control>
+          <description>Playlist</description>
+          <type>button</type>
+          <id>7</id>
+          <label>Playlist</label>
+          <onright>50</onright>
+          <onup>2</onup>
+          <ondown>8</ondown>
+        </control>
+
+	<control>
+          <description>Now playing</description>
+          <type>button</type>
+          <id>8</id>
+          <label>Now playing</label>
+          <onright>50</onright>
+          <onup>7</onup>
+          <ondown>50</ondown>
+        </control>
+	   
+        <control>
+          <description>Lastfmbutton</description>
+          <type>button</type>
+          <id>106</id>
+          <width>50</width>
+          <height>45</height>
+          <hyperlink>7890</hyperlink>
+          <onright>50</onright>
+          <onup>10</onup>
+          <onleft>105</onleft>
+          <ondown>99</ondown>
+        </control>
+
+      </control>
+    </control>
+    <import>common.facade.music.xml</import>
+    <import>common.window.xml</import>
+    <import>common.time.xml</import>
+  </controls>
+</window>

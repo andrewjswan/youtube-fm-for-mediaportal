@@ -92,6 +92,31 @@ namespace YouTubePlugin
     {
       Items.Clear();
       Quality = VideoQuality.Normal;
+      switch (Youtube2MP._settings.VideoQuality)
+      {
+        case 0:
+          Quality = VideoQuality.Normal;
+          break;
+        case 1:
+          Quality = VideoQuality.High;
+          break;
+        case 2:
+          Quality = VideoQuality.HD;
+          break;
+        case 3:
+          {
+            if (FmtMap.Contains("18"))
+              Quality = VideoQuality.High;
+            if (FmtMap.Contains("22/"))
+              Quality = VideoQuality.HD;
+            break;
+          }
+        case 4:
+          {
+            Quality = VideoQuality.High;
+          }
+          break;
+      }
       IsInited = false;
     }
 
