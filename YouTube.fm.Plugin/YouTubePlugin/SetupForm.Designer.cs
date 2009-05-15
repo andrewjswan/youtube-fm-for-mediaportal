@@ -64,12 +64,18 @@ namespace YouTubePlugin
       this.textBox_char = new System.Windows.Forms.TextBox();
       this.label5 = new System.Windows.Forms.Label();
       this.comboBox_action = new System.Windows.Forms.ComboBox();
+      this.tabPage4 = new System.Windows.Forms.TabPage();
+      this.button_getdir = new System.Windows.Forms.Button();
+      this.textBox_downloaddir = new System.Windows.Forms.TextBox();
+      this.label7 = new System.Windows.Forms.Label();
+      this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.tabPage2.SuspendLayout();
       this.tabPage3.SuspendLayout();
+      this.tabPage4.SuspendLayout();
       this.SuspendLayout();
       // 
       // button1
@@ -159,6 +165,7 @@ namespace YouTubePlugin
       this.tabControl1.Controls.Add(this.tabPage1);
       this.tabControl1.Controls.Add(this.tabPage2);
       this.tabControl1.Controls.Add(this.tabPage3);
+      this.tabControl1.Controls.Add(this.tabPage4);
       this.tabControl1.Location = new System.Drawing.Point(1, 2);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
@@ -449,6 +456,46 @@ namespace YouTubePlugin
       this.comboBox_action.Size = new System.Drawing.Size(288, 21);
       this.comboBox_action.TabIndex = 0;
       // 
+      // tabPage4
+      // 
+      this.tabPage4.Controls.Add(this.button_getdir);
+      this.tabPage4.Controls.Add(this.textBox_downloaddir);
+      this.tabPage4.Controls.Add(this.label7);
+      this.tabPage4.Location = new System.Drawing.Point(4, 22);
+      this.tabPage4.Name = "tabPage4";
+      this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPage4.Size = new System.Drawing.Size(535, 330);
+      this.tabPage4.TabIndex = 3;
+      this.tabPage4.Text = "Download";
+      this.tabPage4.UseVisualStyleBackColor = true;
+      // 
+      // button_getdir
+      // 
+      this.button_getdir.Location = new System.Drawing.Point(488, 28);
+      this.button_getdir.Name = "button_getdir";
+      this.button_getdir.Size = new System.Drawing.Size(30, 20);
+      this.button_getdir.TabIndex = 2;
+      this.button_getdir.Text = "...";
+      this.button_getdir.UseVisualStyleBackColor = true;
+      this.button_getdir.Click += new System.EventHandler(this.button_getdir_Click);
+      // 
+      // textBox_downloaddir
+      // 
+      this.textBox_downloaddir.Enabled = false;
+      this.textBox_downloaddir.Location = new System.Drawing.Point(10, 28);
+      this.textBox_downloaddir.Name = "textBox_downloaddir";
+      this.textBox_downloaddir.Size = new System.Drawing.Size(468, 20);
+      this.textBox_downloaddir.TabIndex = 1;
+      // 
+      // label7
+      // 
+      this.label7.AutoSize = true;
+      this.label7.Location = new System.Drawing.Point(7, 12);
+      this.label7.Name = "label7";
+      this.label7.Size = new System.Drawing.Size(78, 13);
+      this.label7.TabIndex = 0;
+      this.label7.Text = "Downlod folder";
+      // 
       // SetupForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -471,6 +518,8 @@ namespace YouTubePlugin
       this.tabPage2.PerformLayout();
       this.tabPage3.ResumeLayout(false);
       this.tabPage3.PerformLayout();
+      this.tabPage4.ResumeLayout(false);
+      this.tabPage4.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -513,5 +562,10 @@ namespace YouTubePlugin
     private System.Windows.Forms.ComboBox comboBox_action;
     private System.Windows.Forms.Label label6;
     private System.Windows.Forms.TextBox textBox_char;
+    private System.Windows.Forms.TabPage tabPage4;
+    private System.Windows.Forms.Button button_getdir;
+    private System.Windows.Forms.TextBox textBox_downloaddir;
+    private System.Windows.Forms.Label label7;
+    private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
   }
 }

@@ -41,6 +41,7 @@ namespace YouTubePlugin
       _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
       _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
       _settings.InstantAction = (Action.ActionType)comboBox_action.SelectedValue;
+      _settings.DownloadFolder = textBox_downloaddir.Text;
       try
       {
       }
@@ -94,6 +95,7 @@ namespace YouTubePlugin
       checkBox_extremfilter.Checked = _settings.UseExtremFilter;
       comboBox_videoquality.SelectedIndex = _settings.VideoQuality;
       checkBox_sms.Checked = _settings.UseSMSStyleKeyBoard;
+      textBox_downloaddir.Text = _settings.DownloadFolder;
       comboBox_action.SelectedValue = (int)_settings.InstantAction;
       switch (_settings.InitialDisplay)
       {
@@ -187,6 +189,15 @@ namespace YouTubePlugin
     private void checkBox_time_CheckedChanged(object sender, EventArgs e)
     {
 
+    }
+
+    private void button_getdir_Click(object sender, EventArgs e)
+    {
+      folderBrowserDialog1.SelectedPath = textBox_downloaddir.Text;
+      if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+      {
+        textBox_downloaddir.Text = folderBrowserDialog1.SelectedPath;
+      }
     }
 
   }

@@ -24,6 +24,7 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
+using Google.YouTube;
 
 
 namespace YouTubePlugin
@@ -90,6 +91,7 @@ namespace YouTubePlugin
 
     private Stack NavigationStack = new Stack();
     MapSettings mapSettings = new MapSettings();
+    static GUIDialogProgress dlgProgress;
 
     YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
 
@@ -127,8 +129,51 @@ namespace YouTubePlugin
       updateStationLogoTimer.Enabled = false;
       updateStationLogoTimer.Elapsed += new ElapsedEventHandler(OnDownloadTimedEvent);
       Client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadLogoEnd);
+      VideoDownloader.DownloadComplete += new EventHandler(VideoDownloader_DownloadComplete);
+      VideoDownloader.ProgressChanged += new DownloadProgressHandler(VideoDownloader_ProgressChanged);
       GUIWindowManager.Receivers += new SendMessageHandler(GUIWindowManager_Receivers);
  
+    }
+
+    void VideoDownloader_ProgressChanged(object sender, DownloadEventArgs e)
+    {
+      if (dlgProgress != null)
+      {
+        dlgProgress.SetLine(2, string.Format("{0} / {1} ({2}%)", e.TotalFileSize, e.CurrentFileSize, e.PercentDone));
+        dlgProgress.ShowProgressBar(true);
+        dlgProgress.SetPercentage(e.PercentDone);
+        dlgProgress.Progress();
+      }
+    }
+
+    void VideoDownloader_DownloadComplete(object sender, EventArgs e)
+    {
+
+      GUIDialogNotify dlg1 = (GUIDialogNotify)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_NOTIFY);
+      if (dlg1 != null)
+      {
+        dlg1.Reset();
+        dlg1.SetHeading("Download done");
+        dlg1.SetText(VideoDownloader.DownloadingTo);
+        dlg1.Reset();
+        dlg1.TimeOut = 5;
+        dlg1.DoModal(GetID);
+      }
+      Youtube2MP._settings.LocalFile.Items.Add(new LocalFileStruct(VideoDownloader.DownloadingTo, VideoDownloader.Entry.VideoId, VideoDownloader.Entry.Title.Text));
+      Youtube2MP._settings.LocalFile.Save();
+      string imageFile = GetLocalImageFileName(GetBestUrl(VideoDownloader.Entry.Media.Thumbnails));
+      if (File.Exists(imageFile))
+      {
+        File.Copy(imageFile, Path.GetDirectoryName(VideoDownloader.DownloadingTo) + "\\" + Path.GetFileNameWithoutExtension(VideoDownloader.DownloadingTo) + ".png");
+      }
+      if (dlgProgress != null)
+      {
+        dlgProgress.SetPercentage(100);
+        dlgProgress.Progress();
+        dlgProgress.ShowProgressBar(true);
+        dlgProgress.Close();
+        dlgProgress = null;
+      }
     }
 
     void GUIWindowManager_Receivers(GUIMessage message)
@@ -447,6 +492,38 @@ namespace YouTubePlugin
         case 8:
           InitList(YouTubeQuery.CreateFavoritesUri(null));
           break;
+        case 9:
+          if (Youtube2MP._settings.LocalFile.Items.Count == 0)
+          {
+            Err_message("No downloded item was found !");
+          }
+          else
+          {
+            SaveListState(true);
+            foreach (LocalFileStruct entry in Youtube2MP._settings.LocalFile.Items)
+            {
+              GUIListItem item = new GUIListItem();
+              // and add station name & bitrate
+              item.Label = entry.Title;
+              item.Label2 = "";
+              item.IsFolder = false;
+
+              string imageFile = Path.GetDirectoryName(entry.LocalFile) + "\\" + Path.GetFileNameWithoutExtension(entry.LocalFile) + ".png";
+              if (File.Exists(imageFile))
+              {
+                item.ThumbnailImage = imageFile;
+                //item.IconImage = "defaultVideoBig.png";
+                item.IconImage = imageFile;
+                item.IconImageBig = imageFile;
+              }
+              item.MusicTag = entry;
+              item.OnItemSelected += new GUIListItem.ItemSelectedHandler(item_OnItemSelected);
+              listControl.Add(item);
+            }
+            GUIPropertyManager.SetProperty("#header.title", Youtube2MP._settings.Cats[9]);
+            UpdateGui();
+          }
+          break;
       }
     }
 
@@ -495,27 +572,25 @@ namespace YouTubePlugin
 
     private void DoListSelection()
     {
-      //GUIWaitCursor.Show();
       GUIListItem selectedItem = listControl.SelectedListItem;
       if (selectedItem != null)
       {
         if (selectedItem.Label != "..")
         {
           //--------------------
-          YouTubeQuery qu = selectedItem.MusicTag as YouTubeQuery;
-          if (qu != null)
+          LocalFileStruct file = selectedItem.MusicTag as LocalFileStruct;
+          YouTubeEntry vide;
+          if (file != null)
           {
-            YouTubeFeed vidr = service.Query(qu);
-            Log.Debug("Next page: {0}",qu.Uri.ToString());
-            if (vidr.Entries.Count > 0)
-            {
-              SaveListState(true);
-              addVideos(vidr, false, qu);
-              UpdateGui();
-            }
+            Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + file.VideoId);
+            Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+            vide = video.YouTubeEntry;
+          }
+          else
+          {
+            vide = selectedItem.MusicTag as YouTubeEntry;
           }
 
-          YouTubeEntry vide = selectedItem.MusicTag as YouTubeEntry;
           if (vide != null)
           {
             DoPlay(vide, true);
@@ -657,7 +732,20 @@ namespace YouTubePlugin
     protected override void OnShowContextMenu()
     {
       GUIListItem selectedItem = listControl.SelectedListItem;
-      YouTubeEntry videoEntry = selectedItem.MusicTag as YouTubeEntry;
+      
+      YouTubeEntry videoEntry;
+      LocalFileStruct file = selectedItem.MusicTag as LocalFileStruct;
+      if (file != null)
+      {
+        Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + file.VideoId);
+        Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+        videoEntry = video.YouTubeEntry;
+      }
+      else
+      {
+        videoEntry = selectedItem.MusicTag as YouTubeEntry;
+      }
+
       if (videoEntry == null)
         return;
       GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
@@ -671,7 +759,8 @@ namespace YouTubePlugin
       dlg.Add("Add to playlist");
       dlg.Add("Add All to playlist");
       dlg.Add("Add to favorites");
-      dlg.Add("Options"); 
+      dlg.Add("Options");
+      dlg.Add("Download Video"); 
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
         return;
@@ -775,6 +864,40 @@ namespace YouTubePlugin
           break;
         case 6:
           DoOptions();
+          break;
+        case 7: // download
+          {
+            if (Youtube2MP._settings.LocalFile.Get(videoEntry.VideoId) != null)
+            {
+              Err_message("Item already downloaded !");
+            }
+            else
+            {
+              if (VideoDownloader.IsBusy)
+              {
+                Err_message("Another donwnload is in progress");
+                dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_PROGRESS);
+                if (dlgProgress != null)
+                {
+                  dlgProgress.Reset();
+                  dlgProgress.SetHeading("Download progress");
+                  dlgProgress.SetLine(1, "");
+                  dlgProgress.SetLine(2, "");
+                  dlgProgress.SetPercentage(0);
+                  dlgProgress.Progress();
+                  dlgProgress.ShowProgressBar(true);
+                  dlgProgress.DoModal(GetID);
+                }
+              }
+              else
+              {
+                VideoInfo inf = SelectQuality(videoEntry);
+                string streamurl = Youtube2MP.StreamPlaybackUrl(videoEntry, inf);
+                VideoDownloader.AsyncDownload(streamurl, Youtube2MP._settings.DownloadFolder + "\\" + videoEntry.Title.Text + "{" + videoEntry.VideoId + "}" + Path.GetExtension(streamurl));
+                VideoDownloader.Entry = videoEntry;
+              }
+            }
+          }
           break;
       }
     }

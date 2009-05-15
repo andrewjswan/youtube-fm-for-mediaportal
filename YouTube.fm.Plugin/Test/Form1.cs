@@ -15,6 +15,10 @@ using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
 using YouTubePlugin;
 
+using LastFmLib.API20;
+using LastFmLib.API20.Types;
+using LastFmLib.General;
+
 namespace Test
 {
   public partial class Form1 : Form
@@ -43,6 +47,8 @@ namespace Test
 
       YouTubeFeed videoFeed = service.Query(query);
       YouTubeEntry en = (YouTubeEntry)videoFeed.Entries[0];
+      string s = en.Summary.Text;
+      string s1 = en.Media.Description.Value;
       Google.GData.YouTube.MediaGroup gr = en.Media;
 
       Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + en.VideoId);
@@ -180,7 +186,11 @@ namespace Test
 
     private void button2_Click(object sender, EventArgs e)
     {
-      textBox2.Text = System.Web.HttpUtility.UrlDecode(textBox2.Text);
+      LastFmLib.API20.Types.AuthData m_AuthData = new AuthData(new MD5Hash("60d35bf7777d870ec958a21872bacb24 ", false, Encoding.Default), new MD5Hash("099158e5216ad77239be5e0a2228cf04", false, Encoding.Default));
+       Settings20.AuthData = m_AuthData;
+      LastFmClient fmclient = LastFmClient.Create(m_AuthData);
+      
+      RankingList<TagInfo> f = fmclient.Tag.GetTopTags("");
     }
   }
 

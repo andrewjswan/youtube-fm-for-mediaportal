@@ -180,7 +180,7 @@ namespace YouTubePlugin
     public YouTubeGUIPlaylist()
     {
       GetID = 29051;
-      playlistPlayer = PlayListPlayer.SingletonPlayer;
+      playlistPlayer = Youtube2MP.player;
       updateStationLogoTimer.AutoReset = true;
       updateStationLogoTimer.Enabled = false;
       updateStationLogoTimer.Elapsed += new ElapsedEventHandler(OnDownloadTimedEvent);
@@ -813,7 +813,7 @@ namespace YouTubePlugin
       }
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1) return;
-      PlayList playList = PlayListPlayer.SingletonPlayer.GetPlaylist(_playlistType);
+      PlayList playList = Youtube2MP.player.GetPlaylist(_playlistType);
       playList.Clear();
       foreach (PlaylistsEntry entry in userPlaylists.Entries)
       {
@@ -1348,7 +1348,7 @@ namespace YouTubePlugin
         strNewFileName = keyboard.Text;
         YouTubeQuery query = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(null));
         PlaylistsFeed userPlaylists = Youtube2MP.service.GetPlaylists(query);
-        PlayList playList = PlayListPlayer.SingletonPlayer.GetPlaylist(_playlistType);
+        PlayList playList = Youtube2MP.player.GetPlaylist(_playlistType);
         foreach (PlaylistsEntry entry in userPlaylists.Entries)
         {
           if (entry.Title.Text == strNewFileName)
@@ -1523,7 +1523,7 @@ namespace YouTubePlugin
 
       if (currentFile.Length > 0 && currentFile == item.Path)
       {
-        string nextTrackPath = PlayListPlayer.SingletonPlayer.GetNext();
+        string nextTrackPath = Youtube2MP.player.GetNext();
 
         if (nextTrackPath.Length == 0)
           g_Player.Stop();
@@ -1829,10 +1829,10 @@ namespace YouTubePlugin
 
     private void OnPlayBackStarted(g_Player.MediaType type, string filename)
     {
-      if (playlistPlayer.CurrentPlaylistType == _playlistType)
-      {
-        return;
-      }
+      //if (playlistPlayer.CurrentPlaylistType == _playlistType)
+      //{
+      //  return;
+      //}
 
         if (!filename.Contains("youtube."))
         {

@@ -37,6 +37,7 @@ namespace YouTubePlugin
     public Queue downloaQueue = new Queue();
     private DownloadFileObject curentDownlodingFile;
     protected YouTubeQuery.UploadTime uploadtime = YouTubeQuery.UploadTime.AllTime;
+    public FileDownloader VideoDownloader = new FileDownloader();
 
     public void SetLabels(YouTubeEntry vid, string type)
     {
@@ -48,7 +49,7 @@ namespace YouTubePlugin
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount", vid.Statistics.WatchCount);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount", vid.Statistics.FavoriteCount);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image", GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
-        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", vid.Summary.Text);
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", vid.Media.Description.Value);
       }
       catch
       {
@@ -59,7 +60,7 @@ namespace YouTubePlugin
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", vid.Title.Text.Split('-')[1]);
         if (type == "NowPlaying")
         {
-          GUIPropertyManager.SetProperty("#Play.Current.Title", vid.Title.Text.Split('-')[1]);
+          GUIPropertyManager.SetProperty("#Play.Current.Title", vid.Title.Text.Split('-')[1].Trim());
         }
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", vid.Title.Text.Split('-')[0]);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FanArt", GetFanArtImage(vid.Title.Text.Split('-')[0]));
@@ -73,6 +74,7 @@ namespace YouTubePlugin
       {
         Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.VideoId);
         Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+        
         Feed<Comment> comments = Youtube2MP.request.GetComments(video);
         string cm = "";
         foreach (Comment c in comments.Entries)
@@ -286,7 +288,7 @@ namespace YouTubePlugin
 
     public void AddItemToPlayList(GUIListItem pItem, VideoInfo qa)
     {
-      playlistPlayer = PlayListPlayer.SingletonPlayer;
+      playlistPlayer = Youtube2MP.player;
       PlayList playList;
       if (_setting.UseYouTubePlayer)
         playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
@@ -302,7 +304,21 @@ namespace YouTubePlugin
       string PlayblackUrl = "";
       
       List<GUIListItem> list = new List<GUIListItem>();
-      YouTubeEntry vid = pItem.MusicTag as YouTubeEntry;
+      YouTubeEntry vid;
+
+      LocalFileStruct file = pItem.MusicTag as LocalFileStruct;
+      if (file != null)
+      {
+        Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + file.VideoId);
+        Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+        vid = video.YouTubeEntry;
+        
+      }
+      else
+      {
+        vid = pItem.MusicTag as YouTubeEntry;
+      }
+
       if (vid != null)
       {
         if (!Youtube2MP._settings.UseYouTubePlayer)
@@ -404,7 +420,7 @@ namespace YouTubePlugin
       if (_setting.UseExtremFilter)
         query.NumberToRetrieve = 50;
       else
-        query.NumberToRetrieve = 20;
+        query.NumberToRetrieve = 50;
       ////exclude restricted content from the search
       //query.Racy = "exclude";
       query.SafeSearch = YouTubeQuery.SafeSearchValues.None;

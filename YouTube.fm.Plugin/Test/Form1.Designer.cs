@@ -53,11 +53,11 @@ namespace Test
       // 
       // button2
       // 
-      this.button2.Location = new System.Drawing.Point(470, 75);
+      this.button2.Location = new System.Drawing.Point(470, 97);
       this.button2.Name = "button2";
       this.button2.Size = new System.Drawing.Size(114, 27);
       this.button2.TabIndex = 2;
-      this.button2.Text = "button2";
+      this.button2.Text = "Last fm test";
       this.button2.UseVisualStyleBackColor = true;
       this.button2.Click += new System.EventHandler(this.button2_Click);
       // 

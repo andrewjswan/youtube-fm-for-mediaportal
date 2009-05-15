@@ -8,7 +8,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Client.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>88ee88db-94ca-4674-9c15-6633097f867d</Guid>
+			<Guid>0242033a-2674-471a-af5f-36406322d779</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.Extensions.dll</FileName>
@@ -17,7 +17,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Extensions.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>d94a0b27-d753-48e4-bfff-deac65a8f18a</Guid>
+			<Guid>87c01d0c-59f5-44ee-a5f8-7c4f69f9c683</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.YouTube.dll</FileName>
@@ -26,7 +26,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.YouTube.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>e99ef400-47a8-4fcb-a145-d1e7ed35a180</Guid>
+			<Guid>4b350486-1d86-4a4a-8955-37db1d09865e</Guid>
 		</File>
 		<File>
 			<FileName>hover_youtubefm.png</FileName>
@@ -35,7 +35,7 @@
 			<Source>skin\StreamedMP\Media\hover_youtubefm.png</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=\hover_youtubefm.png|</Option>
-			<Guid>5a5a4eab-3886-4fa6-a561-61463d44befc</Guid>
+			<Guid>669135fc-e87e-44c2-86a9-bdc081444be9</Guid>
 		</File>
 		<File>
 			<FileName>youtubeinfo.xml</FileName>
@@ -44,7 +44,7 @@
 			<Source>skin\Blue3wide\youtubeinfo.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>45e19fe9-5a58-42b3-9830-4e95485eb358</Guid>
+			<Guid>cd4a38e1-6de8-4bab-83b2-76f3cd9632e2</Guid>
 		</File>
 		<File>
 			<FileName>youtubeinfo.xml</FileName>
@@ -53,7 +53,7 @@
 			<Source>skin\StreamedMP\youtubeinfo.xml</Source>
 			<Id>02010</Id>
 			<Option />
-			<Guid>ce0dd84b-bb95-4630-bf8b-17735d3a1be0</Guid>
+			<Guid>86b2e708-4dd9-41a5-aa21-ed111ea7523d</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -62,7 +62,7 @@
 			<Source>skin\Blue3wide\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>00bd5ad8-c15e-4b8c-9a1e-62353a70e34c</Guid>
+			<Guid>b4c87d6d-397f-4cc8-8590-b82f79dfbf3c</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -71,7 +71,7 @@
 			<Source>skin\StreamedMP\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option />
-			<Guid>bd5b25a4-f9b0-4969-b15b-30498ee4b55d</Guid>
+			<Guid>bcfaa426-de4a-43d5-907b-f04098d9a8e1</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlugin.dll</FileName>
@@ -80,7 +80,7 @@
 			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>7f3b0461-97e4-4a2d-8629-a4aa8bc461d4</Guid>
+			<Guid>697b2ccd-3d9d-41f3-812d-68e6b232eaf6</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -89,7 +89,7 @@
 			<Source>skin\Blue3wide\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>97dca8c2-9943-4bca-9521-57e249d51e5d</Guid>
+			<Guid>b826ab8b-d0f0-4c43-9c43-55d52dc46f2f</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -98,7 +98,7 @@
 			<Source>skin\StreamedMP\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option />
-			<Guid>d7f395ec-ad32-463b-99dc-aa668954bb66</Guid>
+			<Guid>923845b9-36d7-4718-b0db-aba289faf969</Guid>
 		</File>
 	</FileList>
 	<StringList />
@@ -111,7 +111,7 @@
 		<ProiectName>YouTube.fm</ProiectName>
 		<Author>Dukus</Author>
 		<UpdateURL>http://www.team-mediaportal.com</UpdateURL>
-		<Version>0.5.1</Version>
+		<Version>0.5.2</Version>
 		<Description />
 		<Group>Video/Movies</Group>
 		<Release>Beta</Release>

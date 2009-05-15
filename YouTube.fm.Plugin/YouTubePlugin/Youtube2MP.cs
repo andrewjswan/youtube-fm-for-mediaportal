@@ -34,6 +34,8 @@ namespace YouTubePlugin
   static public class Youtube2MP
   {
     public static YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
+    
+    public static PlayListPlayer player = new PlayListPlayer();
 
     public static YouTubeRequest request = new YouTubeRequest(new YouTubeRequestSettings("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg"));
     public static Settings _settings;
@@ -248,6 +250,10 @@ namespace YouTubePlugin
 
     static public string youtubecatch1(string url,VideoInfo qa)
     {
+      if (Youtube2MP._settings.LocalFile.Get(getIDSimple(url)) != null)
+      {
+        return Youtube2MP._settings.LocalFile.Get(getIDSimple(url)).LocalFile;
+      }
       if (string.IsNullOrEmpty(qa.Token) || !qa.IsInited)
       {
         qa.Get(getIDSimple(url));

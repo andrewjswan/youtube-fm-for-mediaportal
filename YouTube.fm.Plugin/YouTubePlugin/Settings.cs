@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.IO;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
 
@@ -25,6 +25,7 @@ namespace YouTubePlugin
         cats.Add("Most Responded"); //6
         cats.Add("Most Recent"); //7
         cats.Add("Favorites"); //8
+        cats.Add("Downloaded items"); //9
         return cats;
       }
     }
@@ -42,8 +43,15 @@ namespace YouTubePlugin
       }
     }
 
-    private bool musicfilter;
+    private LocalFileEnumerator localFile;
 
+    public LocalFileEnumerator LocalFile
+    {
+      get { return localFile; }
+      set { localFile = value; }
+    }
+    
+    private bool musicfilter;
     public bool MusicFilter
     {
       get { return musicfilter; }
@@ -174,6 +182,14 @@ namespace YouTubePlugin
       set { instantChar = value; }
     }
 
+    private string downloadFolder;
+
+    public string DownloadFolder
+    {
+      get { return downloadFolder; }
+      set { downloadFolder = value; }
+    }
+
 
     public void Load()
     {
@@ -195,11 +211,13 @@ namespace YouTubePlugin
         this.ShowNowPlaying = xmlreader.GetValueAsBool("youtubevideos", "ShowNowPlaying", true);
         this.UseYouTubePlayer = xmlreader.GetValueAsBool("youtubevideos", "UseYouTubePlayer", false);
         this.UseExtremFilter = xmlreader.GetValueAsBool("youtubevideos", "UseExtremFilter", false);
+        this.DownloadFolder = xmlreader.GetValueAsString("youtubevideos", "DownloadFolder", Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\My Videos");
         foreach (string s in his.Split('|'))
         {
           if (!string.IsNullOrEmpty(s.Trim()))
             SearchHistory.Add(s);
         }
+        this.LocalFile.Load();
       }
     }
 
@@ -216,6 +234,7 @@ namespace YouTubePlugin
         xmlwriter.SetValue("youtubevideos", "VideoQuality", this.VideoQuality);
         xmlwriter.SetValue("youtubevideos", "InstantAction", (int)this.InstantAction);
         xmlwriter.SetValue("youtubevideos", "InstantCharInt", this.InstantChar);
+        xmlwriter.SetValue("youtubevideos", "DownloadFolder", this.DownloadFolder);
         xmlwriter.SetValueAsBool("youtubevideos", "MusicFilter", this.MusicFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "time", this.Time);
         xmlwriter.SetValueAsBool("youtubevideos", "ShowNowPlaying", this.ShowNowPlaying);
@@ -229,6 +248,7 @@ namespace YouTubePlugin
         }
         xmlwriter.SetValue("youtubevideos", "searchhistory", his);
       }
+      this.LocalFile.Save();
     }
 
     public Settings()
@@ -237,6 +257,7 @@ namespace YouTubePlugin
       this.User = "";
       this.Password = "";
       this.SearchHistory = new List<string>();
+      this.LocalFile = new LocalFileEnumerator();
     }
     
 

@@ -64,6 +64,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\FileDownloader.cs" />
+    <Compile Include="Class\LocalFileEnumerator.cs" />
+    <Compile Include="Class\LocalFileStruct.cs" />
     <Compile Include="Class\VideoInfo.cs" />
     <Compile Include="DataProvider\FanArtItem.cs" />
     <Compile Include="DataProvider\HTBFanArt.cs" />
