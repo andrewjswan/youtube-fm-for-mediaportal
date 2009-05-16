@@ -593,7 +593,7 @@ namespace YouTubePlugin
 
           if (vide != null)
           {
-            DoPlay(vide, true);
+              DoPlay(vide, true, listControl.ListView);
           }
         }
         else
@@ -838,16 +838,11 @@ namespace YouTubePlugin
         case 4:
           {
             VideoInfo inf = SelectQuality(videoEntry);
-            bool a = Youtube2MP._settings.UseYouTubePlayer;
-            Youtube2MP._settings.UseYouTubePlayer = true;
+            inf.Items = new Dictionary<string, string>();
             foreach (GUIListItem item in listControl.ListView.ListItems)
             {
-              VideoInfo info = new VideoInfo();
-              if (Youtube2MP._settings.VideoQuality == 4)
-                info.Quality = inf.Quality;
-              AddItemToPlayList(item, inf);
+                AddItemToPlayList(item, new VideoInfo(inf));
             }
-            Youtube2MP._settings.UseYouTubePlayer = a;
           }
           break;
         case 5:

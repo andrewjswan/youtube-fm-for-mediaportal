@@ -35,7 +35,10 @@ namespace YouTubePlugin
   {
     public static YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
     
-    public static PlayListPlayer player = new PlayListPlayer();
+    public static YoutubePlaylistPlayer player = new YoutubePlaylistPlayer();
+
+    public static YoutubePlaylistPlayer temp_player = new YoutubePlaylistPlayer();
+
 
     public static YouTubeRequest request = new YouTubeRequest(new YouTubeRequestSettings("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg"));
     public static Settings _settings;

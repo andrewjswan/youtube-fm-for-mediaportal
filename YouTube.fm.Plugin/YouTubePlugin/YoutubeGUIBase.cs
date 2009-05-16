@@ -31,7 +31,7 @@ namespace YouTubePlugin
   public class YoutubeGUIBase : GUIWindow
   {
     public Settings _setting = new Settings();
-    protected PlayListPlayer playlistPlayer;
+    protected YoutubePlaylistPlayer playlistPlayer;
     public System.Timers.Timer updateStationLogoTimer = new System.Timers.Timer(0.3 * 1000);
     public WebClient Client = new WebClient();
     public Queue downloaQueue = new Queue();
@@ -161,53 +161,37 @@ namespace YouTubePlugin
       }
     }
 
-    public void DoPlay(YouTubeEntry vid,bool fullscr)
+    public void DoPlay(YouTubeEntry vid, bool fullscr, GUIListControl facade)
     {
-      bool isplaying = false;
-      if (vid != null)
-      {
-        g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
-
-        if (_setting.UseYouTubePlayer)
+        if (vid != null)
         {
-          if (vid.Media.Contents.Count > 0)
-          {
-            if (g_Player.Play(string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri))))
-              isplaying = true;
-          }
-          else
-          {
-            if (g_Player.Play(vid.AlternateUri.ToString()))
-              isplaying = true;
-          }
+            VideoInfo qa = SelectQuality(vid);
+            if (qa.Quality == VideoQuality.Unknow)
+                return;
+            Youtube2MP.temp_player.Reset();
+            Youtube2MP.temp_player.RepeatPlaylist = true;
+            
+            Youtube2MP.temp_player.CurrentPlaylistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
+            PlayList playlist = Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
+            playlist.Clear();
+            g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
+            if (facade != null)
+            {
+                AddItemToPlayList(vid, ref playlist, qa);
+                qa.Items = new Dictionary<string, string>();
+                int selected = facade.SelectedListItemIndex ;
+                for (int i = selected + 1; i < facade.ListItems.Count; i++)
+                {
+                    AddItemToPlayList(facade.ListItems[i], ref playlist, new VideoInfo(qa));
+                }
+            }
+            //Youtube2MP.temp_player.Play(0);
+            Youtube2MP.temp_player.Play(0);
+            if (!g_Player.Playing)
+            {
+                Err_message("Unable to playback the item ! ");
+            }
         }
-        else
-        {
-          VideoInfo qa = SelectQuality(vid);
-          
-          if (qa.Quality == VideoQuality.Unknow)
-            return;
-          
-          if (g_Player.PlayVideoStream(Youtube2MP.StreamPlaybackUrl(vid, qa)))
-            isplaying = true;
-        }
-
-        if (isplaying && fullscr)
-        {
-          if (_setting.ShowNowPlaying)
-          {
-            GUIWindowManager.ActivateWindow(29052);
-          }
-          else
-          {
-            g_Player.ShowFullScreenWindow();
-          }
-        }
-        if (!isplaying)
-        {
-          Err_message("Unable to playback the item ! ");
-        }
-      }
     }
 
     public VideoInfo SelectQuality(YouTubeEntry vid)
@@ -288,12 +272,7 @@ namespace YouTubePlugin
 
     public void AddItemToPlayList(GUIListItem pItem, VideoInfo qa)
     {
-      playlistPlayer = Youtube2MP.player;
-      PlayList playList;
-      if (_setting.UseYouTubePlayer)
-        playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO_TEMP);
-      else
-        playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
+        PlayList playList = Youtube2MP.player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
       AddItemToPlayList(pItem, ref playList, qa);
     }
 
@@ -303,7 +282,6 @@ namespace YouTubePlugin
         return;
       string PlayblackUrl = "";
       
-      List<GUIListItem> list = new List<GUIListItem>();
       YouTubeEntry vid;
 
       LocalFileStruct file = pItem.MusicTag as LocalFileStruct;
@@ -321,32 +299,60 @@ namespace YouTubePlugin
 
       if (vid != null)
       {
-        if (!Youtube2MP._settings.UseYouTubePlayer)
-        {
-          PlayblackUrl = Youtube2MP.StreamPlaybackUrl(vid, qa);
-        }
-        else
-        {
           if (vid.Media.Contents.Count > 0)
           {
-            PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
+              PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
           }
           else
           {
-            PlayblackUrl = vid.AlternateUri.ToString();
+              PlayblackUrl = vid.AlternateUri.ToString();
           }
-        }
-        list.Add(pItem);
-        PlayListItem playlistItem = new PlayListItem();
-        playlistItem.Type = PlayListItem.PlayListItemType.VideoStream;// Playlists.PlayListItem.PlayListItemType.Audio;
-        
-        playlistItem.FileName = PlayblackUrl;
-        playlistItem.Description = pItem.Label;
-        MusicTag tag = new MusicTag();
-        playlistItem.Duration = pItem.Duration;
-        playlistItem.MusicTag = pItem.MusicTag;
-        playList.Add(playlistItem);
+
+          PlayListItem playlistItem = new PlayListItem();
+          playlistItem.Type = PlayListItem.PlayListItemType.VideoStream;// Playlists.PlayListItem.PlayListItemType.Audio;
+          qa.Entry = vid;
+          playlistItem.FileName = PlayblackUrl;
+          playlistItem.Description = pItem.Label;
+          playlistItem.Duration = pItem.Duration;
+          playlistItem.MusicTag = qa;
+          playList.Add(playlistItem);
       }
+    }
+
+    public void AddItemToPlayList(YouTubeEntry vid, ref PlayList playList, VideoInfo qa)
+    {
+        if (playList == null || vid == null)
+            return;
+        string PlayblackUrl = "";
+
+        List<GUIListItem> list = new List<GUIListItem>();
+
+        if (vid != null)
+        {
+            if (vid.Media.Contents.Count > 0)
+            {
+                PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
+            }
+            else
+            {
+                PlayblackUrl = vid.AlternateUri.ToString();
+            }
+            PlayListItem playlistItem = new PlayListItem();
+            playlistItem.Type = PlayListItem.PlayListItemType.VideoStream;// Playlists.PlayListItem.PlayListItemType.Audio;
+            qa.Entry = vid;
+            playlistItem.FileName = PlayblackUrl;
+            playlistItem.Description = vid.Title.Text;
+            try
+            {
+                playlistItem.Duration = Convert.ToInt32(vid.Duration.Seconds, 10);
+            }
+            catch
+            {
+
+            }
+            playlistItem.MusicTag = qa;
+            playList.Add(playlistItem);
+        }
     }
 
     public string GetFanArtImage(string artist)

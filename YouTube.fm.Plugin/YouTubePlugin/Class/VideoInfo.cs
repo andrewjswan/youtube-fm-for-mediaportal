@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using Google.GData.YouTube;
 
 namespace YouTubePlugin
 {
@@ -15,6 +16,19 @@ namespace YouTubePlugin
       set { quality = value; }
     }
 
+    private YouTubeEntry entry;
+    public YouTubeEntry Entry
+    {
+        get { return entry; }
+        set { entry = value; }
+    }
+
+    private DateTime date;
+    public DateTime Date
+    {
+        get { return date; }
+        set { date = value; }
+    }
 
     private bool isInited;
     public bool IsInited
@@ -27,10 +41,14 @@ namespace YouTubePlugin
     {
       get
       {
-        if (Items.ContainsKey("token"))
-          return Items["token"];
-        else
-          return string.Empty;
+          if (Items.ContainsKey("token"))
+          {
+              if (DateTime.Now.Subtract(Date).Minutes > 10)
+                  return "";
+              return Items["token"];
+          }
+          else
+              return string.Empty;
       }
     }
 
@@ -61,6 +79,14 @@ namespace YouTubePlugin
     {
       Init();
     }
+    
+    public VideoInfo(VideoInfo info)
+    {
+        Init();
+        this.Entry = info.Entry;
+        this.Quality = info.Quality;
+        this.Date = info.Date;
+    }
 
     public Dictionary<string, string> Items = new Dictionary<string, string>();
     public void Get(string videoId)
@@ -80,6 +106,7 @@ namespace YouTubePlugin
         {
           Items.Add(s.Split('=')[0], s.Split('=')[1]);
         }
+        Date = DateTime.Now;
         IsInited = true;
       }
       catch

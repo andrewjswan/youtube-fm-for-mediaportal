@@ -354,7 +354,6 @@ namespace YouTubePlugin
         List<YouTubeEntry> items = new List<YouTubeEntry>();
         if (dlg == null) return;
         dlg.Reset();
-        //dlg.SetHeading(25653); // Sort options
         foreach (YouTubeEntry entry in vidr.Entries)
         {
           GUIListItem item = new GUIListItem();
@@ -365,7 +364,7 @@ namespace YouTubePlugin
         }
         dlg.DoModal(GetID);
         if (dlg.SelectedId == -1) return;
-        DoPlay(items[dlg.SelectedId], true);
+        DoPlay(items[dlg.SelectedId], true, null);
       }
       else
       {
@@ -1829,6 +1828,7 @@ namespace YouTubePlugin
 
     private void OnPlayBackStarted(g_Player.MediaType type, string filename)
     {
+        return;
       //if (playlistPlayer.CurrentPlaylistType == _playlistType)
       //{
       //  return;
@@ -1845,14 +1845,6 @@ namespace YouTubePlugin
       {
         if (filename.Contains("youtube."))
         {
-          Log.Debug("YouTube.fm playback started");
-          YouTubeEntry en = new YouTubeEntry();
-          Song song = new Song();
-          Youtube2MP.YoutubeEntry2Song(filename, ref song, ref en);
-          Youtube2MP.NowPlayingEntry = en;
-          Youtube2MP.NowPlayingSong = song;
-          SetLabels(en, "NowPlaying");
-
           if (playlistPlayer.CurrentPlaylistType != _playlistType)
             return;
 

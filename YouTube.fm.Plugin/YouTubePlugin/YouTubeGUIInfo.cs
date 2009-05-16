@@ -17,6 +17,8 @@ using MediaPortal.Localisation;
 using MediaPortal.Configuration;
 using MediaPortal.Player;
 using MediaPortal.Playlists;
+using MediaPortal.TagReader;
+using MediaPortal.Music.Database;
 
 using Google.GData.Client;
 using Google.GData.Extensions;
@@ -63,6 +65,34 @@ namespace YouTubePlugin
       updateStationLogoTimer.Enabled = false;
       updateStationLogoTimer.Elapsed += new ElapsedEventHandler(OnDownloadTimedEvent);
       Client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadLogoEnd);
+      Youtube2MP.player.PlayBegin += new YoutubePlaylistPlayer.EventHandler(player_PlayBegin);
+      Youtube2MP.temp_player.PlayBegin += new YoutubePlaylistPlayer.EventHandler(player_PlayBegin);
+      Youtube2MP.player.Init();
+      Youtube2MP.temp_player.Init();
+    }
+
+    void player_PlayBegin(PlayListItem item)
+    {
+        try
+        {
+
+            ClearLabels("NowPlaying");
+            VideoInfo info = item.MusicTag as VideoInfo;
+            if (info == null)
+                return;
+
+            Log.Debug("YouTube.fm playback started");
+            YouTubeEntry en = info.Entry;
+            item.FileName = Youtube2MP.StreamPlaybackUrl(en, info);
+            Song song = Youtube2MP.YoutubeEntry2Song(en);
+            
+            Youtube2MP.NowPlayingEntry = en;
+            Youtube2MP.NowPlayingSong = song;
+            SetLabels(en, "NowPlaying");
+        }
+        catch
+        {
+        }
     }
 
     public override bool Init()
@@ -217,7 +247,7 @@ namespace YouTubePlugin
         // execute only for enter keys
         if (actionType == Action.ActionType.ACTION_SELECT_ITEM)
         {
-          DoPlay(listControl.SelectedListItem.MusicTag as YouTubeEntry, false);
+            DoPlay(listControl.SelectedListItem.MusicTag as YouTubeEntry, false, null);
         }
       }
       base.OnClicked(controlId, control, actionType);
