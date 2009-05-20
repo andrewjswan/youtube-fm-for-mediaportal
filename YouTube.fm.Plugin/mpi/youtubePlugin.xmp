@@ -5,28 +5,28 @@
 			<FileName>Google.GData.Client.dll</FileName>
 			<Type>Plugin</Type>
 			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Client.dll</Source>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Client.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>0242033a-2674-471a-af5f-36406322d779</Guid>
+			<Guid>17faaea6-a213-4b65-be64-cd45b977d03d</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.Extensions.dll</FileName>
 			<Type>Plugin</Type>
 			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Extensions.dll</Source>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Extensions.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>87c01d0c-59f5-44ee-a5f8-7c4f69f9c683</Guid>
+			<Guid>4ada19ac-2307-4a84-a615-a1c1eea63756</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.YouTube.dll</FileName>
 			<Type>Plugin</Type>
 			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.YouTube.dll</Source>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.YouTube.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>4b350486-1d86-4a4a-8955-37db1d09865e</Guid>
+			<Guid>685e55f0-1e02-4a97-afe9-ef738e3a89d8</Guid>
 		</File>
 		<File>
 			<FileName>hover_youtubefm.png</FileName>
@@ -35,7 +35,16 @@
 			<Source>skin\StreamedMP\Media\hover_youtubefm.png</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=\hover_youtubefm.png|</Option>
-			<Guid>669135fc-e87e-44c2-86a9-bdc081444be9</Guid>
+			<Guid>6eb8ccbf-211c-46a3-b4f3-85dd47a5245a</Guid>
+		</File>
+		<File>
+			<FileName>lastfm-sharp.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>F:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\lastfm-sharp.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>8c24d285-4cb9-4190-b0aa-01a8bfa3d421</Guid>
 		</File>
 		<File>
 			<FileName>youtubeinfo.xml</FileName>
@@ -44,7 +53,7 @@
 			<Source>skin\Blue3wide\youtubeinfo.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>cd4a38e1-6de8-4bab-83b2-76f3cd9632e2</Guid>
+			<Guid>19c8e977-ff2f-4bc4-a03d-5bf641241954</Guid>
 		</File>
 		<File>
 			<FileName>youtubeinfo.xml</FileName>
@@ -53,7 +62,7 @@
 			<Source>skin\StreamedMP\youtubeinfo.xml</Source>
 			<Id>02010</Id>
 			<Option />
-			<Guid>86b2e708-4dd9-41a5-aa21-ed111ea7523d</Guid>
+			<Guid>7b56565f-1fcf-4973-ad64-4fad73579795</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -62,7 +71,7 @@
 			<Source>skin\Blue3wide\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>b4c87d6d-397f-4cc8-8590-b82f79dfbf3c</Guid>
+			<Guid>9ba69646-9e2d-421d-b6d6-0f85a503c9fa</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -71,16 +80,25 @@
 			<Source>skin\StreamedMP\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option />
-			<Guid>bcfaa426-de4a-43d5-907b-f04098d9a8e1</Guid>
+			<Guid>29c7aa01-10c7-4d10-ad5e-a1eb9c20e817</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlugin.dll</FileName>
 			<Type>Plugin</Type>
 			<SubType>Window</SubType>
-			<Source>D:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>697b2ccd-3d9d-41f3-812d-68e6b232eaf6</Guid>
+			<Guid>0f8f8bbb-7a34-41e3-8472-5409b0ab59d4</Guid>
+		</File>
+		<File>
+			<FileName>YouTubePlugin.dll</FileName>
+			<Type>Other</Type>
+			<SubType />
+			<Source>F:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
+			<Id>04010</Id>
+			<Option />
+			<Guid>84ac0da3-7e62-47d8-8397-46dbbf85e778</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -89,7 +107,7 @@
 			<Source>skin\Blue3wide\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>b826ab8b-d0f0-4c43-9c43-55d52dc46f2f</Guid>
+			<Guid>6114588f-6193-4b96-a734-99ae7d459b9b</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -98,20 +116,36 @@
 			<Source>skin\StreamedMP\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option />
-			<Guid>923845b9-36d7-4718-b0db-aba289faf969</Guid>
+			<Guid>326bab1c-acc9-445f-a28f-c4570fa81e1c</Guid>
 		</File>
 	</FileList>
-	<StringList />
+	<StringList>
+		<string>
+			<language>English</language>
+			<id>129050</id>
+			<value>YouTube.FM</value>
+		</string>
+		<string>
+			<language>English</language>
+			<id>129051</id>
+			<value>YouTube.FM playlist</value>
+		</string>
+		<string>
+			<language>English</language>
+			<id>129052</id>
+			<value>YouTube.FM Now Playing</value>
+		</string>
+	</StringList>
 	<Actions />
 	<SetupGroups />
 	<SetupGroupMappings />
 	<Option>
-		<BuildFileName>D:\devel\vs2005\YouTube.fm.Plugin\mpi\YouTube.fm.0.5.1.mpi</BuildFileName>
-		<ProiectFileName>D:\devel\vs2005\YouTube.fm.Plugin\mpi\youtubePlugin.xmp</ProiectFileName>
+		<BuildFileName>f:\devel\vs2005\YouTube.fm.Plugin\mpi\YouTube.fm.0.5.3.mpi</BuildFileName>
+		<ProiectFileName>F:\devel\vs2005\YouTube.fm.Plugin\mpi\youtubePlugin.xmp</ProiectFileName>
 		<ProiectName>YouTube.fm</ProiectName>
 		<Author>Dukus</Author>
 		<UpdateURL>http://www.team-mediaportal.com</UpdateURL>
-		<Version>0.5.2</Version>
+		<Version>0.5.4</Version>
 		<Description />
 		<Group>Video/Movies</Group>
 		<Release>Beta</Release>

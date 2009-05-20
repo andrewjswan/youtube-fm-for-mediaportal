@@ -166,7 +166,6 @@ namespace YouTubePlugin
             {
                 case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
                     {
-                        Log.Error("Playback stoped");
                         PlayListItem item = GetCurrentItem();
                         if (item != null)
                         {
@@ -192,7 +191,6 @@ namespace YouTubePlugin
 
                 case GUIMessage.MessageType.GUI_MSG_PLAYBACK_ENDED:
                     {
-                        Log.Error("Playback ended");
                         // This message is sent by both the internal and BASS player
                         // In case of gapless/crossfading it is only sent after the last song
                         PlayNext();

@@ -577,6 +577,18 @@ namespace YouTubePlugin
       {
         if (selectedItem.Label != "..")
         {
+            YouTubeQuery qu = selectedItem.MusicTag as YouTubeQuery;
+            if (qu != null)
+            {
+                YouTubeFeed vidr = service.Query(qu);
+                Log.Debug("Next page: {0}", qu.Uri.ToString());
+                if (vidr.Entries.Count > 0)
+                {
+                    SaveListState(true);
+                    addVideos(vidr, false, qu);
+                    UpdateGui();
+                }
+            }
           //--------------------
           LocalFileStruct file = selectedItem.MusicTag as LocalFileStruct;
           YouTubeEntry vide;
@@ -1014,50 +1026,6 @@ namespace YouTubePlugin
 
 
 
-
-    //void addArtists(MTVArtistResponse artists)
-    //{
-    //  updateStationLogoTimer.Enabled = false;
-    //  downloaQueue.Clear();
-    //  foreach (ArtistEntry ae in artists.Items)
-    //  {
-    //    GUIListItem item = new GUIListItem();
-    //    // and add station name & bitrate
-    //    item.Label = ae.Entry.Author.Name;
-    //    item.Label2 = "";
-    //    item.IsFolder = true;
-    //    string imageFile = GetLocalImageFileName(ae.Entry.Thumbnail.Url);
-    //    if (File.Exists(imageFile))
-    //    {
-    //      item.ThumbnailImage = imageFile;
-    //      item.IconImage = "DefaultFolderBig.png";
-    //      item.IconImageBig = imageFile;
-    //    }
-    //    else
-    //    {
-    //      MediaPortal.Util.Utils.SetDefaultIcons(item);
-    //      DownloadImage(ae.Entry.Thumbnail.Url, item);
-    //    }
-    //    item.MusicTag = ae;
-    //    listControl.Add(item);
-    //  }
-    //  if (artists.Feed.StartIndex + artists.Feed.ItemsPerPage < artists.Feed.TotalResults)
-    //  {
-    //    GUIListItem item = new GUIListItem();
-    //    // and add station name & bitrate
-    //    item.Label = string.Format("Next Page {0} - {1} (2)", artists.Feed.StartIndex + artists.Feed.ItemsPerPage + 1, artists.Feed.StartIndex + 1 + artists.Feed.ItemsPerPage * 2, artists.Feed.TotalResults);
-    //    item.Label2 = "";
-    //    item.IsFolder = true;
-    //    MediaPortal.Util.Utils.SetDefaultIcons(item);
-    //    item.MusicTag = new ArtistCatEntry(artists, artists.Feed.StartIndex + artists.Feed.ItemsPerPage + 1, artists.Feed.ItemsPerPage);
-    //    listControl.Add(item);
-    //  }
-    //  GUIPropertyManager.SetProperty("#header.label", artists.Feed.Title.Content);
-    //  UpdateGui();
-    //  updateStationLogoTimer.Enabled = true; 
-    //}
-
-
     void addVideos(YouTubeFeed videos, bool level,YouTubeQuery qu)
     {
       int count = 0;
@@ -1148,6 +1116,8 @@ namespace YouTubePlugin
       if (clear)
       {
         GUIControl.ClearControl(GetID, listControl.GetID);
+        Youtube2MP.temp_player.Reset();
+        Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO).Clear();
       }
     }
     

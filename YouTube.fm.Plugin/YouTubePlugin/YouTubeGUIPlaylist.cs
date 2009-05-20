@@ -48,6 +48,8 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
+using Google.YouTube;
+
 using Timer = System.Timers.Timer;
 
 namespace YouTubePlugin
@@ -245,42 +247,36 @@ namespace YouTubePlugin
       //added by Sam
       GUIWindowManager.Receivers += new SendMessageHandler(this.OnThreadMessage);
       GUIWindowManager.OnNewAction += new OnActionHandler(this.OnNewAction);
-      g_Player.PlayBackStarted += new g_Player.StartedHandler(OnPlayBackStarted);
-      g_Player.PlayBackEnded += new g_Player.EndedHandler(g_Player_PlayBackEnded);
       g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
-
+      Youtube2MP.player.PlayBegin += new YoutubePlaylistPlayer.EventHandler(player_PlayBegin);
 
       return Load(GUIGraphicsContext.Skin + @"\youtubeplaylist.xml");
     }
 
-    void g_Player_PlayBackEnded(g_Player.MediaType type, string filename)
+    void player_PlayBegin(PlayListItem en)
     {
-      if (playlistPlayer.CurrentPlaylistType == _playlistType)
-      {
-        return;
-      }
-      try
-      {
-        if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 0)
+        try
         {
-          Log.Debug("YouTube Playlist : Geting next item PlayBack Url: {0}", _playlistType);
-          if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 1)
-          {
-            playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, new VideoInfo());
-          }
+            Thread stateThread = new Thread(new ParameterizedThreadStart(PlaybackStartedThread));
+            stateThread.IsBackground = true;
+            stateThread.Name = "Scrobbler event";
+            stateThread.Start((object)en);
+
+            Thread LoadThread = new Thread(new ThreadStart(OnSongLoadedThread));
+            LoadThread.IsBackground = true;
+            LoadThread.Name = "Scrobbler loader";
+            LoadThread.Start();
         }
-      }
-      catch
-      {
-      }
+        catch (Exception ex)
+        {
+            Log.Error("YouTube.Fm plugin: Error creating threads on playback start - {0} {1}", ex.Message);
+            Log.Error(ex);
+        }
     }
+
 
     void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
     {
-      if (playlistPlayer.CurrentPlaylistType == _playlistType)
-      {
-        return;
-      }
       try
       {
         ClearLabels("NowPlaying");
@@ -392,15 +388,6 @@ namespace YouTubePlugin
           else
           {
             InstantPlay();
-          }
-        }
-        if (action.wID == Action.ActionType.ACTION_NEXT_ITEM)
-        {
-          if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 0)
-          {
-            playlistPlayer.CurrentPlaylistType = _playlistType;
-            Log.Debug("YouTube Playlist : Geting next item PlayBack Url");
-            playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, new VideoInfo());
           }
         }
       }
@@ -836,7 +823,6 @@ namespace YouTubePlugin
         return;
       string PlayblackUrl = "";
 
-      List<GUIListItem> list = new List<GUIListItem>();
       GUIListItem pItem = new GUIListItem(vid.Title.Text);
       pItem.MusicTag = vid;
       try
@@ -851,22 +837,21 @@ namespace YouTubePlugin
       {
         if (vid.Media.Contents.Count > 0)
         {
-          PlayblackUrl = vid.Media.Content.Attributes["url"].ToString();
+            PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
         }
         else
         {
-          PlayblackUrl = Youtube2MP.youtubecatch2(vid.AlternateUri.Content);
+            PlayblackUrl = vid.AlternateUri.ToString();
         }
 
-        list.Add(pItem);
+        VideoInfo qa = new VideoInfo();
         PlayListItem playlistItem = new PlayListItem();
         playlistItem.Type = PlayListItem.PlayListItemType.VideoStream;// Playlists.PlayListItem.PlayListItemType.Audio;
-
+        qa.Entry = vid;
         playlistItem.FileName = PlayblackUrl;
         playlistItem.Description = pItem.Label;
-        MusicTag tag = new MusicTag();
         playlistItem.Duration = pItem.Duration;
-        playlistItem.MusicTag = pItem.MusicTag;
+        playlistItem.MusicTag = qa;
         playList.Add(playlistItem);
       }
     }
@@ -893,16 +878,6 @@ namespace YouTubePlugin
 
         case GUIMessage.MessageType.GUI_MSG_PLAYLIST_CHANGED:
           {
-            //	global playlist changed outside playlist window
-            //added by Sam
-            ////if party shuffle...
-            //if (PShuffleOn)// || ScrobblerOn)
-            //{
-            //  LoadDirectory(string.Empty);
-            //  UpdateButtonStates();
-            //}
-            //ended changes
-
             if (m_iLastControl == facadeView.GetID && facadeView.Count <= 0)
             {
               if (GUIWindowManager.ActiveWindow == (int)GetID)
@@ -1356,6 +1331,40 @@ namespace YouTubePlugin
           }
         }
 
+        //Playlist pl = new Playlist();
+        //pl.Title = strNewFileName;
+        //pl.Summary = "Created or modified in MediaPortal";
+        //Playlist createdPlaylist = Youtube2MP.service.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), pl);
+
+        //PlaylistsEntry newPlaylist = new PlaylistsEntry();
+        //newPlaylist.Title.Text = strNewFileName;
+        ////newPlaylist.Description = "Created or modified in MediaPortal";
+        //newPlaylist.Summary.Text = "Created or modified in MediaPortal";
+        //PlaylistsEntry createdPlaylist = (PlaylistsEntry)Youtube2MP.service.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), newPlaylist);
+        //Playlist pl = new Playlist();
+
+        //YouTubeQuery query1 = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(null));
+        //PlaylistsFeed userPlaylists1 = Youtube2MP.service.GetPlaylists(query1);
+
+        //foreach (PlaylistsEntry entry in userPlaylists1.Entries)
+        //{
+        //    if (entry.Title.Text == strNewFileName)
+        //    {
+        //        pl = (Playlist)entry;
+        //    }
+        //}
+
+        //foreach (PlayListItem playitem in playList)
+        //{
+        //  VideoInfo info = (VideoInfo)playitem.MusicTag;
+        //  YouTubeEntry videoEntry = info.Entry;
+        //  PlayListMember pm = new PlayListMember();
+                        
+        //  // Insert <id> or <videoid> for video here
+        //  pm.Id = videoEntry.VideoId;
+        //  Youtube2MP.request.AddToPlaylist(pl, pm);
+        //}
+
         PlaylistsEntry newPlaylist = new PlaylistsEntry();
         newPlaylist.Title.Text = strNewFileName;
         //newPlaylist.Description = "Created or modified in MediaPortal";
@@ -1364,12 +1373,13 @@ namespace YouTubePlugin
 
         foreach (PlayListItem playitem in playList)
         {
-          //playitem.MusicTag
-          //string videoEntryUrl = "http://gdata.youtube.com/feeds/api/videos/ADos_xW4_J0";
-          YouTubeEntry videoEntry = (YouTubeEntry)playitem.MusicTag;
-          PlaylistEntry newPlaylistEntry = new PlaylistEntry();
-          newPlaylistEntry.Id = videoEntry.Id;
-          PlaylistEntry createdPlaylistEntry = (PlaylistEntry)Youtube2MP.service.Insert(new Uri(createdPlaylist.Content.Src.Content), newPlaylistEntry);
+            //playitem.MusicTag
+            //string videoEntryUrl = "http://gdata.youtube.com/feeds/api/videos/ADos_xW4_J0";
+            VideoInfo info = (VideoInfo)playitem.MusicTag;
+            YouTubeEntry videoEntry = info.Entry;
+            PlaylistEntry newPlaylistEntry = new PlaylistEntry();
+            newPlaylistEntry.Id = videoEntry.Id;
+            PlaylistEntry createdPlaylistEntry = (PlaylistEntry)Youtube2MP.service.Insert(new Uri(createdPlaylist.Content.Src.Content), newPlaylistEntry);
         }
 
       }
@@ -1826,53 +1836,6 @@ namespace YouTubePlugin
       GUIGraphicsContext.form.Invoke(new ThreadRefreshList(DoRefreshList));
     }
 
-    private void OnPlayBackStarted(g_Player.MediaType type, string filename)
-    {
-        return;
-      //if (playlistPlayer.CurrentPlaylistType == _playlistType)
-      //{
-      //  return;
-      //}
-
-        if (!filename.Contains("youtube."))
-        {
-          if (Youtube2MP.UrlHolder.ContainsKey(filename))
-          {
-            filename = Youtube2MP.StreamPlaybackUrl(Youtube2MP.UrlHolder[filename], new VideoInfo());
-          }
-        }
-      try
-      {
-        if (filename.Contains("youtube."))
-        {
-          if (playlistPlayer.CurrentPlaylistType != _playlistType)
-            return;
-
-          if (playlistPlayer.GetCurrentItem() == null)
-            return;
-
-          if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetNextItem() != null)
-          {
-            playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, new VideoInfo());
-          }
-
-          Thread stateThread = new Thread(new ParameterizedThreadStart(PlaybackStartedThread));
-          stateThread.IsBackground = true;
-          stateThread.Name = "Scrobbler event";
-          stateThread.Start((object)filename);
-
-          Thread LoadThread = new Thread(new ThreadStart(OnSongLoadedThread));
-          LoadThread.IsBackground = true;
-          LoadThread.Name = "Scrobbler loader";
-          LoadThread.Start();
-        }
-      }
-      catch (Exception ex)
-      {
-        Log.Error("YouTube.Fm plugin: Error creating threads on playback start - {0} {1}", ex.Message);
-        Log.Error(ex);
-      }
-    }
     
     private void PlaybackStartedThread(object aParam)
     {

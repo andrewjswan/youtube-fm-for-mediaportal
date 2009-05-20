@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{13687C8F-D781-49F7-A373-E73CD761CC97}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -45,9 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\YouTubePlugin\References\Google.GData.YouTube.dll</HintPath>
     </Reference>
-    <Reference Include="LastFmLibNet, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="lastfm-sharp, Version=0.1.10.39897, Culture=neutral, PublicKeyToken=ac974b34236b3339, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\YouTubePlugin\References\LastFmLibNet.dll</HintPath>
+      <HintPath>..\YouTubePlugin\References\lastfm-sharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
