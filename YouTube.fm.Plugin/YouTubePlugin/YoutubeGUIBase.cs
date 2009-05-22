@@ -186,6 +186,8 @@ namespace YouTubePlugin
                 }
             }
             //Youtube2MP.temp_player.Play(0);
+            PlayListPlayer.SingletonPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
+            Youtube2MP.player.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
             Youtube2MP.temp_player.Play(0);
             if (!g_Player.Playing)
             {

@@ -977,22 +977,8 @@ namespace YouTubePlugin
       string strPath = item.Path;
       playlistPlayer.CurrentPlaylistType = _playlistType;
       playlistPlayer.Reset();
-      if (!Youtube2MP._settings.UseYouTubePlayer)
-      {
-        playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetPlaylist(_playlistType)[iItem].FileName, new VideoInfo());
-      }
-
-      //try
-      //{
-      //  if (!Youtube2MP._settings.UseYouTubePlayer && playlistPlayer.GetPlaylist(_playlistType).Count > 1)
-      //  {
-      //    playlistPlayer.GetNextItem().FileName = Youtube2MP.StreamPlaybackUrl(playlistPlayer.GetNextItem().FileName, new VideoInfo());
-      //  }
-      //}
-      //catch
-      //{
-      //}
-
+      PlayListPlayer.SingletonPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
+      Youtube2MP.temp_player.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
       playlistPlayer.Play(iItem);
       SelectCurrentPlayingSong();
       UpdateButtonStates();

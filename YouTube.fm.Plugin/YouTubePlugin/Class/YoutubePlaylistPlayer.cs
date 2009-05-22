@@ -162,6 +162,8 @@ namespace YouTubePlugin
 
         public void OnMessage(GUIMessage message)
         {
+            if(PlayListPlayer.SingletonPlayer.CurrentPlaylistType!=PlayListType.PLAYLIST_NONE)
+                return;
             switch (message.Message)
             {
                 case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:

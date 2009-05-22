@@ -8,7 +8,7 @@
 			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Client.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>17faaea6-a213-4b65-be64-cd45b977d03d</Guid>
+			<Guid>d5588b9d-2e96-4555-b238-923548708178</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.Extensions.dll</FileName>
@@ -17,7 +17,7 @@
 			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Extensions.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>4ada19ac-2307-4a84-a615-a1c1eea63756</Guid>
+			<Guid>f1c01379-85f6-40f0-add1-77b22b7713f0</Guid>
 		</File>
 		<File>
 			<FileName>Google.GData.YouTube.dll</FileName>
@@ -26,7 +26,7 @@
 			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.YouTube.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>685e55f0-1e02-4a97-afe9-ef738e3a89d8</Guid>
+			<Guid>3ad2a9a0-0801-4cb1-aefc-046b99dfcc56</Guid>
 		</File>
 		<File>
 			<FileName>hover_youtubefm.png</FileName>
@@ -35,7 +35,7 @@
 			<Source>skin\StreamedMP\Media\hover_youtubefm.png</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=\hover_youtubefm.png|</Option>
-			<Guid>6eb8ccbf-211c-46a3-b4f3-85dd47a5245a</Guid>
+			<Guid>b5c9e57d-4a32-4685-9489-9303a4f92b07</Guid>
 		</File>
 		<File>
 			<FileName>lastfm-sharp.dll</FileName>
@@ -44,7 +44,7 @@
 			<Source>F:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\lastfm-sharp.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>8c24d285-4cb9-4190-b0aa-01a8bfa3d421</Guid>
+			<Guid>eb2f2ec5-d3b1-4464-bf1e-71df19165d36</Guid>
 		</File>
 		<File>
 			<FileName>youtubeinfo.xml</FileName>
@@ -53,7 +53,7 @@
 			<Source>skin\Blue3wide\youtubeinfo.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>19c8e977-ff2f-4bc4-a03d-5bf641241954</Guid>
+			<Guid>127cd444-bf08-4223-bde4-2a07031bc38f</Guid>
 		</File>
 		<File>
 			<FileName>youtubeinfo.xml</FileName>
@@ -62,7 +62,7 @@
 			<Source>skin\StreamedMP\youtubeinfo.xml</Source>
 			<Id>02010</Id>
 			<Option />
-			<Guid>7b56565f-1fcf-4973-ad64-4fad73579795</Guid>
+			<Guid>cbbc378c-a0b3-483c-89fd-71dbba3998f5</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -71,7 +71,7 @@
 			<Source>skin\Blue3wide\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>9ba69646-9e2d-421d-b6d6-0f85a503c9fa</Guid>
+			<Guid>1feb13d6-bc93-4a7e-9783-30247c20da0d</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -80,7 +80,7 @@
 			<Source>skin\StreamedMP\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option />
-			<Guid>29c7aa01-10c7-4d10-ad5e-a1eb9c20e817</Guid>
+			<Guid>3d604673-26b5-43bb-a364-8d696e8b5ada</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlugin.dll</FileName>
@@ -89,7 +89,7 @@
 			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
 			<Id>01010</Id>
 			<Option />
-			<Guid>0f8f8bbb-7a34-41e3-8472-5409b0ab59d4</Guid>
+			<Guid>bb0b10d0-c350-4df7-aa9b-522225938788</Guid>
 		</File>
 		<File>
 			<FileName>YouTubePlugin.dll</FileName>
@@ -98,7 +98,7 @@
 			<Source>F:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
 			<Id>04010</Id>
 			<Option />
-			<Guid>84ac0da3-7e62-47d8-8397-46dbbf85e778</Guid>
+			<Guid>790d9298-709d-4fab-be69-ce6dbc22ee1d</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -107,7 +107,7 @@
 			<Source>skin\Blue3wide\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>6114588f-6193-4b96-a734-99ae7d459b9b</Guid>
+			<Guid>8033c91b-3a97-4afe-bb37-1897ddb3ea73</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -116,7 +116,7 @@
 			<Source>skin\StreamedMP\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option />
-			<Guid>326bab1c-acc9-445f-a28f-c4570fa81e1c</Guid>
+			<Guid>309a689c-1443-474a-b704-9a7e4040ab1c</Guid>
 		</File>
 	</FileList>
 	<StringList>
@@ -148,7 +148,7 @@
 		<Version>0.5.4</Version>
 		<Description />
 		<Group>Video/Movies</Group>
-		<Release>Beta</Release>
+		<Release>Test</Release>
 		<Script />
 	</Option>
 	<Properties>

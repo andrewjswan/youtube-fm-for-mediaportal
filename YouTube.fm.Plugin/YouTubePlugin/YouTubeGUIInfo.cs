@@ -89,6 +89,12 @@ namespace YouTubePlugin
             Youtube2MP.NowPlayingEntry = en;
             Youtube2MP.NowPlayingSong = song;
             SetLabels(en, "NowPlaying");
+            if (listControl != null)
+            {
+                GUIControl.ClearControl(GetID, listControl.GetID);
+                relatated.Clear();
+            }
+            infoTimer.Enabled = true;
         }
         catch
         {
@@ -99,26 +105,8 @@ namespace YouTubePlugin
     {
       infoTimer.Elapsed += new ElapsedEventHandler(updateStationLogoTimer_Elapsed);
       infoTimer.Enabled = false;
-      g_Player.PlayBackStarted += new g_Player.StartedHandler(g_Player_PlayBackStarted);
       infoTimer.Interval = 0.5 * 1000;
       return Load(GUIGraphicsContext.Skin + @"\youtubeinfo.xml");
-    }
-
-    void g_Player_PlayBackStarted(g_Player.MediaType type, string filename)
-    {
-      try
-      {
-        if (listControl != null)
-        {
-          GUIControl.ClearControl(GetID, listControl.GetID);
-          relatated.Clear();
-        }
-        infoTimer.Enabled = true;
-      }
-      catch
-      {
-
-      }
     }
 
     protected override void OnShowContextMenu()
