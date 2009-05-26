@@ -162,9 +162,15 @@ namespace YouTubePlugin
       Youtube2MP._settings.LocalFile.Items.Add(new LocalFileStruct(VideoDownloader.DownloadingTo, VideoDownloader.Entry.VideoId, VideoDownloader.Entry.Title.Text));
       Youtube2MP._settings.LocalFile.Save();
       string imageFile = GetLocalImageFileName(GetBestUrl(VideoDownloader.Entry.Media.Thumbnails));
-      if (File.Exists(imageFile))
+      try
       {
-        File.Copy(imageFile, Path.GetDirectoryName(VideoDownloader.DownloadingTo) + "\\" + Path.GetFileNameWithoutExtension(VideoDownloader.DownloadingTo) + ".png");
+          if (File.Exists(imageFile))
+          {
+              File.Copy(imageFile, Path.GetDirectoryName(VideoDownloader.DownloadingTo) + "\\" + Path.GetFileNameWithoutExtension(VideoDownloader.DownloadingTo) + ".png");
+          }
+      }
+      catch
+      {
       }
       if (dlgProgress != null)
       {

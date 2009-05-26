@@ -184,7 +184,7 @@ namespace Test
 
     private void button2_Click(object sender, EventArgs e)
     {
-        LastProfile profile = new LastProfile("dukusi", "miki");
+        LastProfile profile = new LastProfile("", "");
         bool res = profile.Handshake();
         //profile.NowPlaying(new YouTubeEntry());
         profile.Submit(new YouTubeEntry());

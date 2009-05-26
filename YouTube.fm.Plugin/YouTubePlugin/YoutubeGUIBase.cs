@@ -175,9 +175,10 @@ namespace YouTubePlugin
             PlayList playlist = Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
             playlist.Clear();
             g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
+            AddItemToPlayList(vid, ref playlist, qa);
+
             if (facade != null)
             {
-                AddItemToPlayList(vid, ref playlist, qa);
                 qa.Items = new Dictionary<string, string>();
                 int selected = facade.SelectedListItemIndex ;
                 for (int i = selected + 1; i < facade.ListItems.Count; i++)
@@ -185,7 +186,7 @@ namespace YouTubePlugin
                     AddItemToPlayList(facade.ListItems[i], ref playlist, new VideoInfo(qa));
                 }
             }
-            //Youtube2MP.temp_player.Play(0);
+
             PlayListPlayer.SingletonPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
             Youtube2MP.player.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
             Youtube2MP.temp_player.Play(0);

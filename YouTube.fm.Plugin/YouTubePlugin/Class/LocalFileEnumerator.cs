@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Xml.Serialization;
 
+using MediaPortal.GUI.Library;
 using MediaPortal.Configuration;
 
 namespace YouTubePlugin
@@ -36,8 +37,9 @@ namespace YouTubePlugin
         serializer.Serialize(writer, this);
         writer.Close();
       }
-      catch
+      catch (Exception ex)
       {
+          Log.Error(ex);   
       }
     }
 

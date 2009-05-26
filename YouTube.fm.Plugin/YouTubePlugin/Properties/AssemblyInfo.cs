@@ -9,9 +9,9 @@ using System.Resources;
 [assembly: AssemblyTitle("YouTubePlugin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany(".")]
-[assembly: AssemblyProduct("YouTubePlugin")]
-[assembly: AssemblyCopyright("Copyright © . 2008")]
+[assembly: AssemblyCompany("Dukus")]
+[assembly: AssemblyProduct("YouTube.Fm")]
+[assembly: AssemblyCopyright("Copyright © . 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,6 +32,6 @@ using System.Resources;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.5.0.3")]
-[assembly: AssemblyFileVersion("0.5.0.3")]
+[assembly: AssemblyVersion("0.5.0.4")]
+[assembly: AssemblyFileVersion("0.5.0.4")]
 [assembly: NeutralResourcesLanguageAttribute("")]
