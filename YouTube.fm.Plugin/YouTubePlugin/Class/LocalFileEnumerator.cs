@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using System.Xml.Serialization;
+using System.Xml;
 
 using MediaPortal.GUI.Library;
 using MediaPortal.Configuration;
 
 namespace YouTubePlugin
 {
-  [Serializable]
   public class LocalFileEnumerator
   {
 
@@ -30,16 +29,40 @@ namespace YouTubePlugin
     public void Save()
     {
       string filename = Config.GetFile(Config.Dir.Config, "youtube.xml");
-      try
+      Stream myStream;
+      if ((myStream = File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None)) != null)
       {
-        XmlSerializer serializer = new XmlSerializer(typeof(LocalFileEnumerator));
-        TextWriter writer = new StreamWriter(filename);
-        serializer.Serialize(writer, this);
-        writer.Close();
-      }
-      catch (Exception ex)
-      {
-          Log.Error(ex);   
+                  // Code to write the stream goes here.
+        XmlDocument doc = new XmlDocument();
+        XmlWriter writer = null;
+        try
+        {
+            // Create an XmlWriterSettings object with the correct options. 
+            XmlWriterSettings settings = new XmlWriterSettings();
+            string st = string.Empty;
+            settings.Indent = true;
+            settings.IndentChars = ("\t");
+            settings.OmitXmlDeclaration = true;
+            writer = XmlWriter.Create(myStream, settings);
+            writer.WriteStartElement("LocalFileEnumerator");
+            foreach (LocalFileStruct lfs in Items)
+            {
+                writer.WriteStartElement("Items");
+                writer.WriteElementString("LocalFile", lfs.LocalFile);
+                writer.WriteElementString("Title", lfs.Title);
+                writer.WriteElementString("VideoId", lfs.VideoId);
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+            writer.Flush();
+            if (writer != null)
+                writer.Close();
+            myStream.Close();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex);
+        }
       }
     }
 
@@ -56,26 +79,30 @@ namespace YouTubePlugin
 
     public void Load()
     {
-      string filename = Config.GetFile(Config.Dir.Config, "youtube.xml");
-      try
-      {
-        LocalFileEnumerator lfe = new LocalFileEnumerator();
-        XmlSerializer serializer = new XmlSerializer(typeof(LocalFileEnumerator));
-        FileStream fs = new FileStream(filename, FileMode.Open);
-        lfe = (LocalFileEnumerator)serializer.Deserialize(fs);
-        fs.Close();
-        foreach (LocalFileStruct lf in lfe.Items)
-        {
-          if (File.Exists(lf.LocalFile))
+        Items.Clear();
+        string filename = Config.GetFile(Config.Dir.Config, "youtube.xml");
+          XmlDocument doc = new XmlDocument();
+          if (File.Exists(filename))
           {
-            Items.Add(lf);
+              try
+              {
+                  doc.Load(filename);
+                  XmlNode ver = doc.DocumentElement.SelectSingleNode("/LocalFileEnumerator");
+                  XmlNodeList fileList = ver.SelectNodes("Items");
+                  foreach (XmlNode nodefile in fileList)
+                  {
+                      LocalFileStruct lfs = new LocalFileStruct();
+                      lfs.LocalFile = nodefile.SelectSingleNode("LocalFile").InnerText;
+                      lfs.Title = nodefile.SelectSingleNode("Title").InnerText;
+                      lfs.VideoId = nodefile.SelectSingleNode("VideoId").InnerText;
+                      Items.Add(lfs);
+                  }
+              }
+              catch(Exception ex)
+              {
+                  Log.Error(ex);
+              }
           }
-        }
-        
-      }
-      catch
-      {
-      }
     }
 
 

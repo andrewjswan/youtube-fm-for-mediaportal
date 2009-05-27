@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using MediaPortal.Music.Database;
 
 using Google.GData.YouTube;
-using Lastfm.Services;
+//using Lastfm.Services;
 
 namespace YouTubePlugin
 {
@@ -20,9 +20,9 @@ namespace YouTubePlugin
     {
         private string username;
         private string password;
-        private Session session;
-        private Lastfm.Scrobbling.Connection connection;
-        private Lastfm.Scrobbling.ScrobbleManager manager;
+        //private Session session;
+        //private Lastfm.Scrobbling.Connection connection;
+        //private Lastfm.Scrobbling.ScrobbleManager manager;
 
         public LastProfile(string username, string password)
         {

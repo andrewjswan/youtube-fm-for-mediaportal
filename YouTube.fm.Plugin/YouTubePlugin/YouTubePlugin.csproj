@@ -53,10 +53,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\Google.GData.YouTube.dll</HintPath>
     </Reference>
-    <Reference Include="lastfm-sharp, Version=0.1.10.39897, Culture=neutral, PublicKeyToken=ac974b34236b3339, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\lastfm-sharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -70,7 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\FileDownloader.cs" />
-    <Compile Include="Class\LastProfile.cs" />
+    <None Include="Class\LastProfile.cs" />
     <Compile Include="Class\LocalFileEnumerator.cs" />
     <Compile Include="Class\LocalFileStruct.cs" />
     <Compile Include="Class\VideoInfo.cs" />
@@ -111,6 +107,6 @@
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetDir)YouTubePlugin.dll f:\devel\vs2005\mediaportal\xbmc\bin\Release\plugins\Windows\YouTubePlugin.dll /y
 copy $(TargetDir)YouTubePlugin.pdb f:\devel\vs2005\mediaportal\xbmc\bin\Release\plugins\Windows\YouTubePlugin.pdb /y
-copy $(TargetDir)YouTubePlugin.dll f:\devel\vs2005\mediaportal\xbmc\bin\Release\YouTubePlugin.dll /y</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
 </Project>

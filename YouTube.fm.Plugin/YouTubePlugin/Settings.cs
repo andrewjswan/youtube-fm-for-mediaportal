@@ -217,8 +217,8 @@ namespace YouTubePlugin
           if (!string.IsNullOrEmpty(s.Trim()))
             SearchHistory.Add(s);
         }
-        this.LocalFile.Load();
       }
+      this.LocalFile.Load();
     }
 
     public void Save()

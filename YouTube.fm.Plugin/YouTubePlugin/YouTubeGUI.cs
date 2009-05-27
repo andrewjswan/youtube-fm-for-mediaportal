@@ -139,7 +139,7 @@ namespace YouTubePlugin
     {
       if (dlgProgress != null)
       {
-        dlgProgress.SetLine(2, string.Format("{0} / {1} ({2}%)", e.TotalFileSize, e.CurrentFileSize, e.PercentDone));
+        dlgProgress.SetLine(2, string.Format("{0} Mb / {1} Mb ({2}%)", e.TotalFileSize/1024/1024, e.CurrentFileSize/1024/1024, e.PercentDone));
         dlgProgress.ShowProgressBar(true);
         dlgProgress.SetPercentage(e.PercentDone);
         dlgProgress.Progress();
@@ -239,7 +239,7 @@ namespace YouTubePlugin
       // no image or picture
       strButtonImage = String.Empty;
       strButtonImageFocus = String.Empty;
-      strPictureImage = String.Empty;
+      strPictureImage = "hover_youtubefm.png";
 
       return true;
     }
