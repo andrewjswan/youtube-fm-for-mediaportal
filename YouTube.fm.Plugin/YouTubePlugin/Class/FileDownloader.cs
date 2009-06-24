@@ -8,6 +8,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Collections.Generic;
+using MediaPortal.GUI.Library;
 
 using Google.GData.Client;
 using Google.GData.Extensions;
@@ -168,11 +169,10 @@ namespace YouTubePlugin
             OnDownloadComplete();
           isBusy = false;
         }
-        catch (UriFormatException e)
+        catch (Exception e)
         {
           isBusy = false;
-          throw new ArgumentException(
-              String.Format("Could not parse the URL \"{0}\" - it's either malformed or is an unknown protocol.", url), e);
+          Log.Error(e);
         }
         finally
         {
