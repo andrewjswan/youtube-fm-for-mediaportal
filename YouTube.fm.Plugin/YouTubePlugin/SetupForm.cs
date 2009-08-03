@@ -42,6 +42,8 @@ namespace YouTubePlugin
       _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
       _settings.InstantAction = (Action.ActionType)comboBox_action.SelectedValue;
       _settings.DownloadFolder = textBox_downloaddir.Text;
+      _settings.FanartDir = textBox_fanartdir.Text;
+      _settings.LoadOnlineFanart = checkBox1.Checked;
       try
       {
       }
@@ -96,6 +98,8 @@ namespace YouTubePlugin
       comboBox_videoquality.SelectedIndex = _settings.VideoQuality;
       checkBox_sms.Checked = _settings.UseSMSStyleKeyBoard;
       textBox_downloaddir.Text = _settings.DownloadFolder;
+      textBox_fanartdir.Text = _settings.FanartDir;
+      checkBox1.Checked = _settings.LoadOnlineFanart;
       comboBox_action.SelectedValue = (int)_settings.InstantAction;
       switch (_settings.InitialDisplay)
       {
@@ -198,6 +202,15 @@ namespace YouTubePlugin
       {
         textBox_downloaddir.Text = folderBrowserDialog1.SelectedPath;
       }
+    }
+
+    private void button6_Click(object sender, EventArgs e)
+    {
+        folderBrowserDialog1.SelectedPath = textBox_downloaddir.Text;
+        if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+        {
+            textBox_fanartdir.Text = folderBrowserDialog1.SelectedPath;
+        }
     }
 
   }

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using Google.GData.YouTube;
+using MediaPortal.GUI.Library;
 
 namespace YouTubePlugin
 {
@@ -108,9 +110,30 @@ namespace YouTubePlugin
         }
         Date = DateTime.Now;
         IsInited = true;
+        if (!Items.ContainsKey("token"))
+        {
+            string site = client.DownloadString(string.Format("http://www.youtube.com/watch?v={0}", videoId));
+            
+            Regex regexObj = new Regex(", \"t\": \"(?<token>.*?)\", \"", RegexOptions.Singleline);
+            Match matchResult = regexObj.Match(site);
+            if (matchResult.Success)
+            {
+                Items.Add("token", matchResult.Groups["token"].Value);
+                if (Items.ContainsKey("reason"))
+                    Items.Remove("reason");
+            }
+
+            Regex regexObj1 = new Regex(", \"fmt_map\": \"(?<fmt_map>.*?)\", \"", RegexOptions.Singleline);
+            Match matchResult1 = regexObj1.Match(site);
+            if (matchResult1.Success)
+            {
+                Items.Add("fmt_map", matchResult1.Groups["fmt_map"].Value);
+            }
+        }
       }
-      catch
+      catch (Exception ex)
       {
+        Log.Error(ex);
         Init();
       }
     }

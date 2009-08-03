@@ -190,6 +190,20 @@ namespace YouTubePlugin
             PlayListPlayer.SingletonPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
             Youtube2MP.player.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
             Youtube2MP.temp_player.Play(0);
+
+
+            if (g_Player.Playing && fullscr)
+            {
+                if (_setting.ShowNowPlaying)
+                {
+                    GUIWindowManager.ActivateWindow(29052);
+                }
+                else
+                {
+                    g_Player.ShowFullScreenWindow();
+                }
+            }
+
             if (!g_Player.Playing)
             {
                 Err_message("Unable to playback the item ! ");

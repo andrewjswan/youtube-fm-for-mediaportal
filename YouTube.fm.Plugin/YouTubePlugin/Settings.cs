@@ -118,8 +118,22 @@ namespace YouTubePlugin
       set { password = value; }
     }
 
-    private bool time;
+    private string fanartdir;
+    public string FanartDir
+    {
+        get { return fanartdir; }
+        set { fanartdir = value; }
+    }
 
+    private bool loadonlinefanart;
+    public bool LoadOnlineFanart
+    {
+        get { return loadonlinefanart; }
+        set { loadonlinefanart = value; }
+    }
+
+
+    private bool time;
     public bool Time
     {
       get { return time; }
@@ -211,6 +225,8 @@ namespace YouTubePlugin
         this.ShowNowPlaying = xmlreader.GetValueAsBool("youtubevideos", "ShowNowPlaying", true);
         this.UseYouTubePlayer = xmlreader.GetValueAsBool("youtubevideos", "UseYouTubePlayer", false);
         this.UseExtremFilter = xmlreader.GetValueAsBool("youtubevideos", "UseExtremFilter", false);
+        this.LoadOnlineFanart = xmlreader.GetValueAsBool("youtubevideos", "LoadOnlineFanart", true);
+        this.FanartDir = xmlreader.GetValueAsString("youtubevideos", "FanartFolder", string.Empty);
         this.DownloadFolder = xmlreader.GetValueAsString("youtubevideos", "DownloadFolder", Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\My Videos");
         foreach (string s in his.Split('|'))
         {
@@ -235,12 +251,14 @@ namespace YouTubePlugin
         xmlwriter.SetValue("youtubevideos", "InstantAction", (int)this.InstantAction);
         xmlwriter.SetValue("youtubevideos", "InstantCharInt", this.InstantChar);
         xmlwriter.SetValue("youtubevideos", "DownloadFolder", this.DownloadFolder);
+        xmlwriter.SetValue("youtubevideos", "FanartFolder", this.FanartDir);
         xmlwriter.SetValueAsBool("youtubevideos", "MusicFilter", this.MusicFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "time", this.Time);
         xmlwriter.SetValueAsBool("youtubevideos", "ShowNowPlaying", this.ShowNowPlaying);
         xmlwriter.SetValueAsBool("youtubevideos", "UseYouTubePlayer", this.UseYouTubePlayer);
         xmlwriter.SetValueAsBool("youtubevideos", "UseExtremFilter", this.UseExtremFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "UseSMSStyleKeyBoard", this.UseSMSStyleKeyBoard);
+        xmlwriter.SetValueAsBool("youtubevideos", "LoadOnlineFanart", this.LoadOnlineFanart);
         string his = "";
         foreach (string s in SearchHistory)
         {

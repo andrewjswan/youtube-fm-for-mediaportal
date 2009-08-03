@@ -189,6 +189,13 @@ namespace Test
     //    //profile.NowPlaying(new YouTubeEntry());
     //    profile.Submit(new YouTubeEntry());
     }
+
+    private void button3_Click(object sender, EventArgs e)
+    {
+        HTBFanArt fanart = new HTBFanArt();
+        fanart.Search(textBox3.Text);
+
+    }
   }
 
 }
