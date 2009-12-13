@@ -127,11 +127,11 @@ namespace YouTubePlugin
       Youtube2MP.service = service;
       updateStationLogoTimer.AutoReset = true;
       updateStationLogoTimer.Enabled = false;
-      updateStationLogoTimer.Elapsed += new ElapsedEventHandler(OnDownloadTimedEvent);
-      Client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadLogoEnd);
-      VideoDownloader.DownloadComplete += new EventHandler(VideoDownloader_DownloadComplete);
-      VideoDownloader.ProgressChanged += new DownloadProgressHandler(VideoDownloader_ProgressChanged);
-      GUIWindowManager.Receivers += new SendMessageHandler(GUIWindowManager_Receivers);
+      updateStationLogoTimer.Elapsed += OnDownloadTimedEvent;
+      Client.DownloadFileCompleted += DownloadLogoEnd;
+      VideoDownloader.DownloadComplete += VideoDownloader_DownloadComplete;
+      VideoDownloader.ProgressChanged += VideoDownloader_ProgressChanged;
+      GUIWindowManager.Receivers += GUIWindowManager_Receivers;
  
     }
 
@@ -288,6 +288,7 @@ namespace YouTubePlugin
             default:
               break;
           }
+          ShowPanel();
         }
         else
         {
@@ -416,7 +417,8 @@ namespace YouTubePlugin
         }
         dlg.DoModal(GetID);
         if (dlg.SelectedId == -1) return;
-        SearchVideo(dlg.SelectedLabelText); 
+        SearchVideo(dlg.SelectedLabelText);
+        NavigationStack.Clear();
       }
       else
       {
@@ -440,6 +442,7 @@ namespace YouTubePlugin
       if (dlg.SelectedId == -1) return;
       int select = dlg.SelectedLabel;
       ShowHome(select);
+      NavigationStack.Clear();
       uploadtime = YouTubeQuery.UploadTime.AllTime;
     }
 
@@ -641,12 +644,12 @@ namespace YouTubePlugin
         }
         catch
         {
-          keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
+          keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)Window.WINDOW_VIRTUAL_KEYBOARD);
         }
       }
       else
       {
-        keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
+        keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)Window.WINDOW_VIRTUAL_KEYBOARD);
       }
       if (null == keyboard) return;
 
@@ -661,36 +664,56 @@ namespace YouTubePlugin
 
       if ("" != searchString)
       {
-        SearchVideo(searchString);
+          SearchVideo(searchString);
+          NavigationStack.Clear();
       }
     }
 
     private void SearchVideo(string searchString)
     {
-      YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
-      query = SetParamToYouTubeQuery(query, false);
-      //query.VQ = searchString;
-      query.Query = searchString;
-      query.OrderBy = "relevance";
+        YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
+        query = SetParamToYouTubeQuery(query, false);
+        //query.VQ = searchString;
+        query.Query = searchString;
+        query.OrderBy = "relevance";
 
-      YouTubeFeed vidr = service.Query(query);
+        YouTubeFeed vidr = service.Query(query);
 
-      if (vidr.Entries.Count > 0)
-      {
-        SaveListState(true);
-        addVideos(vidr, false,query);
-        UpdateGui();
-        if (_setting.SearchHistory.Contains(searchString.Trim()))
-          _setting.SearchHistory.Remove(searchString.Trim());
-        _setting.SearchHistory.Add(searchString.Trim());
-      }
-      else
-      {
-        Err_message("No item was found !");
-      }
+        foreach (AtomLink link in vidr.Links)
+        {
+            if (link.Rel == "http://schemas.google.com/g/2006#spellcorrection")
+            {
+                GUIDialogYesNo dlgYesNo = (GUIDialogYesNo) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_YES_NO);
+                if (null == dlgYesNo)
+                    return;
+                dlgYesNo.SetHeading("Did you mean ?"); //resume movie?
+                dlgYesNo.SetLine(1, link.Title);
+                dlgYesNo.SetDefaultToYes(true);
+                dlgYesNo.DoModal(GUIWindowManager.ActiveWindow);
+                if (dlgYesNo.IsConfirmed)
+                {
+                    SearchVideo(link.Title);
+                    return;
+                }
+            }
+        }
+
+        if (vidr.Entries.Count > 0)
+        {
+            SaveListState(true);
+            addVideos(vidr, false, query);
+            UpdateGui();
+            if (_setting.SearchHistory.Contains(searchString.Trim()))
+                _setting.SearchHistory.Remove(searchString.Trim());
+            _setting.SearchHistory.Add(searchString.Trim());
+        }
+        else
+        {
+            Err_message("No item was found !");
+        }
     }
 
-    private void DoBack()
+      private void DoBack()
     {
       if (NavigationStack.Count > 0)
       {
@@ -766,7 +789,7 @@ namespace YouTubePlugin
 
       if (videoEntry == null)
         return;
-      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_MENU);
       if (dlg == null)
         return;
       dlg.Reset();
@@ -804,7 +827,7 @@ namespace YouTubePlugin
             }
           }
           break;
-        case 1: //relatated
+        case 1: //respponse
           {
             if (videoEntry.VideoResponsesUri != null)
             {
@@ -889,7 +912,7 @@ namespace YouTubePlugin
               if (VideoDownloader.IsBusy)
               {
                 Err_message("Another donwnload is in progress");
-                dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_PROGRESS);
+                dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
                 if (dlgProgress != null)
                 {
                   dlgProgress.Reset();
@@ -906,7 +929,10 @@ namespace YouTubePlugin
               {
                 VideoInfo inf = SelectQuality(videoEntry);
                 string streamurl = Youtube2MP.StreamPlaybackUrl(videoEntry, inf);
-                VideoDownloader.AsyncDownload(streamurl, Youtube2MP._settings.DownloadFolder + "\\" + videoEntry.Title.Text + "{" + videoEntry.VideoId + "}" + Path.GetExtension(streamurl));
+                  VideoDownloader.AsyncDownload(streamurl,
+                                                Youtube2MP._settings.DownloadFolder + "\\" +
+                                                Utils.GetFilename(videoEntry.Title.Text + "{" + videoEntry.VideoId + "}") +
+                                                Path.GetExtension(streamurl));
                 VideoDownloader.Entry = videoEntry;
               }
             }
@@ -918,8 +944,7 @@ namespace YouTubePlugin
 
     private void DoOptions()
     {
-      bool shouldexit = false;
-            GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_MENU);
       if (dlg == null)
         return;
       do
@@ -953,7 +978,7 @@ namespace YouTubePlugin
             break;
         }
 
-      } while (!shouldexit);
+      } while (true);
     }
 
     private void DoInfo()
@@ -1021,7 +1046,7 @@ namespace YouTubePlugin
     void SortChanged(object sender, SortEventArgs e)
     {
       // save the new state
-      mapSettings.SortAscending = e.Order != System.Windows.Forms.SortOrder.Descending;
+      mapSettings.SortAscending = e.Order != SortOrder.Descending;
       // update the list
       //UpdateList();
       //UpdateButtonStates();
@@ -1059,7 +1084,7 @@ namespace YouTubePlugin
           try
           {
             item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
-            item.Rating = (float)entry.Rating.Average;
+              item.Rating = (float) entry.Rating.Average*2;
           }
           catch
           {
@@ -1076,11 +1101,11 @@ namespace YouTubePlugin
           }
           else
           {
-            MediaPortal.Util.Utils.SetDefaultIcons(item);
+            Utils.SetDefaultIcons(item);
             DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
           }
           item.MusicTag = entry;
-          item.OnItemSelected+=new GUIListItem.ItemSelectedHandler(item_OnItemSelected);
+          item.OnItemSelected+=item_OnItemSelected;
           listControl.Add(item);
         } 
       }
