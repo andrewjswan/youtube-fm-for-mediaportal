@@ -39,7 +39,7 @@ namespace YouTubePlugin
     protected YouTubeQuery.UploadTime uploadtime = YouTubeQuery.UploadTime.AllTime;
     public FileDownloader VideoDownloader = new FileDownloader();
 
-    public void SetLabels(YouTubeEntry vid, string type)
+    static public void SetLabels(YouTubeEntry vid, string type)
     {
       ClearLabels(type);
       try
@@ -100,7 +100,7 @@ namespace YouTubePlugin
       }
     }
 
-    public void ClearLabels(string type)
+    static public void ClearLabels(string type)
     {
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Duration", " ");
@@ -123,7 +123,7 @@ namespace YouTubePlugin
       return string.Format("{0}", vid.Title.Text);
     }
   
-    public string GetBestUrl(ExtensionCollection<MediaThumbnail> th)
+    static public string GetBestUrl(ExtensionCollection<MediaThumbnail> th)
     {
       if (th.Count > 0)
       {
@@ -135,7 +135,7 @@ namespace YouTubePlugin
       }
     }
 
-    public string GetLocalImageFileName(string strURL)
+    static public string GetLocalImageFileName(string strURL)
     {
       if (strURL == "")
         return string.Empty;
@@ -390,7 +390,7 @@ namespace YouTubePlugin
         }
     }
 
-    public string GetFanArtImage(string artist)
+    static public string GetFanArtImage(string artist)
     {
       return String.Format(@"{0}\{1}_fanart.jpg", Thumbs.MusicArtists, MediaPortal.Util.Utils.MakeFileName(artist));
     }
@@ -458,6 +458,7 @@ namespace YouTubePlugin
       //order results by the number of views (most viewed first)
       query.OrderBy = "viewCount";
       query.StartIndex = 1;
+      //query.LR = "hu";
       if (_setting.UseExtremFilter)
         query.NumberToRetrieve = 50;
       else

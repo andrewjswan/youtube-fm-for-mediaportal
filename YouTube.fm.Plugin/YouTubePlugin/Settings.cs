@@ -43,97 +43,68 @@ namespace YouTubePlugin
       }
     }
 
-    private LocalFileEnumerator localFile;
+      public Dictionary<string ,string> Regions
+      {
+          get
+          {
+              Dictionary<string, string> list = new Dictionary<string, string>();
+              list.Add("All", "");
+              list.Add("Australia","AU");
+              list.Add("Brazil", "BR");
+              list.Add("Canada", "CA");
+              list.Add("Czech Republic", "CZ");
+              list.Add("France", "FR");
+              list.Add("Germany", "DE");
+              list.Add("Great Britain", "GB");
+              list.Add("Holland", "NL");
+              list.Add("Hong Kong", "HK");
+              list.Add("India", "IN");
+              list.Add("Ireland", "IE");
+              list.Add("Israel", "IL");
+              list.Add("Italy", "IT");
+              list.Add("Japan", "JP");
+              list.Add("Mexico", "MX");
+              list.Add("New Zealand", "NZ");
+              list.Add("Poland", "PL");
+              list.Add("Russia", "RU");
+              list.Add("South Korea", "KR");
+              list.Add("Spain", "ES");
+              list.Add("Sweden", "SE");
+              list.Add("Taiwan", "TW");
+              list.Add("United States", "US");
+              return list;
+          }
+      }
 
-    public LocalFileEnumerator LocalFile
-    {
-      get { return localFile; }
-      set { localFile = value; }
-    }
-    
-    private bool musicfilter;
-    public bool MusicFilter
-    {
-      get { return musicfilter; }
-      set { musicfilter = value; }
-    }
+      public LocalFileEnumerator LocalFile { get; set; }
 
-
-    private int initialCat;
-
-    public int InitialCat
-    {
-      get { return initialCat; }
-      set { initialCat = value; }
-    }
-
-
-    private string initialSearch;
-
-    public string InitialSearch
-    {
-      get { return initialSearch; }
-      set { initialSearch = value; }
-    }
-
-
-    private string pluginName;
-
-    public string PluginName
-    {
-      get { return pluginName; }
-      set { pluginName = value; }
-    }
-
-    private List<string> searchHistory;
-
-    public List<string> SearchHistory
-    {
-      get { return searchHistory; }
-      set { searchHistory = value; }
-    }
+      public bool MusicFilter { get; set; }
 
 
-    private int initial;
-
-    public int InitialDisplay
-    {
-      get { return initial; }
-      set { initial = value; }
-    }
-
-    private string user;
-
-    public string User
-    {
-      get { return user; }
-      set { user = value; }
-    }
-
-    private string password;
-
-    public string Password
-    {
-      get { return password; }
-      set { password = value; }
-    }
-
-    private string fanartdir;
-    public string FanartDir
-    {
-        get { return fanartdir; }
-        set { fanartdir = value; }
-    }
-
-    private bool loadonlinefanart;
-    public bool LoadOnlineFanart
-    {
-        get { return loadonlinefanart; }
-        set { loadonlinefanart = value; }
-    }
+      public int InitialCat { get; set; }
 
 
-    private bool time;
+      public string InitialSearch { get; set; }
+
+
+      public string PluginName { get; set; }
+
+      public string Region { get; set; }
+
+      public List<string> SearchHistory { get; set; }
+      
+      public int InitialDisplay { get; set; }
+
+      public string User { get; set; }
+
+      public string Password { get; set; }
+
+      public string FanartDir { get; set; }
+
+      public bool LoadOnlineFanart { get; set; }
+
+
+      private bool time;
     public bool Time
     {
       get { return time; }
@@ -207,9 +178,10 @@ namespace YouTubePlugin
 
     public void Load()
     {
-      using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
+      using (var xmlreader = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
       {
         this.PluginName = xmlreader.GetValueAsString("youtubevideos", "PluginName", "YouTube.fm");
+        this.Region = xmlreader.GetValueAsString("youtubevideos", "Region", "Ask");
         this.InitialDisplay = xmlreader.GetValueAsInt("youtubevideos", "InitialDisplay", 3);
         this.User = xmlreader.GetValueAsString("youtubevideos", "user", string.Empty);
         this.Password = xmlreader.GetValueAsString("youtubevideos", "password", string.Empty);
@@ -239,9 +211,10 @@ namespace YouTubePlugin
 
     public void Save()
     {
-      using (MediaPortal.Profile.Settings xmlwriter = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
+      using (var xmlwriter = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
       {
         xmlwriter.SetValue("youtubevideos", "PluginName", this.PluginName);
+        xmlwriter.SetValue("youtubevideos", "Region", this.Region);
         xmlwriter.SetValue("youtubevideos", "InitialDisplay", this.InitialDisplay);
         xmlwriter.SetValue("youtubevideos", "user", User);
         xmlwriter.SetValue("youtubevideos", "password", Password);

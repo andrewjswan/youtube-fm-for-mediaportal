@@ -38,7 +38,8 @@ namespace Test
       
       //exclude restricted content from the search
       query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
-
+        string ss = YouTubeQuery.TopRatedVideo;
+        //http://gdata.youtube.com/feeds/api/standardfeeds/top_rated
       //search for puppies!
       query.Query = textBox1.Text;
       query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));

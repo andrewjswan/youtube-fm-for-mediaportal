@@ -66,15 +66,18 @@ namespace YouTubePlugin
         this.comboBox_action = new System.Windows.Forms.ComboBox();
         this.tabPage4 = new System.Windows.Forms.TabPage();
         this.groupBox3 = new System.Windows.Forms.GroupBox();
+        this.checkBox1 = new System.Windows.Forms.CheckBox();
+        this.label9 = new System.Windows.Forms.Label();
         this.button6 = new System.Windows.Forms.Button();
         this.label8 = new System.Windows.Forms.Label();
         this.textBox_fanartdir = new System.Windows.Forms.TextBox();
         this.button_getdir = new System.Windows.Forms.Button();
         this.textBox_downloaddir = new System.Windows.Forms.TextBox();
         this.label7 = new System.Windows.Forms.Label();
+        this.tabPage5 = new System.Windows.Forms.TabPage();
+        this.label10 = new System.Windows.Forms.Label();
+        this.cmb_region = new System.Windows.Forms.ComboBox();
         this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-        this.label9 = new System.Windows.Forms.Label();
-        this.checkBox1 = new System.Windows.Forms.CheckBox();
         this.groupBox1.SuspendLayout();
         this.tabControl1.SuspendLayout();
         this.tabPage1.SuspendLayout();
@@ -83,6 +86,7 @@ namespace YouTubePlugin
         this.tabPage3.SuspendLayout();
         this.tabPage4.SuspendLayout();
         this.groupBox3.SuspendLayout();
+        this.tabPage5.SuspendLayout();
         this.SuspendLayout();
         // 
         // button1
@@ -173,6 +177,7 @@ namespace YouTubePlugin
         this.tabControl1.Controls.Add(this.tabPage2);
         this.tabControl1.Controls.Add(this.tabPage3);
         this.tabControl1.Controls.Add(this.tabPage4);
+        this.tabControl1.Controls.Add(this.tabPage5);
         this.tabControl1.Location = new System.Drawing.Point(1, 2);
         this.tabControl1.Name = "tabControl1";
         this.tabControl1.SelectedIndex = 0;
@@ -491,6 +496,25 @@ namespace YouTubePlugin
         this.groupBox3.TabStop = false;
         this.groupBox3.Text = "Fanarts";
         // 
+        // checkBox1
+        // 
+        this.checkBox1.AutoSize = true;
+        this.checkBox1.Location = new System.Drawing.Point(9, 96);
+        this.checkBox1.Name = "checkBox1";
+        this.checkBox1.Size = new System.Drawing.Size(188, 17);
+        this.checkBox1.TabIndex = 7;
+        this.checkBox1.Text = "Try search online if local not found";
+        this.checkBox1.UseVisualStyleBackColor = true;
+        // 
+        // label9
+        // 
+        this.label9.AutoSize = true;
+        this.label9.Location = new System.Drawing.Point(6, 57);
+        this.label9.Name = "label9";
+        this.label9.Size = new System.Drawing.Size(221, 26);
+        this.label9.TabIndex = 6;
+        this.label9.Text = "Use %artist% for artisname\r\n[userdata]\\thumbs\\mvids\\fanart\\%artist%.png";
+        // 
         // button6
         // 
         this.button6.Location = new System.Drawing.Point(478, 33);
@@ -544,24 +568,35 @@ namespace YouTubePlugin
         this.label7.TabIndex = 0;
         this.label7.Text = "Downlod folder";
         // 
-        // label9
+        // tabPage5
         // 
-        this.label9.AutoSize = true;
-        this.label9.Location = new System.Drawing.Point(6, 57);
-        this.label9.Name = "label9";
-        this.label9.Size = new System.Drawing.Size(221, 26);
-        this.label9.TabIndex = 6;
-        this.label9.Text = "Use %artist% for artisname\r\n[userdata]\\thumbs\\mvids\\fanart\\%artist%.png";
+        this.tabPage5.Controls.Add(this.label10);
+        this.tabPage5.Controls.Add(this.cmb_region);
+        this.tabPage5.Location = new System.Drawing.Point(4, 22);
+        this.tabPage5.Name = "tabPage5";
+        this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+        this.tabPage5.Size = new System.Drawing.Size(535, 330);
+        this.tabPage5.TabIndex = 4;
+        this.tabPage5.Text = "Languages && Regions";
+        this.tabPage5.UseVisualStyleBackColor = true;
         // 
-        // checkBox1
+        // label10
         // 
-        this.checkBox1.AutoSize = true;
-        this.checkBox1.Location = new System.Drawing.Point(9, 96);
-        this.checkBox1.Name = "checkBox1";
-        this.checkBox1.Size = new System.Drawing.Size(188, 17);
-        this.checkBox1.TabIndex = 7;
-        this.checkBox1.Text = "Try search online if local not found";
-        this.checkBox1.UseVisualStyleBackColor = true;
+        this.label10.AutoSize = true;
+        this.label10.Location = new System.Drawing.Point(7, 17);
+        this.label10.Name = "label10";
+        this.label10.Size = new System.Drawing.Size(41, 13);
+        this.label10.TabIndex = 1;
+        this.label10.Text = "Region";
+        // 
+        // cmb_region
+        // 
+        this.cmb_region.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+        this.cmb_region.FormattingEnabled = true;
+        this.cmb_region.Location = new System.Drawing.Point(6, 33);
+        this.cmb_region.Name = "cmb_region";
+        this.cmb_region.Size = new System.Drawing.Size(521, 21);
+        this.cmb_region.TabIndex = 0;
         // 
         // SetupForm
         // 
@@ -589,6 +624,8 @@ namespace YouTubePlugin
         this.tabPage4.PerformLayout();
         this.groupBox3.ResumeLayout(false);
         this.groupBox3.PerformLayout();
+        this.tabPage5.ResumeLayout(false);
+        this.tabPage5.PerformLayout();
         this.ResumeLayout(false);
 
     }
@@ -642,5 +679,8 @@ namespace YouTubePlugin
     private System.Windows.Forms.Label label8;
     private System.Windows.Forms.Label label9;
     private System.Windows.Forms.CheckBox checkBox1;
+    private System.Windows.Forms.TabPage tabPage5;
+    private System.Windows.Forms.Label label10;
+    private System.Windows.Forms.ComboBox cmb_region;
   }
 }

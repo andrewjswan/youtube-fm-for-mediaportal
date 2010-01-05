@@ -299,30 +299,64 @@ namespace YouTubePlugin
       base.OnPageLoad();
     }
 
-    private void InitList(string queryuri)
-    {
-      YouTubeQuery query = new YouTubeQuery(queryuri);
-      
-      if (queryuri == YouTubeQuery.CreateFavoritesUri(null))
-        query = SetParamToYouTubeQuery(query, true);
-      else
-        query = SetParamToYouTubeQuery(query, false);
-
-      YouTubeFeed vidr = service.Query(query);
-
-      if (vidr.Entries.Count > 0)
+      private string GetRegionOpt()
       {
-        SaveListState(true);
-        addVideos(vidr, false,query);
-        GUIPropertyManager.SetProperty("#header.title", vidr.Title.Text);
-        UpdateGui();
+          if (_setting.Region == "All")
+              return "";
+          if (_setting.Region == "Ask")
+          {
+              GUIDialogMenu dlg = (GUIDialogMenu) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_MENU);
+              if (dlg == null) return "";
+              dlg.Reset();
+              //dlg.SetHeading(25653); // Sort options
+              foreach (KeyValuePair<string, string> valuePair in Youtube2MP._settings.Regions)
+              {
+                  dlg.Add(valuePair.Key);
+              }
+              dlg.DoModal(GetID);
+              if (dlg.SelectedId == -1) return "";
+              return Youtube2MP._settings.Regions[dlg.SelectedLabelText];
+          }
+          return Youtube2MP._settings.Regions[_setting.Region];
       }
-      else
+
+      private void InitList(string queryuri)
       {
-        Err_message("No item was found !");
+          if (_setting.MusicFilter && queryuri != YouTubeQuery.CreateFavoritesUri(null))
+              queryuri += "_Music";
+          string reg = GetRegionOpt();
+          if (!string.IsNullOrEmpty(reg))
+              queryuri = queryuri.Replace("standardfeeds", "standardfeeds/" + reg);
+          YouTubeQuery query = new YouTubeQuery(queryuri);
+
+          //if (queryuri == YouTubeQuery.CreateFavoritesUri(null))
+          //    query = SetParamToYouTubeQuery(query, true);
+          //else
+          //{
+          //    query = SetParamToYouTubeQuery(query, false);
+          //}
+
+          query.NumberToRetrieve = 50;
+          query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
+          if (uploadtime != YouTubeQuery.UploadTime.AllTime)
+              query.Time = uploadtime;
+
+          YouTubeFeed vidr = service.Query(query);
+
+          if (vidr.Entries.Count > 0)
+          {
+              SaveListState(true);
+              addVideos(vidr, false, query);
+              GUIPropertyManager.SetProperty("#header.title", vidr.Title.Text);
+              UpdateGui();
+          }
+          else
+          {
+              Err_message("No item was found !");
+          }
       }
-    }
-    // remeber the selection on page leave
+
+      // remeber the selection on page leave
     protected override void OnPageDestroy(int new_windowId)
     {
       SaveListState(false);
@@ -676,7 +710,7 @@ namespace YouTubePlugin
         //query.VQ = searchString;
         query.Query = searchString;
         query.OrderBy = "relevance";
-
+        
         YouTubeFeed vidr = service.Query(query);
 
         foreach (AtomLink link in vidr.Links)
