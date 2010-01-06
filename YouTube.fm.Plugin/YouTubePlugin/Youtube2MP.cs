@@ -253,9 +253,10 @@ namespace YouTubePlugin
 
     static public string youtubecatch1(string url,VideoInfo qa)
     {
-      if (Youtube2MP._settings.LocalFile.Get(getIDSimple(url)) != null)
+       
+      if (_settings.LocalFile.Get(getIDSimple(url)) != null)
       {
-        return Youtube2MP._settings.LocalFile.Get(getIDSimple(url)).LocalFile;
+        return _settings.LocalFile.Get(getIDSimple(url)).LocalFile;
       }
       if (string.IsNullOrEmpty(qa.Token) || !qa.IsInited)
       {

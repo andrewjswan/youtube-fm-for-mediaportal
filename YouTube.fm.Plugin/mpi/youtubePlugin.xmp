@@ -2,58 +2,13 @@
 	<ver>1.00.000</ver>
 	<FileList>
 		<File>
-			<FileName>Google.GData.Client.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>Window</SubType>
-			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Client.dll</Source>
-			<Id>01010</Id>
-			<Option />
-			<Guid>e92bf0a3-0991-4557-9b49-dc34ede5e8b9</Guid>
-		</File>
-		<File>
-			<FileName>Google.GData.Extensions.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>Window</SubType>
-			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Extensions.dll</Source>
-			<Id>01010</Id>
-			<Option />
-			<Guid>f5927936-caff-47d1-94ac-ebf9ee627773</Guid>
-		</File>
-		<File>
-			<FileName>Google.GData.YouTube.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>Window</SubType>
-			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.YouTube.dll</Source>
-			<Id>01010</Id>
-			<Option />
-			<Guid>fdc8bd41-34ce-4296-aa1d-376a94072179</Guid>
-		</File>
-		<File>
-			<FileName>hover_youtubefm.png</FileName>
-			<Type>Media</Type>
-			<SubType>StreamedMP</SubType>
-			<Source>skin\StreamedMP\Media\hover_youtubefm.png</Source>
-			<Id>02010</Id>
-			<Option>OutputFileName=\hover_youtubefm.png|</Option>
-			<Guid>6631fe0b-1daa-453a-8fb6-cd5551aaf27f</Guid>
-		</File>
-		<File>
 			<FileName>hover_youtubefm.png</FileName>
 			<Type>Media</Type>
 			<SubType>Blue3wide</SubType>
 			<Source>skin\Blue3wide\Media\hover_youtubefm.png</Source>
 			<Id>02020</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>6288dcc0-cc05-4ac4-938e-defe3449fdba</Guid>
-		</File>
-		<File>
-			<FileName>lastfm-sharp.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>Window</SubType>
-			<Source>F:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\lastfm-sharp.dll</Source>
-			<Id>01010</Id>
-			<Option />
-			<Guid>6afc072c-ab9c-4b61-ae72-89d18eb1d2a6</Guid>
+			<Guid>e27b2343-f175-4c06-ac51-4442dda4a870</Guid>
 		</File>
 		<File>
 			<FileName>youtubeinfo.xml</FileName>
@@ -62,16 +17,7 @@
 			<Source>skin\Blue3wide\youtubeinfo.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>bf3a3914-4e00-4770-b4e6-c6de8ef4027d</Guid>
-		</File>
-		<File>
-			<FileName>youtubeinfo.xml</FileName>
-			<Type>Skin</Type>
-			<SubType>StreamedMP</SubType>
-			<Source>skin\StreamedMP\youtubeinfo.xml</Source>
-			<Id>02010</Id>
-			<Option />
-			<Guid>4be0df29-4d20-4242-ab3c-b6f7ef18a2a9</Guid>
+			<Guid>fbe95b42-542f-4b4d-9769-59a31d68e706</Guid>
 		</File>
 		<File>
 			<FileName>youtubeplaylist.xml</FileName>
@@ -80,25 +26,7 @@
 			<Source>skin\Blue3wide\youtubeplaylist.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>00d835e2-2055-40e4-9cea-703c8e294eea</Guid>
-		</File>
-		<File>
-			<FileName>youtubeplaylist.xml</FileName>
-			<Type>Skin</Type>
-			<SubType>StreamedMP</SubType>
-			<Source>skin\StreamedMP\youtubeplaylist.xml</Source>
-			<Id>02010</Id>
-			<Option />
-			<Guid>9e1e1b2f-dec2-464f-8a8f-b07d64561fd3</Guid>
-		</File>
-		<File>
-			<FileName>YouTubePlugin.dll</FileName>
-			<Type>Plugin</Type>
-			<SubType>Window</SubType>
-			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
-			<Id>01010</Id>
-			<Option />
-			<Guid>151e1a50-d1e8-48c6-a7e0-43ab0a01257f</Guid>
+			<Guid>31166bf5-b795-48f2-a057-9d0c4f455018</Guid>
 		</File>
 		<File>
 			<FileName>youtubevideosbase.xml</FileName>
@@ -107,16 +35,52 @@
 			<Source>skin\Blue3wide\youtubevideosbase.xml</Source>
 			<Id>02010</Id>
 			<Option>OutputFileName=|DefaultFile=True|</Option>
-			<Guid>10508004-5981-4a00-b1d4-5d026976f2c8</Guid>
+			<Guid>ae9487b9-ee10-4d54-b57e-0af9b849399d</Guid>
 		</File>
 		<File>
-			<FileName>youtubevideosbase.xml</FileName>
-			<Type>Skin</Type>
-			<SubType>StreamedMP</SubType>
-			<Source>skin\StreamedMP\youtubevideosbase.xml</Source>
-			<Id>02010</Id>
+			<FileName>Google.GData.Client.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Client.dll</Source>
+			<Id>01010</Id>
 			<Option />
-			<Guid>f8feb127-70e1-485f-b8df-177978e9a27b</Guid>
+			<Guid>9e390700-cec0-47ea-900d-bc4b172691a7</Guid>
+		</File>
+		<File>
+			<FileName>Google.GData.Extensions.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Extensions.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>75cb3632-2413-4230-a4aa-f0155feebea3</Guid>
+		</File>
+		<File>
+			<FileName>Google.GData.YouTube.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.YouTube.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>233243d5-da96-40d5-9eb1-db041bdcada3</Guid>
+		</File>
+		<File>
+			<FileName>lastfm-sharp.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>F:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\lastfm-sharp.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>73a418e6-bb88-40ac-88c4-8cb4c611128f</Guid>
+		</File>
+		<File>
+			<FileName>YouTubePlugin.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>7c78634e-8690-49f4-b411-1b056feb2210</Guid>
 		</File>
 	</FileList>
 	<StringList>
@@ -140,12 +104,12 @@
 	<SetupGroups />
 	<SetupGroupMappings />
 	<Option>
-		<BuildFileName>F:\devel\vs2005\YouTube.fm.Plugin\mpi\YouTube.fm.0.5.9.mpi</BuildFileName>
+		<BuildFileName>F:\devel\vs2005\YouTube.fm.Plugin\mpi\YouTube.fm.0.5.9.1.mpi</BuildFileName>
 		<ProiectFileName>F:\devel\vs2005\YouTube.fm.Plugin\mpi\youtubePlugin.xmp</ProiectFileName>
 		<ProiectName>YouTube.fm</ProiectName>
 		<Author>Dukus</Author>
 		<UpdateURL>http://www.team-mediaportal.com</UpdateURL>
-		<Version>0.5.9</Version>
+		<Version>0.5.9.1</Version>
 		<Description />
 		<Group>Video/Movies</Group>
 		<Release>Beta</Release>

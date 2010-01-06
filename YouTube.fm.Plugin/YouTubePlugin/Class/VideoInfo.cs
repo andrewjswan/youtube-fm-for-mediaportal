@@ -93,7 +93,7 @@ namespace YouTubePlugin
     public Dictionary<string, string> Items = new Dictionary<string, string>();
     public void Get(string videoId)
     {
-      Init();
+      //Init();
       WebClient client = new WebClient();
       client.CachePolicy = new System.Net.Cache.RequestCachePolicy();
       client.UseDefaultCredentials = true;
