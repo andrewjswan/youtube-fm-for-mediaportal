@@ -235,7 +235,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
 Playback for non embeddable videos.Some navigation improvements
 Online fanart download fixed</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.2.mpe2</OnlineLocation>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.2.mpe1</OnlineLocation>
     <ReleaseDate>2009-11-12T17:28:13.859375+02:00</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
