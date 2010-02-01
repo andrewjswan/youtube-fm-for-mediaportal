@@ -53,10 +53,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\Google.GData.YouTube.dll</HintPath>
     </Reference>
-    <Reference Include="SearchPlugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\mp\mediaportal\xbmc\bin\Debug\plugins\Windows\SearchPlugin.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -79,7 +75,7 @@
     <Compile Include="DataProvider\HTBFanArt.cs" />
     <Compile Include="DownloadFileObject.cs" />
     <Compile Include="MessageGUI.cs" />
-    <Compile Include="SearchProvider.cs" />
+    <None Include="SearchProvider.cs" />
     <Compile Include="SetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
