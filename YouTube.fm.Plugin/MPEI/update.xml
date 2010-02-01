@@ -43,7 +43,7 @@
         <Author>Dukus</Author>
         <HomePage>http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-27-08-2009-a-49148/</HomePage>
         <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-27-08-2009-a-49148/</ForumPage>
-        <UpdateUrl>http://youtube-fm-for-mediaportal.googlecode.com/files/update.xml</UpdateUrl>
+        <UpdateUrl>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/update.xml</UpdateUrl>
         <Version>
           <Major>0</Major>
           <Minor>5</Minor>
@@ -58,7 +58,7 @@ Online fanart download fixed</VersionDescription>
         <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.2.mpe2</OnlineLocation>
         <ReleaseDate>2009-11-12T17:28:13.859375+02:00</ReleaseDate>
         <Tags>video, youtube, music video</Tags>
-        <Location>C:\mpe\YouTube.Fm\youtubefm.[Version].mpe1</Location>
+        <Location>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
         <Params>
           <Items>
             <SectionParam Name="Icon">
@@ -67,7 +67,7 @@ Online fanart download fixed</VersionDescription>
               <Description>The icon file of the package (jpg,png,bmp)</Description>
             </SectionParam>
             <SectionParam Name="Online Icon">
-              <Value />
+              <Value>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/skin/Blue3wide/Media/hover_youtubefm.png</Value>
               <ValueType>String</ValueType>
               <Description>The icon file of the package stored online (jpg,png,bmp)</Description>
             </SectionParam>
