@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Version>2.0</Version>
+  <Groups>
+    <Items>
+      <GroupItem Name="Default">
+        <DisplayName>Default</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Default</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\Blue3wide\youtubeinfo.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{236a6d47-7fd8-40b1-a4fc-2c1a68171145}-youtubeinfo.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Blue3wide\youtubeinfo.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\Blue3wide\youtubeplaylist.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{f6292a4a-9c25-4b7f-b162-91721e317299}-youtubeplaylist.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Blue3wide\youtubeplaylist.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\Blue3wide\youtubevideosbase.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{f8ba488d-d3c4-477f-84ac-64962e800c54}-youtubevideosbase.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Blue3wide\youtubevideosbase.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\Blue3wide\Media\hover_youtubefm.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{93691c1a-f56a-4b18-84bf-38e20a00cfe3}-hover_youtubefm.png</ZipFileName>
+              <DestinationFilename>%Skin%\Blue3wide\Media\hover_youtubefm.png</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+      <GroupItem Name="Plugin">
+        <ParentGroup />
+        <DisplayName>Group1</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Plugin</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>plugin\Google.GData.Client.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{3cf01774-6f60-4eb6-89a3-6927e837476e}-Google.GData.Client.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\Google.GData.Client.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>plugin\Google.GData.Extensions.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{818a727c-a9c6-41f9-8a75-8e9bdff6646a}-Google.GData.Extensions.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\Google.GData.Extensions.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>plugin\Google.GData.YouTube.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{7eec3539-1d41-4bcc-9037-f42932a3e515}-Google.GData.YouTube.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\Google.GData.YouTube.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>plugin\lastfm-sharp.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{c47c44e6-3436-4f0f-88cd-f9e73794b665}-lastfm-sharp.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\lastfm-sharp.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>plugin\YouTubePlugin.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{18f8d489-5ca3-4f9b-aa11-c5dcacafc614}-YouTubePlugin.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\YouTubePlugin.dll</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+      <GroupItem Name="Default Skin">
+        <ParentGroup />
+        <DisplayName>Group2</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Default Skin</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\Blue3wide\youtubeinfo.xml</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{bf667348-c1b5-498e-8418-4bdd194f3df3}-youtubeinfo.xml</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\youtubeinfo.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\Blue3wide\youtubeplaylist.xml</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{8226628b-8554-4839-8c65-d3ba846a297b}-youtubeplaylist.xml</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\youtubeplaylist.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\Blue3wide\youtubevideosbase.xml</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{171f3cf8-515f-461f-848c-a977e838ef5c}-youtubevideosbase.xml</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\youtubevideosbase.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\Blue3wide\Media\hover_youtubefm.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{777bf0c1-58fc-414d-a1f8-904b887fd51f}-hover_youtubefm.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\hover_youtubefm.png</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+    </Items>
+  </Groups>
+  <Sections>
+    <Items>
+      <SectionItem Guid="dd681b79-607a-4cd9-a575-1ba5ab93d75a" Name="Welcome Screen" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header text">
+              <Value>Welcome to the Extension Installer for [Name]</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Description">
+              <Value>This will install [Name] version [Version] on your computer.
+It is recommended that you close all other applications before continuing.
+Click Next to continue or Cancel to exit Setup.</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Left part image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description />
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Welcome Screen</PanelName>
+        <WizardButtonsEnum>NextCancel</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="49480e48-ed89-4f67-80e4-b4416d988bae" Name="Install Section" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header Title">
+              <Value />
+              <ValueType>String</ValueType>
+              <Description>Header title</Description>
+            </SectionParam>
+            <SectionParam Name="Header description">
+              <Value />
+              <ValueType>String</ValueType>
+              <Description>Description of section, shown in under section title</Description>
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items>
+            <ActionItem Name="InstallFiles" ActionType="InstallFiles" ConditionGroup="">
+              <Params>
+                <Items />
+              </Params>
+              <ExecuteLocation>AfterPanelShow</ExecuteLocation>
+            </ActionItem>
+          </Items>
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Install Section</PanelName>
+        <WizardButtonsEnum>Next</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="4c463a99-e361-491a-8b17-e14d4123b777" Name="Setup Complete" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header text">
+              <Value>The Extension Installer Wizard has successfully installed [Name].</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Left part image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description />
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Setup Complete</PanelName>
+        <WizardButtonsEnum>Finish</WizardButtonsEnum>
+      </SectionItem>
+    </Items>
+  </Sections>
+  <Dependencies>
+    <Items />
+  </Dependencies>
+  <GeneralInfo>
+    <Name>YouTube.Fm</Name>
+    <Id>54926120-c485-42d4-8a8e-63b0ba0cd8ed</Id>
+    <Author>Dukus</Author>
+    <HomePage>http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-27-08-2009-a-49148/</HomePage>
+    <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-27-08-2009-a-49148/</ForumPage>
+    <UpdateUrl>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/update.xml</UpdateUrl>
+    <Version>
+      <Major>0</Major>
+      <Minor>5</Minor>
+      <Build>9</Build>
+      <Revision>2</Revision>
+    </Version>
+    <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
+    <VersionDescription>Change log :
+Playback for non embeddable videos.Some navigation improvements
+Online fanart download fixed</VersionDescription>
+    <DevelopmentStatus>Stable</DevelopmentStatus>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.2.mpe1</OnlineLocation>
+    <ReleaseDate>2009-11-12T17:28:13.859375+02:00</ReleaseDate>
+    <Tags>video, youtube, music video</Tags>
+    <Location>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
+    <Params>
+      <Items>
+        <SectionParam Name="Icon">
+          <Value>skin\Blue3wide\Media\hover_youtubefm.png</Value>
+          <ValueType>File</ValueType>
+          <Description>The icon file of the package (jpg,png,bmp)</Description>
+        </SectionParam>
+        <SectionParam Name="Online Icon">
+          <Value>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/skin/Blue3wide/Media/hover_youtubefm.png</Value>
+          <ValueType>String</ValueType>
+          <Description>The icon file of the package stored online (jpg,png,bmp)</Description>
+        </SectionParam>
+        <SectionParam Name="Configuration file">
+          <Value>%Plugins%\windows\YouTubePlugin.dll</Value>
+          <ValueType>Template</ValueType>
+          <Description>The file used to configure the extension.
+ If have .exe extension the will be executed
+ If have .dll extension used like MP plugin configuration</Description>
+        </SectionParam>
+      </Items>
+    </Params>
+  </GeneralInfo>
+  <UniqueFileList>
+    <Items>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\Blue3wide\youtubeinfo.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{236a6d47-7fd8-40b1-a4fc-2c1a68171145}-youtubeinfo.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Blue3wide\youtubeinfo.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\Blue3wide\youtubeplaylist.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{f6292a4a-9c25-4b7f-b162-91721e317299}-youtubeplaylist.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Blue3wide\youtubeplaylist.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\Blue3wide\youtubevideosbase.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{f8ba488d-d3c4-477f-84ac-64962e800c54}-youtubevideosbase.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Blue3wide\youtubevideosbase.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\Blue3wide\Media\hover_youtubefm.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{93691c1a-f56a-4b18-84bf-38e20a00cfe3}-hover_youtubefm.png</ZipFileName>
+        <DestinationFilename>%Skin%\Blue3wide\Media\hover_youtubefm.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>plugin\Google.GData.Client.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{3cf01774-6f60-4eb6-89a3-6927e837476e}-Google.GData.Client.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\Google.GData.Client.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>plugin\Google.GData.Extensions.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{818a727c-a9c6-41f9-8a75-8e9bdff6646a}-Google.GData.Extensions.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\Google.GData.Extensions.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>plugin\Google.GData.YouTube.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{7eec3539-1d41-4bcc-9037-f42932a3e515}-Google.GData.YouTube.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\Google.GData.YouTube.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>plugin\lastfm-sharp.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{c47c44e6-3436-4f0f-88cd-f9e73794b665}-lastfm-sharp.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\lastfm-sharp.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>plugin\YouTubePlugin.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{18f8d489-5ca3-4f9b-aa11-c5dcacafc614}-YouTubePlugin.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\YouTubePlugin.dll</DestinationFilename>
+      </FileItem>
+    </Items>
+  </UniqueFileList>
+  <ProjectSettings>
+    <FolderGroups />
+    <ProjectFilename>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\YoutubeFm.xmp2</ProjectFilename>
+    <UpdatePath1>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\update.xml</UpdatePath1>
+    <UpdatePath2 />
+    <UpdatePath3 />
+  </ProjectSettings>
+</PackageClass>

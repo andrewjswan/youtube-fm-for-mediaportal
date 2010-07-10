@@ -1,0 +1,131 @@
+﻿<MPinstaler>
+	<ver>1.00.000</ver>
+	<FileList>
+		<File>
+			<FileName>Google.GData.Client.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Client.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>3f0fb4e3-c334-4594-9af0-fda35bc71e09</Guid>
+		</File>
+		<File>
+			<FileName>Google.GData.Extensions.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.Extensions.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>2023c6c6-1dc5-4f26-a5b3-1a1ee809ca0f</Guid>
+		</File>
+		<File>
+			<FileName>Google.GData.YouTube.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\Google.GData.YouTube.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>7c9a0ce5-cbf8-419e-9593-8418cc465ef2</Guid>
+		</File>
+		<File>
+			<FileName>hover_youtubefm.png</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>skin\Blue3wide\Media\hover_youtubefm.png</Source>
+			<Id>02020</Id>
+			<Option>OutputFileName=|DefaultFile=True|</Option>
+			<Guid>ea52213b-f762-45a7-a9bd-90101f9ed955</Guid>
+		</File>
+		<File>
+			<FileName>lastfm-sharp.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>F:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\References\lastfm-sharp.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>f053f14e-47d4-46b8-90ca-08ed09967d16</Guid>
+		</File>
+		<File>
+			<FileName>youtubeinfo.xml</FileName>
+			<Type>Skin</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>skin\Blue3wide\youtubeinfo.xml</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=|DefaultFile=True|</Option>
+			<Guid>ff6be000-b023-4cdc-b281-712ab3e6cf3d</Guid>
+		</File>
+		<File>
+			<FileName>youtubeplaylist.xml</FileName>
+			<Type>Skin</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>skin\Blue3wide\youtubeplaylist.xml</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=|DefaultFile=True|</Option>
+			<Guid>90aa3c03-568c-4a8b-b79e-813c8339293a</Guid>
+		</File>
+		<File>
+			<FileName>YouTubePlugin.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>f:\devel\vs2005\YouTube.fm.Plugin\YouTubePlugin\bin\Debug\YouTubePlugin.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>c08fee1a-4d7f-4256-8071-2a73f5af6235</Guid>
+		</File>
+		<File>
+			<FileName>youtubevideosbase.xml</FileName>
+			<Type>Skin</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>skin\Blue3wide\youtubevideosbase.xml</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=|DefaultFile=True|</Option>
+			<Guid>c17a5f45-d3f9-4516-bb5f-9e286732f224</Guid>
+		</File>
+	</FileList>
+	<StringList>
+		<string>
+			<language>English</language>
+			<id>129050</id>
+			<value>YouTube.FM</value>
+		</string>
+		<string>
+			<language>English</language>
+			<id>129051</id>
+			<value>YouTube.FM playlist</value>
+		</string>
+		<string>
+			<language>English</language>
+			<id>129052</id>
+			<value>YouTube.FM Now Playing</value>
+		</string>
+	</StringList>
+	<Actions />
+	<SetupGroups />
+	<SetupGroupMappings />
+	<Option>
+		<BuildFileName>F:\devel\vs2005\YouTube.fm.Plugin\mpi\YouTube.fm.0.5.9.1.mpi</BuildFileName>
+		<ProiectFileName>F:\devel\vs2005\YouTube.fm.Plugin\mpi\youtubePlugin.xmp</ProiectFileName>
+		<ProiectName>YouTube.fm</ProiectName>
+		<Author>Dukus</Author>
+		<UpdateURL>http://www.team-mediaportal.com</UpdateURL>
+		<Version>0.5.9.2</Version>
+		<Description />
+		<Group>Video/Movies</Group>
+		<Release>Beta</Release>
+		<Script />
+	</Option>
+	<Properties>
+		<MPMaxVersion>1.1.2.0</MPMaxVersion>
+		<MPMinVersion>1.0.0.0</MPMinVersion>
+		<MinExtensionVersion />
+		<MaxExtensionVersion />
+		<ForumURL />
+		<WebURL>http://code.google.com/p/youtube-fm-for-mediaportal/</WebURL>
+		<WikiURL />
+		<CreationDate>31-03-09</CreationDate>
+		<SingleGroupSelect>True</SingleGroupSelect>
+		<ClearSkinCache>True</ClearSkinCache>
+		<UseRealPathInPackage>False</UseRealPathInPackage>
+	</Properties>
+</MPinstaler>

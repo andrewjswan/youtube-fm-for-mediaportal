@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExtensionCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Items>
+    <PackageClass>
+      <Version>2.0</Version>
+      <Groups>
+        <Items>
+          <GroupItem Name="Default">
+            <DisplayName>Default</DisplayName>
+            <DefaulChecked>true</DefaulChecked>
+            <Description>Default</Description>
+            <Files>
+              <Items />
+            </Files>
+          </GroupItem>
+          <GroupItem Name="Plugin">
+            <DisplayName>Plugin</DisplayName>
+            <DefaulChecked>true</DefaulChecked>
+            <Description>Plugin</Description>
+            <Files>
+              <Items />
+            </Files>
+          </GroupItem>
+          <GroupItem Name="Default Skin">
+            <DisplayName>Default Skin</DisplayName>
+            <DefaulChecked>true</DefaulChecked>
+            <Description>Default Skin</Description>
+            <Files>
+              <Items />
+            </Files>
+          </GroupItem>
+        </Items>
+      </Groups>
+      <Sections>
+        <Items />
+      </Sections>
+      <Dependencies>
+        <Items />
+      </Dependencies>
+      <GeneralInfo>
+        <Name>YouTube.Fm</Name>
+        <Id>54926120-c485-42d4-8a8e-63b0ba0cd8ed</Id>
+        <Author>Dukus</Author>
+        <HomePage>http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-27-08-2009-a-49148/</HomePage>
+        <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-27-08-2009-a-49148/</ForumPage>
+        <UpdateUrl>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/update.xml</UpdateUrl>
+        <Version>
+          <Major>0</Major>
+          <Minor>5</Minor>
+          <Build>9</Build>
+          <Revision>2</Revision>
+        </Version>
+        <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
+        <VersionDescription>Change log :
+Playback for non embeddable videos.Some navigation improvements
+Online fanart download fixed</VersionDescription>
+        <DevelopmentStatus>Stable</DevelopmentStatus>
+        <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.2.mpe1</OnlineLocation>
+        <ReleaseDate>2009-11-12T17:28:13.859375+02:00</ReleaseDate>
+        <Tags>video, youtube, music video</Tags>
+        <Location>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
+        <Params>
+          <Items>
+            <SectionParam Name="Icon">
+              <Value>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\skin\Blue3wide\Media\hover_youtubefm.png</Value>
+              <ValueType>File</ValueType>
+              <Description>The icon file of the package (jpg,png,bmp)</Description>
+            </SectionParam>
+            <SectionParam Name="Online Icon">
+              <Value>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/skin/Blue3wide/Media/hover_youtubefm.png</Value>
+              <ValueType>String</ValueType>
+              <Description>The icon file of the package stored online (jpg,png,bmp)</Description>
+            </SectionParam>
+            <SectionParam Name="Configuration file">
+              <Value>%Plugins%\windows\YouTubePlugin.dll</Value>
+              <ValueType>Template</ValueType>
+              <Description>The file used to configure the extension.
+ If have .exe extension the will be executed
+ If have .dll extension used like MP plugin configuration</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+      </GeneralInfo>
+      <UniqueFileList>
+        <Items />
+      </UniqueFileList>
+      <ProjectSettings>
+        <FolderGroups />
+      </ProjectSettings>
+    </PackageClass>
+  </Items>
+</ExtensionCollection>
