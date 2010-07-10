@@ -43,7 +43,7 @@
         <Author>Dukus</Author>
         <HomePage>http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-27-08-2009-a-49148/</HomePage>
         <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-27-08-2009-a-49148/</ForumPage>
-        <UpdateUrl>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/update.xml</UpdateUrl>
+        <UpdateUrl>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Vevo.Plugin/MPEI/update.xml</UpdateUrl>
         <Version>
           <Major>0</Major>
           <Minor>1</Minor>
@@ -55,10 +55,10 @@
 Playback for non embeddable videos.Some navigation improvements
 Online fanart download fixed</VersionDescription>
         <DevelopmentStatus>Beta</DevelopmentStatus>
-        <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.2.mpe1</OnlineLocation>
-        <ReleaseDate>2009-11-12T17:28:13.859375+02:00</ReleaseDate>
-        <Tags>video, youtube, music video</Tags>
-        <Location>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
+        <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/YouTube.Fm - VEVO Edition.0.1.0.0.mpe1</OnlineLocation>
+        <ReleaseDate>2010-07-10T17:28:13</ReleaseDate>
+        <Tags>video, youtube, music video, vevo</Tags>
+        <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\[Name].[Version].mpe1</Location>
         <Params>
           <Items>
             <SectionParam Name="Icon">
