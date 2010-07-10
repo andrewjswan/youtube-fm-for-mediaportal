@@ -32,26 +32,14 @@ namespace Test
     private void button1_Click(object sender, EventArgs e)
     {
       Uri ur = new Uri("http://gdata.youtube.com/feeds/api/videos/fSgGV1llVHM&f=gdata_playlists&c=ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0&d=U1YkMvELc_arPNsH4kYosmD9LlbsOl3qUImVMV6ramM");
-      YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
-      //order results by the number of views (most viewed first)
-      query.OrderBy = "viewCount";
-      
-      //exclude restricted content from the search
-      query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
-        string ss = YouTubeQuery.TopRatedVideo;
-        //http://gdata.youtube.com/feeds/api/standardfeeds/top_rated
-      //search for puppies!
-      query.Query = textBox1.Text;
-      query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
+      YouTubeQuery query = new YouTubeQuery("http://gdata.youtube.com/feeds/api/channels?q=vevo");
+
+
 
       YouTubeFeed videoFeed = service.Query(query);
       YouTubeEntry en = (YouTubeEntry)videoFeed.Entries[0];
-      string s = en.Summary.Text;
-      string s1 = en.Media.Description.Value;
-      Google.GData.YouTube.MediaGroup gr = en.Media;
-
-      Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + en.VideoId);
-      Video video = request.Retrieve<Video>(videoEntryUrl);
+      
+      Video video = request.Retrieve<Video>(new Uri("http://gdata.youtube.com/feeds/api/videos/" + en.VideoId));
       Feed<Comment> comments = request.GetComments(video);
         string cm = "";
         foreach (Comment c in comments.Entries)

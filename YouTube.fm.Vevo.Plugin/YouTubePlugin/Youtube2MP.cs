@@ -28,7 +28,8 @@ namespace YouTubePlugin
     Normal = 0,
     High = 1,
     HD = 2,
-    Unknow = 3,
+    FullHD = 3,
+    Unknow = 4,
   }
 
   static public class Youtube2MP
@@ -274,6 +275,8 @@ namespace YouTubePlugin
           return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=18&ext=.mp4", getIDSimple(url), qa.Token);
         case VideoQuality.HD:
           return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=22&ext=.mp4", getIDSimple(url), qa.Token);
+        case VideoQuality.FullHD:
+          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=37&ext=.mp4", getIDSimple(url), qa.Token);
       }
       return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), qa.Token);
     }

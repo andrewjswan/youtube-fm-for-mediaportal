@@ -9,7 +9,7 @@ using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
-
+using Google.YouTube;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Util;
@@ -134,7 +134,8 @@ namespace YouTubePlugin
 
     void updateStationLogoTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
-      imgFanArt.Visible = false;
+      if (imgFanArt != null)
+        imgFanArt.Visible = false;
       infoTimer.Enabled = false;
       if (Youtube2MP.NowPlayingSong != null)
       {
@@ -147,7 +148,7 @@ namespace YouTubePlugin
           HTBFanArt fanart = new HTBFanArt();
           string file = Youtube2MP._settings.FanartDir.Replace("%artist%", Youtube2MP.NowPlayingSong.Artist);
 
-          if (File.Exists(file))
+          if (File.Exists(file) && imgFanArt!=null)
           {
               Log.Debug("Youtube.Fm local fanart {0} loaded ", file);
               imgFanArt.Visible = true;
@@ -202,7 +203,10 @@ namespace YouTubePlugin
       {
         GUIControl.ClearControl(GetID, listControl.GetID);
         relatated.Clear();
-        YouTubeQuery query = new YouTubeQuery(Youtube2MP.NowPlayingEntry.RelatedVideosUri.Content);
+        
+        Video video = Youtube2MP.request.Retrieve<Video>(new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.NowPlayingEntry.VideoId));
+        YouTubeQuery query = new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", video.Author));
+        
         YouTubeFeed vidr = Youtube2MP.service.Query(query);
         if (vidr.Entries.Count > 0)
         {

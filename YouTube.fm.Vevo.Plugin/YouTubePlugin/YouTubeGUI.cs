@@ -274,20 +274,21 @@ namespace YouTubePlugin
           ClearLabels("Curent");
           ClearLabels("NowPlaying");
           GUIPropertyManager.SetProperty("#header.title", _setting.PluginName);
-          switch (_setting.InitialDisplay)
-          {
-            case 1:
-              ShowHome(_setting.InitialCat);
-              break;
-            case 2:
-              SearchVideo(_setting.InitialSearch);
-              break;
-            case 3:
-              DoHome();
-              break;
-            default:
-              break;
-          }
+          ShowVevo("");
+          //switch (_setting.InitialDisplay)
+          //{
+          //  case 1:
+          //    ShowHome(_setting.InitialCat);
+          //    break;
+          //  case 2:
+          //    SearchVideo(_setting.InitialSearch);
+          //    break;
+          //  case 3:
+          //    DoHome();
+          //    break;
+          //  default:
+          //    break;
+          //}
           ShowPanel();
         }
         else
@@ -500,6 +501,50 @@ namespace YouTubePlugin
       }    
     }
 
+    private void ShowVevo(string user)
+    {
+
+      YouTubeQuery query;
+      if(!string.IsNullOrEmpty(user))
+      {
+        if(user.ToLower()=="vevo")
+        query = new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/vevo/favorites"));
+        else
+          query = new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads",user));  
+      }
+      else
+      {
+        query = new YouTubeQuery("http://gdata.youtube.com/feeds/api/channels?q=vevo");        
+      }
+
+    
+      //if (queryuri == YouTubeQuery.CreateFavoritesUri(null))
+      //    query = SetParamToYouTubeQuery(query, true);
+      //else
+      //{
+      //    query = SetParamToYouTubeQuery(query, false);
+      //}
+
+      query.NumberToRetrieve = 50;
+      query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
+      if (uploadtime != YouTubeQuery.UploadTime.AllTime)
+        query.Time = uploadtime;
+
+      YouTubeFeed vidr = service.Query(query);
+      
+      if (vidr.Entries.Count > 0)
+      {
+        SaveListState(true);
+        addVideos(vidr, false, query);
+        GUIPropertyManager.SetProperty("#header.title", vidr.Title.Text);
+        UpdateGui();
+      }
+      else
+      {
+        Err_message("No item was found !");
+      }
+    }
+
     private void ShowHome(int poz)
     {
       switch (poz)
@@ -648,7 +693,14 @@ namespace YouTubePlugin
 
           if (vide != null)
           {
+            if (vide.VideoId == null)
+            {
+              ShowVevo(vide.Authors[0].Name);
+            }
+            else
+            {
               DoPlay(vide, true, listControl.ListView);
+            }
           }
         }
         else
@@ -885,7 +937,8 @@ namespace YouTubePlugin
           {
             if (videoEntry.RelatedVideosUri != null)
             {
-              YouTubeQuery query = new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", videoEntry.Authors[0].Name));
+              Video video = Youtube2MP.request.Retrieve<Video>(new Uri("http://gdata.youtube.com/feeds/api/videos/" + videoEntry.VideoId));
+              YouTubeQuery query = new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", video.Author));
               YouTubeFeed vidr = service.Query(query);
               if (vidr.Entries.Count > 0)
               {
@@ -1120,23 +1173,25 @@ namespace YouTubePlugin
             item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
               item.Rating = (float) entry.Rating.Average*2;
           }
-          catch
+          catch (Exception ex)
           {
-
+            Log.Error(ex);
           }
-
-          string imageFile = GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
-          if (File.Exists(imageFile))
+          if (entry.Media != null)
           {
-            item.ThumbnailImage = imageFile;
-            //item.IconImage = "defaultVideoBig.png";
-            item.IconImage = imageFile;
-            item.IconImageBig = imageFile;
-          }
-          else
-          {
-            Utils.SetDefaultIcons(item);
-            DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
+            string imageFile = GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
+            if (File.Exists(imageFile))
+            {
+              item.ThumbnailImage = imageFile;
+              //item.IconImage = "defaultVideoBig.png";
+              item.IconImage = imageFile;
+              item.IconImageBig = imageFile;
+            }
+            else
+            {
+              Utils.SetDefaultIcons(item);
+              DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
+            }
           }
           item.MusicTag = entry;
           item.OnItemSelected+=item_OnItemSelected;

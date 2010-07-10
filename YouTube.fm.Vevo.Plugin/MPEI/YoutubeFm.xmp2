@@ -94,28 +94,28 @@
           <Items>
             <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
               <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <UpdateOption>NeverOverwrite</UpdateOption>
               <LocalFileName>skin\Blue3wide\youtubeinfo.xml</LocalFileName>
               <ZipFileName>Installer{GenericSkinFile}\{bf667348-c1b5-498e-8418-4bdd194f3df3}-youtubeinfo.xml</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\youtubeinfo.xml</DestinationFilename>
             </FileItem>
             <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
               <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <UpdateOption>NeverOverwrite</UpdateOption>
               <LocalFileName>skin\Blue3wide\youtubeplaylist.xml</LocalFileName>
               <ZipFileName>Installer{GenericSkinFile}\{8226628b-8554-4839-8c65-d3ba846a297b}-youtubeplaylist.xml</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\youtubeplaylist.xml</DestinationFilename>
             </FileItem>
             <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
               <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <UpdateOption>NeverOverwrite</UpdateOption>
               <LocalFileName>skin\Blue3wide\youtubevideosbase.xml</LocalFileName>
               <ZipFileName>Installer{GenericSkinFile}\{171f3cf8-515f-461f-848c-a977e838ef5c}-youtubevideosbase.xml</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\youtubevideosbase.xml</DestinationFilename>
             </FileItem>
             <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
               <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <UpdateOption>NeverOverwrite</UpdateOption>
               <LocalFileName>skin\Blue3wide\Media\hover_youtubefm.png</LocalFileName>
               <ZipFileName>Installer{GenericSkinFile}\{777bf0c1-58fc-414d-a1f8-904b887fd51f}-hover_youtubefm.png</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\Media\hover_youtubefm.png</DestinationFilename>
@@ -218,23 +218,23 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Items />
   </Dependencies>
   <GeneralInfo>
-    <Name>YouTube.Fm</Name>
-    <Id>54926120-c485-42d4-8a8e-63b0ba0cd8ed</Id>
+    <Name>YouTube.Fm - VEVO Edition</Name>
+    <Id>f21fc0fa-a2ec-4361-ac0f-72372008f000</Id>
     <Author>Dukus</Author>
     <HomePage>http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-27-08-2009-a-49148/</HomePage>
     <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-27-08-2009-a-49148/</ForumPage>
     <UpdateUrl>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/update.xml</UpdateUrl>
     <Version>
       <Major>0</Major>
-      <Minor>5</Minor>
-      <Build>9</Build>
-      <Revision>2</Revision>
+      <Minor>1</Minor>
+      <Build>0</Build>
+      <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription>Change log :
 Playback for non embeddable videos.Some navigation improvements
 Online fanart download fixed</VersionDescription>
-    <DevelopmentStatus>Stable</DevelopmentStatus>
+    <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.2.mpe1</OnlineLocation>
     <ReleaseDate>2009-11-12T17:28:13.859375+02:00</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
@@ -257,6 +257,16 @@ Online fanart download fixed</VersionDescription>
           <Description>The file used to configure the extension.
  If have .exe extension the will be executed
  If have .dll extension used like MP plugin configuration</Description>
+        </SectionParam>
+        <SectionParam Name="Online Screenshots">
+          <Value />
+          <ValueType>String</ValueType>
+          <Description>Online stored screenshot urls separated by ; </Description>
+        </SectionParam>
+        <SectionParam Name="Force to uninstall on update">
+          <Value>yes</Value>
+          <ValueType>Bool</ValueType>
+          <Description>Show dialog and force to uninstall previous version when updating an extension. Should only be disabled if you are using an NSIS/MSI installer.</Description>
         </SectionParam>
       </Items>
     </Params>
@@ -330,8 +340,8 @@ Online fanart download fixed</VersionDescription>
   </UniqueFileList>
   <ProjectSettings>
     <FolderGroups />
-    <ProjectFilename>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\YoutubeFm.xmp2</ProjectFilename>
-    <UpdatePath1>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\update.xml</UpdatePath1>
+    <ProjectFilename>D:\devel\vs2005\YouTube.fm.Plugin\MPEI\YoutubeFm.xmp2</ProjectFilename>
+    <UpdatePath1>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\update.xml</UpdatePath1>
     <UpdatePath2 />
     <UpdatePath3 />
   </ProjectSettings>
