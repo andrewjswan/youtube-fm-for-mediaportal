@@ -25,6 +25,7 @@ using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
+using YouTubePlugin.Class;
 
 
 namespace YouTubePlugin
@@ -261,6 +262,7 @@ namespace YouTubePlugin
      //do the init before page load
     protected override void OnPageLoad()
     {
+      GUIControl.FocusControl(GetID, listControl.GetID);
       updateStationLogoTimer.Enabled = true;
       GUIPropertyManager.SetProperty("#nowplaying", " ");
       if (MessageGUI.Item != null)
@@ -668,6 +670,26 @@ namespace YouTubePlugin
     private void DoSearch()
     {
       string searchString = "";
+
+      if (_setting.SearchHistory.Count > 0)
+      {
+        GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+        if (dlg == null) return;
+        dlg.Reset();
+        dlg.SetHeading("Search History");
+        dlg.Add(Translation.NewSearch);
+        for (int i = _setting.SearchHistory.Count; i > 0; i--)
+        {
+          dlg.Add(_setting.SearchHistory[i - 1]);
+        }
+        dlg.DoModal(GetID);
+        if (dlg.SelectedId == -1) return;
+        searchString = dlg.SelectedLabelText;
+        if (searchString == Translation.NewSearch)
+          searchString = "";
+      }
+
+      
       VirtualKeyboard keyboard;
       // display an virtual keyboard
       if (_setting.UseSMSStyleKeyBoard)
@@ -740,6 +762,7 @@ namespace YouTubePlugin
             if (_setting.SearchHistory.Contains(searchString.Trim()))
                 _setting.SearchHistory.Remove(searchString.Trim());
             _setting.SearchHistory.Add(searchString.Trim());
+          _setting.Save();
         }
         else
         {

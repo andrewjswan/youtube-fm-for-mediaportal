@@ -134,71 +134,79 @@ namespace YouTubePlugin
 
     void updateStationLogoTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
-      imgFanArt.Visible = false;
+      if (imgFanArt != null)
+        imgFanArt.Visible = false;
       infoTimer.Enabled = false;
       if (Youtube2MP.NowPlayingSong != null)
       {
-          Log.Debug("Youtube.Fm load fanart");
-          GUIPropertyManager.SetProperty("#Play.Current.Title", Youtube2MP.NowPlayingSong.Title);
-          GUIPropertyManager.SetProperty("#Play.Current.Artist", Youtube2MP.NowPlayingSong.Artist);
-          GUIPropertyManager.SetProperty("#Play.Current.Thumb", GetBestUrl(Youtube2MP.NowPlayingEntry.Media.Thumbnails));
+        Log.Debug("Youtube.Fm load fanart");
+        GUIPropertyManager.SetProperty("#Play.Current.Title", Youtube2MP.NowPlayingSong.Title);
+        GUIPropertyManager.SetProperty("#Play.Current.Artist", Youtube2MP.NowPlayingSong.Artist);
+        GUIPropertyManager.SetProperty("#Play.Current.Thumb", GetBestUrl(Youtube2MP.NowPlayingEntry.Media.Thumbnails));
 
-          LoadRelatated();
-          HTBFanArt fanart = new HTBFanArt();
-          string file = Youtube2MP._settings.FanartDir.Replace("%artist%", Youtube2MP.NowPlayingSong.Artist);
+        LoadRelatated();
+        HTBFanArt fanart = new HTBFanArt();
+        string file = Youtube2MP._settings.FanartDir.Replace("%artist%", Youtube2MP.NowPlayingSong.Artist);
 
-          if (File.Exists(file))
+        if (File.Exists(file) && imgFanArt != null)
+        {
+          Log.Debug("Youtube.Fm local fanart {0} loaded ", file);
+          imgFanArt.Visible = true;
+          imgFanArt.FileName = file;
+          imgFanArt.DoUpdate();
+          return;
+        }
+
+        if (!Youtube2MP._settings.LoadOnlineFanart)
+          return;
+
+        file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
+        if (!File.Exists(file))
+        {
+          fanart.Search(Youtube2MP.NowPlayingSong.Artist);
+          Log.Debug("Youtube.Fm found {0} online fanarts for {1}", fanart.ImageUrls.Count, Youtube2MP.NowPlayingSong.Artist);
+          if (fanart.ImageUrls.Count > 0)
           {
-              Log.Debug("Youtube.Fm local fanart {0} loaded ", file);
+            Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
+            Client.DownloadFile(fanart.ImageUrls[0].Url, file);
+            GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
+            Log.Debug("Youtube.Fm fanart {0} loaded ", file);
+            if (imgFanArt != null)
+            {
               imgFanArt.Visible = true;
               imgFanArt.FileName = file;
               imgFanArt.DoUpdate();
-              return;
-          }
-
-          if (!Youtube2MP._settings.LoadOnlineFanart)
-              return;
-
-          file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
-          if (!File.Exists(file))
-          {
-              fanart.Search(Youtube2MP.NowPlayingSong.Artist);
-              Log.Debug("Youtube.Fm found {0} online fanarts for {1}", fanart.ImageUrls.Count, Youtube2MP.NowPlayingSong.Artist);
-              if (fanart.ImageUrls.Count > 0)
-              {
-                  Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
-                  Client.DownloadFile(fanart.ImageUrls[0].Url, file);
-                  GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
-                  Log.Debug("Youtube.Fm fanart {0} loaded ", file);
-                  imgFanArt.Visible = true;
-                  imgFanArt.FileName = file;
-                  imgFanArt.DoUpdate();
-              }
-              else
-              {
-                  imgFanArt.Visible = false;
-              }
+            }
           }
           else
           {
-              GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
-              imgFanArt.Visible = true;
-              imgFanArt.FileName = file;
-              imgFanArt.DoUpdate();
+            imgFanArt.Visible = false;
           }
+        }
+        else
+        {
+          GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
+          if (imgFanArt != null)
+          {
+            imgFanArt.Visible = true;
+            imgFanArt.FileName = file;
+            imgFanArt.DoUpdate();
+          }
+        }
+        if (listControl != null)
           GUIControl.FocusControl(GetID, listControl.GetID);
       }
       else
       {
-          Log.Error("Youtube.Fm fanart NowPlaying not defined");
-          imgFanArt.Visible = false;
+        Log.Error("Youtube.Fm fanart NowPlaying not defined");
+        imgFanArt.Visible = false;
       }
-    
+
     }
 
     private void LoadRelatated()
     {
-      if (Youtube2MP.NowPlayingEntry.RelatedVideosUri != null)
+      if (Youtube2MP.NowPlayingEntry.RelatedVideosUri != null && listControl!=null)
       {
         GUIControl.ClearControl(GetID, listControl.GetID);
         relatated.Clear();

@@ -192,7 +192,7 @@ namespace YouTubePlugin
             Youtube2MP.temp_player.CurrentPlaylistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
             PlayList playlist = Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
             playlist.Clear();
-            g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
+            g_Player.PlayBackStopped += g_Player_PlayBackStopped;
             AddItemToPlayList(vid, ref playlist, qa);
 
             if (facade != null)
@@ -252,15 +252,20 @@ namespace YouTubePlugin
           info.Quality = VideoQuality.HD;
           break;
         case 3:
+          info.Quality = VideoQuality.FullHD;
+          break;
+        case 4:
           {
             string title = vid.Title.Text;
             if (info.FmtMap.Contains("18"))
               info.Quality = VideoQuality.High;
             if (info.FmtMap.Contains("22"))
               info.Quality = VideoQuality.HD;
+            if (info.FmtMap.Contains("37"))
+              info.Quality = VideoQuality.FullHD;
             break;
           }
-        case 4:
+        case 5:
           {
             GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
             if (dlg == null) info.Quality = VideoQuality.Normal;
@@ -268,9 +273,13 @@ namespace YouTubePlugin
             dlg.SetHeading("Select video quality");
             dlg.Add("Normal quality");
             dlg.Add("High quality");
-            if (info.FmtMap.Contains("22/"))
+            if (info.FmtMap.Contains("22"))
             {
               dlg.Add("HD quality");
+            }
+            if (info.FmtMap.Contains("37"))
+            {
+              dlg.Add("Full HD quality");
             }
             dlg.DoModal(GetID);
             if (dlg.SelectedId == -1) info.Quality = VideoQuality.Unknow;
@@ -284,6 +293,9 @@ namespace YouTubePlugin
                 break;
               case 2:
                 info.Quality = VideoQuality.HD;
+                break;
+              case 3:
+                info.Quality = VideoQuality.FullHD;
                 break;
             }
           }

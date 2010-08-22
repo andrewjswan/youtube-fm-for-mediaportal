@@ -228,17 +228,16 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>9</Build>
-      <Revision>2</Revision>
+      <Revision>3</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Change log :
-Playback for non embeddable videos.Some navigation improvements
-Online fanart download fixed</VersionDescription>
-    <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.2.mpe1</OnlineLocation>
-    <ReleaseDate>2009-11-12T17:28:13.859375+02:00</ReleaseDate>
+    <VersionDescription>Playback fix 
+Support for full hd videos</VersionDescription>
+    <DevelopmentStatus>Rc</DevelopmentStatus>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.3.mpe1</OnlineLocation>
+    <ReleaseDate>2010-08-22T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
-    <Location>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
+    <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -257,6 +256,16 @@ Online fanart download fixed</VersionDescription>
           <Description>The file used to configure the extension.
  If have .exe extension the will be executed
  If have .dll extension used like MP plugin configuration</Description>
+        </SectionParam>
+        <SectionParam Name="Online Screenshots">
+          <Value />
+          <ValueType>String</ValueType>
+          <Description>Online stored screenshot urls separated by ; </Description>
+        </SectionParam>
+        <SectionParam Name="Force to uninstall on update">
+          <Value>yes</Value>
+          <ValueType>Bool</ValueType>
+          <Description>Show dialog and force to uninstall previous version when updating an extension. Should only be disabled if you are using an NSIS/MSI installer.</Description>
         </SectionParam>
       </Items>
     </Params>
@@ -330,8 +339,8 @@ Online fanart download fixed</VersionDescription>
   </UniqueFileList>
   <ProjectSettings>
     <FolderGroups />
-    <ProjectFilename>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\YoutubeFm.xmp2</ProjectFilename>
-    <UpdatePath1>F:\devel\vs2005\YouTube.fm.Plugin\MPEI\update.xml</UpdatePath1>
+    <ProjectFilename>D:\devel\vs2005\YouTube.fm.Plugin\MPEI\YoutubeFm.xmp2</ProjectFilename>
+    <UpdatePath1>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\update.xml</UpdatePath1>
     <UpdatePath2 />
     <UpdatePath3 />
   </ProjectSettings>

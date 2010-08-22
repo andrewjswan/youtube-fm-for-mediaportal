@@ -28,7 +28,8 @@ namespace YouTubePlugin
     Normal = 0,
     High = 1,
     HD = 2,
-    Unknow = 3,
+    FullHD = 3,
+    Unknow = 4,
   }
 
   static public class Youtube2MP
@@ -269,18 +270,21 @@ namespace YouTubePlugin
       switch (qa.Quality)
       {
         case VideoQuality.Normal:
-          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), qa.Token);
+          return qa.GetPlaybackUrl("34"); // string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), qa.Token);)
         case VideoQuality.High:
-          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=18&ext=.mp4", getIDSimple(url), qa.Token);
+          return qa.GetPlaybackUrl("18");//string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=18&ext=.mp4", getIDSimple(url), qa.Token);
         case VideoQuality.HD:
-          return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=22&ext=.mp4", getIDSimple(url), qa.Token);
+          return qa.GetPlaybackUrl("22"); // string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=22&ext=.mp4", getIDSimple(url), qa.Token);
+        case VideoQuality.FullHD:
+          return qa.GetPlaybackUrl("37"); // string.Format("http://youtube.com/get_video?video_id={0}&t={1}&fmt=22&ext=.mp4", getIDSimple(url), qa.Token);
+
       }
-      return string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), qa.Token);
+      return qa.GetPlaybackUrl("34");  //string.Format("http://youtube.com/get_video?video_id={0}&t={1}&ext=.flv", getIDSimple(url), qa.Token);
     }
 
     static private Stream RetrieveData(string sUrl)
     {
-      if (sUrl == null || sUrl.Length < 1 || sUrl[0] == '/')
+      if (string.IsNullOrEmpty(sUrl) || sUrl[0] == '/')
       {
         return null;
       }

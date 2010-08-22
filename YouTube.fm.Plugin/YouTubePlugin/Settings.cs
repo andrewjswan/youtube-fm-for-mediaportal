@@ -240,6 +240,7 @@ namespace YouTubePlugin
         xmlwriter.SetValue("youtubevideos", "searchhistory", his);
       }
       this.LocalFile.Save();
+      MediaPortal.Profile.Settings.SaveCache();
     }
 
     public Settings()

@@ -90,6 +90,23 @@ namespace YouTubePlugin
         this.Date = info.Date;
     }
 
+    public string GetPlaybackUrl(string fmt)
+    {
+      string[] ss = Items["fmt_url_map"].Split(',');
+      if(!ss[0].Contains("|"))
+        ss = System.Web.HttpUtility.UrlDecode(Items["fmt_url_map"]).Split(',');
+      foreach (string sitem in ss)
+      {
+        string s = System.Web.HttpUtility.UrlDecode(sitem);
+        string[] urls = s.Split('|');
+        if (urls[0] == fmt)
+          return urls[1].Replace(@"\/","/");
+      }
+      if (ss.Length > 0)
+        return ss[0].Split('|')[1].Replace(@"\/", "/");
+      return "";
+    }
+
     public Dictionary<string, string> Items = new Dictionary<string, string>();
     public void Get(string videoId)
     {
@@ -129,6 +146,14 @@ namespace YouTubePlugin
             {
                 Items.Add("fmt_map", matchResult1.Groups["fmt_map"].Value);
             }
+            Regex regexObj2 = new Regex(", \"fmt_url_map\": \"(?<fmt_url_map>.*?)\", \"", RegexOptions.Singleline);
+            Match matchResult2 = regexObj2.Match(site);
+            if (matchResult2.Success)
+            {
+              Items.Add("fmt_url_map", matchResult2.Groups["fmt_url_map"].Value);
+            }
+
+          //fmt_url_map
         }
       }
       catch (Exception ex)
@@ -154,14 +179,19 @@ namespace YouTubePlugin
           Quality = VideoQuality.HD;
           break;
         case 3:
+          Quality = VideoQuality.FullHD;
+          break;
+        case 4:
           {
             if (FmtMap.Contains("18"))
               Quality = VideoQuality.High;
             if (FmtMap.Contains("22/"))
               Quality = VideoQuality.HD;
+            if (FmtMap.Contains("37/"))
+              Quality = VideoQuality.FullHD;
             break;
           }
-        case 4:
+        case 5:
           {
             Quality = VideoQuality.High;
           }
