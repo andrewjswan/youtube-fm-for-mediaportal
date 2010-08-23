@@ -53,6 +53,13 @@ namespace YouTubePlugin
       this.radioButton3 = new System.Windows.Forms.RadioButton();
       this.radioButton2 = new System.Windows.Forms.RadioButton();
       this.radioButton1 = new System.Windows.Forms.RadioButton();
+      this.tabPage6 = new System.Windows.Forms.TabPage();
+      this.btn_del_provider = new System.Windows.Forms.Button();
+      this.btn_add_provider = new System.Windows.Forms.Button();
+      this.cmb_providers = new System.Windows.Forms.ComboBox();
+      this.panel1 = new System.Windows.Forms.Panel();
+      this.list_startpage = new System.Windows.Forms.ListView();
+      this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
       this.tabPage2 = new System.Windows.Forms.TabPage();
       this.button5 = new System.Windows.Forms.Button();
       this.button4 = new System.Windows.Forms.Button();
@@ -82,6 +89,7 @@ namespace YouTubePlugin
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.groupBox2.SuspendLayout();
+      this.tabPage6.SuspendLayout();
       this.tabPage2.SuspendLayout();
       this.tabPage3.SuspendLayout();
       this.tabPage4.SuspendLayout();
@@ -174,6 +182,7 @@ namespace YouTubePlugin
       // tabControl1
       // 
       this.tabControl1.Controls.Add(this.tabPage1);
+      this.tabControl1.Controls.Add(this.tabPage6);
       this.tabControl1.Controls.Add(this.tabPage2);
       this.tabControl1.Controls.Add(this.tabPage3);
       this.tabControl1.Controls.Add(this.tabPage4);
@@ -358,6 +367,75 @@ namespace YouTubePlugin
       this.radioButton1.Text = "Show ";
       this.radioButton1.UseVisualStyleBackColor = true;
       this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+      // 
+      // tabPage6
+      // 
+      this.tabPage6.Controls.Add(this.btn_del_provider);
+      this.tabPage6.Controls.Add(this.btn_add_provider);
+      this.tabPage6.Controls.Add(this.cmb_providers);
+      this.tabPage6.Controls.Add(this.panel1);
+      this.tabPage6.Controls.Add(this.list_startpage);
+      this.tabPage6.Location = new System.Drawing.Point(4, 22);
+      this.tabPage6.Name = "tabPage6";
+      this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPage6.Size = new System.Drawing.Size(535, 330);
+      this.tabPage6.TabIndex = 5;
+      this.tabPage6.Text = "Start Page";
+      this.tabPage6.UseVisualStyleBackColor = true;
+      // 
+      // btn_del_provider
+      // 
+      this.btn_del_provider.Location = new System.Drawing.Point(239, 33);
+      this.btn_del_provider.Name = "btn_del_provider";
+      this.btn_del_provider.Size = new System.Drawing.Size(75, 23);
+      this.btn_del_provider.TabIndex = 4;
+      this.btn_del_provider.Text = "Delete";
+      this.btn_del_provider.UseVisualStyleBackColor = true;
+      // 
+      // btn_add_provider
+      // 
+      this.btn_add_provider.Location = new System.Drawing.Point(452, 33);
+      this.btn_add_provider.Name = "btn_add_provider";
+      this.btn_add_provider.Size = new System.Drawing.Size(75, 23);
+      this.btn_add_provider.TabIndex = 3;
+      this.btn_add_provider.Text = "Add";
+      this.btn_add_provider.UseVisualStyleBackColor = true;
+      this.btn_add_provider.Click += new System.EventHandler(this.btn_add_provider_Click);
+      // 
+      // cmb_providers
+      // 
+      this.cmb_providers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cmb_providers.FormattingEnabled = true;
+      this.cmb_providers.Location = new System.Drawing.Point(239, 6);
+      this.cmb_providers.Name = "cmb_providers";
+      this.cmb_providers.Size = new System.Drawing.Size(288, 21);
+      this.cmb_providers.TabIndex = 2;
+      // 
+      // panel1
+      // 
+      this.panel1.Location = new System.Drawing.Point(239, 99);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(293, 225);
+      this.panel1.TabIndex = 1;
+      // 
+      // list_startpage
+      // 
+      this.list_startpage.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+      this.list_startpage.HideSelection = false;
+      this.list_startpage.Location = new System.Drawing.Point(3, 6);
+      this.list_startpage.MultiSelect = false;
+      this.list_startpage.Name = "list_startpage";
+      this.list_startpage.Size = new System.Drawing.Size(230, 318);
+      this.list_startpage.TabIndex = 0;
+      this.list_startpage.UseCompatibleStateImageBehavior = false;
+      this.list_startpage.View = System.Windows.Forms.View.Details;
+      this.list_startpage.SelectedIndexChanged += new System.EventHandler(this.list_startpage_SelectedIndexChanged);
+      // 
+      // columnHeader1
+      // 
+      this.columnHeader1.Text = "Title";
+      this.columnHeader1.Width = 220;
       // 
       // tabPage2
       // 
@@ -617,6 +695,7 @@ namespace YouTubePlugin
       this.tabPage1.PerformLayout();
       this.groupBox2.ResumeLayout(false);
       this.groupBox2.PerformLayout();
+      this.tabPage6.ResumeLayout(false);
       this.tabPage2.ResumeLayout(false);
       this.tabPage2.PerformLayout();
       this.tabPage3.ResumeLayout(false);
@@ -683,5 +762,12 @@ namespace YouTubePlugin
     private System.Windows.Forms.TabPage tabPage5;
     private System.Windows.Forms.Label label10;
     private System.Windows.Forms.ComboBox cmb_region;
+    private System.Windows.Forms.TabPage tabPage6;
+    private System.Windows.Forms.ListView list_startpage;
+    private System.Windows.Forms.Panel panel1;
+    private System.Windows.Forms.ColumnHeader columnHeader1;
+    private System.Windows.Forms.Button btn_del_provider;
+    private System.Windows.Forms.Button btn_add_provider;
+    private System.Windows.Forms.ComboBox cmb_providers;
   }
 }

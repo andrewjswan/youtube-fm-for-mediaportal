@@ -67,8 +67,17 @@
   <ItemGroup>
     <Compile Include="Class\FileDownloader.cs" />
     <None Include="Class\LastProfile.cs" />
+    <Compile Include="Class\ISiteItem.cs" />
     <Compile Include="Class\LocalFileEnumerator.cs" />
     <Compile Include="Class\LocalFileStruct.cs" />
+    <Compile Include="Class\SiteItemEntry.cs" />
+    <Compile Include="Class\SiteItems\GenericSiteItem.cs" />
+    <Compile Include="Class\SiteItems\GenericSiteItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\GenericSiteItemControl.Designer.cs">
+      <DependentUpon>GenericSiteItemControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\Translation.cs" />
     <Compile Include="Class\VideoInfo.cs" />
     <Compile Include="Class\YoutubePlaylistPlayer.cs" />
@@ -93,6 +102,9 @@
     <Compile Include="YouTubeGUIPlaylist.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Class\SiteItems\GenericSiteItemControl.resx">
+      <DependentUpon>GenericSiteItemControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SetupForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SetupForm.cs</DependentUpon>

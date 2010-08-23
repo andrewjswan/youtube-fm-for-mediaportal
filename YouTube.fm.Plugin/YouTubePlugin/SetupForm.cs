@@ -13,6 +13,7 @@ using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
 
 using MediaPortal.GUI.Library;
+using YouTubePlugin.Class;
 
 
 namespace YouTubePlugin
@@ -125,6 +126,11 @@ namespace YouTubePlugin
         comboBox_startup.Items.AddRange(_settings.Cats.ToArray());
         comboBox_startup.SelectedIndex = _settings.InitialCat;
         textBox_startup.Text = _settings.InitialSearch;
+
+      foreach (KeyValuePair<string, ISiteItem> siteItem in Youtube2MP.SiteItemProvider)
+      {
+        cmb_providers.Items.Add(siteItem.Value.Name);
+      }
     }
 
     private void button2_Click(object sender, EventArgs e)
@@ -218,6 +224,28 @@ namespace YouTubePlugin
         {
             textBox_fanartdir.Text = folderBrowserDialog1.SelectedPath;
         }
+    }
+
+    private void btn_add_provider_Click(object sender, EventArgs e)
+    {
+      ISiteItem siteItem = Youtube2MP.SiteItemProvider[cmb_providers.SelectedItem.ToString()];
+      ListViewItem listViewItem = new ListViewItem(siteItem.Name);
+      SiteItemEntry entry = new SiteItemEntry() {Provider = siteItem.Name};
+      listViewItem.Tag = entry;
+      listViewItem.Selected = true;
+      list_startpage.Items.Add(listViewItem);
+    }
+
+    private void list_startpage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      if (list_startpage.SelectedItems.Count > 0)
+      {
+        SiteItemEntry entry = list_startpage.SelectedItems[0].Tag as SiteItemEntry;
+        panel1.Controls.Clear();
+        ISiteItem siteItem = Youtube2MP.SiteItemProvider[entry.Provider];
+        siteItem.Configure(entry);
+        panel1.Controls.Add(siteItem.ConfigControl);
+      }
     }
 
   }

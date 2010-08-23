@@ -20,6 +20,8 @@ using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
+using YouTubePlugin.Class;
+using YouTubePlugin.Class.SiteItems;
 
 namespace YouTubePlugin
 {
@@ -34,6 +36,19 @@ namespace YouTubePlugin
 
   static public class Youtube2MP
   {
+    static Youtube2MP()
+    {
+      AddSiteItem(new GenericSiteItem());
+    }
+
+    public static Dictionary<string, ISiteItem> SiteItemProvider = new Dictionary<string, ISiteItem>();
+
+    static public void AddSiteItem(ISiteItem siteItem)
+    {
+      SiteItemProvider.Add(siteItem.Name, siteItem);
+    }
+
+
     public static YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
     
     public static YoutubePlaylistPlayer player = new YoutubePlaylistPlayer();
