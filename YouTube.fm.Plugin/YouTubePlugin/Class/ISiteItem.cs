@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace YouTubePlugin.Class
@@ -7,6 +8,6 @@ namespace YouTubePlugin.Class
     Control ConfigControl { get; set; }
     void Configure(SiteItemEntry entry);
     string Name { get; set; }
-
+    List<GenericListItem> GetList(SiteItemEntry entry);
   }
 }

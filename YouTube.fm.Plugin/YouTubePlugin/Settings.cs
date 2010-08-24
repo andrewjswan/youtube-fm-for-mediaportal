@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
+using YouTubePlugin.Class;
 
 namespace YouTubePlugin
 {
@@ -77,6 +78,8 @@ namespace YouTubePlugin
       }
 
       public LocalFileEnumerator LocalFile { get; set; }
+
+    public SiteItemEnumerator MainMenu { get; set; }
 
       public bool MusicFilter { get; set; }
 
@@ -207,6 +210,7 @@ namespace YouTubePlugin
         }
       }
       this.LocalFile.Load();
+      MainMenu.Load("youtubefmMenu.xml");
     }
 
     public void Save()
@@ -240,6 +244,7 @@ namespace YouTubePlugin
         xmlwriter.SetValue("youtubevideos", "searchhistory", his);
       }
       this.LocalFile.Save();
+      MainMenu.Save("youtubefmMenu.xml");
       MediaPortal.Profile.Settings.SaveCache();
     }
 
@@ -250,6 +255,7 @@ namespace YouTubePlugin
       this.Password = "";
       this.SearchHistory = new List<string>();
       this.LocalFile = new LocalFileEnumerator();
+      MainMenu = new SiteItemEnumerator();
     }
     
 

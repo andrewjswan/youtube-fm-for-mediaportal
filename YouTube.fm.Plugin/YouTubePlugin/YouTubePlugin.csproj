@@ -67,16 +67,18 @@
   <ItemGroup>
     <Compile Include="Class\FileDownloader.cs" />
     <None Include="Class\LastProfile.cs" />
+    <Compile Include="Class\GenericListItem.cs" />
     <Compile Include="Class\ISiteItem.cs" />
     <Compile Include="Class\LocalFileEnumerator.cs" />
     <Compile Include="Class\LocalFileStruct.cs" />
     <Compile Include="Class\SiteItemEntry.cs" />
-    <Compile Include="Class\SiteItems\GenericSiteItem.cs" />
-    <Compile Include="Class\SiteItems\GenericSiteItemControl.cs">
+    <Compile Include="Class\SiteItemEnumerator.cs" />
+    <Compile Include="Class\SiteItems\StandardFeedItem.cs" />
+    <Compile Include="Class\SiteItems\StandardFeedItemControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Class\SiteItems\GenericSiteItemControl.Designer.cs">
-      <DependentUpon>GenericSiteItemControl.cs</DependentUpon>
+    <Compile Include="Class\SiteItems\StandardFeedItemControl.Designer.cs">
+      <DependentUpon>StandardFeedItemControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Class\Translation.cs" />
     <Compile Include="Class\VideoInfo.cs" />
@@ -84,6 +86,12 @@
     <Compile Include="DataProvider\FanArtItem.cs" />
     <Compile Include="DataProvider\HTBFanArt.cs" />
     <Compile Include="DownloadFileObject.cs" />
+    <Compile Include="FormItemList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormItemList.Designer.cs">
+      <DependentUpon>FormItemList.cs</DependentUpon>
+    </Compile>
     <Compile Include="MessageGUI.cs" />
     <None Include="SearchProvider.cs" />
     <Compile Include="SetupForm.cs">
@@ -102,8 +110,11 @@
     <Compile Include="YouTubeGUIPlaylist.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Class\SiteItems\GenericSiteItemControl.resx">
-      <DependentUpon>GenericSiteItemControl.cs</DependentUpon>
+    <EmbeddedResource Include="Class\SiteItems\StandardFeedItemControl.resx">
+      <DependentUpon>StandardFeedItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormItemList.resx">
+      <DependentUpon>FormItemList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetupForm.resx">
       <SubType>Designer</SubType>

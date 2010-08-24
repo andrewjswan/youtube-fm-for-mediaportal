@@ -6,7 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+using ConsoleApplication2.com.amazon.webservices;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.YouTube;
@@ -21,6 +21,7 @@ namespace YouTubePlugin
   public partial class SetupForm : Form
   {
     public Settings _settings;
+    private bool loading = true;
     public SetupForm()
     {
       InitializeComponent();
@@ -28,47 +29,53 @@ namespace YouTubePlugin
 
     private void button1_Click(object sender, EventArgs e)
     {
-        _settings.User = textBox_user.Text;
-        _settings.Password = textBox_passw.Text;
-        _settings.PluginName = textBox_pluginname.Text;
-        _settings.SearchHistory.Clear();
-        _settings.InitialSearch = textBox_startup.Text;
-        _settings.InitialCat = comboBox_startup.SelectedIndex;
-        _settings.MusicFilter = checkBox_filter.Checked;
-        _settings.Time = checkBox_time.Checked;
-        _settings.ShowNowPlaying = checkBox_nowplaying.Checked;
-        _settings.UseYouTubePlayer = checkBox_useplayer.Checked;
-        _settings.UseExtremFilter = checkBox_extremfilter.Checked;
-        _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
-        _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
-        _settings.InstantAction = (Action.ActionType) comboBox_action.SelectedValue;
-        _settings.DownloadFolder = textBox_downloaddir.Text;
-        _settings.FanartDir = textBox_fanartdir.Text;
-        _settings.LoadOnlineFanart = checkBox1.Checked;
-        _settings.Region = cmb_region.Text;
-        try
-        {
-        }
-        catch (Exception)
-        {
-            _settings.InstantChar = 0;
-        }
+      _settings.User = textBox_user.Text;
+      _settings.Password = textBox_passw.Text;
+      _settings.PluginName = textBox_pluginname.Text;
+      _settings.SearchHistory.Clear();
+      _settings.InitialSearch = textBox_startup.Text;
+      _settings.InitialCat = comboBox_startup.SelectedIndex;
+      _settings.MusicFilter = checkBox_filter.Checked;
+      _settings.Time = checkBox_time.Checked;
+      _settings.ShowNowPlaying = checkBox_nowplaying.Checked;
+      _settings.UseYouTubePlayer = checkBox_useplayer.Checked;
+      _settings.UseExtremFilter = checkBox_extremfilter.Checked;
+      _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
+      _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
+      _settings.InstantAction = (Action.ActionType) comboBox_action.SelectedValue;
+      _settings.DownloadFolder = textBox_downloaddir.Text;
+      _settings.FanartDir = textBox_fanartdir.Text;
+      _settings.LoadOnlineFanart = checkBox1.Checked;
+      _settings.Region = cmb_region.Text;
+      try
+      {
+      }
+      catch (Exception)
+      {
+        _settings.InstantChar = 0;
+      }
 
-        foreach (string s in listBox_history.Items)
-        {
-            _settings.SearchHistory.Add(s);
-        }
-        if (radioButton1.Checked)
-            _settings.InitialDisplay = 1;
-        if (radioButton2.Checked)
-            _settings.InitialDisplay = 2;
-        if (radioButton3.Checked)
-            _settings.InitialDisplay = 3;
-        _settings.Save();
-        this.Close();
+      foreach (string s in listBox_history.Items)
+      {
+        _settings.SearchHistory.Add(s);
+      }
+      if (radioButton1.Checked)
+        _settings.InitialDisplay = 1;
+      if (radioButton2.Checked)
+        _settings.InitialDisplay = 2;
+      if (radioButton3.Checked)
+        _settings.InitialDisplay = 3;
+
+      _settings.MainMenu.Items.Clear();
+      foreach (ListViewItem item in list_startpage.Items)
+      {
+        _settings.MainMenu.Items.Add((SiteItemEntry) item.Tag);
+      }
+      _settings.Save();
+      this.Close();
     }
 
-      private ArrayList GenerateActionList()
+    private ArrayList GenerateActionList()
     {
       ArrayList ret = new ArrayList();
       string[] names = Enum.GetNames(typeof(Action.ActionType));
@@ -83,6 +90,7 @@ namespace YouTubePlugin
 
     private void SetupForm_Load(object sender, EventArgs e)
     {
+      loading = true;
         comboBox_action.DataSource = GenerateActionList();
         comboBox_action.DisplayMember = "ActionName";
         comboBox_action.ValueMember = "ActionID";
@@ -131,6 +139,17 @@ namespace YouTubePlugin
       {
         cmb_providers.Items.Add(siteItem.Value.Name);
       }
+      cmb_providers.SelectedIndex = 0;
+      list_startpage.Items.Clear();
+
+      foreach (SiteItemEntry entry in _settings.MainMenu.Items)
+      {
+        ListViewItem listViewItem = new ListViewItem(entry.Title);
+        listViewItem.Tag = entry;
+        listViewItem.Selected = true;
+        list_startpage.Items.Add(listViewItem);
+      }
+      loading = false;
     }
 
     private void button2_Click(object sender, EventArgs e)
@@ -232,22 +251,67 @@ namespace YouTubePlugin
       ListViewItem listViewItem = new ListViewItem(siteItem.Name);
       SiteItemEntry entry = new SiteItemEntry() {Provider = siteItem.Name};
       listViewItem.Tag = entry;
-      listViewItem.Selected = true;
+      //listViewItem.Selected = true;
       list_startpage.Items.Add(listViewItem);
     }
 
     private void list_startpage_SelectedIndexChanged(object sender, EventArgs e)
     {
-      if (list_startpage.SelectedItems.Count > 0)
+      panel1.Controls.Clear();
+      if (list_startpage.SelectedItems.Count > 0 && !loading)
       {
         SiteItemEntry entry = list_startpage.SelectedItems[0].Tag as SiteItemEntry;
-        panel1.Controls.Clear();
         ISiteItem siteItem = Youtube2MP.SiteItemProvider[entry.Provider];
         siteItem.Configure(entry);
         panel1.Controls.Add(siteItem.ConfigControl);
       }
+      foreach (ListViewItem listViewItemitem in list_startpage.Items)
+      {
+        listViewItemitem.Text = ((SiteItemEntry) listViewItemitem.Tag).Title;
+      }
     }
 
+    private void btn_del_provider_Click(object sender, EventArgs e)
+    {
+      if (list_startpage.SelectedItems.Count > 0)
+      {
+        list_startpage.Items.Remove(list_startpage.SelectedItems[0]);
+      }
+    }
+
+    private void btn_up_Click(object sender, EventArgs e)
+    {
+      if (list_startpage.SelectedItems.Count <1)
+        return;
+      ListViewItem listViewItem = list_startpage.SelectedItems[0];
+      int idx = list_startpage.Items.IndexOf(listViewItem);
+      if (idx < 1)
+        return;
+      list_startpage.Items.Remove(listViewItem);
+      list_startpage.Items.Insert(idx - 1, listViewItem);
+    }
+
+    private void btn_down_Click(object sender, EventArgs e)
+    {
+      if (list_startpage.SelectedItems.Count < 1)
+        return;
+      ListViewItem listViewItem = list_startpage.SelectedItems[0];
+      int idx = list_startpage.Items.IndexOf(listViewItem);
+      if (idx > list_startpage.Items.Count - 2)
+        return;
+      list_startpage.Items.Remove(listViewItem);
+      list_startpage.Items.Insert(idx + 1, listViewItem);
+    }
+
+    private void button7_Click(object sender, EventArgs e)
+    {
+      if (list_startpage.SelectedItems.Count > 0)
+      {
+        SiteItemEntry entry = list_startpage.SelectedItems[0].Tag as SiteItemEntry;
+        FormItemList dlg = new FormItemList(Youtube2MP.GetList(entry));
+        dlg.ShowDialog();
+      }
+    }
   }
 
   class ActionEntry

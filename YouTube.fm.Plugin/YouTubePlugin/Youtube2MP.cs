@@ -38,7 +38,7 @@ namespace YouTubePlugin
   {
     static Youtube2MP()
     {
-      AddSiteItem(new GenericSiteItem());
+      AddSiteItem(new StandardFeedItem());
     }
 
     public static Dictionary<string, ISiteItem> SiteItemProvider = new Dictionary<string, ISiteItem>();
@@ -48,6 +48,10 @@ namespace YouTubePlugin
       SiteItemProvider.Add(siteItem.Name, siteItem);
     }
 
+    static public List<GenericListItem> GetList(SiteItemEntry entry)
+    {
+      return SiteItemProvider[entry.Provider].GetList(entry);
+    }
 
     public static YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
     
@@ -60,6 +64,9 @@ namespace YouTubePlugin
     public static Settings _settings;
 
     public static Dictionary<string, YouTubeEntry> UrlHolder = new Dictionary<string, YouTubeEntry>();
+
+
+
 
     public static string StreamPlaybackUrl(YouTubeEntry vid, VideoInfo qu)
     {

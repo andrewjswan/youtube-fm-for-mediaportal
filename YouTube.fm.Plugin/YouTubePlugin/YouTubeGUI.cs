@@ -540,7 +540,7 @@ namespace YouTubePlugin
         case 9:
           if (Youtube2MP._settings.LocalFile.Items.Count == 0)
           {
-            Err_message("No downloded item was found !");
+            Err_message("No downloaded item was found !");
           }
           else
           {

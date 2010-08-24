@@ -1,6 +1,6 @@
 ﻿namespace YouTubePlugin.Class.SiteItems
 {
-  partial class GenericSiteItemControl
+  partial class StandardFeedItemControl
   {
     /// <summary> 
     /// Required designer variable.

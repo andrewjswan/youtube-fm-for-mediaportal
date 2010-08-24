@@ -11,16 +11,9 @@ namespace YouTubePlugin
 {
   public class LocalFileEnumerator
   {
+    public List<LocalFileStruct> Items { get; set; }
 
-    private List<LocalFileStruct> items;
 
-    public List<LocalFileStruct> Items
-    {
-      get { return items; }
-      set { items = value; }
-    }
-
-    
     public LocalFileEnumerator()
     {
       Items = new List<LocalFileStruct>();
