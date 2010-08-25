@@ -42,11 +42,12 @@ namespace YouTubePlugin
       _settings.UseExtremFilter = checkBox_extremfilter.Checked;
       _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
       _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
-      _settings.InstantAction = (Action.ActionType) comboBox_action.SelectedValue;
+      _settings.InstantAction = (Action.ActionType)comboBox_action.SelectedValue;
       _settings.DownloadFolder = textBox_downloaddir.Text;
       _settings.FanartDir = textBox_fanartdir.Text;
       _settings.LoadOnlineFanart = checkBox1.Checked;
       _settings.Region = cmb_region.Text;
+      _settings.OldStyleHome = chk_oldstyle.Checked;
       try
       {
       }
@@ -69,7 +70,7 @@ namespace YouTubePlugin
       _settings.MainMenu.Items.Clear();
       foreach (ListViewItem item in list_startpage.Items)
       {
-        _settings.MainMenu.Items.Add((SiteItemEntry) item.Tag);
+        _settings.MainMenu.Items.Add((SiteItemEntry)item.Tag);
       }
       _settings.Save();
       this.Close();
@@ -91,49 +92,50 @@ namespace YouTubePlugin
     private void SetupForm_Load(object sender, EventArgs e)
     {
       loading = true;
-        comboBox_action.DataSource = GenerateActionList();
-        comboBox_action.DisplayMember = "ActionName";
-        comboBox_action.ValueMember = "ActionID";
+      comboBox_action.DataSource = GenerateActionList();
+      comboBox_action.DisplayMember = "ActionName";
+      comboBox_action.ValueMember = "ActionID";
 
-        textBox_user.Text = _settings.User;
-        textBox_passw.Text = _settings.Password;
-        textBox_pluginname.Text = _settings.PluginName;
-        textBox_char.Text = _settings.InstantChar.ToString();
-        listBox_history.Items.AddRange(_settings.SearchHistory.ToArray());
-        checkBox_filter.Checked = _settings.MusicFilter;
-        checkBox_time.Checked = _settings.Time;
-        checkBox_nowplaying.Checked = _settings.ShowNowPlaying;
-        checkBox_useplayer.Checked = _settings.UseYouTubePlayer;
-        checkBox_extremfilter.Checked = _settings.UseExtremFilter;
-        comboBox_videoquality.SelectedIndex = _settings.VideoQuality;
-        checkBox_sms.Checked = _settings.UseSMSStyleKeyBoard;
-        textBox_downloaddir.Text = _settings.DownloadFolder;
-        textBox_fanartdir.Text = _settings.FanartDir;
-        checkBox1.Checked = _settings.LoadOnlineFanart;
-        comboBox_action.SelectedValue = (int) _settings.InstantAction;
-        switch (_settings.InitialDisplay)
-        {
-            case 1:
-                radioButton1.Checked = true;
-                break;
-            case 2:
-                radioButton2.Checked = true;
-                break;
-            case 3:
-                radioButton3.Checked = true;
-                break;
-            default:
-                break;
-        }
-        foreach (KeyValuePair<string, string> valuePair in _settings.Regions)
-        {
-            cmb_region.Items.Add(valuePair.Key);
-        }
-        cmb_region.Items.Add("Ask");
-        cmb_region.Text = _settings.Region;
-        comboBox_startup.Items.AddRange(_settings.Cats.ToArray());
-        comboBox_startup.SelectedIndex = _settings.InitialCat;
-        textBox_startup.Text = _settings.InitialSearch;
+      textBox_user.Text = _settings.User;
+      textBox_passw.Text = _settings.Password;
+      textBox_pluginname.Text = _settings.PluginName;
+      textBox_char.Text = _settings.InstantChar.ToString();
+      listBox_history.Items.AddRange(_settings.SearchHistory.ToArray());
+      checkBox_filter.Checked = _settings.MusicFilter;
+      checkBox_time.Checked = _settings.Time;
+      checkBox_nowplaying.Checked = _settings.ShowNowPlaying;
+      checkBox_useplayer.Checked = _settings.UseYouTubePlayer;
+      checkBox_extremfilter.Checked = _settings.UseExtremFilter;
+      comboBox_videoquality.SelectedIndex = _settings.VideoQuality;
+      checkBox_sms.Checked = _settings.UseSMSStyleKeyBoard;
+      textBox_downloaddir.Text = _settings.DownloadFolder;
+      textBox_fanartdir.Text = _settings.FanartDir;
+      checkBox1.Checked = _settings.LoadOnlineFanart;
+      chk_oldstyle.Checked = _settings.OldStyleHome;
+      comboBox_action.SelectedValue = (int)_settings.InstantAction;
+      switch (_settings.InitialDisplay)
+      {
+        case 1:
+          radioButton1.Checked = true;
+          break;
+        case 2:
+          radioButton2.Checked = true;
+          break;
+        case 3:
+          radioButton3.Checked = true;
+          break;
+        default:
+          break;
+      }
+      foreach (KeyValuePair<string, string> valuePair in _settings.Regions)
+      {
+        cmb_region.Items.Add(valuePair.Key);
+      }
+      cmb_region.Items.Add("Ask");
+      cmb_region.Text = _settings.Region;
+      comboBox_startup.Items.AddRange(_settings.OldCats.ToArray());
+      comboBox_startup.SelectedIndex = _settings.InitialCat;
+      textBox_startup.Text = _settings.InitialSearch;
 
       foreach (KeyValuePair<string, ISiteItem> siteItem in Youtube2MP.SiteItemProvider)
       {
@@ -154,10 +156,10 @@ namespace YouTubePlugin
 
     private void button2_Click(object sender, EventArgs e)
     {
-        this.Close();
+      this.Close();
     }
 
-      private void button3_Click(object sender, EventArgs e)
+    private void button3_Click(object sender, EventArgs e)
     {
       listBox_history.Items.Clear();
     }
@@ -238,20 +240,20 @@ namespace YouTubePlugin
 
     private void button6_Click(object sender, EventArgs e)
     {
-        folderBrowserDialog1.SelectedPath = textBox_downloaddir.Text;
-        if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-        {
-            textBox_fanartdir.Text = folderBrowserDialog1.SelectedPath;
-        }
+      folderBrowserDialog1.SelectedPath = textBox_downloaddir.Text;
+      if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+      {
+        textBox_fanartdir.Text = folderBrowserDialog1.SelectedPath;
+      }
     }
 
     private void btn_add_provider_Click(object sender, EventArgs e)
     {
       ISiteItem siteItem = Youtube2MP.SiteItemProvider[cmb_providers.SelectedItem.ToString()];
       ListViewItem listViewItem = new ListViewItem(siteItem.Name);
-      SiteItemEntry entry = new SiteItemEntry() {Provider = siteItem.Name};
+      SiteItemEntry entry = new SiteItemEntry() { Provider = siteItem.Name, Title = siteItem.Name };
       listViewItem.Tag = entry;
-      //listViewItem.Selected = true;
+      listViewItem.Selected = true;
       list_startpage.Items.Add(listViewItem);
     }
 
@@ -263,11 +265,12 @@ namespace YouTubePlugin
         SiteItemEntry entry = list_startpage.SelectedItems[0].Tag as SiteItemEntry;
         ISiteItem siteItem = Youtube2MP.SiteItemProvider[entry.Provider];
         siteItem.Configure(entry);
-        panel1.Controls.Add(siteItem.ConfigControl);
+        if (siteItem.ConfigControl != null)
+          panel1.Controls.Add(siteItem.ConfigControl);
       }
       foreach (ListViewItem listViewItemitem in list_startpage.Items)
       {
-        listViewItemitem.Text = ((SiteItemEntry) listViewItemitem.Tag).Title;
+        listViewItemitem.Text = ((SiteItemEntry)listViewItemitem.Tag).Title;
       }
     }
 
@@ -281,7 +284,7 @@ namespace YouTubePlugin
 
     private void btn_up_Click(object sender, EventArgs e)
     {
-      if (list_startpage.SelectedItems.Count <1)
+      if (list_startpage.SelectedItems.Count < 1)
         return;
       ListViewItem listViewItem = list_startpage.SelectedItems[0];
       int idx = list_startpage.Items.IndexOf(listViewItem);

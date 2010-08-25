@@ -38,10 +38,11 @@
       // 
       this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-      this.listView1.Location = new System.Drawing.Point(1, 1);
+      this.listView1.Dock = System.Windows.Forms.DockStyle.Top;
+      this.listView1.Location = new System.Drawing.Point(0, 0);
       this.listView1.MultiSelect = false;
       this.listView1.Name = "listView1";
-      this.listView1.Size = new System.Drawing.Size(378, 308);
+      this.listView1.Size = new System.Drawing.Size(380, 308);
       this.listView1.TabIndex = 0;
       this.listView1.UseCompatibleStateImageBehavior = false;
       this.listView1.View = System.Windows.Forms.View.Details;
@@ -54,10 +55,11 @@
       // 
       // pictureBox1
       // 
-      this.pictureBox1.Location = new System.Drawing.Point(1, 315);
+      this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
+      this.pictureBox1.Location = new System.Drawing.Point(0, 308);
       this.pictureBox1.Name = "pictureBox1";
-      this.pictureBox1.Size = new System.Drawing.Size(141, 118);
-      this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox1.Size = new System.Drawing.Size(380, 125);
+      this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
       this.pictureBox1.TabIndex = 1;
       this.pictureBox1.TabStop = false;
       // 
@@ -72,7 +74,6 @@
       this.Text = "FormItemList";
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
       this.ResumeLayout(false);
-      this.PerformLayout();
 
     }
 

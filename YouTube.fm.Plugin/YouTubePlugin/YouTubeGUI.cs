@@ -1,29 +1,15 @@
 using System;
-using System.ComponentModel;
 using System.Windows.Forms;
-using System.Net;
 using System.Xml.Serialization;
 using System.IO;
-using System.Text;
-using System.Xml;
-using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
-using System.Timers;
-
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Util;
-using MediaPortal.Localisation;
-using MediaPortal.Configuration;
-using MediaPortal.Player;
 using MediaPortal.Playlists;
-using MediaPortal.Music.Database;
-
 using Google.GData.Client;
-using Google.GData.Extensions;
 using Google.GData.YouTube;
-using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
 using YouTubePlugin.Class;
 
@@ -276,21 +262,28 @@ namespace YouTubePlugin
           ClearLabels("Curent");
           ClearLabels("NowPlaying");
           GUIPropertyManager.SetProperty("#header.title", _setting.PluginName);
-          switch (_setting.InitialDisplay)
+          if (!_setting.OldStyleHome)
           {
-            case 1:
-              ShowHome(_setting.InitialCat);
-              break;
-            case 2:
-              SearchVideo(_setting.InitialSearch);
-              break;
-            case 3:
-              DoHome();
-              break;
-            default:
-              break;
+            addVideos(Youtube2MP.GetHomeMenu(), false);
           }
-          ShowPanel();
+          else
+          {
+            switch (_setting.InitialDisplay)
+            {
+              case 1:
+                ShowHome(_setting.InitialCat);
+                break;
+              case 2:
+                SearchVideo(_setting.InitialSearch);
+                break;
+              case 3:
+                DoHome();
+                break;
+              default:
+                break;
+            }
+            ShowPanel();
+          }
         }
         else
         {
@@ -469,9 +462,9 @@ namespace YouTubePlugin
       if (dlg == null) return;
       dlg.Reset();
       //dlg.SetHeading(25653); // Sort options
-      for (int i = 0; i < _setting.Cats.Count; i++)
+      for (int i = 0; i < _setting.OldCats.Count; i++)
       {
-        dlg.Add(_setting.Cats[i]);
+        dlg.Add(_setting.OldCats[i]);
       }
 
       dlg.DoModal(GetID);
@@ -565,7 +558,7 @@ namespace YouTubePlugin
               item.OnItemSelected += new GUIListItem.ItemSelectedHandler(item_OnItemSelected);
               listControl.Add(item);
             }
-            GUIPropertyManager.SetProperty("#header.title", Youtube2MP._settings.Cats[9]);
+            GUIPropertyManager.SetProperty("#header.title", Youtube2MP._settings.OldCats[9]);
             UpdateGui();
           }
           break;
@@ -635,6 +628,12 @@ namespace YouTubePlugin
                 }
             }
           //--------------------
+          SiteItemEntry entry = selectedItem.MusicTag as SiteItemEntry;
+          if (entry != null)
+          {
+            addVideos(Youtube2MP.GetList(entry), true);
+          }
+
           LocalFileStruct file = selectedItem.MusicTag as LocalFileStruct;
           YouTubeEntry vide;
           if (file != null)
@@ -1112,7 +1111,59 @@ namespace YouTubePlugin
 
     #endregion
 
+    void addVideos(GenericListItemCollections itemCollections, bool level)
+    {
+      if(itemCollections.Items.Count<1)
+      {
+        Err_message("No item to display !");
+        return;
+      }
+      SaveListState(true);
+      GUIPropertyManager.SetProperty("#header.title", itemCollections.Title);
+      
+      if (level)
+      {
+        GUIListItem item = new GUIListItem();
+        item.Label = "..";
+        item.IsFolder = true;
+        Utils.SetDefaultIcons(item);
+        listControl.Add(item);
+      }
 
+
+      foreach (GenericListItem listItem in itemCollections.Items)
+      {
+        GUIListItem item = new GUIListItem();
+        // and add station name & bitrate
+        item.Label = listItem.Title;
+        item.Label2 = "";
+        item.IsFolder = listItem.IsFolder;
+        item.Duration = listItem.Duration;
+        item.Rating = listItem.Rating;
+        Utils.SetDefaultIcons(item);
+
+        if (!string.IsNullOrEmpty(listItem.LogoUrl))
+        {
+          string imageFile = GetLocalImageFileName(listItem.LogoUrl);
+          if (File.Exists(imageFile))
+          {
+            item.ThumbnailImage = imageFile;
+            item.IconImage = imageFile;
+            item.IconImageBig = imageFile;
+          }
+          else
+          {
+            Utils.SetDefaultIcons(item);
+            DownloadImage(listItem.LogoUrl, item);
+          }
+        }
+        item.MusicTag = listItem.Tag;
+        item.OnItemSelected += item_OnItemSelected;
+        listControl.Add(item);
+      }
+
+      UpdateGui();
+    }
 
     void addVideos(YouTubeFeed videos, bool level,YouTubeQuery qu)
     {

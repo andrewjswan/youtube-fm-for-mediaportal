@@ -1,30 +1,15 @@
 using System;
 using System.ComponentModel;
-using System.Windows.Forms;
-using System.Net;
-using System.Xml.Serialization;
 using System.IO;
-using System.Text;
-using System.Threading;
-using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
 
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
-using MediaPortal.Util;
-using MediaPortal.Localisation;
-using MediaPortal.Configuration;
 using MediaPortal.Player;
 using MediaPortal.Playlists;
-using MediaPortal.TagReader;
 using MediaPortal.Music.Database;
-
-using Google.GData.Client;
-using Google.GData.Extensions;
 using Google.GData.YouTube;
-using Google.GData.Extensions.MediaRss;
-
 using YouTubePlugin.DataProvider;
 
 namespace YouTubePlugin
@@ -180,7 +165,7 @@ namespace YouTubePlugin
           }
           else
           {
-            imgFanArt.Visible = false;
+            if (imgFanArt != null) imgFanArt.Visible = false;
           }
         }
         else
@@ -199,9 +184,8 @@ namespace YouTubePlugin
       else
       {
         Log.Error("Youtube.Fm fanart NowPlaying not defined");
-        imgFanArt.Visible = false;
+        if (imgFanArt != null) imgFanArt.Visible = false;
       }
-
     }
 
     private void LoadRelatated()
@@ -245,11 +229,6 @@ namespace YouTubePlugin
       //}
       GUIControl.FocusControl(GetID, listControl.GetID);
       base.OnPageLoad();
-    }
-
-    protected override void OnPageDestroy(int new_windowId)
-    {
-      base.OnPageDestroy(new_windowId);
     }
 
 
@@ -301,7 +280,7 @@ namespace YouTubePlugin
         else
         {
           MediaPortal.Util.Utils.SetDefaultIcons(item);
-          item.OnRetrieveArt += new GUIListItem.RetrieveCoverArtHandler(item_OnRetrieveArt);
+          item.OnRetrieveArt += item_OnRetrieveArt;
           DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
           //DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
         }
@@ -309,7 +288,7 @@ namespace YouTubePlugin
         listControl.Add(item);
         relatated.Add(item);
       }
-      updateStationLogoTimer.Enabled = true; ;
+      updateStationLogoTimer.Enabled = true; 
     }
 
     void item_OnRetrieveArt(GUIListItem item)

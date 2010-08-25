@@ -68,11 +68,26 @@
     <Compile Include="Class\FileDownloader.cs" />
     <None Include="Class\LastProfile.cs" />
     <Compile Include="Class\GenericListItem.cs" />
+    <Compile Include="Class\GenericListItemCollections.cs" />
     <Compile Include="Class\ISiteItem.cs" />
     <Compile Include="Class\LocalFileEnumerator.cs" />
     <Compile Include="Class\LocalFileStruct.cs" />
     <Compile Include="Class\SiteItemEntry.cs" />
     <Compile Include="Class\SiteItemEnumerator.cs" />
+    <Compile Include="Class\SiteItems\SearchHistory.cs" />
+    <Compile Include="Class\SiteItems\SearchHistoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\SearchHistoryControl.Designer.cs">
+      <DependentUpon>SearchHistoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class\SiteItems\SearchVideo.cs" />
+    <Compile Include="Class\SiteItems\SearchVideoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\SearchVideoControl.Designer.cs">
+      <DependentUpon>SearchVideoControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\SiteItems\StandardFeedItem.cs" />
     <Compile Include="Class\SiteItems\StandardFeedItemControl.cs">
       <SubType>UserControl</SubType>
@@ -80,6 +95,14 @@
     <Compile Include="Class\SiteItems\StandardFeedItemControl.Designer.cs">
       <DependentUpon>StandardFeedItemControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class\SiteItems\UserVideos.cs" />
+    <Compile Include="Class\SiteItems\UserVideosControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\UserVideosControl.Designer.cs">
+      <DependentUpon>UserVideosControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class\SiteItems\VEVOVideos.cs" />
     <Compile Include="Class\Translation.cs" />
     <Compile Include="Class\VideoInfo.cs" />
     <Compile Include="Class\YoutubePlaylistPlayer.cs" />
@@ -110,8 +133,17 @@
     <Compile Include="YouTubeGUIPlaylist.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Class\SiteItems\SearchHistoryControl.resx">
+      <DependentUpon>SearchHistoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class\SiteItems\SearchVideoControl.resx">
+      <DependentUpon>SearchVideoControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\StandardFeedItemControl.resx">
       <DependentUpon>StandardFeedItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class\SiteItems\UserVideosControl.resx">
+      <DependentUpon>UserVideosControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormItemList.resx">
       <DependentUpon>FormItemList.cs</DependentUpon>

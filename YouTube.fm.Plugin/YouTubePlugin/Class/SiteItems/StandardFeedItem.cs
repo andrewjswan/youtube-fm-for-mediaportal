@@ -23,9 +23,9 @@ namespace YouTubePlugin.Class.SiteItems
 
     public string Name { get; set; }
 
-    public List<GenericListItem> GetList(SiteItemEntry entry)
+    public GenericListItemCollections GetList(SiteItemEntry entry)
     {
-      List<GenericListItem> res = new List<GenericListItem>();
+      GenericListItemCollections res = new GenericListItemCollections();
       string query = YouTubeQuery.TopRatedVideo;
       bool usetime = true;
       switch (Convert.ToInt32(entry.GetValue("feedint")))
@@ -63,12 +63,31 @@ namespace YouTubePlugin.Class.SiteItems
           break;
       }
 
+      if (!string.IsNullOrEmpty(entry.GetValue("region")))
+      {
+        string reg = Youtube2MP._settings.Regions[entry.GetValue("region")];
+        if (!string.IsNullOrEmpty(reg))
+          query = query.Replace("standardfeeds", "standardfeeds/" + reg);
+      }
+         
+      if (Youtube2MP._settings.MusicFilter)
+        query += "_Music";
+
       YouTubeQuery tubeQuery = new YouTubeQuery(query);
       tubeQuery.NumberToRetrieve = 50;
       tubeQuery.SafeSearch = YouTubeQuery.SafeSearchValues.None;
 
-      YouTubeFeed videos = Youtube2MP.service.Query(tubeQuery);
+      if (usetime)
+      {
+        if (entry.GetValue("time") == "Today")
+          tubeQuery.Time = YouTubeQuery.UploadTime.Today;
+        if (entry.GetValue("time") == "This Week")
+          tubeQuery.Time = YouTubeQuery.UploadTime.ThisWeek;
+        if (entry.GetValue("time") == "This Month")
+          tubeQuery.Time = YouTubeQuery.UploadTime.ThisMonth;
+      }
 
+      YouTubeFeed videos = Youtube2MP.service.Query(tubeQuery);
       foreach (YouTubeEntry youTubeEntry in videos.Entries)
       {
         GenericListItem listItem = new GenericListItem()
@@ -78,9 +97,25 @@ namespace YouTubePlugin.Class.SiteItems
                                        LogoUrl = YoutubeGUIBase.GetBestUrl(youTubeEntry.Media.Thumbnails),
                                        Tag = youTubeEntry
                                      };
-        res.Add(listItem);
+        res.Items.Add(listItem);
       }
       return res;
     }
+
+    public GenericListItemCollections HomeGetList(SiteItemEntry itemEntry)
+    {
+      GenericListItemCollections res = new GenericListItemCollections();
+
+      GenericListItem listItem = new GenericListItem()
+                                   {
+                                     Title = itemEntry.Title,
+                                     IsFolder = true,
+                                     //LogoUrl = YoutubeGUIBase.GetBestUrl(youTubeEntry.Media.Thumbnails),
+                                     Tag = itemEntry
+                                   };
+      res.Items.Add(listItem);
+      return res;
+    }
+
   }
 }

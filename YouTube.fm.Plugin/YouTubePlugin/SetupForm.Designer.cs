@@ -39,6 +39,7 @@ namespace YouTubePlugin
       this.label3 = new System.Windows.Forms.Label();
       this.tabControl1 = new System.Windows.Forms.TabControl();
       this.tabPage1 = new System.Windows.Forms.TabPage();
+      this.chk_oldstyle = new System.Windows.Forms.CheckBox();
       this.checkBox_sms = new System.Windows.Forms.CheckBox();
       this.label4 = new System.Windows.Forms.Label();
       this.comboBox_videoquality = new System.Windows.Forms.ComboBox();
@@ -54,6 +55,7 @@ namespace YouTubePlugin
       this.radioButton2 = new System.Windows.Forms.RadioButton();
       this.radioButton1 = new System.Windows.Forms.RadioButton();
       this.tabPage6 = new System.Windows.Forms.TabPage();
+      this.button7 = new System.Windows.Forms.Button();
       this.btn_down = new System.Windows.Forms.Button();
       this.btn_up = new System.Windows.Forms.Button();
       this.btn_del_provider = new System.Windows.Forms.Button();
@@ -87,7 +89,6 @@ namespace YouTubePlugin
       this.label10 = new System.Windows.Forms.Label();
       this.cmb_region = new System.Windows.Forms.ComboBox();
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-      this.button7 = new System.Windows.Forms.Button();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
@@ -184,8 +185,8 @@ namespace YouTubePlugin
       // 
       // tabControl1
       // 
-      this.tabControl1.Controls.Add(this.tabPage1);
       this.tabControl1.Controls.Add(this.tabPage6);
+      this.tabControl1.Controls.Add(this.tabPage1);
       this.tabControl1.Controls.Add(this.tabPage2);
       this.tabControl1.Controls.Add(this.tabPage3);
       this.tabControl1.Controls.Add(this.tabPage4);
@@ -198,6 +199,7 @@ namespace YouTubePlugin
       // 
       // tabPage1
       // 
+      this.tabPage1.Controls.Add(this.chk_oldstyle);
       this.tabPage1.Controls.Add(this.checkBox_sms);
       this.tabPage1.Controls.Add(this.label4);
       this.tabPage1.Controls.Add(this.comboBox_videoquality);
@@ -217,6 +219,17 @@ namespace YouTubePlugin
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "General";
       this.tabPage1.UseVisualStyleBackColor = true;
+      // 
+      // chk_oldstyle
+      // 
+      this.chk_oldstyle.AutoSize = true;
+      this.chk_oldstyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.chk_oldstyle.Location = new System.Drawing.Point(292, 169);
+      this.chk_oldstyle.Name = "chk_oldstyle";
+      this.chk_oldstyle.Size = new System.Drawing.Size(136, 17);
+      this.chk_oldstyle.TabIndex = 14;
+      this.chk_oldstyle.Text = "Old style start page";
+      this.chk_oldstyle.UseVisualStyleBackColor = true;
       // 
       // checkBox_sms
       // 
@@ -388,6 +401,16 @@ namespace YouTubePlugin
       this.tabPage6.TabIndex = 5;
       this.tabPage6.Text = "Start Page";
       this.tabPage6.UseVisualStyleBackColor = true;
+      // 
+      // button7
+      // 
+      this.button7.Location = new System.Drawing.Point(239, 282);
+      this.button7.Name = "button7";
+      this.button7.Size = new System.Drawing.Size(38, 42);
+      this.button7.TabIndex = 7;
+      this.button7.Text = "Test";
+      this.button7.UseVisualStyleBackColor = true;
+      this.button7.Click += new System.EventHandler(this.button7_Click);
       // 
       // btn_down
       // 
@@ -704,16 +727,6 @@ namespace YouTubePlugin
       this.cmb_region.Size = new System.Drawing.Size(521, 21);
       this.cmb_region.TabIndex = 0;
       // 
-      // button7
-      // 
-      this.button7.Location = new System.Drawing.Point(239, 282);
-      this.button7.Name = "button7";
-      this.button7.Size = new System.Drawing.Size(38, 42);
-      this.button7.TabIndex = 7;
-      this.button7.Text = "Test";
-      this.button7.UseVisualStyleBackColor = true;
-      this.button7.Click += new System.EventHandler(this.button7_Click);
-      // 
       // SetupForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -809,5 +822,6 @@ namespace YouTubePlugin
     private System.Windows.Forms.Button btn_down;
     private System.Windows.Forms.Button btn_up;
     private System.Windows.Forms.Button button7;
+    private System.Windows.Forms.CheckBox chk_oldstyle;
   }
 }

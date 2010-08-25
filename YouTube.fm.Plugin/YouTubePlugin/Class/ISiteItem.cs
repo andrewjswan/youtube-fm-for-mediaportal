@@ -8,6 +8,7 @@ namespace YouTubePlugin.Class
     Control ConfigControl { get; set; }
     void Configure(SiteItemEntry entry);
     string Name { get; set; }
-    List<GenericListItem> GetList(SiteItemEntry entry);
+    GenericListItemCollections GetList(SiteItemEntry entry);
+    GenericListItemCollections HomeGetList(SiteItemEntry entry);
   }
 }

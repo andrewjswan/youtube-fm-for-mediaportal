@@ -12,7 +12,7 @@ namespace YouTubePlugin
   {
 
     
-    public List<string> Cats
+    public List<string> OldCats
     {
       get
       {
@@ -27,6 +27,23 @@ namespace YouTubePlugin
         cats.Add("Most Recent"); //7
         cats.Add("Favorites"); //8
         cats.Add("Downloaded items"); //9
+        return cats;
+      }
+    }
+
+    public List<string> Cats
+    {
+      get
+      {
+        List<string> cats = new List<string>();
+        cats.Add("Most Viewed"); //0
+        cats.Add("Top Rated"); // 1
+        cats.Add("Recently Featured"); //2
+        cats.Add("Most Discussed"); //3
+        cats.Add("Top Favorites"); //4
+        cats.Add("Most Linked"); //5
+        cats.Add("Most Responded"); //6
+        cats.Add("Most Recent"); //7
         return cats;
       }
     }
@@ -107,20 +124,9 @@ namespace YouTubePlugin
       public bool LoadOnlineFanart { get; set; }
 
 
-      private bool time;
-    public bool Time
-    {
-      get { return time; }
-      set { time = value; }
-    }
+    public bool Time { get; set; }
 
-    private bool showNowPlaying;
-
-    public bool ShowNowPlaying
-    {
-      get { return showNowPlaying; }
-      set { showNowPlaying = value; }
-    }
+    public bool ShowNowPlaying { get; set; }
 
     private bool useYouTubePlayer;
 
@@ -130,29 +136,11 @@ namespace YouTubePlugin
       set { useYouTubePlayer = value; }
     }
 
-    private bool useExtremFilter;
+    public bool UseExtremFilter { get; set; }
 
-    public bool UseExtremFilter
-    {
-      get { return useExtremFilter; }
-      set { useExtremFilter = value; }
-    }
+    public int VideoQuality { get; set; }
 
-    private int videoQuality;
-
-    public int VideoQuality
-    {
-      get { return videoQuality; }
-      set { videoQuality = value; }
-    }
-
-    private bool useSMSStyleKeyBoard;
-
-    public bool UseSMSStyleKeyBoard
-    {
-      get { return useSMSStyleKeyBoard; }
-      set { useSMSStyleKeyBoard = value; }
-    }
+    public bool UseSMSStyleKeyBoard { get; set; }
 
     private Action.ActionType instantAction;
 
@@ -162,22 +150,10 @@ namespace YouTubePlugin
       set { instantAction = value; }
     }
 
-    private int instantChar;
+    public int InstantChar { get; set; }
 
-    public int InstantChar
-    {
-      get { return instantChar; }
-      set { instantChar = value; }
-    }
-
-    private string downloadFolder;
-
-    public string DownloadFolder
-    {
-      get { return downloadFolder; }
-      set { downloadFolder = value; }
-    }
-
+    public string DownloadFolder { get; set; }
+    public bool OldStyleHome { get; set; }
 
     public void Load()
     {
@@ -203,6 +179,7 @@ namespace YouTubePlugin
         this.LoadOnlineFanart = xmlreader.GetValueAsBool("youtubevideos", "LoadOnlineFanart", true);
         this.FanartDir = xmlreader.GetValueAsString("youtubevideos", "FanartFolder", string.Empty);
         this.DownloadFolder = xmlreader.GetValueAsString("youtubevideos", "DownloadFolder", Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\My Videos");
+        this.OldStyleHome = xmlreader.GetValueAsBool("youtubevideos", "OldStyleHome", false);
         foreach (string s in his.Split('|'))
         {
           if (!string.IsNullOrEmpty(s.Trim()))
@@ -236,6 +213,7 @@ namespace YouTubePlugin
         xmlwriter.SetValueAsBool("youtubevideos", "UseExtremFilter", this.UseExtremFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "UseSMSStyleKeyBoard", this.UseSMSStyleKeyBoard);
         xmlwriter.SetValueAsBool("youtubevideos", "LoadOnlineFanart", this.LoadOnlineFanart);
+        xmlwriter.SetValueAsBool("youtubevideos", "OldStyleHome", this.OldStyleHome);
         string his = "";
         foreach (string s in SearchHistory)
         {

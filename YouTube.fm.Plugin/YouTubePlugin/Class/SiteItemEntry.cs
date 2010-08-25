@@ -22,6 +22,8 @@ namespace YouTubePlugin.Class
 
     public string GetValue(string en)
     {
+      if (setting.Count < 1)
+        PharseSettings(ConfigString);
       if (setting.ContainsKey(en))
         return setting[en];
       return "";

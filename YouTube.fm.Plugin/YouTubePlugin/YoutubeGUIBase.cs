@@ -445,7 +445,15 @@ namespace YouTubePlugin
       if (!Client.IsBusy && downloaQueue.Count > 0)
       {
         curentDownlodingFile = (DownloadFileObject)downloaQueue.Dequeue();
-        Client.DownloadFileAsync(new Uri(curentDownlodingFile.Url), Path.GetTempPath() + @"\station.png");
+        try
+        {
+          Client.DownloadFileAsync(new Uri(curentDownlodingFile.Url), Path.GetTempPath() + @"\station.png");
+        }
+        catch
+        {
+          downloaQueue.Enqueue(curentDownlodingFile);
+        }
+        
       }
     }
 
@@ -457,6 +465,7 @@ namespace YouTubePlugin
         if (curentDownlodingFile.ListItem != null && File.Exists(curentDownlodingFile.FileName))
         {
           curentDownlodingFile.ListItem.ThumbnailImage = curentDownlodingFile.FileName;
+          curentDownlodingFile.ListItem.IconImage = curentDownlodingFile.FileName;
           curentDownlodingFile.ListItem.IconImageBig = curentDownlodingFile.FileName;
           curentDownlodingFile.ListItem.RefreshCoverArt();
         }

@@ -11,10 +11,10 @@ namespace YouTubePlugin
 {
   public partial class FormItemList : Form
   {
-    public FormItemList(List<GenericListItem> listItems)
+    public FormItemList(GenericListItemCollections listItems)
     {
       InitializeComponent();
-      foreach (GenericListItem item in listItems)
+      foreach (GenericListItem item in listItems.Items)
       {
         ListViewItem listViewItem = new ListViewItem(item.Title);
         listViewItem.Tag = item;
