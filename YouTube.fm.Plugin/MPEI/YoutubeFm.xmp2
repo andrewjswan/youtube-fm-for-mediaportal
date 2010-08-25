@@ -82,6 +82,13 @@
               <ZipFileName>Installer{CopyFile}\{18f8d489-5ca3-4f9b-aa11-c5dcacafc614}-YouTubePlugin.dll</ZipFileName>
               <DestinationFilename>%Plugins%\Windows\YouTubePlugin.dll</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>base\youtubefmMenu.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{1822c8c4-8a3f-48c8-8699-a71f11c572ca}-youtubefmMenu.xml</ZipFileName>
+              <DestinationFilename>%Config%\youtubefmMenu.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -228,14 +235,14 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>9</Build>
-      <Revision>3</Revision>
+      <Revision>4</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Playback fix 
-Support for full hd videos</VersionDescription>
+    <VersionDescription>Customizable start page
+</VersionDescription>
     <DevelopmentStatus>Rc</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.3.mpe1</OnlineLocation>
-    <ReleaseDate>2010-08-22T17:28:13</ReleaseDate>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.4.mpe1</OnlineLocation>
+    <ReleaseDate>2010-08-25T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -334,6 +341,13 @@ Support for full hd videos</VersionDescription>
         <LocalFileName>plugin\YouTubePlugin.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{18f8d489-5ca3-4f9b-aa11-c5dcacafc614}-YouTubePlugin.dll</ZipFileName>
         <DestinationFilename>%Plugins%\Windows\YouTubePlugin.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>base\youtubefmMenu.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{1822c8c4-8a3f-48c8-8699-a71f11c572ca}-youtubefmMenu.xml</ZipFileName>
+        <DestinationFilename>%Config%\youtubefmMenu.xml</DestinationFilename>
       </FileItem>
     </Items>
   </UniqueFileList>

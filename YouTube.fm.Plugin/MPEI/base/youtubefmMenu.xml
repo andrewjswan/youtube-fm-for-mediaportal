@@ -1,0 +1,62 @@
+﻿<SiteItemEnumerator>
+	<Items>
+		<ConfigString>feed=Most Viewed|feedint=0|title=Most Viewed|</ConfigString>
+		<Title>Most Viewed</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>time=Today|feed=Most Viewed|feedint=0|title=Most Viewed : Today|</ConfigString>
+		<Title>Most Viewed : Today</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>time=This Week|feed=Most Viewed|feedint=0|title=Most Viewed : This Week|</ConfigString>
+		<Title>Most Viewed : This Week</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>time=This Month|feed=Most Viewed|feedint=0|title=Most Viewed : This Month|</ConfigString>
+		<Title>Most Viewed : This Month</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>feed=Top Rated|feedint=1|title=Top Rated|</ConfigString>
+		<Title>Top Rated</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>time=This Month|feed=Top Rated|feedint=1|title=Top Rated : This Month|</ConfigString>
+		<Title>Top Rated : This Month</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>feed=Top Favorites|feedint=4|time=This Month|title=Top Favorites : This Month|</ConfigString>
+		<Title>Top Favorites : This Month</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString />
+		<Title>Vevo Videos</Title>
+		<Provider>Vevo Videos</Provider>
+	</Items>
+	<Items>
+		<ConfigString>feed=Recently Featured|feedint=2|title=Recently Featured|</ConfigString>
+		<Title>Recently Featured</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>feed=Most Recent|feedint=7|title=Most Recent|</ConfigString>
+		<Title>Most Recent</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Search for :full HD|term=full HD|sortint=0|</ConfigString>
+		<Title>Search for :full HD</Title>
+		<Provider>Search for videos</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Search History|items=5|flat=true|</ConfigString>
+		<Title>Search History</Title>
+		<Provider>Search History</Provider>
+	</Items>
+</SiteItemEnumerator>
