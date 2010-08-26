@@ -233,16 +233,16 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/update.xml</UpdateUrl>
     <Version>
       <Major>0</Major>
-      <Minor>5</Minor>
-      <Build>9</Build>
-      <Revision>4</Revision>
+      <Minor>6</Minor>
+      <Build>0</Build>
+      <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription>Customizable start page
 </VersionDescription>
-    <DevelopmentStatus>Rc</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.5.9.4.mpe1</OnlineLocation>
-    <ReleaseDate>2010-08-25T17:28:13</ReleaseDate>
+    <DevelopmentStatus>Stable</DevelopmentStatus>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.0.0.mpe1</OnlineLocation>
+    <ReleaseDate>2010-08-26T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -270,7 +270,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
           <Description>Online stored screenshot urls separated by ; </Description>
         </SectionParam>
         <SectionParam Name="Force to uninstall on update">
-          <Value>yes</Value>
+          <Value>YES</Value>
           <ValueType>Bool</ValueType>
           <Description>Show dialog and force to uninstall previous version when updating an extension. Should only be disabled if you are using an NSIS/MSI installer.</Description>
         </SectionParam>
