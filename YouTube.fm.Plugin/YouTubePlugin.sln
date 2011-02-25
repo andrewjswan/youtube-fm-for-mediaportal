@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubePlugin", "YouTubePlugin\YouTubePlugin.csproj", "{36F4C9AA-F433-4CDA-9D9A-BC4D4732E693}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{13687C8F-D781-49F7-A373-E73CD761CC97}"
