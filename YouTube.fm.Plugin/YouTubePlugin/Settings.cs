@@ -5,6 +5,7 @@ using System.IO;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
 using YouTubePlugin.Class;
+using Action = MediaPortal.GUI.Library.Action;
 
 namespace YouTubePlugin
 {

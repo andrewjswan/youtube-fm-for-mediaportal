@@ -14,6 +14,7 @@ using Google.GData.Extensions.MediaRss;
 
 using MediaPortal.GUI.Library;
 using YouTubePlugin.Class;
+using Action = MediaPortal.GUI.Library.Action;
 
 
 namespace YouTubePlugin
@@ -42,7 +43,7 @@ namespace YouTubePlugin
       _settings.UseExtremFilter = checkBox_extremfilter.Checked;
       _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
       _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
-      _settings.InstantAction = (Action.ActionType)comboBox_action.SelectedValue;
+      _settings.InstantAction = (Action.ActionType) comboBox_action.SelectedValue;
       _settings.DownloadFolder = textBox_downloaddir.Text;
       _settings.FanartDir = textBox_fanartdir.Text;
       _settings.LoadOnlineFanart = checkBox1.Checked;
@@ -70,7 +71,7 @@ namespace YouTubePlugin
       _settings.MainMenu.Items.Clear();
       foreach (ListViewItem item in list_startpage.Items)
       {
-        _settings.MainMenu.Items.Add((SiteItemEntry)item.Tag);
+        _settings.MainMenu.Items.Add((SiteItemEntry) item.Tag);
       }
       _settings.Save();
       this.Close();

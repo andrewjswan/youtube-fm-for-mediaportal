@@ -28,6 +28,13 @@ using Google.YouTube;
 
 namespace YouTubePlugin
 {
+  public class PlayParams
+  {
+    public YouTubeEntry vid;
+    public bool fullscr;
+    public GUIListControl facade;
+  }
+
   public class YoutubeGUIBase : GUIWindow
   {
     public Settings _setting = new Settings();
@@ -179,54 +186,68 @@ namespace YouTubePlugin
       }
     }
 
+
+    public void BackGroundDoPlay(object param_)
+    {
+      PlayParams param = (PlayParams) param_;
+      YouTubeEntry vid=param.vid;
+      bool fullscr=param.fullscr;
+      GUIListControl facade = param.facade;
+      if (vid != null)
+      {
+        GUIWaitCursor.Hide();
+        VideoInfo qa = SelectQuality(vid);
+        GUIWaitCursor.Show();
+        if (qa.Quality == VideoQuality.Unknow)
+          return;
+        Youtube2MP.temp_player.Reset();
+        Youtube2MP.temp_player.RepeatPlaylist = true;
+        Youtube2MP.temp_player.CurrentPlaylistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
+        PlayList playlist = Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
+        playlist.Clear();
+        g_Player.PlayBackStopped += g_Player_PlayBackStopped;
+        AddItemToPlayList(vid, ref playlist, qa);
+
+        if (facade != null)
+        {
+          qa.Items = new Dictionary<string, string>();
+          int selected = facade.SelectedListItemIndex;
+          for (int i = selected + 1; i < facade.ListItems.Count; i++)
+          {
+            AddItemToPlayList(facade.ListItems[i], ref playlist, new VideoInfo(qa));
+          }
+        }
+
+        PlayListPlayer.SingletonPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
+        Youtube2MP.player.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
+        Youtube2MP.temp_player.Play(0);
+        GUIWaitCursor.Hide();
+
+        if (g_Player.Playing && fullscr)
+        {
+          if (_setting.ShowNowPlaying)
+          {
+            GUIWindowManager.ActivateWindow(29052);
+          }
+          else
+          {
+            g_Player.ShowFullScreenWindow();
+          }
+        }
+
+        if (!g_Player.Playing)
+        {
+          Err_message("Unable to playback the item ! ");
+        }
+      }      
+    }
+
     public void DoPlay(YouTubeEntry vid, bool fullscr, GUIListControl facade)
     {
-        if (vid != null)
-        {
-            VideoInfo qa = SelectQuality(vid);
-            if (qa.Quality == VideoQuality.Unknow)
-                return;
-            Youtube2MP.temp_player.Reset();
-            Youtube2MP.temp_player.RepeatPlaylist = true;
-            
-            Youtube2MP.temp_player.CurrentPlaylistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
-            PlayList playlist = Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
-            playlist.Clear();
-            g_Player.PlayBackStopped += g_Player_PlayBackStopped;
-            AddItemToPlayList(vid, ref playlist, qa);
+      PlayParams playParams = new PlayParams() {facade = facade, fullscr = fullscr, vid = vid};
 
-            if (facade != null)
-            {
-                qa.Items = new Dictionary<string, string>();
-                int selected = facade.SelectedListItemIndex ;
-                for (int i = selected + 1; i < facade.ListItems.Count; i++)
-                {
-                    AddItemToPlayList(facade.ListItems[i], ref playlist, new VideoInfo(qa));
-                }
-            }
-
-            PlayListPlayer.SingletonPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
-            Youtube2MP.player.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
-            Youtube2MP.temp_player.Play(0);
-
-
-            if (g_Player.Playing && fullscr)
-            {
-                if (_setting.ShowNowPlaying)
-                {
-                    GUIWindowManager.ActivateWindow(29052);
-                }
-                else
-                {
-                    g_Player.ShowFullScreenWindow();
-                }
-            }
-
-            if (!g_Player.Playing)
-            {
-                Err_message("Unable to playback the item ! ");
-            }
-        }
+      Thread _thread = new Thread(new ParameterizedThreadStart(BackGroundDoPlay));
+      _thread.Start(playParams);
     }
 
     public VideoInfo SelectQuality(YouTubeEntry vid)

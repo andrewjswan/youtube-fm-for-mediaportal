@@ -49,7 +49,7 @@ using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
-
+using Action = MediaPortal.GUI.Library.Action;
 using Timer = System.Timers.Timer;
 
 namespace YouTubePlugin

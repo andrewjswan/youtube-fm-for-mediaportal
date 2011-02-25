@@ -13,6 +13,7 @@ using Google.GData.Client;
 using Google.GData.YouTube;
 using Google.YouTube;
 using YouTubePlugin.Class;
+using Action = MediaPortal.GUI.Library.Action;
 
 
 namespace YouTubePlugin
@@ -650,7 +651,9 @@ namespace YouTubePlugin
 
           if (vide != null)
           {
-              DoPlay(vide, true, listControl.ListLayout);
+            GUIWaitCursor.Init();
+            GUIWaitCursor.Show();
+            DoPlay(vide, true, listControl.ListLayout);
           }
         }
         else
@@ -658,7 +661,7 @@ namespace YouTubePlugin
           DoBack();
         }
       }
-      GUIWaitCursor.Hide();
+     // GUIWaitCursor.Hide();
       //throw new Exception("The method or operation is not implemented.");
     }
 

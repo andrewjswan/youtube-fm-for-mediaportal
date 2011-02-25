@@ -11,6 +11,7 @@ using MediaPortal.Playlists;
 using MediaPortal.Music.Database;
 using Google.GData.YouTube;
 using YouTubePlugin.DataProvider;
+using Action = MediaPortal.GUI.Library.Action;
 
 namespace YouTubePlugin
 {
@@ -119,6 +120,8 @@ namespace YouTubePlugin
 
     void updateStationLogoTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
+      if (Client.IsBusy)
+        return;
       if (imgFanArt != null)
         imgFanArt.Visible = false;
       infoTimer.Enabled = false;
