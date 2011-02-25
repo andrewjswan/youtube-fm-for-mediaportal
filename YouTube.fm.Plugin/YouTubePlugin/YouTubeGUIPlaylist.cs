@@ -468,7 +468,7 @@ namespace YouTubePlugin
             }
 
             currentView = View.PlayList;
-            facadeView.View = GUIFacadeControl.ViewMode.Playlist;
+            facadeView.CurrentLayout = GUIFacadeControl.Layout.Playlist;
 
             if (ScrobblerOn)
                 btnScrobble.Selected = true;
@@ -528,50 +528,50 @@ namespace YouTubePlugin
                     {
                         case View.List:
                             CurrentView = View.PlayList;
-                            if (!AllowView(CurrentView) || facadeView.PlayListView == null)
+                            if (!AllowView(CurrentView) || facadeView.PlayListLayout == null)
                                 shouldContinue = true;
                             else
-                                facadeView.View = GUIFacadeControl.ViewMode.Playlist;
+                                facadeView.CurrentLayout = GUIFacadeControl.Layout.Playlist;
                             break;
 
                         case View.PlayList:
                             CurrentView = View.Icons;
-                            if (!AllowView(CurrentView) || facadeView.ThumbnailView == null)
+                            if (!AllowView(CurrentView) || facadeView.ThumbnailLayout == null)
                                 shouldContinue = true;
                             else
-                                facadeView.View = GUIFacadeControl.ViewMode.SmallIcons;
+                                facadeView.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
                             break;
 
                         case View.Icons:
                             CurrentView = View.LargeIcons;
-                            if (!AllowView(CurrentView) || facadeView.ThumbnailView == null)
+                            if (!AllowView(CurrentView) || facadeView.ThumbnailLayout == null)
                                 shouldContinue = true;
                             else
-                                facadeView.View = GUIFacadeControl.ViewMode.LargeIcons;
+                                facadeView.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
                             break;
 
                         case View.LargeIcons:
                             CurrentView = View.Albums;
-                            if (!AllowView(CurrentView) || facadeView.AlbumListView == null)
+                            if (!AllowView(CurrentView) || facadeView.AlbumListLayout == null)
                                 shouldContinue = true;
                             else
-                                facadeView.View = GUIFacadeControl.ViewMode.AlbumView;
+                                facadeView.CurrentLayout = GUIFacadeControl.Layout.AlbumView;
                             break;
 
                         case View.Albums:
                             CurrentView = View.FilmStrip;
-                            if (!AllowView(CurrentView) || facadeView.FilmstripView == null)
+                            if (!AllowView(CurrentView) || facadeView.FilmstripLayout == null)
                                 shouldContinue = true;
                             else
-                                facadeView.View = GUIFacadeControl.ViewMode.Filmstrip;
+                                facadeView.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
                             break;
 
                         case View.FilmStrip:
                             CurrentView = View.List;
-                            if (!AllowView(CurrentView) || facadeView.ListView == null)
+                            if (!AllowView(CurrentView) || facadeView.ListLayout == null)
                                 shouldContinue = true;
                             else
-                                facadeView.View = GUIFacadeControl.ViewMode.List;
+                                facadeView.CurrentLayout = GUIFacadeControl.Layout.List;
                             break;
                     }
                 } while (shouldContinue);
@@ -781,7 +781,7 @@ namespace YouTubePlugin
                 else
                     ScrobblerOn = false;
 
-                if (facadeView.PlayListView != null)
+                if (facadeView.PlayListLayout != null)
                     //{
                     //  // Prevent the currently playing track from being scrolled off the top 
                     //  // or bottom of the screen when other items are re-ordered
@@ -1322,16 +1322,8 @@ namespace YouTubePlugin
         void SavePlayList()
         {
             string strNewFileName = string.Empty;
-            VirtualKeyboard keyboard;
+            VirtualKeyboard keyboard=(VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
             // display an virtual keyboard
-            if (Youtube2MP._settings.UseSMSStyleKeyBoard)
-            {
-                keyboard = (SmsStyledKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_SMS_KEYBOARD);
-            }
-            else
-            {
-                keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
-            }
             if (null == keyboard) return;
             keyboard.Reset();
             keyboard.Text = strNewFileName;
@@ -1501,8 +1493,8 @@ namespace YouTubePlugin
                 playlistPlayer.CurrentPlaylistType = _playlistType;
 
             if (playlistPlayer.CurrentPlaylistType != _playlistType
-                || facadeView.View != GUIFacadeControl.ViewMode.Playlist
-                || facadeView.PlayListView == null)
+                || facadeView.CurrentLayout != GUIFacadeControl.Layout.Playlist
+                || facadeView.PlayListLayout == null)
             {
                 return;
             }
@@ -1526,8 +1518,8 @@ namespace YouTubePlugin
                 playlistPlayer.CurrentPlaylistType = _playlistType;
 
             if (playlistPlayer.CurrentPlaylistType != _playlistType
-                || facadeView.View != GUIFacadeControl.ViewMode.Playlist
-                || facadeView.PlayListView == null)
+                || facadeView.CurrentLayout != GUIFacadeControl.Layout.Playlist
+                || facadeView.PlayListLayout == null)
             {
                 return;
             }
@@ -1550,8 +1542,8 @@ namespace YouTubePlugin
                 playlistPlayer.CurrentPlaylistType = _playlistType;
 
             if (playlistPlayer.CurrentPlaylistType != _playlistType
-                || facadeView.View != GUIFacadeControl.ViewMode.Playlist
-                || facadeView.PlayListView == null)
+                || facadeView.CurrentLayout != GUIFacadeControl.Layout.Playlist
+                || facadeView.PlayListLayout == null)
             {
                 return;
             }
@@ -1583,7 +1575,7 @@ namespace YouTubePlugin
                 g_Player.Stop();
 
             else
-                facadeView.PlayListView.SelectedListItemIndex = iItem;
+                facadeView.PlayListLayout.SelectedListItemIndex = iItem;
 
             UpdateButtonStates();
         }

@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Util;
@@ -25,7 +26,7 @@ namespace YouTubePlugin
     PlayList = 4,
     Filmstrip = 5
   }
-
+  [PluginIcons("YouTubePlugin.logo.png", "YouTubePlugin.logo_disabled.png")]
   public class YouTubeGUI : YoutubeGUIBase, ISetupForm 
   {
 
@@ -649,7 +650,7 @@ namespace YouTubePlugin
 
           if (vide != null)
           {
-              DoPlay(vide, true, listControl.ListView);
+              DoPlay(vide, true, listControl.ListLayout);
           }
         }
         else
@@ -659,11 +660,6 @@ namespace YouTubePlugin
       }
       GUIWaitCursor.Hide();
       //throw new Exception("The method or operation is not implemented.");
-    }
-
-    private VirtualKeyboard LoadSMSKey()
-    {
-      return (SmsStyledKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_SMS_KEYBOARD); 
     }
 
     private void DoSearch()
@@ -689,23 +685,8 @@ namespace YouTubePlugin
       }
 
       
-      VirtualKeyboard keyboard;
-      // display an virtual keyboard
-      if (_setting.UseSMSStyleKeyBoard)
-      {
-        try
-        {
-          keyboard = LoadSMSKey();
-        }
-        catch
-        {
-          keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)Window.WINDOW_VIRTUAL_KEYBOARD);
-        }
-      }
-      else
-      {
-        keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)Window.WINDOW_VIRTUAL_KEYBOARD);
-      }
+      VirtualKeyboard keyboard=(VirtualKeyboard)GUIWindowManager.GetWindow((int)Window.WINDOW_VIRTUAL_KEYBOARD);
+
       if (null == keyboard) return;
 
       keyboard.Reset();
@@ -793,27 +774,27 @@ namespace YouTubePlugin
       int itemIndex = listControl.SelectedListItemIndex;
       if (mapSettings.ViewAs == (int)View.BigIcons)
       {
-        listControl.View = GUIFacadeControl.ViewMode.LargeIcons;
+        listControl.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
       }
       else if (mapSettings.ViewAs == (int)View.Albums)
       {
-        listControl.View = GUIFacadeControl.ViewMode.AlbumView;
+        listControl.CurrentLayout = GUIFacadeControl.Layout.AlbumView;
       }
       else if (mapSettings.ViewAs == (int)View.Icons)
       {
-        listControl.View = GUIFacadeControl.ViewMode.SmallIcons;
+        listControl.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
       }
       else if (mapSettings.ViewAs == (int)View.List)
       {
-        listControl.View = GUIFacadeControl.ViewMode.List;
+        listControl.CurrentLayout = GUIFacadeControl.Layout.List;
       }
       else if (mapSettings.ViewAs == (int)View.Filmstrip)
       {
-        listControl.View = GUIFacadeControl.ViewMode.Filmstrip;
+        listControl.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
       }
       else if (mapSettings.ViewAs == (int)View.PlayList)
       {
-        listControl.View = GUIFacadeControl.ViewMode.Playlist;
+        listControl.CurrentLayout = GUIFacadeControl.Layout.Playlist;
       }
 
       if (itemIndex > -1)
@@ -936,7 +917,7 @@ namespace YouTubePlugin
           {
             VideoInfo inf = SelectQuality(videoEntry);
             inf.Items = new Dictionary<string, string>();
-            foreach (GUIListItem item in listControl.ListView.ListItems)
+            foreach (GUIListItem item in listControl.ListLayout.ListItems)
             {
                 AddItemToPlayList(item, new VideoInfo(inf));
             }
@@ -1248,9 +1229,9 @@ namespace YouTubePlugin
 
     private void SaveListState(bool clear)
     {
-      if (listControl.ListView.ListItems.Count > 0)
+      if (listControl.ListLayout.ListItems.Count > 0)
       {
-        NavigationStack.Push(new NavigationObject(listControl.ListView, GUIPropertyManager.GetProperty("#header.title"), listControl.SelectedListItemIndex, (View)mapSettings.ViewAs));
+        NavigationStack.Push(new NavigationObject(listControl.ListLayout, GUIPropertyManager.GetProperty("#header.title"), listControl.SelectedListItemIndex, (View)mapSettings.ViewAs));
       }
       if (clear)
       {
