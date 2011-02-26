@@ -94,16 +94,23 @@ namespace YouTubePlugin
       }
       if (type == "NowPlaying")
       {
-        Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.VideoId);
-        Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
-        
-        Feed<Comment> comments = Youtube2MP.request.GetComments(video);
-        string cm = "";
-        foreach (Comment c in comments.Entries)
+        try
         {
-          cm += c.Content + "\n------------------------------------------\n";
+          Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.VideoId);
+          Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+
+          Feed<Comment> comments = Youtube2MP.request.GetComments(video);
+          string cm = "";
+          foreach (Comment c in comments.Entries)
+          {
+            cm += c.Content + "\n------------------------------------------\n";
+          }
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", cm);
         }
-        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", cm);
+        catch (Exception ex)
+        {
+          Log.Error(ex);
+        }
       }
     }
 

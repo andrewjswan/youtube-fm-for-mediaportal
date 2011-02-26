@@ -82,8 +82,10 @@ namespace YouTubePlugin
             }
             infoTimer.Enabled = true;
         }
-        catch
+        catch (Exception exception)
         {
+          Log.Error("Youtube play begin exception");
+          Log.Error(exception);
         }
     }
 

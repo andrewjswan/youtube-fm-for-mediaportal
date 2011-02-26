@@ -88,6 +88,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Artist\ArtistGrabber.cs" />
+    <Compile Include="Class\Artist\ArtistItem.cs" />
+    <Compile Include="Class\Artist\ArtistManager.cs" />
     <Compile Include="Class\FileDownloader.cs" />
     <None Include="Class\LastProfile.cs" />
     <Compile Include="Class\GenericListItem.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="Class\LocalFileStruct.cs" />
     <Compile Include="Class\SiteItemEntry.cs" />
     <Compile Include="Class\SiteItemEnumerator.cs" />
+    <Compile Include="Class\SiteItems\ArtistView.cs" />
     <Compile Include="Class\SiteItems\SearchHistory.cs" />
     <Compile Include="Class\SiteItems\SearchHistoryControl.cs">
       <SubType>UserControl</SubType>
@@ -197,6 +201,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

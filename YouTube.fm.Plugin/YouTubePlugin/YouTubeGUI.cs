@@ -13,6 +13,7 @@ using Google.GData.Client;
 using Google.GData.YouTube;
 using Google.YouTube;
 using YouTubePlugin.Class;
+using YouTubePlugin.Class.Artist;
 using Action = MediaPortal.GUI.Library.Action;
 
 
@@ -82,7 +83,7 @@ namespace YouTubePlugin
     MapSettings mapSettings = new MapSettings();
     static GUIDialogProgress dlgProgress;
 
-    YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "ytapi-DukaIstvan-MyYouTubeVideosF-d1ogtvf7-0", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
+    YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal",  "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
 
 
     #endregion
@@ -120,6 +121,7 @@ namespace YouTubePlugin
       Client.DownloadFileCompleted += DownloadLogoEnd;
       VideoDownloader.DownloadComplete += VideoDownloader_DownloadComplete;
       VideoDownloader.ProgressChanged += VideoDownloader_ProgressChanged;
+      ArtistManager.Instance.InitDatabase();      
       GUIWindowManager.Receivers += GUIWindowManager_Receivers;
  
     }
@@ -239,6 +241,7 @@ namespace YouTubePlugin
       {
         service.setUserCredentials(_setting.User, _setting.Password);
       }
+
       
       return Load(GUIGraphicsContext.Skin + @"\youtubevideosbase.xml");
     }
@@ -293,6 +296,7 @@ namespace YouTubePlugin
           GUIControl.FocusControl(GetID, listControl.GetID);
         }
       }
+      GUIControl.FocusControl(GetID, listControl.GetID);
       base.OnPageLoad();
     }
 

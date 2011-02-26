@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Google.GData.YouTube;
 using MediaPortal.GUI.Library;
+using YouTubePlugin.Class.Artist;
 
 namespace YouTubePlugin
 {
@@ -130,7 +131,9 @@ namespace YouTubePlugin
         if (!Items.ContainsKey("token"))
         {
             string site = client.DownloadString(string.Format("http://www.youtube.com/watch?v={0}", videoId));
-            
+
+            ArtistManager.Instance.AddArtist(ArtistManager.Instance.Grabber.GetFromVideoSite(site));
+
             Regex regexObj = new Regex(", \"t\": \"(?<token>.*?)\", \"", RegexOptions.Singleline);
             Match matchResult = regexObj.Match(site);
             if (matchResult.Success)
@@ -154,6 +157,10 @@ namespace YouTubePlugin
             }
 
           //fmt_url_map
+        }
+        else
+        {
+          ArtistManager.Instance.AddArtist(ArtistManager.Instance.Grabber.GetFromVideoUrl(string.Format("http://www.youtube.com/watch?v={0}", videoId)));
         }
       }
       catch (Exception ex)
