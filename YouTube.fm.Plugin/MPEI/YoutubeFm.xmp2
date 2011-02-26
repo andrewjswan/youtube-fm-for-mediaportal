@@ -89,6 +89,13 @@
               <ZipFileName>Installer{CopyFile}\{1822c8c4-8a3f-48c8-8699-a71f11c572ca}-youtubefmMenu.xml</ZipFileName>
               <DestinationFilename>%Config%\youtubefmMenu.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>database\YouTubeFm_V01.db3</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{92beeaa5-d975-401d-88d4-629eebe7d300}-YouTubeFm_V01.db3</ZipFileName>
+              <DestinationFilename>%Database%\YouTubeFm_V01.db3</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -227,15 +234,14 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>6</Minor>
-      <Build>0</Build>
+      <Build>1</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Customizable start page
-</VersionDescription>
-    <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.0.0.mpe1</OnlineLocation>
-    <ReleaseDate>2010-08-26T17:28:13</ReleaseDate>
+    <VersionDescription>Support for artist </VersionDescription>
+    <DevelopmentStatus>Beta</DevelopmentStatus>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.1.0.mpe1</OnlineLocation>
+    <ReleaseDate>2011-02-26T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -342,11 +348,18 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{1822c8c4-8a3f-48c8-8699-a71f11c572ca}-youtubefmMenu.xml</ZipFileName>
         <DestinationFilename>%Config%\youtubefmMenu.xml</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>database\YouTubeFm_V01.db3</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{92beeaa5-d975-401d-88d4-629eebe7d300}-YouTubeFm_V01.db3</ZipFileName>
+        <DestinationFilename>%Database%\YouTubeFm_V01.db3</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{649dd840-6c34-4b50-bef9-d63dc7f668ab}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{d36f3e45-0268-4a61-b686-9a67f292edeb}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

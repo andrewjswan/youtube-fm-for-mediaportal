@@ -1,5 +1,10 @@
 ﻿<SiteItemEnumerator>
 	<Items>
+		<ConfigString />
+		<Title>Artists</Title>
+		<Provider>Artists</Provider>
+	</Items>
+	<Items>
 		<ConfigString>feed=Most Viewed|feedint=0|title=Most Viewed|</ConfigString>
 		<Title>Most Viewed</Title>
 		<Provider>Standard feed</Provider>
