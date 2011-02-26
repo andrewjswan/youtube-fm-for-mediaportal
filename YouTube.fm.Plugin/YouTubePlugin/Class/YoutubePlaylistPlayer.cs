@@ -78,6 +78,8 @@ namespace YouTubePlugin
 
             bool IPlayer.PlayVideoStream(string strURL, string streamName)
             {
+              if (string.IsNullOrEmpty(strURL))
+                return false;
                 return MediaPortal.Player.g_Player.PlayVideoStream(strURL, streamName);
             }
 
@@ -522,15 +524,16 @@ namespace YouTubePlugin
                     _entriesNotFound++;
                     Log.Error("YoutubePlaylistplayer: *** unable to play - {0} - skipping track!", item.FileName);
 
-                    // do not try to play the next movie or internetstream in the list
-                    if (MediaPortal.Util.Utils.IsVideo(item.FileName) || MediaPortal.Util.Utils.IsLastFMStream(item.FileName))
-                    {
-                        skipmissing = false;
-                    }
-                    else
-                    {
-                        skipmissing = true;
-                    }
+                    skipmissing = false;
+                    //// do not try to play the next movie or internetstream in the list
+                    //if (MediaPortal.Util.Utils.IsVideo(item.FileName) || MediaPortal.Util.Utils.IsLastFMStream(item.FileName))
+                    //{
+                    //    skipmissing = false;
+                    //}
+                    //else
+                    //{
+                    //    skipmissing = true;
+                    //}
 
                     iSong++;
                 }

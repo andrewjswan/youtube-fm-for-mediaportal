@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Google.GData.YouTube;
+using Google.YouTube;
 using YouTubePlugin.Class.Artist;
 
 namespace YouTubePlugin.Class.SiteItems
@@ -58,17 +60,21 @@ namespace YouTubePlugin.Class.SiteItems
           res.Items.Add(listItem);
         }
       }
+      if (entry.GetValue("letter") == "false")
+      {
+        return ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
+      }
       return res;
     }
 
-    
+
     public GenericListItemCollections HomeGetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
       res.Items.Add(new GenericListItem()
                       {
                         IsFolder = true,
-                        Title = "Aritsts",
+                        Title = "Artists",
                         Tag = new SiteItemEntry() { Provider = "Artists" }
                       });
       return res;
