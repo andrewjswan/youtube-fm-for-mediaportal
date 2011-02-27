@@ -523,7 +523,7 @@ Support for full hd videos</VersionDescription>
         <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
         <VersionDescription>Support for artist music videos</VersionDescription>
         <DevelopmentStatus>Beta</DevelopmentStatus>
-        <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.1.0.mpe1</OnlineLocation>
+        <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.1.1.mpe1</OnlineLocation>
         <ReleaseDate>2011-02-27T17:28:13</ReleaseDate>
         <Tags>video, youtube, music video</Tags>
         <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
