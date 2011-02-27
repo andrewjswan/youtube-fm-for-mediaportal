@@ -90,10 +90,35 @@ namespace YouTubePlugin.Class.Artist
                   {
                     Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
                     Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME"),
+                    Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
                   });
 
       }
       return res;
+    }
+
+    public ArtistItem GetArtistsById(string id)
+    {
+      ArtistItem res = new ArtistItem();
+      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_ID = \"{0}\" order by ARTIST_NAME", id);
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        res.Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID");
+        res.Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME");
+        res.Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
+      };
+     
+      return res;
+    }
+
+    public void Save(ArtistItem artistItem)
+    {
+      if (string.IsNullOrEmpty(artistItem.Id))
+        return;
+      string lsSQL = string.Format("UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\" WHERE ARTIST_ID=\"{0}\" ",artistItem.Id, artistItem.Name,
+                                   artistItem.Img_url);
+      m_db.Execute(lsSQL);
     }
   }
 }

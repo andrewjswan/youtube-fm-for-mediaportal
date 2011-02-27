@@ -211,8 +211,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetDir)YouTubePlugin.dll d:\devel\vs2005\mp\mediaportal\xbmc\bin\Debug\plugins\Windows\YouTubePlugin.dll /y
-copy $(TargetDir)YouTubePlugin.pdb d:\devel\vs2005\mp\mediaportal\xbmc\bin\Debug\plugins\Windows\YouTubePlugin.pdb /y
+    <PostBuildEvent>copy $(TargetDir)YouTubePlugin.dll d:\devel\vs2005\YouTube.fm.Plugin\MPEI\plugin\YouTubePlugin.dll /y
+copy $(TargetDir)YouTubePlugin.pdb d:\devel\vs2005\YouTube.fm.Plugin\MPEI\plugin\YouTubePlugin.pdb /y
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

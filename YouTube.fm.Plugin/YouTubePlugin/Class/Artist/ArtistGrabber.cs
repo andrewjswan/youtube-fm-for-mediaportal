@@ -63,6 +63,12 @@ namespace YouTubePlugin.Class.Artist
       try
       {
         GetSimilarArtistsSite(site);
+        //------------------------------
+        string img = Regex.Match(site, "<img class=\"artist-image\" src=\"(?<url>.*?)\" />", RegexOptions.Singleline).Groups["url"].Value;
+        ArtistItem artistItem = ArtistManager.Instance.GetArtistsById(artist_id);
+        artistItem.Img_url = img;
+        ArtistManager.Instance.Save(artistItem);
+        //----------------------------
         Regex regexObj = new Regex("album-row.*?data-video-ids=\"(?<vid_id>.*?)\".*?<span class=\"clip\"><img src=\"(?<thumb>.*?)\".*?album-track-name\">(?<title>.*?)</span>", RegexOptions.Singleline);
         Match matchResult = regexObj.Match(site);
         while (matchResult.Success)
@@ -86,7 +92,7 @@ namespace YouTubePlugin.Class.Artist
           matchResult = matchResult.NextMatch();
         }
       }
-      catch (ArgumentException ex)
+      catch (Exception ex)
       {
         // Syntax error in the regular expression
       }

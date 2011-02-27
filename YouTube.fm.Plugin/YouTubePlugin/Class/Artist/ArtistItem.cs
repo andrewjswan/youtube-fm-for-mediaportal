@@ -9,6 +9,7 @@ namespace YouTubePlugin.Class.Artist
   {
     public string Id { get; set; }
     public string Name { get; set; }
+    public string Img_url { get; set; }
     public int Db_id { get; set; }
 
     public ArtistItem()

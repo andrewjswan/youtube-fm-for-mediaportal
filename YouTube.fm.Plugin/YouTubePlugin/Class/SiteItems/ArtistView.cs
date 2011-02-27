@@ -54,6 +54,7 @@ namespace YouTubePlugin.Class.SiteItems
           GenericListItem listItem = new GenericListItem()
           {
             Title = artistItem.Name,
+            LogoUrl = artistItem.Img_url,
             IsFolder = true,
             Tag = newentry
           };
