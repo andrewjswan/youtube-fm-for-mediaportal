@@ -257,7 +257,13 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty("#nowplaying", " ");
       if (MessageGUI.Item != null)
       {
-
+        ArtistItem artistItem = MessageGUI.Item as ArtistItem;
+        SiteItemEntry entry=new SiteItemEntry();
+        entry.Provider = "Artists";
+        entry.SetValue("letter", "false");
+        entry.SetValue("id", artistItem.Id);
+        addVideos(Youtube2MP.GetList(entry), true);
+        UpdateGui();
       }
       else
       {
@@ -1170,7 +1176,9 @@ namespace YouTubePlugin
           count++;
           try
           {
-            item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
+            if (entry.Duration != null)
+              item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
+            if (entry.Rating != null)
               item.Rating = (float) entry.Rating.Average*2;
           }
           catch

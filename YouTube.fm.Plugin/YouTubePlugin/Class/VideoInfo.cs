@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Google.GData.YouTube;
 using MediaPortal.GUI.Library;
+using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
 
 namespace YouTubePlugin
@@ -118,7 +119,7 @@ namespace YouTubePlugin
       client.Proxy.Credentials = CredentialCache.DefaultCredentials;
       try
       {
-        string contents = client.DownloadString(string.Format("http://youtube.com/get_video_info?video_id={0}",videoId));
+        string contents = client.DownloadString(string.Format("http://youtube.com/get_video_info?video_id={0}", videoId));
         //string[] elemest = System.Web.HttpUtility.UrlDecode(contents).Split('&');
         string[] elemest = (contents).Split('&');
 
@@ -130,37 +131,47 @@ namespace YouTubePlugin
         IsInited = true;
         if (!Items.ContainsKey("token"))
         {
-            string site = client.DownloadString(string.Format("http://www.youtube.com/watch?v={0}", videoId));
+          string site = client.DownloadString(string.Format("http://www.youtube.com/watch?v={0}", videoId));
 
-            ArtistManager.Instance.AddArtist(ArtistManager.Instance.Grabber.GetFromVideoSite(site));
+          ArtistItem artistItem = ArtistManager.Instance.Grabber.GetFromVideoSite(site);
+          ArtistManager.Instance.SitesCache.Add(new SiteContent()
+                                                  {SIte = site, ArtistId = artistItem.Id, VideoId = videoId});
+          ArtistManager.Instance.AddArtist(artistItem);
 
-            Regex regexObj = new Regex(", \"t\": \"(?<token>.*?)\", \"", RegexOptions.Singleline);
-            Match matchResult = regexObj.Match(site);
-            if (matchResult.Success)
-            {
-                Items.Add("token", matchResult.Groups["token"].Value);
-                if (Items.ContainsKey("reason"))
-                    Items.Remove("reason");
-            }
+          Regex regexObj = new Regex(", \"t\": \"(?<token>.*?)\", \"", RegexOptions.Singleline);
+          Match matchResult = regexObj.Match(site);
+          if (matchResult.Success)
+          {
+            Items.Add("token", matchResult.Groups["token"].Value);
+            if (Items.ContainsKey("reason"))
+              Items.Remove("reason");
+          }
 
-            Regex regexObj1 = new Regex(", \"fmt_map\": \"(?<fmt_map>.*?)\", \"", RegexOptions.Singleline);
-            Match matchResult1 = regexObj1.Match(site);
-            if (matchResult1.Success)
-            {
-                Items.Add("fmt_map", matchResult1.Groups["fmt_map"].Value);
-            }
-            Regex regexObj2 = new Regex(", \"fmt_url_map\": \"(?<fmt_url_map>.*?)\", \"", RegexOptions.Singleline);
-            Match matchResult2 = regexObj2.Match(site);
-            if (matchResult2.Success)
-            {
-              Items.Add("fmt_url_map", matchResult2.Groups["fmt_url_map"].Value);
-            }
+          Regex regexObj1 = new Regex(", \"fmt_map\": \"(?<fmt_map>.*?)\", \"", RegexOptions.Singleline);
+          Match matchResult1 = regexObj1.Match(site);
+          if (matchResult1.Success)
+          {
+            Items.Add("fmt_map", matchResult1.Groups["fmt_map"].Value);
+          }
+          Regex regexObj2 = new Regex(", \"fmt_url_map\": \"(?<fmt_url_map>.*?)\", \"", RegexOptions.Singleline);
+          Match matchResult2 = regexObj2.Match(site);
+          if (matchResult2.Success)
+          {
+            Items.Add("fmt_url_map", matchResult2.Groups["fmt_url_map"].Value);
+          }
 
           //fmt_url_map
         }
         else
         {
-          ArtistManager.Instance.AddArtist(ArtistManager.Instance.Grabber.GetFromVideoUrl(string.Format("http://www.youtube.com/watch?v={0}", videoId)));
+          if (ArtistManager.Instance.SitesCache.GetByVideoId(videoId) == null)
+          {
+            string site = client.DownloadString(string.Format("http://www.youtube.com/watch?v={0}", videoId));
+            ArtistItem artistItem = ArtistManager.Instance.Grabber.GetFromVideoSite(site);
+            ArtistManager.Instance.SitesCache.Add(new SiteContent()
+                                                    {SIte = site, ArtistId = artistItem.Id, VideoId = videoId});
+            ArtistManager.Instance.AddArtist(artistItem);
+          }
         }
       }
       catch (Exception ex)

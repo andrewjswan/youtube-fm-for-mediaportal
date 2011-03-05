@@ -11,6 +11,12 @@ namespace YouTubePlugin.Class.Artist
 {
   public class ArtistManager
   {
+
+    public ArtistManager()
+    {
+      SitesCache = new SitesCache();
+    }
+
     private SQLiteClient m_db;
 
     private static ArtistManager _instance;
@@ -25,6 +31,8 @@ namespace YouTubePlugin.Class.Artist
       set { _instance = value; }
     }
 
+    public SitesCache SitesCache { get; set; }
+
     public void InitDatabase()
     {
       bool dbExists;
@@ -34,7 +42,7 @@ namespace YouTubePlugin.Class.Artist
         dbExists = System.IO.File.Exists(Config.GetFile(Config.Dir.Database, "YouTubeFm_V01.db3"));
         m_db = new SQLiteClient(Config.GetFile(Config.Dir.Database, "YouTubeFm_V01.db3"));
 
-        MediaPortal.Database.DatabaseUtility.SetPragmas(m_db);
+        DatabaseUtility.SetPragmas(m_db);
 
         if (!dbExists)
         {
@@ -55,6 +63,7 @@ namespace YouTubePlugin.Class.Artist
     {
       if(string.IsNullOrEmpty(artistItem.Id))
         return;
+
       string lsSQL = string.Format("select distinct ARTIST_ID from ARTISTS WHERE ARTIST_ID=\"{0}\"", artistItem.Id);
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       if (loResultSet.Rows.Count > 0)
@@ -78,6 +87,19 @@ namespace YouTubePlugin.Class.Artist
       return res;
     }
 
+    public ArtistItem GetArtistsByName(string name)
+    {
+      ArtistItem res = new ArtistItem();
+      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_NAME like \"{0}%\" order by ARTIST_NAME", name);
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        res.Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID");
+        res.Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME");
+        res.Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
+      }
+      return res;
+    }
 
     public List<ArtistItem> GetArtists(string letter)
     {
@@ -92,7 +114,6 @@ namespace YouTubePlugin.Class.Artist
                     Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME"),
                     Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
                   });
-
       }
       return res;
     }

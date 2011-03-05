@@ -39,28 +39,51 @@ namespace YouTubePlugin.Class.Artist
       return res;
     }
 
-    public ArtistItem GetFromVideoUrl(string url)
+    public ArtistItem GetFromVideoId(string vidId)
+    {
+      string url = string.Format("http://www.youtube.com/watch?v={0}", vidId);
+      string site = "";
+      WebClient client = new WebClient();
+      client.CachePolicy = new System.Net.Cache.RequestCachePolicy();
+      client.UseDefaultCredentials = true;
+      client.Proxy.Credentials = CredentialCache.DefaultCredentials;
+      if (ArtistManager.Instance.SitesCache.GetByUrl(url) == null)
+      {
+        site = client.DownloadString(url);
+        ArtistManager.Instance.SitesCache.Add(new SiteContent() { SIte = site, Url = url });
+      }
+      else
+      {
+        site = ArtistManager.Instance.SitesCache.GetByUrl(url).SIte;
+      }
+      return GetFromVideoSite(site);
+    }
+
+    private string DownloadArtistInfo(string artist_id)
     {
       string site = "";
       WebClient client = new WebClient();
       client.CachePolicy = new System.Net.Cache.RequestCachePolicy();
       client.UseDefaultCredentials = true;
       client.Proxy.Credentials = CredentialCache.DefaultCredentials;
-      site = client.DownloadString(url);
-      return GetFromVideoSite(site);
+      string url = string.Format("http://www.youtube.com/artist?a={0}", artist_id);
+      if (ArtistManager.Instance.SitesCache.GetByUrl(url) == null)
+      {
+        site = client.DownloadString(url);
+        ArtistManager.Instance.SitesCache.Add(new SiteContent() { SIte = site, ArtistId = artist_id, Url = url });
+      }
+      else
+      {
+        site = ArtistManager.Instance.SitesCache.GetByUrl(url).SIte;
+      }
+      return site;
     }
 
     public GenericListItemCollections GetArtistVideosIds(string artist_id)
     {
+      string site = DownloadArtistInfo(artist_id);
+
       GenericListItemCollections res = new GenericListItemCollections();
-      string site = "";
-      WebClient client = new WebClient();
-      client.CachePolicy = new System.Net.Cache.RequestCachePolicy();
-      client.UseDefaultCredentials = true;
-      client.Proxy.Credentials = CredentialCache.DefaultCredentials;
-      site = client.DownloadString(string.Format("http://www.youtube.com/artist?a={0}",artist_id));
-
-
       try
       {
         GetSimilarArtistsSite(site);
@@ -78,7 +101,7 @@ namespace YouTubePlugin.Class.Artist
           
           youTubeEntry.AlternateUri = new AtomUri("http://www.youtube.com/watch?v=" + matchResult.Groups["vid_id"].Value);
           youTubeEntry.Title = new AtomTextConstruct();
-          youTubeEntry.Title.Text = HttpUtility.HtmlDecode(matchResult.Groups["title"].Value);
+          youTubeEntry.Title.Text = artistItem.Name + " - " + HttpUtility.HtmlDecode(matchResult.Groups["title"].Value);
           youTubeEntry.Media = new MediaGroup();
           youTubeEntry.Media.Description = new MediaDescription("");
           youTubeEntry.Id = new AtomId(youTubeEntry.AlternateUri.Content);
@@ -99,6 +122,11 @@ namespace YouTubePlugin.Class.Artist
         // Syntax error in the regular expression
       }
       return res;
+    }
+
+    public List<ArtistItem> GetSimilarArtists(string artistId)
+    {
+      return GetSimilarArtistsSite(DownloadArtistInfo(artistId));
     }
 
     public List<ArtistItem> GetSimilarArtistsSite(string site)

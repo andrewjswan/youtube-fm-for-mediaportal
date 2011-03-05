@@ -179,24 +179,12 @@ namespace YouTubePlugin
       return true;
     }
 
-    
-    static private YouTubeEntry nowplayingentry;
 
-    static public YouTubeEntry NowPlayingEntry
-    {
-      get { return nowplayingentry; }
-      set { nowplayingentry = value; }
-    }
+    public static YouTubeEntry NowPlayingEntry { get; set; }
 
-    static private Song nowPlayingSong;
+    public static Song NowPlayingSong { get; set; }
 
-    static public Song NowPlayingSong
-    {
-      get { return nowPlayingSong; }
-      set { nowPlayingSong = value; }
-    }
 
-    
     public static bool YoutubeEntry2Song(string fileurl, ref Song song)
     {
       YouTubeEntry en = null;

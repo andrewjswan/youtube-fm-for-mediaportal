@@ -98,6 +98,7 @@
     <Compile Include="Class\ISiteItem.cs" />
     <Compile Include="Class\LocalFileEnumerator.cs" />
     <Compile Include="Class\LocalFileStruct.cs" />
+    <Compile Include="Class\SiteContent.cs" />
     <Compile Include="Class\SiteItemEntry.cs" />
     <Compile Include="Class\SiteItemEnumerator.cs" />
     <Compile Include="Class\SiteItems\ArtistView.cs" />
@@ -130,6 +131,7 @@
       <DependentUpon>UserVideosControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Class\SiteItems\VEVOVideos.cs" />
+    <Compile Include="Class\SitesCache.cs" />
     <Compile Include="Class\Translation.cs" />
     <Compile Include="Class\VideoInfo.cs" />
     <Compile Include="Class\YoutubePlaylistPlayer.cs" />
