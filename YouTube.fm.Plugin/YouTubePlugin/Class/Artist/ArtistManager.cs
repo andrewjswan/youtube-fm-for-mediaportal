@@ -60,7 +60,7 @@ namespace YouTubePlugin.Class.Artist
       if (loResultSet.Rows.Count > 0)
         return;
       lsSQL = string.Format("insert into ARTISTS (ARTIST_ID,ARTIST_NAME,ARTIST_IMG) VALUES (\"{0}\",\"{1}\",\"{2}\")", artistItem.Id,
-                            artistItem.Name,artistItem.Img_url);
+                            DatabaseUtility.RemoveInvalidChars(artistItem.Name), artistItem.Img_url);
       m_db.Execute(lsSQL);
       artistItem.Db_id = m_db.LastInsertID();
     }
@@ -116,7 +116,7 @@ namespace YouTubePlugin.Class.Artist
     {
       if (string.IsNullOrEmpty(artistItem.Id))
         return;
-      string lsSQL = string.Format("UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\" WHERE ARTIST_ID=\"{0}\" ",artistItem.Id, artistItem.Name,
+      string lsSQL = string.Format("UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\" WHERE ARTIST_ID=\"{0}\" ", artistItem.Id, DatabaseUtility.RemoveInvalidChars(artistItem.Name),
                                    artistItem.Img_url);
       m_db.Execute(lsSQL);
     }

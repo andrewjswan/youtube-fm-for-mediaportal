@@ -60,19 +60,21 @@ namespace YouTubePlugin
         }
 
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.PublishDate", vid.Published.ToShortDateString());
-          if (vid.Authors != null && vid.Authors.Count > 0)
-              GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Autor", vid.Authors[0].Name);
-          if (vid.Rating != null)
-              GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", (vid.Rating.Average*2).ToString());
-          if (vid.Statistics != null)
-          {
-              GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.ViewCount", vid.Statistics.ViewCount);
-              GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount", vid.Statistics.WatchCount);
-              GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount",
-                                             vid.Statistics.FavoriteCount);
-          }
-        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image", GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
-        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", vid.Media.Description.Value);
+        if (vid.Authors != null && vid.Authors.Count > 0)
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Autor", vid.Authors[0].Name);
+        if (vid.Rating != null)
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", (vid.Rating.Average*2).ToString());
+        if (vid.Statistics != null)
+        {
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.ViewCount", vid.Statistics.ViewCount);
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount", vid.Statistics.WatchCount);
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount",
+                                         vid.Statistics.FavoriteCount);
+        }
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image",
+                                       GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
+        if (vid.Media.Description != null)
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", vid.Media.Description.Value);
       }
       catch (Exception ex)
       {
@@ -95,23 +97,24 @@ namespace YouTubePlugin
       }
       if (type == "NowPlaying")
       {
-        try
-        {
-          Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.VideoId);
-          Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", " ");
+        //try
+        //{
+        //  Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.VideoId);
+        //  Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
 
-          Feed<Comment> comments = Youtube2MP.request.GetComments(video);
-          string cm = "";
-          foreach (Comment c in comments.Entries)
-          {
-            cm += c.Content + "\n------------------------------------------\n";
-          }
-          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", cm);
-        }
-        catch (Exception ex)
-        {
-          Log.Error(ex);
-        }
+        //  Feed<Comment> comments = Youtube2MP.request.GetComments(video);
+        //  string cm = "";
+        //  foreach (Comment c in comments.Entries)
+        //  {
+        //    cm += c.Content + "\n------------------------------------------\n";
+        //  }
+        //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", cm);
+        //}
+        //catch (Exception ex)
+        //{
+        //  Log.Error(ex);
+        //}
       }
     }
 
@@ -228,6 +231,7 @@ namespace YouTubePlugin
 
         PlayListPlayer.SingletonPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
         Youtube2MP.player.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
+        g_Player.Stop();
         Youtube2MP.temp_player.Play(0);
         GUIWaitCursor.Hide();
 
@@ -471,15 +475,22 @@ namespace YouTubePlugin
       if (!Client.IsBusy && downloaQueue.Count > 0)
       {
         curentDownlodingFile = (DownloadFileObject)downloaQueue.Dequeue();
-        try
+        if (!File.Exists(curentDownlodingFile.FileName))
         {
-          Client.DownloadFileAsync(new Uri(curentDownlodingFile.Url), Path.GetTempPath() + @"\station.png");
+          try
+          {
+            Client.DownloadFileAsync(new Uri(curentDownlodingFile.Url), Path.GetTempPath() + @"\station.png");
+          }
+          catch
+          {
+            downloaQueue.Enqueue(curentDownlodingFile);
+          }
+
         }
-        catch
+        else
         {
-          downloaQueue.Enqueue(curentDownlodingFile);
+          OnDownloadTimedEvent(null, null);
         }
-        
       }
     }
 
@@ -494,6 +505,7 @@ namespace YouTubePlugin
           curentDownlodingFile.ListItem.IconImage = curentDownlodingFile.FileName;
           curentDownlodingFile.ListItem.IconImageBig = curentDownlodingFile.FileName;
           curentDownlodingFile.ListItem.RefreshCoverArt();
+          OnDownloadTimedEvent(null, null);
         }
         //UpdateGui();
       }

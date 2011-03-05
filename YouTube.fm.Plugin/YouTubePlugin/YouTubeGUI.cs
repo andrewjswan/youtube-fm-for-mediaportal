@@ -254,7 +254,6 @@ namespace YouTubePlugin
     protected override void OnPageLoad()
     {
       GUIControl.FocusControl(GetID, listControl.GetID);
-      updateStationLogoTimer.Enabled = true;
       GUIPropertyManager.SetProperty("#nowplaying", " ");
       if (MessageGUI.Item != null)
       {
@@ -267,28 +266,7 @@ namespace YouTubePlugin
           ClearLabels("Curent");
           ClearLabels("NowPlaying");
           GUIPropertyManager.SetProperty("#header.title", _setting.PluginName);
-          if (!_setting.OldStyleHome)
-          {
-            addVideos(Youtube2MP.GetHomeMenu(), false);
-          }
-          else
-          {
-            switch (_setting.InitialDisplay)
-            {
-              case 1:
-                ShowHome(_setting.InitialCat);
-                break;
-              case 2:
-                SearchVideo(_setting.InitialSearch);
-                break;
-              case 3:
-                DoHome();
-                break;
-              default:
-                break;
-            }
-            ShowPanel();
-          }
+          StartUpHome();
         }
         else
         {
@@ -297,6 +275,7 @@ namespace YouTubePlugin
         }
       }
       GUIControl.FocusControl(GetID, listControl.GetID);
+      OnDownloadTimedEvent(null, null);
       base.OnPageLoad();
     }
 
@@ -419,7 +398,7 @@ namespace YouTubePlugin
       }
       else if (control == homeButton)
       {
-        DoHome();
+        StartUpHome();
         GUIControl.FocusControl(GetID, listControl.GetID);
       }
       else if (control == searchHistoryButton)
@@ -461,6 +440,31 @@ namespace YouTubePlugin
       }
     }
 
+    private void StartUpHome()
+    {
+      if (!_setting.OldStyleHome)
+      {
+        addVideos(Youtube2MP.GetHomeMenu(), false);
+      }
+      else
+      {
+        switch (_setting.InitialDisplay)
+        {
+          case 1:
+            ShowHome(_setting.InitialCat);
+            break;
+          case 2:
+            SearchVideo(_setting.InitialSearch);
+            break;
+          case 3:
+            DoHome();
+            break;
+          default:
+            break;
+        }
+        ShowPanel();
+      }
+    }
 
     private void DoHome()
     {
@@ -845,7 +849,8 @@ namespace YouTubePlugin
       dlg.Add("Add All to playlist");
       dlg.Add("Add to favorites");
       dlg.Add("Options");
-      dlg.Add("Download Video"); 
+      dlg.Add("Download Video");
+      dlg.Add("All song from this artists");
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
         return;
@@ -982,6 +987,11 @@ namespace YouTubePlugin
             }
           }
           break;
+        case 8:
+          {
+            
+          }
+          break;
       }
     }
 
@@ -1033,27 +1043,6 @@ namespace YouTubePlugin
       //GUIWindowManager.ActivateWindow(27051);
     }
 
-  
-    /// <summary>
-    /// Adds to favorites.
-    /// </summary>
-    /// <param name="p">The station id.</param>
-    private void AddToFavorites(int p)
-    {
-      //try
-      //{
-      //  FavoriteFolderUpdateRequest req = new FavoriteFolderUpdateRequest();
-      //  req.ItemIds = new int[] { p };
-      //  req.Identification = iden;
-      //  websrv.Favorite_StationListAdd(req);
-      //  grabber.GetData(grabber.CurentUrl, grabber.CacheIsUsed, false);
-      //  UpdateList();
-      //}
-      //catch (Exception)
-      //{
-      //  Err_message(25659);
-      //}
-    }
 
     public void UpdateGui()
     {
@@ -1108,7 +1097,8 @@ namespace YouTubePlugin
       }
       SaveListState(true);
       GUIPropertyManager.SetProperty("#header.title", itemCollections.Title);
-      
+      updateStationLogoTimer.Enabled = false;
+      downloaQueue.Clear();
       if (level)
       {
         GUIListItem item = new GUIListItem();
@@ -1151,6 +1141,7 @@ namespace YouTubePlugin
       }
 
       UpdateGui();
+      OnDownloadTimedEvent(null, null);
     }
 
     void addVideos(YouTubeFeed videos, bool level,YouTubeQuery qu)
@@ -1218,7 +1209,7 @@ namespace YouTubePlugin
         listControl.Add(item);
       }
       UpdateGui();
-      updateStationLogoTimer.Enabled = true;
+      OnDownloadTimedEvent(null, null);
     }
 
     private void item_OnItemSelected(GUIListItem item, GUIControl parent)

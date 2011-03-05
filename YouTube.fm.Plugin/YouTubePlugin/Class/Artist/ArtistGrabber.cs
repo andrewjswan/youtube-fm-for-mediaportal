@@ -22,12 +22,13 @@ namespace YouTubePlugin.Class.Artist
 
       try
       {
-        Regex regexObj = new Regex(@"/artist\?a=(?<id>.*?)&.*?<strong>(?<name>.*?)</strong>", RegexOptions.Singleline);
+        Regex regexObj = new Regex(@"/artist\?a=(?<id>.*?)&.*?<img class=""disco-artist-icon"" src=""(?<img_url>.*?)\?.*?<span class=.link-like.>(?<name>.*?)</span>", RegexOptions.Singleline);
         Match matchResult = regexObj.Match(site);
         while (matchResult.Success)
         {
           res.Id = matchResult.Groups["id"].Value;
           res.Name = HttpUtility.HtmlDecode(matchResult.Groups["name"].Value);
+          res.Img_url = HttpUtility.HtmlDecode(matchResult.Groups["img_url"].Value);
           matchResult = matchResult.NextMatch();
         }
       }
@@ -74,6 +75,7 @@ namespace YouTubePlugin.Class.Artist
         while (matchResult.Success)
         {
           YouTubeEntry youTubeEntry=new YouTubeEntry();
+          
           youTubeEntry.AlternateUri = new AtomUri("http://www.youtube.com/watch?v=" + matchResult.Groups["vid_id"].Value);
           youTubeEntry.Title = new AtomTextConstruct();
           youTubeEntry.Title.Text = HttpUtility.HtmlDecode(matchResult.Groups["title"].Value);
@@ -111,8 +113,7 @@ namespace YouTubePlugin.Class.Artist
         Match matchResult = regexObj.Match(site);
         while (matchResult.Success)
         {
-          ArtistItem item = new ArtistItem()
-                              {Id = matchResult.Groups["id"].Value, Name = matchResult.Groups["name"].Value};
+          ArtistItem item = new ArtistItem() { Id = matchResult.Groups["id"].Value, Name = HttpUtility.HtmlDecode(matchResult.Groups["name"].Value) };
           res.Add(item);
           ArtistManager.Instance.AddArtist(item);
           matchResult = matchResult.NextMatch();

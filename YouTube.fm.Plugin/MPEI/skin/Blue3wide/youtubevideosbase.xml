@@ -2,7 +2,7 @@
 <!--version="1.0" encoding="utf-8" standalone="yes"-->
 <window>
   <id>29050</id>
-  <defaultcontrol>2</defaultcontrol>
+  <defaultcontrol>50</defaultcontrol>
   <allowoverlay>no</allowoverlay>
 <!--   <define>#header.label:134</define> -->
   <define>#header.image:-</define>
@@ -210,7 +210,7 @@
         <id>2</id>
             <posX>71</posX>
             <posY>248</posY>		
-        <label>Views</label>
+        <label>Home</label>
         <onright>50</onright>
         <onup>3</onup>
         <ondown>7</ondown>

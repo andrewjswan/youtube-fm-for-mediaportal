@@ -195,11 +195,12 @@ namespace YouTubePlugin
 
     private void LoadRelatated()
     {
-      if (Youtube2MP.NowPlayingEntry.RelatedVideosUri != null && listControl!=null)
+      if (listControl!=null)
       {
+        string relatatedUrl = string.Format("http://gdata.youtube.com/feeds/api/videos/{0}/related", Youtube2MP.getIDSimple(Youtube2MP.NowPlayingEntry.Id.AbsoluteUri));
         GUIControl.ClearControl(GetID, listControl.GetID);
         relatated.Clear();
-        YouTubeQuery query = new YouTubeQuery(Youtube2MP.NowPlayingEntry.RelatedVideosUri.Content);
+        YouTubeQuery query = new YouTubeQuery(relatatedUrl);
         YouTubeFeed vidr = Youtube2MP.service.Query(query);
         if (vidr.Entries.Count > 0)
         {
@@ -268,7 +269,8 @@ namespace YouTubePlugin
         try
         {
           item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
-          item.Rating = (float)entry.Rating.Average;
+          if (entry.Rating != null)
+            item.Rating = (float) entry.Rating.Average;
         }
         catch
         {
@@ -293,7 +295,7 @@ namespace YouTubePlugin
         listControl.Add(item);
         relatated.Add(item);
       }
-      updateStationLogoTimer.Enabled = true; 
+      OnDownloadTimedEvent(null, null);
     }
 
     void item_OnRetrieveArt(GUIListItem item)
