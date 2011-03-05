@@ -16,5 +16,10 @@ namespace YouTubePlugin.Class.Artist
     {
       Db_id = -1;
     }
+
+    public override string ToString()
+    {
+      return Name;
+    }
   }
 }

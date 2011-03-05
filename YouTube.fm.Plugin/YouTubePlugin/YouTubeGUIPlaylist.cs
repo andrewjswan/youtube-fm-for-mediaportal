@@ -257,7 +257,6 @@ namespace YouTubePlugin
             //      ScrobbleLock = new object();
             //added by Sam
             GUIWindowManager.Receivers += new SendMessageHandler(this.OnThreadMessage);
-            GUIWindowManager.OnNewAction += new OnActionHandler(this.OnNewAction);
             g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
             Youtube2MP.player.PlayBegin += new YoutubePlaylistPlayer.EventHandler(player_PlayBegin);
 
@@ -300,7 +299,6 @@ namespace YouTubePlugin
         public override void DeInit()
         {
             GUIWindowManager.Receivers -= new SendMessageHandler(this.OnThreadMessage);
-            GUIWindowManager.OnNewAction -= new OnActionHandler(this.OnNewAction);
 
             if (_lastRequest != null)
                 ascrobbler.RemoveRequest(_lastRequest);
@@ -379,33 +377,6 @@ namespace YouTubePlugin
             }
         }
 
-        // Fires every time - especially ACTION_MUSIC_PLAY even if we're already playing stuff
-        private void OnNewAction(Action action)
-        {
-            try
-            {
-                if (action.wID == Youtube2MP._settings.InstantAction)
-                {
-                    if (Youtube2MP._settings.InstantAction == Action.ActionType.ACTION_KEY_PRESSED)
-                    {
-                        if (action.m_key != null)
-                        {
-                            if (action.m_key.KeyChar == Youtube2MP._settings.InstantChar)
-                            {
-                                InstantPlay();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        InstantPlay();
-                    }
-                }
-            }
-            catch
-            {
-            }
-        }
 
         public override void OnAction(Action action)
         {

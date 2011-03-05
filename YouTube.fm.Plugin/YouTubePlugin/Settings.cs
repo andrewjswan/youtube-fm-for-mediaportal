@@ -167,7 +167,6 @@ namespace YouTubePlugin
         this.Password = xmlreader.GetValueAsString("youtubevideos", "password", string.Empty);
         this.InitialCat = xmlreader.GetValueAsInt("youtubevideos", "InitialCat", 1);
         this.VideoQuality = xmlreader.GetValueAsInt("youtubevideos", "VideoQuality", 0);
-        this.InstantAction = (Action.ActionType)xmlreader.GetValueAsInt("youtubevideos", "InstantAction", (int)(Action.ActionType.REMOTE_1));
         this.InitialSearch = xmlreader.GetValueAsString("youtubevideos", "InitialSearch", string.Empty);
         this.InstantChar = xmlreader.GetValueAsInt("youtubevideos", "InstantCharInt", 01);
         this.MusicFilter = xmlreader.GetValueAsBool("youtubevideos", "MusicFilter", true);
@@ -203,7 +202,6 @@ namespace YouTubePlugin
         xmlwriter.SetValue("youtubevideos", "InitialCat", this.InitialCat);
         xmlwriter.SetValue("youtubevideos", "InitialSearch", this.InitialSearch);
         xmlwriter.SetValue("youtubevideos", "VideoQuality", this.VideoQuality);
-        xmlwriter.SetValue("youtubevideos", "InstantAction", (int)this.InstantAction);
         xmlwriter.SetValue("youtubevideos", "InstantCharInt", this.InstantChar);
         xmlwriter.SetValue("youtubevideos", "DownloadFolder", this.DownloadFolder);
         xmlwriter.SetValue("youtubevideos", "FanartFolder", this.FanartDir);

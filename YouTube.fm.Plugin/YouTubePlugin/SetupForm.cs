@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using ConsoleApplication2.com.amazon.webservices;
 using Google.GData.Client;
 using Google.GData.Extensions;
@@ -14,6 +16,7 @@ using Google.GData.Extensions.MediaRss;
 
 using MediaPortal.GUI.Library;
 using YouTubePlugin.Class;
+using YouTubePlugin.Class.Artist;
 using Action = MediaPortal.GUI.Library.Action;
 
 
@@ -43,7 +46,6 @@ namespace YouTubePlugin
       _settings.UseExtremFilter = checkBox_extremfilter.Checked;
       _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
       _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
-      _settings.InstantAction = (Action.ActionType) comboBox_action.SelectedValue;
       _settings.DownloadFolder = textBox_downloaddir.Text;
       _settings.FanartDir = textBox_fanartdir.Text;
       _settings.LoadOnlineFanart = checkBox1.Checked;
@@ -71,7 +73,7 @@ namespace YouTubePlugin
       _settings.MainMenu.Items.Clear();
       foreach (ListViewItem item in list_startpage.Items)
       {
-        _settings.MainMenu.Items.Add((SiteItemEntry) item.Tag);
+        _settings.MainMenu.Items.Add((SiteItemEntry)item.Tag);
       }
       _settings.Save();
       this.Close();
@@ -93,14 +95,10 @@ namespace YouTubePlugin
     private void SetupForm_Load(object sender, EventArgs e)
     {
       loading = true;
-      comboBox_action.DataSource = GenerateActionList();
-      comboBox_action.DisplayMember = "ActionName";
-      comboBox_action.ValueMember = "ActionID";
 
       textBox_user.Text = _settings.User;
       textBox_passw.Text = _settings.Password;
       textBox_pluginname.Text = _settings.PluginName;
-      textBox_char.Text = _settings.InstantChar.ToString();
       listBox_history.Items.AddRange(_settings.SearchHistory.ToArray());
       checkBox_filter.Checked = _settings.MusicFilter;
       checkBox_time.Checked = _settings.Time;
@@ -113,7 +111,6 @@ namespace YouTubePlugin
       textBox_fanartdir.Text = _settings.FanartDir;
       checkBox1.Checked = _settings.LoadOnlineFanart;
       chk_oldstyle.Checked = _settings.OldStyleHome;
-      comboBox_action.SelectedValue = (int)_settings.InstantAction;
       switch (_settings.InitialDisplay)
       {
         case 1:
@@ -153,6 +150,14 @@ namespace YouTubePlugin
         list_startpage.Items.Add(listViewItem);
       }
       loading = false;
+
+      lst_artists.Items.Clear();
+      List<ArtistItem> artistItems = ArtistManager.Instance.GetArtists("");
+      foreach (ArtistItem artistItem in artistItems)
+      {
+        lst_artists.Items.Add(artistItem);
+      }
+      label5.Text = "Total artist count :" + lst_artists.Items.Count.ToString();
     }
 
     private void button2_Click(object sender, EventArgs e)
@@ -314,6 +319,62 @@ namespace YouTubePlugin
         SiteItemEntry entry = list_startpage.SelectedItems[0].Tag as SiteItemEntry;
         FormItemList dlg = new FormItemList(Youtube2MP.GetList(entry));
         dlg.ShowDialog();
+      }
+    }
+
+    private void button8_Click(object sender, EventArgs e)
+    {
+      if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+      {
+        List<ArtistItem> artistItems = ArtistManager.Instance.GetArtists("");
+
+        var serializer = new XmlSerializer(typeof(List<ArtistItem>));
+        using (TextWriter writer = new StreamWriter(saveFileDialog1.FileName))
+        {
+          serializer.Serialize(writer, artistItems);
+          writer.Close();
+        }
+      }
+    }
+
+    private void lst_artists_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      if(lst_artists.SelectedItem!=null)
+      {
+        ArtistItem item = lst_artists.SelectedItem as ArtistItem;
+        if(!string.IsNullOrEmpty(item.Img_url))
+        {
+          pictureBox1.ImageLocation = item.Img_url;
+          pictureBox1.Visible = true;
+        }
+        else
+        {
+          pictureBox1.Visible = false;
+        }
+      }
+    }
+
+    private void button9_Click(object sender, EventArgs e)
+    {
+      if(openFileDialog1.ShowDialog()==System.Windows.Forms.DialogResult.OK && File.Exists(openFileDialog1.FileName))
+      {
+        
+        var serializer = new XmlSerializer(typeof(List<ArtistItem>));
+        var fs = new FileStream(openFileDialog1.FileName, FileMode.Open);
+        List<ArtistItem> artistItems = (List<ArtistItem>)serializer.Deserialize(fs);
+        fs.Close();
+        foreach (ArtistItem artistItem in artistItems)
+        {
+          ArtistManager.Instance.AddArtist(artistItem);
+        }
+
+        lst_artists.Items.Clear();
+        artistItems = ArtistManager.Instance.GetArtists("");
+        foreach (ArtistItem artistItem in artistItems)
+        {
+          lst_artists.Items.Add(artistItem);
+        }
+        label5.Text = "Total artist count :" + lst_artists.Items.Count.ToString();
       }
     }
   }

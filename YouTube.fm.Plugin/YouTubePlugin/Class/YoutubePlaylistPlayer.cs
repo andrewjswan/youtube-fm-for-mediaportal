@@ -449,118 +449,126 @@ namespace YouTubePlugin
 
         public bool Play(int iSong)
         {
-            // if play returns false PlayNext is called but this does not help against selecting an invalid track
-            bool skipmissing = false;
-            do
+          // if play returns false PlayNext is called but this does not help against selecting an invalid track
+          bool skipmissing = false;
+          do
+          {
+            if (_currentPlayList == PlayListType.PLAYLIST_NONE)
             {
-                if (_currentPlayList == PlayListType.PLAYLIST_NONE)
+              Log.Debug("YoutubePlaylistplayer.Play() no playlist selected");
+              return false;
+            }
+            PlayList playlist = GetPlaylist(_currentPlayList);
+            if (playlist.Count <= 0)
+            {
+              Log.Debug("YoutubePlaylistplayer.Play() playlist is empty");
+              return false;
+            }
+            if (iSong < 0)
+            {
+              iSong = 0;
+            }
+            if (iSong >= playlist.Count)
+            {
+              if (skipmissing)
+              {
+                return false;
+              }
+              else
+              {
+                if (_entriesNotFound < playlist.Count)
                 {
-                    Log.Debug("YoutubePlaylistplayer.Play() no playlist selected");
-                    return false;
-                }
-                PlayList playlist = GetPlaylist(_currentPlayList);
-                if (playlist.Count <= 0)
-                {
-                    Log.Debug("YoutubePlaylistplayer.Play() playlist is empty");
-                    return false;
-                }
-                if (iSong < 0)
-                {
-                    iSong = 0;
-                }
-                if (iSong >= playlist.Count)
-                {
-                    if (skipmissing)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        if (_entriesNotFound < playlist.Count)
-                        {
-                            iSong = playlist.Count - 1;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                //int previousItem = _currentItem;
-                _currentItem = iSong;
-                PlayListItem item = playlist[_currentItem];
-                if (PlayBegin != null)
-                {
-                    PlayBegin(item);
-                }
-
-                GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, _currentItem, 0, null);
-                msg.Label = item.FileName;
-                GUIGraphicsContext.SendMessage(msg);
-
-                if (playlist.AllPlayed())
-                {
-                    playlist.ResetStatus();
-                }
-
-                bool playResult = false;
-                if (_currentPlayList == PlayListType.PLAYLIST_MUSIC_VIDEO)
-                {
-                    playResult = g_Player.PlayVideoStream(item.FileName, item.Description);
-                }
-                else if (item.Type == PlayListItem.PlayListItemType.AudioStream) // Internet Radio
-                {
-                    playResult = g_Player.PlayAudioStream(item.FileName);
+                  iSong = playlist.Count - 1;
                 }
                 else
                 {
-                    playResult = g_Player.Play(item.FileName);
+                  return false;
                 }
-                if (!playResult)
-                {
-                    //	Count entries in current playlist
-                    //	that couldn't be played
-                    _entriesNotFound++;
-                    Log.Error("YoutubePlaylistplayer: *** unable to play - {0} - skipping track!", item.FileName);
+              }
+            }
 
-                    skipmissing = false;
-                    //// do not try to play the next movie or internetstream in the list
-                    //if (MediaPortal.Util.Utils.IsVideo(item.FileName) || MediaPortal.Util.Utils.IsLastFMStream(item.FileName))
-                    //{
-                    //    skipmissing = false;
-                    //}
-                    //else
-                    //{
-                    //    skipmissing = true;
-                    //}
+            //int previousItem = _currentItem;
+            _currentItem = iSong;
+            PlayListItem item = playlist[_currentItem];
+            if (PlayBegin != null)
+            {
+              PlayBegin(item);
+            }
 
-                    iSong++;
-                }
-                else
+            GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, _currentItem, 0, null);
+            msg.Label = item.FileName;
+            GUIGraphicsContext.SendMessage(msg);
+
+            if (playlist.AllPlayed())
+            {
+              playlist.ResetStatus();
+            }
+
+            bool playResult = false;
+            try
+            {
+              if (_currentPlayList == PlayListType.PLAYLIST_MUSIC_VIDEO)
+              {
+                playResult = g_Player.PlayVideoStream(item.FileName, item.Description);
+              }
+              else if (item.Type == PlayListItem.PlayListItemType.AudioStream) // Internet Radio
+              {
+                playResult = g_Player.PlayAudioStream(item.FileName);
+              }
+              else
+              {
+                playResult = g_Player.Play(item.FileName);
+              }
+
+            }
+            catch (Exception)
+            {
+              playResult = false;
+            }
+            if (!playResult)
+            {
+              //	Count entries in current playlist
+              //	that couldn't be played
+              _entriesNotFound++;
+              Log.Error("YoutubePlaylistplayer: *** unable to play - {0} - skipping track!", item.FileName);
+
+              skipmissing = false;
+              //// do not try to play the next movie or internetstream in the list
+              //if (MediaPortal.Util.Utils.IsVideo(item.FileName) || MediaPortal.Util.Utils.IsLastFMStream(item.FileName))
+              //{
+              //    skipmissing = false;
+              //}
+              //else
+              //{
+              //    skipmissing = true;
+              //}
+
+              iSong++;
+            }
+            else
+            {
+              item.Played = true;
+              skipmissing = false;
+              if (MediaPortal.Util.Utils.IsVideo(item.FileName))
+              {
+                if (g_Player.HasVideo)
                 {
-                    item.Played = true;
-                    skipmissing = false;
-                    if (MediaPortal.Util.Utils.IsVideo(item.FileName))
-                    {
-                        if (g_Player.HasVideo)
-                        {
-                            if (Youtube2MP._settings.ShowNowPlaying)
-                            {
-                                GUIWindowManager.ActivateWindow(29052);
-                            }
-                            else
-                            {
-                                g_Player.ShowFullScreenWindow();
-                            }
-                        }
-                    }
+                  if (Youtube2MP._settings.ShowNowPlaying)
+                  {
+                    GUIWindowManager.ActivateWindow(29052);
+                  }
+                  else
+                  {
+                    g_Player.ShowFullScreenWindow();
+                  }
                 }
-            } while (skipmissing);
-            return g_Player.Playing;
+              }
+            }
+          } while (skipmissing);
+          return g_Player.Playing;
         }
 
-        public int CurrentSong
+      public int CurrentSong
         {
             get { return _currentItem; }
             set

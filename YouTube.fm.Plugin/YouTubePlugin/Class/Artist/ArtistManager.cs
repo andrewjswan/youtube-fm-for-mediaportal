@@ -59,8 +59,8 @@ namespace YouTubePlugin.Class.Artist
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       if (loResultSet.Rows.Count > 0)
         return;
-      lsSQL = string.Format("insert into ARTISTS (ARTIST_ID,ARTIST_NAME) VALUES (\"{0}\",\"{1}\")", artistItem.Id,
-                            artistItem.Name);
+      lsSQL = string.Format("insert into ARTISTS (ARTIST_ID,ARTIST_NAME,ARTIST_IMG) VALUES (\"{0}\",\"{1}\",\"{2}\")", artistItem.Id,
+                            artistItem.Name,artistItem.Img_url);
       m_db.Execute(lsSQL);
       artistItem.Db_id = m_db.LastInsertID();
     }

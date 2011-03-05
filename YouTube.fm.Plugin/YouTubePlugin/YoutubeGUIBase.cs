@@ -340,6 +340,8 @@ namespace YouTubePlugin
         g_Player.Release();
         g_Player.PlayBackStopped -= g_Player_PlayBackStopped;
         ClearLabels("NowPlaying");
+        if (GUIWindowManager.ActiveWindow == 29052)
+          GUIWindowManager.ShowPreviousWindow();
       }
       catch
       {
