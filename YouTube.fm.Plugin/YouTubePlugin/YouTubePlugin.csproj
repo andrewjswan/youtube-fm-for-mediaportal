@@ -102,6 +102,7 @@
     <Compile Include="Class\SiteItemEntry.cs" />
     <Compile Include="Class\SiteItemEnumerator.cs" />
     <Compile Include="Class\SiteItems\ArtistView.cs" />
+    <Compile Include="Class\SiteItems\FavoritesVideos.cs" />
     <Compile Include="Class\SiteItems\SearchHistory.cs" />
     <Compile Include="Class\SiteItems\SearchHistoryControl.cs">
       <SubType>UserControl</SubType>

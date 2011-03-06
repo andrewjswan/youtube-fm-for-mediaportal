@@ -264,6 +264,7 @@ namespace YouTubePlugin
         entry.SetValue("id", artistItem.Id);
         addVideos(Youtube2MP.GetList(entry), true);
         UpdateGui();
+        MessageGUI.Item = null;
       }
       else
       {
@@ -314,13 +315,6 @@ namespace YouTubePlugin
           if (!string.IsNullOrEmpty(reg))
               queryuri = queryuri.Replace("standardfeeds", "standardfeeds/" + reg);
           YouTubeQuery query = new YouTubeQuery(queryuri);
-
-          //if (queryuri == YouTubeQuery.CreateFavoritesUri(null))
-          //    query = SetParamToYouTubeQuery(query, true);
-          //else
-          //{
-          //    query = SetParamToYouTubeQuery(query, false);
-          //}
 
           query.NumberToRetrieve = 50;
           query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
@@ -392,11 +386,6 @@ namespace YouTubePlugin
           DoListSelection();
         }
       }
-      //else if (control == sortButton)
-      //{
-      //  //sort button selected
-      //  OnShowSortOptions();
-      //}
       else if (control == searchButton)
       {
         DoSearch();

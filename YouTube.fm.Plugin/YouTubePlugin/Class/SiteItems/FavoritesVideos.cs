@@ -7,11 +7,11 @@ using Google.GData.YouTube;
 
 namespace YouTubePlugin.Class.SiteItems
 {
-  public class UserVideos:ISiteItem
+  public class FavoritesVideos:ISiteItem
   {
-    public UserVideos()
+    public FavoritesVideos()
     {
-      Name = "User videos";
+      Name = "User favorites videos";
       //ConfigControl = new UserVideosControl();
     }
 
@@ -26,7 +26,7 @@ namespace YouTubePlugin.Class.SiteItems
     {
       GenericListItemCollections res = new GenericListItemCollections();
       YouTubeQuery query =
-        new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/default/uploads", entry.GetValue("id")));
+        new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/default/favorites"));
       query.NumberToRetrieve = 50;
       do
       {

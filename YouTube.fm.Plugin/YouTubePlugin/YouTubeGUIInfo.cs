@@ -129,8 +129,7 @@ namespace YouTubePlugin
       infoTimer.Enabled = false;
       LoadRelatated();
       LoadSimilarArtists();
-      if (Client.IsBusy)
-        return;
+
       if (imgFanArt != null)
         imgFanArt.Visible = false;
       if (Youtube2MP.NowPlayingSong != null)
@@ -153,6 +152,9 @@ namespace YouTubePlugin
         }
 
         if (!Youtube2MP._settings.LoadOnlineFanart)
+          return;
+
+        if (Client.IsBusy)
           return;
 
         file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
@@ -298,7 +300,7 @@ namespace YouTubePlugin
       if (control == listsimilar)
       {
         // execute only for enter keys
-        if (actionType == Action.ActionType.ACTION_SELECT_ITEM)
+        if (actionType == Action.ActionType.ACTION_SELECT_ITEM && listsimilar.SelectedListItem != null)
         {
           ArtistItem artistItem = listsimilar.SelectedListItem.MusicTag as ArtistItem;
           MessageGUI.Item = artistItem;

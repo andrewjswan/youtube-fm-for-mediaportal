@@ -42,6 +42,7 @@ namespace YouTubePlugin
       AddSiteItem(new SearchVideo());
       AddSiteItem(new SearchHistory());
       AddSiteItem(new UserVideos());
+      AddSiteItem(new FavoritesVideos());
       AddSiteItem(new VevoVideos());
       AddSiteItem(new ArtistView());
     }

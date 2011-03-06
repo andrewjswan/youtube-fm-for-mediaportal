@@ -94,6 +94,8 @@ namespace YouTubePlugin
 
     public string GetPlaybackUrl(string fmt)
     {
+      if (!Items.ContainsKey("fmt_url_map"))
+        return "";
       string[] ss = Items["fmt_url_map"].Split(',');
       if(!ss[0].Contains("|"))
         ss = System.Web.HttpUtility.UrlDecode(Items["fmt_url_map"]).Split(',');
@@ -131,7 +133,17 @@ namespace YouTubePlugin
         IsInited = true;
         if (!Items.ContainsKey("token"))
         {
-          string site = client.DownloadString(string.Format("http://www.youtube.com/watch?v={0}", videoId));
+          string site = "";
+          try
+          {
+            site = client.DownloadString(string.Format("http://www.youtube.com/watch?v={0}", videoId));
+          }
+          catch (Exception ex)
+          {
+            Log.Error("Error download info for video {0}",videoId);
+            Log.Debug(ex.StackTrace);
+          }
+          
 
           ArtistItem artistItem = ArtistManager.Instance.Grabber.GetFromVideoSite(site);
           ArtistManager.Instance.SitesCache.Add(new SiteContent()

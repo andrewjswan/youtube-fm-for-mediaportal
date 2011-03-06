@@ -257,7 +257,6 @@ namespace YouTubePlugin
             //      ScrobbleLock = new object();
             //added by Sam
             GUIWindowManager.Receivers += new SendMessageHandler(this.OnThreadMessage);
-            g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
             Youtube2MP.player.PlayBegin += new YoutubePlaylistPlayer.EventHandler(player_PlayBegin);
 
             return Load(GUIGraphicsContext.Skin + @"\youtubeplaylist.xml");
@@ -284,17 +283,6 @@ namespace YouTubePlugin
             }
         }
 
-
-        void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
-        {
-            try
-            {
-                ClearLabels("NowPlaying");
-            }
-            catch
-            {
-            }
-        }
 
         public override void DeInit()
         {

@@ -258,8 +258,9 @@ namespace YouTubePlugin
     {
       PlayParams playParams = new PlayParams() {facade = facade, fullscr = fullscr, vid = vid};
 
-      Thread _thread = new Thread(new ParameterizedThreadStart(BackGroundDoPlay));
-      _thread.Start(playParams);
+      //Thread _thread = new Thread(new ParameterizedThreadStart(BackGroundDoPlay));
+      //_thread.Start(playParams);
+      BackGroundDoPlay(playParams);
     }
 
     public VideoInfo SelectQuality(YouTubeEntry vid)

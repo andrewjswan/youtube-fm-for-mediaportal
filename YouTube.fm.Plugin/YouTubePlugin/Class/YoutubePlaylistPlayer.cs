@@ -73,7 +73,7 @@ namespace YouTubePlugin
 
             bool IPlayer.Play(string strFile)
             {
-                return MediaPortal.Player.g_Player.Play(strFile);
+              return MediaPortal.Player.g_Player.Play(strFile, MediaPortal.Player.g_Player.MediaType.Video);
             }
 
             bool IPlayer.PlayVideoStream(string strURL, string streamName)
@@ -168,6 +168,27 @@ namespace YouTubePlugin
                 return;
             switch (message.Message)
             {
+              case GUIMessage.MessageType.GUI_MSG_USER :
+                {
+                  if (message.Param1 == 99991)
+                  {
+                    if (g_Player.Playing && message.Param2==1)
+                    {
+                      if (((Settings)message.Object).ShowNowPlaying)
+                      {
+                        GUIWindowManager.ActivateWindow(29052);
+                      }
+                      else
+                      {
+                        g_Player.ShowFullScreenWindow();
+                      }
+                    }
+
+                    Play(0);
+                    GUIWaitCursor.Hide();
+                  }
+                }
+                break;
                 case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
                     {
                         PlayListItem item = GetCurrentItem();
@@ -495,9 +516,9 @@ namespace YouTubePlugin
               PlayBegin(item);
             }
 
-            GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, _currentItem, 0, null);
-            msg.Label = item.FileName;
-            GUIGraphicsContext.SendMessage(msg);
+            //GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, _currentItem, 0, null);
+            //msg.Label = item.FileName;
+            //GUIGraphicsContext.SendMessage(msg);
 
             if (playlist.AllPlayed())
             {
@@ -507,19 +528,7 @@ namespace YouTubePlugin
             bool playResult = false;
             try
             {
-              if (_currentPlayList == PlayListType.PLAYLIST_MUSIC_VIDEO)
-              {
-                playResult = g_Player.PlayVideoStream(item.FileName, item.Description);
-              }
-              else if (item.Type == PlayListItem.PlayListItemType.AudioStream) // Internet Radio
-              {
-                playResult = g_Player.PlayAudioStream(item.FileName);
-              }
-              else
-              {
-                playResult = g_Player.Play(item.FileName);
-              }
-
+              playResult = g_Player.PlayVideoStream(item.FileName,item.Description);
             }
             catch (Exception)
             {
