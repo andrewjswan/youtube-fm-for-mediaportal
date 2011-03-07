@@ -328,7 +328,7 @@ namespace YouTubePlugin
 
             if (string.IsNullOrEmpty(title))
             {
-                Err_message("No artis or title defined !");
+                Err_message("No artist or title defined !");
                 return;
 
             }
@@ -744,8 +744,8 @@ namespace YouTubePlugin
                     //{
                     //  // Prevent the currently playing track from being scrolled off the top 
                     //  // or bottom of the screen when other items are re-ordered
-                    //  facadeView.PlayListView.AllowLastVisibleListItemDown = !ScrobblerOn;
-                    //  facadeView.PlayListView.AllowMoveFirstVisibleListItemUp = !ScrobblerOn;
+                    //  facadeView.PlayListLayout.AllowLastVisibleListItemDown = !ScrobblerOn;
+                    //  facadeView.PlayListLayout.AllowMoveFirstVisibleListItemUp = !ScrobblerOn;
                     //}
                     UpdateButtonStates();
             }

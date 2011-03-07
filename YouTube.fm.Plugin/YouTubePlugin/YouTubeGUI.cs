@@ -253,6 +253,11 @@ namespace YouTubePlugin
      //do the init before page load
     protected override void OnPageLoad()
     {
+      base.OnPageLoad();
+
+      UpdateGui();
+      ShowPanel();
+
       GUIControl.FocusControl(GetID, listControl.GetID);
       GUIPropertyManager.SetProperty("#nowplaying", " ");
       if (MessageGUI.Item != null)
@@ -274,16 +279,16 @@ namespace YouTubePlugin
           ClearLabels("NowPlaying");
           GUIPropertyManager.SetProperty("#header.title", _setting.PluginName);
           StartUpHome();
-        }
-        else
-        {
+          UpdateGui();
+          }
+          else
+          {
           DoBack();
           GUIControl.FocusControl(GetID, listControl.GetID);
         }
       }
       GUIControl.FocusControl(GetID, listControl.GetID);
       OnDownloadTimedEvent(null, null);
-      base.OnPageLoad();
     }
 
       private string GetRegionOpt()
@@ -507,33 +512,42 @@ namespace YouTubePlugin
         case 0:
           GetTimeOpt();
           InitList(YouTubeQuery.MostViewedVideo);
+          UpdateGui();
           break;
         case 1:
           GetTimeOpt();
           InitList(YouTubeQuery.TopRatedVideo);
+          UpdateGui();
           break;
         case 2:
           InitList(YouTubeQuery.RecentlyFeaturedVideo);
+          UpdateGui();
           break;
         case 3:
           GetTimeOpt();
           InitList(YouTubeQuery.MostDiscussedVideo);
+          UpdateGui();
           break;
         case 4:
           GetTimeOpt();
           InitList(YouTubeQuery.FavoritesVideo);
+          UpdateGui();
           break;
         case 5:
           InitList(YouTubeQuery.MostLinkedVideo);
+          UpdateGui();
           break;
         case 6:
           InitList(YouTubeQuery.MostRespondedVideo);
+          UpdateGui();
           break;
         case 7:
           InitList(YouTubeQuery.MostRecentVideo);
+          UpdateGui();
           break;
         case 8:
           InitList(YouTubeQuery.CreateFavoritesUri(null));
+          UpdateGui();
           break;
         case 9:
           if (Youtube2MP._settings.LocalFile.Items.Count == 0)
@@ -564,6 +578,7 @@ namespace YouTubePlugin
               listControl.Add(item);
             }
             GUIPropertyManager.SetProperty("#header.title", Youtube2MP._settings.OldCats[9]);
+            listControl.SelectedListItemIndex = 0;
             UpdateGui();
           }
           break;
@@ -637,6 +652,7 @@ namespace YouTubePlugin
           if (entry != null)
           {
             addVideos(Youtube2MP.GetList(entry), true);
+            UpdateGui();
           }
 
           LocalFileStruct file = selectedItem.MusicTag as LocalFileStruct;
@@ -756,7 +772,7 @@ namespace YouTubePlugin
         }
     }
 
-      private void DoBack()
+    private void DoBack()
     {
       if (NavigationStack.Count > 0)
       {
@@ -985,9 +1001,9 @@ namespace YouTubePlugin
         case 8:
           {
             
-          }
-          break;
       }
+          break;
+    }
     }
 
 
@@ -1135,6 +1151,8 @@ namespace YouTubePlugin
         listControl.Add(item);
       }
 
+      listControl.SelectedListItemIndex = 0;
+
       UpdateGui();
       OnDownloadTimedEvent(null, null);
     }
@@ -1166,7 +1184,7 @@ namespace YouTubePlugin
           try
           {
             if (entry.Duration != null)
-              item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
+            item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
             if (entry.Rating != null)
               item.Rating = (float) entry.Rating.Average*2;
           }
@@ -1205,6 +1223,7 @@ namespace YouTubePlugin
         item.MusicTag = qu;
         listControl.Add(item);
       }
+      listControl.SelectedListItemIndex = 0;
       UpdateGui();
       OnDownloadTimedEvent(null, null);
     }
@@ -1230,6 +1249,7 @@ namespace YouTubePlugin
       }
       if (clear)
       {
+        ClearLabels("Curent");
         GUIControl.ClearControl(GetID, listControl.GetID);
         Youtube2MP.temp_player.Reset();
         Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO).Clear();

@@ -19,7 +19,7 @@ using System.Resources;
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(true)]
-
+    
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("06f68cac-041c-41b0-896a-d6399ca441e4")]
 
@@ -32,6 +32,6 @@ using System.Resources;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.5.5.53")]
-[assembly: AssemblyFileVersion("0.5.5.53")]
+[assembly: AssemblyVersion("0.6.2.1")]
+[assembly: AssemblyFileVersion("0.6.2.1")]
 [assembly: NeutralResourcesLanguageAttribute("")]

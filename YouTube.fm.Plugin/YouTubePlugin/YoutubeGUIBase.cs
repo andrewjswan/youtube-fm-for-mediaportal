@@ -216,7 +216,8 @@ namespace YouTubePlugin
         Youtube2MP.temp_player.CurrentPlaylistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
         PlayList playlist = Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
         playlist.Clear();
-        g_Player.PlayBackStopped += g_Player_PlayBackStopped;
+        g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
+        g_Player.PlayBackEnded += new g_Player.EndedHandler(g_Player_PlayBackEnded);
         AddItemToPlayList(vid, ref playlist, qa);
 
         if (facade != null)
@@ -338,12 +339,31 @@ namespace YouTubePlugin
       return info;
     }
 
+    void g_Player_PlayBackEnded(g_Player.MediaType type, string filename)
+    {
+      try
+      {
+        g_Player.Release();
+        g_Player.PlayBackStopped -= g_Player_PlayBackStopped;
+        g_Player.PlayBackEnded -= g_Player_PlayBackEnded;
+        ClearLabels("NowPlaying");
+        Youtube2MP.player.DoOnStop();
+        if (GUIWindowManager.ActiveWindow == 29052)
+          GUIWindowManager.ShowPreviousWindow();
+      }
+      catch
+      {
+      }
+    }
+
     void g_Player_PlayBackStopped(g_Player.MediaType type, int stoptime, string filename)
     {
       try
       {
         g_Player.Release();
         g_Player.PlayBackStopped -= g_Player_PlayBackStopped;
+        g_Player.PlayBackEnded -= g_Player_PlayBackEnded;
+        Youtube2MP.player.DoOnStop();
         ClearLabels("NowPlaying");
         if (GUIWindowManager.ActiveWindow == 29052)
           GUIWindowManager.ShowPreviousWindow();

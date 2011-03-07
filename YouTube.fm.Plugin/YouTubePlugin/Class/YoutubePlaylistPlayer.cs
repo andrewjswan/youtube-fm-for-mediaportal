@@ -39,6 +39,8 @@ namespace YouTubePlugin
     {
         public delegate void EventHandler(PlayListItem en);
         public event EventHandler PlayBegin;
+        public delegate void StopEventHandler();
+        public event StopEventHandler PlayStop;
 
         #region g_Player decoupling in work
         
@@ -577,7 +579,13 @@ namespace YouTubePlugin
           return g_Player.Playing;
         }
 
-      public int CurrentSong
+        public void DoOnStop()
+        {
+            if (PlayStop != null)
+              PlayStop();
+        }
+
+        public int CurrentSong
         {
             get { return _currentItem; }
             set
