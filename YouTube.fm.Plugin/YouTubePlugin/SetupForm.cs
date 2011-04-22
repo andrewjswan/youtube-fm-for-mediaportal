@@ -377,6 +377,11 @@ namespace YouTubePlugin
         label5.Text = "Total artist count :" + lst_artists.Items.Count.ToString();
       }
     }
+
+    private void panel1_Paint(object sender, PaintEventArgs e)
+    {
+
+    }
   }
 
   class ActionEntry

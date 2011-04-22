@@ -238,17 +238,19 @@ namespace YouTubePlugin
 
     private void LoadRelatated()
     {
+      //Youtube2MP.getIDSimple(Youtube2MP.NowPlayingEntry.Id.AbsoluteUri));
+      GUIControl.ClearControl(GetID, listControl.GetID);
+      string relatatedUrl = string.Format("http://gdata.youtube.com/feeds/api/videos/{0}/related",
+                                         Youtube2MP.GetVideoId(Youtube2MP.NowPlayingEntry));
+      relatated.Clear();
+      YouTubeQuery query = new YouTubeQuery(relatatedUrl);
+      YouTubeFeed vidr = Youtube2MP.service.Query(query);
+      if (vidr.Entries.Count > 0)
+      {
+        addVideos(vidr, query);
+      }
       if (listControl != null)
       {
-        string relatatedUrl = string.Format("http://gdata.youtube.com/feeds/api/videos/{0}/related", Youtube2MP.getIDSimple(Youtube2MP.NowPlayingEntry.Id.AbsoluteUri));
-        GUIControl.ClearControl(GetID, listControl.GetID);
-        relatated.Clear();
-        YouTubeQuery query = new YouTubeQuery(relatatedUrl);
-        YouTubeFeed vidr = Youtube2MP.service.Query(query);
-        if (vidr.Entries.Count > 0)
-        {
-          addVideos(vidr, query);
-        }
         FillRelatedList();
       }
     }
@@ -257,7 +259,7 @@ namespace YouTubePlugin
     {
       if (listsimilar != null)
       {
-        string vidId = Youtube2MP.getIDSimple(Youtube2MP.NowPlayingEntry.Id.AbsoluteUri);
+        string vidId = Youtube2MP.GetVideoId(Youtube2MP.NowPlayingEntry);
         ArtistItem artistItem = ArtistManager.Instance.SitesCache.GetByVideoId(vidId) != null
                                   ? ArtistManager.Instance.Grabber.GetFromVideoSite(
                                     ArtistManager.Instance.SitesCache.GetByVideoId(vidId).SIte)
@@ -307,7 +309,7 @@ namespace YouTubePlugin
       base.OnPageLoad();
       
       FillRelatedList();
-
+      
       //leave the focus to the skin
       //GUIControl.FocusControl(GetID, listControl.GetID);
     }
@@ -315,7 +317,7 @@ namespace YouTubePlugin
     private void FillRelatedList()
     {
       if (relatated == null || relatated.Count < 1) return;
-
+      GUIControl.ClearControl(GetID, listControl.GetID);
       foreach (GUIListItem item in relatated)
       {
         listControl.Add(item);

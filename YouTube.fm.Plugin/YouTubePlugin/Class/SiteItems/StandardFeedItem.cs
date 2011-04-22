@@ -59,8 +59,13 @@ namespace YouTubePlugin.Class.SiteItems
           break;
         case 8:
           usetime = false;
-          query = YouTubeQuery.CreateFavoritesUri(null);
+          query = YouTubeQuery.StandardFeeds + "most_shared";
           break;
+        case 9:
+          usetime = false;
+          query = YouTubeQuery.StandardFeeds + "on_the_web";
+          break;
+
       }
 
       if (!string.IsNullOrEmpty(entry.GetValue("region")))

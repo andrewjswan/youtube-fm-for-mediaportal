@@ -99,9 +99,10 @@ namespace YouTubePlugin
       string[] ss = Items["fmt_url_map"].Split(',');
       if(!ss[0].Contains("|"))
         ss = System.Web.HttpUtility.UrlDecode(Items["fmt_url_map"]).Split(',');
+      
       foreach (string sitem in ss)
       {
-        string s = System.Web.HttpUtility.UrlDecode(sitem);
+        string s = ReplaceJSon(sitem);
         string[] urls = s.Split('|');
         if (urls[0] == fmt)
           return urls[1].Replace(@"\/","/");
@@ -109,6 +110,17 @@ namespace YouTubePlugin
       if (ss.Length > 0)
         return ss[0].Split('|')[1].Replace(@"\/", "/");
       return "";
+    }
+
+    public string ReplaceJSon(string s)
+    {
+      s = System.Web.HttpUtility.UrlDecode(s);
+      s = s.Replace(@"\/", "/");
+      s = s.Replace("\\u0024", "$");
+      s = s.Replace("\\u0025", "%");
+      s = s.Replace("\\u0026", "&");
+      s = s.Replace("\\u0017", "?");
+      return s;
     }
 
     public Dictionary<string, string> Items = new Dictionary<string, string>();
@@ -121,7 +133,8 @@ namespace YouTubePlugin
       client.Proxy.Credentials = CredentialCache.DefaultCredentials;
       try
       {
-        string contents = client.DownloadString(string.Format("http://youtube.com/get_video_info?video_id={0}", videoId));
+        //
+        string contents = client.DownloadString(string.Format("http://youtube.com/get_video_info?video_id={0}&has_verified=1", videoId));
         //string[] elemest = System.Web.HttpUtility.UrlDecode(contents).Split('&');
         string[] elemest = (contents).Split('&');
 
@@ -136,7 +149,7 @@ namespace YouTubePlugin
           string site = "";
           try
           {
-            site = client.DownloadString(string.Format("http://www.youtube.com/watch?v={0}", videoId));
+            site = client.DownloadString(string.Format("http://www.youtube.com/watch?v={0}&has_verified=1", videoId));
           }
           catch (Exception ex)
           {

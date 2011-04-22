@@ -52,6 +52,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Utils">
+      <HintPath>..\..\mp\mediaportal\MediaPortal.Application\bin\Debug\Common.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Core, Version=1.1.6.19004, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\mp\mediaportal\MediaPortal.Application\bin\Debug\Core.dll</HintPath>
@@ -103,6 +106,14 @@
     <Compile Include="Class\SiteItemEnumerator.cs" />
     <Compile Include="Class\SiteItems\ArtistView.cs" />
     <Compile Include="Class\SiteItems\FavoritesVideos.cs" />
+    <Compile Include="Class\SiteItems\Folder.cs" />
+    <Compile Include="Class\SiteItems\PlayList.cs" />
+    <Compile Include="Class\SiteItems\PlayListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\PlayListControl.Designer.cs">
+      <DependentUpon>PlayListControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\SiteItems\SearchHistory.cs" />
     <Compile Include="Class\SiteItems\SearchHistoryControl.cs">
       <SubType>UserControl</SubType>
@@ -163,6 +174,9 @@
     <Compile Include="YouTubeGUIPlaylist.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Class\SiteItems\PlayListControl.resx">
+      <DependentUpon>PlayListControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\SearchHistoryControl.resx">
       <DependentUpon>SearchHistoryControl.cs</DependentUpon>
     </EmbeddedResource>

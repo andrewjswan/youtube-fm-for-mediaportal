@@ -150,7 +150,7 @@ namespace YouTubePlugin
         dlg1.TimeOut = 5;
         dlg1.DoModal(GetID);
       }
-      Youtube2MP._settings.LocalFile.Items.Add(new LocalFileStruct(VideoDownloader.DownloadingTo, VideoDownloader.Entry.VideoId, VideoDownloader.Entry.Title.Text));
+      Youtube2MP._settings.LocalFile.Items.Add(new LocalFileStruct(VideoDownloader.DownloadingTo,Youtube2MP.GetVideoId(VideoDownloader.Entry), VideoDownloader.Entry.Title.Text));
       Youtube2MP._settings.LocalFile.Save();
       string imageFile = GetLocalImageFileName(GetBestUrl(VideoDownloader.Entry.Media.Thumbnails));
       try
@@ -963,7 +963,7 @@ namespace YouTubePlugin
           break;
         case 7: // download
           {
-            if (Youtube2MP._settings.LocalFile.Get(videoEntry.VideoId) != null)
+            if (Youtube2MP._settings.LocalFile.Get(Youtube2MP.GetVideoId(videoEntry)) != null)
             {
               Err_message("Item already downloaded !");
             }
@@ -991,7 +991,7 @@ namespace YouTubePlugin
                 string streamurl = Youtube2MP.StreamPlaybackUrl(videoEntry, inf);
                   VideoDownloader.AsyncDownload(streamurl,
                                                 Youtube2MP._settings.DownloadFolder + "\\" +
-                                                Utils.GetFilename(videoEntry.Title.Text + "{" + videoEntry.VideoId + "}") +
+                                                Utils.GetFilename(videoEntry.Title.Text + "{" + Youtube2MP.GetVideoId(videoEntry) + "}") +
                                                 Path.GetExtension(streamurl));
                 VideoDownloader.Entry = videoEntry;
               }

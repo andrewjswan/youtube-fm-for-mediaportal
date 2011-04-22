@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Google.GData.Client;
 using Google.GData.YouTube;
 
 namespace YouTubePlugin.Class.SiteItems
 {
-  public class FavoritesVideos:ISiteItem
+  public class PlayList : ISiteItem
   {
-    public FavoritesVideos()
+    public PlayList()
     {
-      Name = "User favorites videos";
-      ConfigControl = new UserVideosControl();
+      Name = "Playlist";
+      ConfigControl = new PlayListControl();
     }
 
     public Control ConfigControl { get; set; }
     public void Configure(SiteItemEntry entry)
     {
-      ((UserVideosControl)ConfigControl).SetEntry(entry);
+      ((PlayListControl)ConfigControl).SetEntry(entry);
     }
 
     public string Name { get; set; }
@@ -26,7 +26,7 @@ namespace YouTubePlugin.Class.SiteItems
     {
       GenericListItemCollections res = new GenericListItemCollections();
       YouTubeQuery query =
-        new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/default/favorites"));
+        new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/playlists/{0}", entry.GetValue("id")));
       query.NumberToRetrieve = 50;
       do
       {
@@ -34,12 +34,12 @@ namespace YouTubePlugin.Class.SiteItems
         foreach (YouTubeEntry youTubeEntry in videos.Entries)
         {
           GenericListItem listItem = new GenericListItem()
-                                       {
-                                         Title = youTubeEntry.Title.Text,
-                                         IsFolder = false,
-                                         LogoUrl = YoutubeGUIBase.GetBestUrl(youTubeEntry.Media.Thumbnails),
-                                         Tag = youTubeEntry
-                                       };
+          {
+            Title = youTubeEntry.Title.Text,
+            IsFolder = false,
+            LogoUrl = YoutubeGUIBase.GetBestUrl(youTubeEntry.Media.Thumbnails),
+            Tag = youTubeEntry
+          };
           res.Items.Add(listItem);
         }
         query.StartIndex += 50;

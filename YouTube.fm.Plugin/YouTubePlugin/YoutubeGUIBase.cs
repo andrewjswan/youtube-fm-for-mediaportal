@@ -302,7 +302,8 @@ namespace YouTubePlugin
           }
         case 5:
           {
-            GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+
+            GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_MENU);
             if (dlg == null) info.Quality = VideoQuality.Normal;
             dlg.Reset();
             dlg.SetHeading("Select video quality");

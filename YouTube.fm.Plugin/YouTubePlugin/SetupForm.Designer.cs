@@ -92,6 +92,11 @@ namespace YouTubePlugin
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+      this.treeView1 = new System.Windows.Forms.TreeView();
+      this.textBox2 = new System.Windows.Forms.TextBox();
+      this.label6 = new System.Windows.Forms.Label();
+      this.btn_tree_del = new System.Windows.Forms.Button();
+      this.btn_tree_add = new System.Windows.Forms.Button();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
@@ -107,7 +112,7 @@ namespace YouTubePlugin
       // 
       // button1
       // 
-      this.button1.Location = new System.Drawing.Point(405, 364);
+      this.button1.Location = new System.Drawing.Point(597, 364);
       this.button1.Name = "button1";
       this.button1.Size = new System.Drawing.Size(75, 23);
       this.button1.TabIndex = 0;
@@ -117,7 +122,7 @@ namespace YouTubePlugin
       // 
       // button2
       // 
-      this.button2.Location = new System.Drawing.Point(501, 364);
+      this.button2.Location = new System.Drawing.Point(693, 364);
       this.button2.Name = "button2";
       this.button2.Size = new System.Drawing.Size(75, 23);
       this.button2.TabIndex = 1;
@@ -198,11 +203,16 @@ namespace YouTubePlugin
       this.tabControl1.Location = new System.Drawing.Point(1, 2);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
-      this.tabControl1.Size = new System.Drawing.Size(587, 356);
+      this.tabControl1.Size = new System.Drawing.Size(771, 356);
       this.tabControl1.TabIndex = 5;
       // 
       // tabPage6
       // 
+      this.tabPage6.Controls.Add(this.btn_tree_del);
+      this.tabPage6.Controls.Add(this.btn_tree_add);
+      this.tabPage6.Controls.Add(this.label6);
+      this.tabPage6.Controls.Add(this.textBox2);
+      this.tabPage6.Controls.Add(this.treeView1);
       this.tabPage6.Controls.Add(this.button7);
       this.tabPage6.Controls.Add(this.btn_down);
       this.tabPage6.Controls.Add(this.btn_up);
@@ -214,14 +224,14 @@ namespace YouTubePlugin
       this.tabPage6.Location = new System.Drawing.Point(4, 22);
       this.tabPage6.Name = "tabPage6";
       this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage6.Size = new System.Drawing.Size(579, 330);
+      this.tabPage6.Size = new System.Drawing.Size(763, 330);
       this.tabPage6.TabIndex = 5;
       this.tabPage6.Text = "Start Page";
       this.tabPage6.UseVisualStyleBackColor = true;
       // 
       // button7
       // 
-      this.button7.Location = new System.Drawing.Point(239, 282);
+      this.button7.Location = new System.Drawing.Point(474, 279);
       this.button7.Name = "button7";
       this.button7.Size = new System.Drawing.Size(38, 42);
       this.button7.TabIndex = 7;
@@ -231,7 +241,7 @@ namespace YouTubePlugin
       // 
       // btn_down
       // 
-      this.btn_down.Location = new System.Drawing.Point(239, 180);
+      this.btn_down.Location = new System.Drawing.Point(474, 177);
       this.btn_down.Name = "btn_down";
       this.btn_down.Size = new System.Drawing.Size(38, 36);
       this.btn_down.TabIndex = 6;
@@ -241,7 +251,7 @@ namespace YouTubePlugin
       // 
       // btn_up
       // 
-      this.btn_up.Location = new System.Drawing.Point(239, 140);
+      this.btn_up.Location = new System.Drawing.Point(474, 137);
       this.btn_up.Name = "btn_up";
       this.btn_up.Size = new System.Drawing.Size(38, 34);
       this.btn_up.TabIndex = 5;
@@ -251,7 +261,7 @@ namespace YouTubePlugin
       // 
       // btn_del_provider
       // 
-      this.btn_del_provider.Location = new System.Drawing.Point(239, 33);
+      this.btn_del_provider.Location = new System.Drawing.Point(474, 30);
       this.btn_del_provider.Name = "btn_del_provider";
       this.btn_del_provider.Size = new System.Drawing.Size(75, 23);
       this.btn_del_provider.TabIndex = 4;
@@ -261,7 +271,7 @@ namespace YouTubePlugin
       // 
       // btn_add_provider
       // 
-      this.btn_add_provider.Location = new System.Drawing.Point(452, 33);
+      this.btn_add_provider.Location = new System.Drawing.Point(687, 30);
       this.btn_add_provider.Name = "btn_add_provider";
       this.btn_add_provider.Size = new System.Drawing.Size(75, 23);
       this.btn_add_provider.TabIndex = 3;
@@ -273,24 +283,25 @@ namespace YouTubePlugin
       // 
       this.cmb_providers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.cmb_providers.FormattingEnabled = true;
-      this.cmb_providers.Location = new System.Drawing.Point(239, 6);
+      this.cmb_providers.Location = new System.Drawing.Point(474, 3);
       this.cmb_providers.Name = "cmb_providers";
       this.cmb_providers.Size = new System.Drawing.Size(288, 21);
       this.cmb_providers.TabIndex = 2;
       // 
       // panel1
       // 
-      this.panel1.Location = new System.Drawing.Point(283, 99);
+      this.panel1.Location = new System.Drawing.Point(518, 96);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(293, 225);
+      this.panel1.Size = new System.Drawing.Size(244, 225);
       this.panel1.TabIndex = 1;
+      this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
       // 
       // list_startpage
       // 
       this.list_startpage.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
       this.list_startpage.HideSelection = false;
-      this.list_startpage.Location = new System.Drawing.Point(3, 6);
+      this.list_startpage.Location = new System.Drawing.Point(238, 3);
       this.list_startpage.MultiSelect = false;
       this.list_startpage.Name = "list_startpage";
       this.list_startpage.Size = new System.Drawing.Size(230, 318);
@@ -322,7 +333,7 @@ namespace YouTubePlugin
       this.tabPage1.Location = new System.Drawing.Point(4, 22);
       this.tabPage1.Name = "tabPage1";
       this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage1.Size = new System.Drawing.Size(579, 330);
+      this.tabPage1.Size = new System.Drawing.Size(763, 330);
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "General";
       this.tabPage1.UseVisualStyleBackColor = true;
@@ -501,7 +512,7 @@ namespace YouTubePlugin
       this.tabPage2.Location = new System.Drawing.Point(4, 22);
       this.tabPage2.Name = "tabPage2";
       this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage2.Size = new System.Drawing.Size(579, 330);
+      this.tabPage2.Size = new System.Drawing.Size(763, 330);
       this.tabPage2.TabIndex = 1;
       this.tabPage2.Text = "Search history";
       this.tabPage2.UseVisualStyleBackColor = true;
@@ -562,7 +573,7 @@ namespace YouTubePlugin
       this.tabPage3.Location = new System.Drawing.Point(4, 22);
       this.tabPage3.Name = "tabPage3";
       this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage3.Size = new System.Drawing.Size(579, 330);
+      this.tabPage3.Size = new System.Drawing.Size(763, 330);
       this.tabPage3.TabIndex = 6;
       this.tabPage3.Text = "Artists";
       this.tabPage3.UseVisualStyleBackColor = true;
@@ -623,7 +634,7 @@ namespace YouTubePlugin
       this.tabPage4.Location = new System.Drawing.Point(4, 22);
       this.tabPage4.Name = "tabPage4";
       this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage4.Size = new System.Drawing.Size(579, 330);
+      this.tabPage4.Size = new System.Drawing.Size(763, 330);
       this.tabPage4.TabIndex = 3;
       this.tabPage4.Text = "Download & Fanart";
       this.tabPage4.UseVisualStyleBackColor = true;
@@ -721,7 +732,7 @@ namespace YouTubePlugin
       this.tabPage5.Location = new System.Drawing.Point(4, 22);
       this.tabPage5.Name = "tabPage5";
       this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage5.Size = new System.Drawing.Size(579, 330);
+      this.tabPage5.Size = new System.Drawing.Size(763, 330);
       this.tabPage5.TabIndex = 4;
       this.tabPage5.Text = "Languages && Regions";
       this.tabPage5.UseVisualStyleBackColor = true;
@@ -752,11 +763,52 @@ namespace YouTubePlugin
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
       // 
+      // treeView1
+      // 
+      this.treeView1.Location = new System.Drawing.Point(7, 6);
+      this.treeView1.Name = "treeView1";
+      this.treeView1.Size = new System.Drawing.Size(225, 242);
+      this.treeView1.TabIndex = 8;
+      // 
+      // textBox2
+      // 
+      this.textBox2.Location = new System.Drawing.Point(7, 268);
+      this.textBox2.Name = "textBox2";
+      this.textBox2.Size = new System.Drawing.Size(225, 20);
+      this.textBox2.TabIndex = 9;
+      // 
+      // label6
+      // 
+      this.label6.AutoSize = true;
+      this.label6.Location = new System.Drawing.Point(7, 252);
+      this.label6.Name = "label6";
+      this.label6.Size = new System.Drawing.Size(36, 13);
+      this.label6.TabIndex = 10;
+      this.label6.Text = "Folder";
+      // 
+      // btn_tree_del
+      // 
+      this.btn_tree_del.Location = new System.Drawing.Point(7, 298);
+      this.btn_tree_del.Name = "btn_tree_del";
+      this.btn_tree_del.Size = new System.Drawing.Size(75, 23);
+      this.btn_tree_del.TabIndex = 12;
+      this.btn_tree_del.Text = "Delete";
+      this.btn_tree_del.UseVisualStyleBackColor = true;
+      // 
+      // btn_tree_add
+      // 
+      this.btn_tree_add.Location = new System.Drawing.Point(157, 298);
+      this.btn_tree_add.Name = "btn_tree_add";
+      this.btn_tree_add.Size = new System.Drawing.Size(75, 23);
+      this.btn_tree_add.TabIndex = 11;
+      this.btn_tree_add.Text = "Add";
+      this.btn_tree_add.UseVisualStyleBackColor = true;
+      // 
       // SetupForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(588, 399);
+      this.ClientSize = new System.Drawing.Size(773, 399);
       this.Controls.Add(this.tabControl1);
       this.Controls.Add(this.button2);
       this.Controls.Add(this.button1);
@@ -767,6 +819,7 @@ namespace YouTubePlugin
       this.groupBox1.PerformLayout();
       this.tabControl1.ResumeLayout(false);
       this.tabPage6.ResumeLayout(false);
+      this.tabPage6.PerformLayout();
       this.tabPage1.ResumeLayout(false);
       this.tabPage1.PerformLayout();
       this.groupBox2.ResumeLayout(false);
@@ -852,5 +905,10 @@ namespace YouTubePlugin
     private System.Windows.Forms.PictureBox pictureBox1;
     private System.Windows.Forms.Button button9;
     private System.Windows.Forms.OpenFileDialog openFileDialog1;
+    private System.Windows.Forms.Button btn_tree_del;
+    private System.Windows.Forms.Button btn_tree_add;
+    private System.Windows.Forms.Label label6;
+    private System.Windows.Forms.TextBox textBox2;
+    private System.Windows.Forms.TreeView treeView1;
   }
 }

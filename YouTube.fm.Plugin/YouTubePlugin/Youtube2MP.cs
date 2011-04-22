@@ -22,6 +22,7 @@ using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.SiteItems;
+using PlayList = YouTubePlugin.Class.SiteItems.PlayList;
 
 namespace YouTubePlugin
 {
@@ -45,6 +46,7 @@ namespace YouTubePlugin
       AddSiteItem(new FavoritesVideos());
       AddSiteItem(new VevoVideos());
       AddSiteItem(new ArtistView());
+      AddSiteItem(new PlayList());
     }
 
     public static Dictionary<string, ISiteItem> SiteItemProvider = new Dictionary<string, ISiteItem>();
@@ -82,6 +84,14 @@ namespace YouTubePlugin
     public static Dictionary<string, YouTubeEntry> UrlHolder = new Dictionary<string, YouTubeEntry>();
 
 
+
+
+    public static string GetVideoId(YouTubeEntry vid)
+    {
+      if (!string.IsNullOrEmpty(vid.VideoId))
+        return vid.VideoId;
+      return Youtube2MP.getIDSimple(Youtube2MP.NowPlayingEntry.Id.AbsoluteUri);
+    }
 
 
     public static string StreamPlaybackUrl(YouTubeEntry vid, VideoInfo qu)

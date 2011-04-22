@@ -20,6 +20,7 @@ namespace YouTubePlugin.Class
     public string Title { get; set; }
     public string ConfigString { get; set; }
 
+
     public string GetValue(string en)
     {
       if (setting.Count < 1)

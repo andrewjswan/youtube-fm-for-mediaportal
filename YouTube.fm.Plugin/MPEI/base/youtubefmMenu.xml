@@ -25,6 +25,11 @@
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
+		<ConfigString>feed=Trending Videos|feedint=9|title=Trending Videos|</ConfigString>
+		<Title>Trending Videos</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
 		<ConfigString>feed=Top Rated|feedint=1|title=Top Rated|</ConfigString>
 		<Title>Top Rated</Title>
 		<Provider>Standard feed</Provider>
@@ -60,8 +65,23 @@
 		<Provider>Search for videos</Provider>
 	</Items>
 	<Items>
-		<ConfigString>title=Search History|items=5|flat=true|</ConfigString>
+		<ConfigString>title=Search History|items=5|flat=false|</ConfigString>
 		<Title>Search History</Title>
 		<Provider>Search History</Provider>
+	</Items>
+	<Items>
+		<ConfigString />
+		<Title>User videos</Title>
+		<Provider>User videos</Provider>
+	</Items>
+	<Items>
+		<ConfigString />
+		<Title>User favorites videos</Title>
+		<Provider>User favorites videos</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Eurovision 2011|id=F86FEC6DA04B8859|</ConfigString>
+		<Title>Eurovision 2011</Title>
+		<Provider>Playlist</Provider>
 	</Items>
 </SiteItemEnumerator>

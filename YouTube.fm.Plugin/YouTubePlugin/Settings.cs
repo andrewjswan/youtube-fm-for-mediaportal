@@ -45,6 +45,8 @@ namespace YouTubePlugin
         cats.Add("Most Linked"); //5
         cats.Add("Most Responded"); //6
         cats.Add("Most Recent"); //7
+        cats.Add("Most Share"); //8
+        cats.Add("Trending Videos"); //9
         return cats;
       }
     }
@@ -68,6 +70,7 @@ namespace YouTubePlugin
           {
               Dictionary<string, string> list = new Dictionary<string, string>();
               list.Add("All", "");
+              list.Add("Argentina", "AR");
               list.Add("Australia","AU");
               list.Add("Brazil", "BR");
               list.Add("Canada", "CA");
@@ -86,6 +89,7 @@ namespace YouTubePlugin
               list.Add("New Zealand", "NZ");
               list.Add("Poland", "PL");
               list.Add("Russia", "RU");
+              list.Add("South Africa", "ZA");
               list.Add("South Korea", "KR");
               list.Add("Spain", "ES");
               list.Add("Sweden", "SE");

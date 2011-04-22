@@ -9,33 +9,33 @@
         <Description>Default</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>skin\Blue3wide\youtubeinfo.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{236a6d47-7fd8-40b1-a4fc-2c1a68171145}-youtubeinfo.xml</ZipFileName>
-              <DestinationFilename>%Skin%\Blue3wide\youtubeinfo.xml</DestinationFilename>
+              <LocalFileName>skin\DefaultWide\youtubeinfo.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{25e062d0-6bbf-4448-bcc7-91f7ec35e91d}-youtubeinfo.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeinfo.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>skin\Blue3wide\youtubeplaylist.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{f6292a4a-9c25-4b7f-b162-91721e317299}-youtubeplaylist.xml</ZipFileName>
-              <DestinationFilename>%Skin%\Blue3wide\youtubeplaylist.xml</DestinationFilename>
+              <LocalFileName>skin\DefaultWide\youtubeplaylist.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{feffb4b9-cbe5-4e41-a6a0-d1f673b737d5}-youtubeplaylist.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeplaylist.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>skin\Blue3wide\youtubevideosbase.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{f8ba488d-d3c4-477f-84ac-64962e800c54}-youtubevideosbase.xml</ZipFileName>
-              <DestinationFilename>%Skin%\Blue3wide\youtubevideosbase.xml</DestinationFilename>
+              <LocalFileName>skin\DefaultWide\youtubevideosbase.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{e2540c83-06eb-4a97-a66b-d1010b2e6023}-youtubevideosbase.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubevideosbase.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>skin\Blue3wide\Media\hover_youtubefm.png</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{93691c1a-f56a-4b18-84bf-38e20a00cfe3}-hover_youtubefm.png</ZipFileName>
-              <DestinationFilename>%Skin%\Blue3wide\Media\hover_youtubefm.png</DestinationFilename>
+              <LocalFileName>skin\DefaultWide\Media\hover_youtubefm.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{a50e9b49-3df7-48cd-a691-8162f02fd305}-hover_youtubefm.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\hover_youtubefm.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -106,26 +106,33 @@
         <Description>Default Skin</Description>
         <Files>
           <Items>
-            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
               <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>skin\Blue3wide\youtubeinfo.xml</LocalFileName>
-              <ZipFileName>Installer{GenericSkinFile}\{bf667348-c1b5-498e-8418-4bdd194f3df3}-youtubeinfo.xml</ZipFileName>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeinfo.xml</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{f6ed1907-e24c-450f-a137-f99dc7c407c4}-youtubeinfo.xml</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\youtubeinfo.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
               <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>skin\Blue3wide\youtubeplaylist.xml</LocalFileName>
-              <ZipFileName>Installer{GenericSkinFile}\{8226628b-8554-4839-8c65-d3ba846a297b}-youtubeplaylist.xml</ZipFileName>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeplaylist.xml</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{f6bb6ebd-8559-4fa4-9ec4-308313415bbe}-youtubeplaylist.xml</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\youtubeplaylist.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
               <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>skin\Blue3wide\youtubevideosbase.xml</LocalFileName>
-              <ZipFileName>Installer{GenericSkinFile}\{171f3cf8-515f-461f-848c-a977e838ef5c}-youtubevideosbase.xml</ZipFileName>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubevideosbase.xml</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{a137d544-43fc-4d17-a51e-6b2578aa2f43}-youtubevideosbase.xml</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\youtubevideosbase.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\hover_youtubefm.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{90f30de8-e068-4d16-acba-39257b364b3c}-hover_youtubefm.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\hover_youtubefm.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -234,15 +241,14 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>6</Minor>
-      <Build>2</Build>
+      <Build>5</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Improved now playing screen 
-Some bug fixes on playback</VersionDescription>
+    <VersionDescription>Compatibility with latest SVN</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.2.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-03-05T17:28:13</ReleaseDate>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.5.0.mpe1</OnlineLocation>
+    <ReleaseDate>2011-04-22T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -279,33 +285,33 @@ Some bug fixes on playback</VersionDescription>
   </GeneralInfo>
   <UniqueFileList>
     <Items>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>skin\Blue3wide\youtubeinfo.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{236a6d47-7fd8-40b1-a4fc-2c1a68171145}-youtubeinfo.xml</ZipFileName>
-        <DestinationFilename>%Skin%\Blue3wide\youtubeinfo.xml</DestinationFilename>
+        <LocalFileName>skin\DefaultWide\youtubeinfo.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{25e062d0-6bbf-4448-bcc7-91f7ec35e91d}-youtubeinfo.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\youtubeinfo.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>skin\Blue3wide\youtubeplaylist.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{f6292a4a-9c25-4b7f-b162-91721e317299}-youtubeplaylist.xml</ZipFileName>
-        <DestinationFilename>%Skin%\Blue3wide\youtubeplaylist.xml</DestinationFilename>
+        <LocalFileName>skin\DefaultWide\youtubeplaylist.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{feffb4b9-cbe5-4e41-a6a0-d1f673b737d5}-youtubeplaylist.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\youtubeplaylist.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>skin\Blue3wide\youtubevideosbase.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{f8ba488d-d3c4-477f-84ac-64962e800c54}-youtubevideosbase.xml</ZipFileName>
-        <DestinationFilename>%Skin%\Blue3wide\youtubevideosbase.xml</DestinationFilename>
+        <LocalFileName>skin\DefaultWide\youtubevideosbase.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{e2540c83-06eb-4a97-a66b-d1010b2e6023}-youtubevideosbase.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\youtubevideosbase.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>skin\Blue3wide\Media\hover_youtubefm.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{93691c1a-f56a-4b18-84bf-38e20a00cfe3}-hover_youtubefm.png</ZipFileName>
-        <DestinationFilename>%Skin%\Blue3wide\Media\hover_youtubefm.png</DestinationFilename>
+        <LocalFileName>skin\DefaultWide\Media\hover_youtubefm.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{a50e9b49-3df7-48cd-a691-8162f02fd305}-hover_youtubefm.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\hover_youtubefm.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
@@ -360,13 +366,34 @@ Some bug fixes on playback</VersionDescription>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{324ea1d5-e696-4498-b0d9-d20432bf6080}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{c78f77c3-97ed-41c0-96f7-573eecfcfcf2}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
   </UniqueFileList>
   <ProjectSettings>
-    <FolderGroups />
+    <FolderGroups>
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName />
+        <ZipFileName>Installer{CopyFile}\{a8fda0f9-4764-47c4-b64a-1e38c2111a83}-</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide</DestinationFilename>
+        <Folder>skin\DefaultWide</Folder>
+        <Group>Default</Group>
+        <Recursive>true</Recursive>
+      </FolderGroup>
+      <FolderGroup InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName />
+        <ZipFileName>Installer{GenericSkinFile}\{4aaa0bd3-00c6-4b76-bffd-fe36c5ca930e}-</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\</DestinationFilename>
+        <Folder>skin\DefaultWide</Folder>
+        <Group>Default Skin</Group>
+        <Recursive>true</Recursive>
+      </FolderGroup>
+    </FolderGroups>
     <ProjectFilename>D:\devel\vs2005\YouTube.fm.Plugin\MPEI\YoutubeFm.xmp2</ProjectFilename>
     <UpdatePath1>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\update.xml</UpdatePath1>
     <UpdatePath2 />
