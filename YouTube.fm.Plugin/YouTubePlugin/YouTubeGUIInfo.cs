@@ -338,6 +338,8 @@ namespace YouTubePlugin
     {
       if (GUIWindowManager.ActiveWindow != GetID)
         return;
+      if (listControl == null)
+          return;
       GUIControl.ClearControl(GetID, listControl.GetID);
       if (relatated == null || relatated.Count < 1) return;
       foreach (GUIListItem item in relatated)
@@ -351,6 +353,8 @@ namespace YouTubePlugin
     {
       if (GUIWindowManager.ActiveWindow != GetID)
         return;
+      if (listsimilar == null)
+          return;
       GUIControl.ClearControl(GetID, listsimilar.GetID);
       if (similar == null || similar.Count < 1) return;
       foreach (GUIListItem item in similar)
