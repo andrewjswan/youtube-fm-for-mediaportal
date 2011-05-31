@@ -32,6 +32,7 @@ namespace YouTubePlugin
 
     #region variabiles
     List<GUIListItem> relatated = new List<GUIListItem>();
+    List<GUIListItem> similar = new List<GUIListItem>();
     public System.Timers.Timer infoTimer = new System.Timers.Timer(0.3 * 1000);
     private static readonly object locker = new object();
     #endregion
@@ -71,18 +72,23 @@ namespace YouTubePlugin
 
     void player_PlayStop()
     {
+      infoTimer.Enabled = false;
       ClearLists();
     }
 
     void ClearLists()
     {
-      infoTimer.Enabled = false;
+      relatated.Clear();
+      similar.Clear();
+
+      if (GUIWindowManager.ActiveWindow != GetID)
+        return;
+
       lock (locker)
       {
         if (listControl != null)
         {
           GUIControl.ClearControl(GetID, listControl.GetID);
-          relatated.Clear();
         }
         if (listsimilar != null)
         {
@@ -108,14 +114,18 @@ namespace YouTubePlugin
         Youtube2MP.NowPlayingEntry = en;
         Youtube2MP.NowPlayingSong = song;
         SetLabels(en, "NowPlaying");
-        if (listControl != null)
+        relatated.Clear();
+        similar.Clear();
+        if (GUIWindowManager.ActiveWindow == (int)GetID)
         {
-          GUIControl.ClearControl(GetID, listControl.GetID);
-          relatated.Clear();
-        }
-        if (listsimilar != null)
-        {
-          GUIControl.ClearControl(GetID, listsimilar.GetID);
+          if (listControl != null)
+          {
+            GUIControl.ClearControl(GetID, listControl.GetID);
+          }
+          if (listsimilar != null)
+          {
+            GUIControl.ClearControl(GetID, listsimilar.GetID);
+          }
         }
         infoTimer.Enabled = true;
       }
@@ -239,7 +249,7 @@ namespace YouTubePlugin
     private void LoadRelatated()
     {
       //Youtube2MP.getIDSimple(Youtube2MP.NowPlayingEntry.Id.AbsoluteUri));
-      GUIControl.ClearControl(GetID, listControl.GetID);
+      //GUIControl.ClearControl(GetID, listControl.GetID);
       string relatatedUrl = string.Format("http://gdata.youtube.com/feeds/api/videos/{0}/related",
                                          Youtube2MP.GetVideoId(Youtube2MP.NowPlayingEntry));
       relatated.Clear();
@@ -257,8 +267,9 @@ namespace YouTubePlugin
 
     private void LoadSimilarArtists()
     {
-      if (listsimilar != null)
+      //if (listsimilar != null)
       {
+        similar.Clear();
         string vidId = Youtube2MP.GetVideoId(Youtube2MP.NowPlayingEntry);
         ArtistItem artistItem = ArtistManager.Instance.SitesCache.GetByVideoId(vidId) != null
                                   ? ArtistManager.Instance.Grabber.GetFromVideoSite(
@@ -274,7 +285,7 @@ namespace YouTubePlugin
         if (!string.IsNullOrEmpty(artistItem.Id))
         {
           List<ArtistItem> items = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
-          GUIControl.ClearControl(GetID, listsimilar.GetID);
+          //GUIControl.ClearControl(GetID, listsimilar.GetID);
           foreach (ArtistItem aitem in items)
           {
             GUIListItem item = new GUIListItem();
@@ -297,9 +308,14 @@ namespace YouTubePlugin
               //DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
             }
             item.MusicTag = aitem;
-            listsimilar.Add(item);
+            similar.Add(item);
+            //listsimilar.Add(item);
           }
           OnDownloadTimedEvent(null, null);
+        }
+        if (listsimilar != null)
+        {
+          FillSimilarList();
         }
       }
     }
@@ -307,8 +323,12 @@ namespace YouTubePlugin
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
-      
-      FillRelatedList();
+
+      lock (locker)
+      {
+        FillRelatedList();
+        FillSimilarList();
+      }
       
       //leave the focus to the skin
       //GUIControl.FocusControl(GetID, listControl.GetID);
@@ -316,14 +336,28 @@ namespace YouTubePlugin
 
     private void FillRelatedList()
     {
-      if (relatated == null || relatated.Count < 1) return;
+      if (GUIWindowManager.ActiveWindow != GetID)
+        return;
       GUIControl.ClearControl(GetID, listControl.GetID);
+      if (relatated == null || relatated.Count < 1) return;
       foreach (GUIListItem item in relatated)
       {
         listControl.Add(item);
       }
-
       listControl.SelectedListItemIndex = 0;
+    }
+
+    private void FillSimilarList()
+    {
+      if (GUIWindowManager.ActiveWindow != GetID)
+        return;
+      GUIControl.ClearControl(GetID, listsimilar.GetID);
+      if (similar == null || similar.Count < 1) return;
+      foreach (GUIListItem item in similar)
+      {
+          listsimilar.Add(item);
+      }
+      listsimilar.SelectedListItemIndex = 0;
     }
 
     void item_OnItemSelected(GUIListItem item, GUIControl parent)
