@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Collections.Generic;
 using System.Timers;
+using System.Threading;
 
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
@@ -175,6 +176,10 @@ namespace YouTubePlugin
         LoadRelatated();
         LoadSimilarArtists();
 
+        //do we really need to focus? skin will set default focus when entering the screen, and not good to mess with focus while user has window open (is navigating in the window)
+        //if (listControl != null)
+        //  GUIControl.FocusControl(GetID, listControl.GetID);
+
         if (imgFanArt != null)
           imgFanArt.Visible = false;
         if (Youtube2MP.NowPlayingSong != null)
@@ -235,8 +240,6 @@ namespace YouTubePlugin
               imgFanArt.DoUpdate();
             }
           }
-          if (listControl != null)
-            GUIControl.FocusControl(GetID, listControl.GetID);
         }
         else
         {
@@ -324,10 +327,17 @@ namespace YouTubePlugin
     {
       base.OnPageLoad();
 
-      lock (locker)
+      if (Monitor.TryEnter(locker))
       {
-        FillRelatedList();
-        FillSimilarList();
+        try
+        {
+          FillRelatedList();
+          FillSimilarList();
+        }
+        finally
+        {
+          Monitor.Exit(locker);
+        }
       }
       
       //leave the focus to the skin
