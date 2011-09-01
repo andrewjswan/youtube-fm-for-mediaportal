@@ -229,8 +229,50 @@ Click Next to continue or Cancel to exit Setup.</Value>
     </Items>
   </Sections>
   <Dependencies>
-    <Items />
+    <Items>
+      <DependencyItem>
+        <Type>MediaPortal</Type>
+        <Id />
+        <MinVersion>
+          <Major>1</Major>
+          <Minor>1</Minor>
+          <Build>6</Build>
+          <Revision>27644</Revision>
+        </MinVersion>
+        <MaxVersion>
+          <Major>1</Major>
+          <Minor>1</Minor>
+          <Build>6</Build>
+          <Revision>27644</Revision>
+        </MaxVersion>
+        <WarnOnly>false</WarnOnly>
+        <Message>requires MediaPortal version 1.1.6.27644 to 1.1.6.27644.</Message>
+        <Name>MediaPortal</Name>
+      </DependencyItem>
+    </Items>
   </Dependencies>
+  <PluginDependencies>
+    <Items>
+      <PluginDependencyItem AssemblyName="YouTubePlugin.dll">
+        <CompatibleVersion>
+          <Items>
+            <CompatibleVersionItem>
+              <MinRequiredVersion>1.1.7.0</MinRequiredVersion>
+              <DesignedForVersion>1.1.7.0</DesignedForVersion>
+            </CompatibleVersionItem>
+          </Items>
+        </CompatibleVersion>
+        <SubSystemsUsed>
+          <Items>
+            <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Players.Video" />
+            <SubSystemItem Name="MP.Players.Music" />
+            <SubSystemItem Name="MP.Config" />
+          </Items>
+        </SubSystemsUsed>
+      </PluginDependencyItem>
+    </Items>
+  </PluginDependencies>
   <GeneralInfo>
     <Name>YouTube.Fm</Name>
     <Id>54926120-c485-42d4-8a8e-63b0ba0cd8ed</Id>
@@ -241,14 +283,14 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>6</Minor>
-      <Build>5</Build>
+      <Build>6</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription>Compatibility with latest SVN</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.5.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-04-22T17:28:13</ReleaseDate>
+    <ReleaseDate>2011-08-30T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -366,7 +408,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{c78f77c3-97ed-41c0-96f7-573eecfcfcf2}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{fc44cb8c-d0e4-4dbb-af2b-35cfeb561da7}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
@@ -394,9 +436,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Recursive>true</Recursive>
       </FolderGroup>
     </FolderGroups>
-    <ProjectFilename>D:\devel\vs2005\YouTube.fm.Plugin\MPEI\YoutubeFm.xmp2</ProjectFilename>
+    <ProjectFilename>YoutubeFm.xmp2</ProjectFilename>
     <UpdatePath1>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\update.xml</UpdatePath1>
     <UpdatePath2 />
     <UpdatePath3 />
   </ProjectSettings>
+  <IsSkin>false</IsSkin>
 </PackageClass>

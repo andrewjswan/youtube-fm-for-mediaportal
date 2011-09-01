@@ -376,7 +376,7 @@ namespace YouTubePlugin
             mapSettings.ViewAs = (int)View.Filmstrip;
             break;
           case View.Filmstrip:
-            mapSettings.ViewAs = (int)View.List;
+            mapSettings.ViewAs = (int)View.Icons;
             break;
         }
         ShowPanel();
@@ -444,7 +444,9 @@ namespace YouTubePlugin
     {
       if (!_setting.OldStyleHome)
       {
+        //mapSettings.ViewAs = (int)View.List;
         addVideos(Youtube2MP.GetHomeMenu(), false);
+        ShowPanel();
       }
       else
       {
@@ -651,6 +653,7 @@ namespace YouTubePlugin
           SiteItemEntry entry = selectedItem.MusicTag as SiteItemEntry;
           if (entry != null)
           {
+            //mapSettings.ViewAs = (int)View.Albums;
             addVideos(Youtube2MP.GetList(entry), true);
             UpdateGui();
           }
@@ -1101,12 +1104,19 @@ namespace YouTubePlugin
 
     void addVideos(GenericListItemCollections itemCollections, bool level)
     {
+      SaveListState(true);
+
+      if (itemCollections.FolderType == 1)
+        mapSettings.ViewAs = (int)View.Albums;
+      else
+        mapSettings.ViewAs = (int) View.List;
+
       if(itemCollections.Items.Count<1)
       {
         Err_message("No item to display !");
         return;
       }
-      SaveListState(true);
+
       GUIPropertyManager.SetProperty("#header.title", itemCollections.Title);
       updateStationLogoTimer.Enabled = false;
       downloaQueue.Clear();
@@ -1125,7 +1135,7 @@ namespace YouTubePlugin
         GUIListItem item = new GUIListItem();
         // and add station name & bitrate
         item.Label = listItem.Title;
-        item.Label2 = "";
+        item.Label2 = listItem.Title2;
         item.IsFolder = listItem.IsFolder;
         item.Duration = listItem.Duration;
         item.Rating = listItem.Rating;
@@ -1154,11 +1164,13 @@ namespace YouTubePlugin
       listControl.SelectedListItemIndex = 0;
 
       UpdateGui();
+      ShowPanel();
       OnDownloadTimedEvent(null, null);
     }
 
     void addVideos(YouTubeFeed videos, bool level,YouTubeQuery qu)
     {
+      mapSettings.ViewAs = (int)View.Albums;
       int count = 0;
       if (level)
       {
@@ -1178,7 +1190,6 @@ namespace YouTubePlugin
           GUIListItem item = new GUIListItem();
           // and add station name & bitrate
           item.Label = entry.Title.Text; 
-          item.Label2 = "";
           item.IsFolder = false;
           count++;
           try
@@ -1225,6 +1236,7 @@ namespace YouTubePlugin
       }
       listControl.SelectedListItemIndex = 0;
       UpdateGui();
+      ShowPanel();
       OnDownloadTimedEvent(null, null);
     }
 

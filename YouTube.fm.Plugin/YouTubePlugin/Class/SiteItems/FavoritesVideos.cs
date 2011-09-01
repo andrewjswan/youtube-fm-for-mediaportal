@@ -25,6 +25,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
+      res.FolderType = 1;
       YouTubeQuery query =
         new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/default/favorites"));
       query.NumberToRetrieve = 50;
@@ -33,14 +34,7 @@ namespace YouTubePlugin.Class.SiteItems
         YouTubeFeed videos = Youtube2MP.service.Query(query);
         foreach (YouTubeEntry youTubeEntry in videos.Entries)
         {
-          GenericListItem listItem = new GenericListItem()
-                                       {
-                                         Title = youTubeEntry.Title.Text,
-                                         IsFolder = false,
-                                         LogoUrl = YoutubeGUIBase.GetBestUrl(youTubeEntry.Media.Thumbnails),
-                                         Tag = youTubeEntry
-                                       };
-          res.Items.Add(listItem);
+          res.Items.Add(Youtube2MP.YouTubeEntry2ListItem(youTubeEntry));
         }
         query.StartIndex += 50;
         if (videos.TotalResults < query.StartIndex + 50)

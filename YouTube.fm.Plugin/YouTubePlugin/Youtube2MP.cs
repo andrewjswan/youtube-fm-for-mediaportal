@@ -373,5 +373,31 @@ namespace YouTubePlugin
       }
       return str;
     }
+
+    public static GenericListItem YouTubeEntry2ListItem(YouTubeEntry youTubeEntry)
+    {
+      GenericListItem item = new GenericListItem()
+                               {
+                                 Title = youTubeEntry.Title.Text,
+                                 IsFolder = false,
+                                 LogoUrl = YoutubeGUIBase.GetBestUrl(youTubeEntry.Media.Thumbnails),
+                                 Tag = youTubeEntry
+                               };
+      if (youTubeEntry.Statistics!=null)
+      item.Title2 =
+        String.Format("By {0}|{1}|{2} views", youTubeEntry.Uploader.Value,
+                      youTubeEntry.Updated.ToShortDateString(),
+                      youTubeEntry.Statistics.ViewCount);
+      else
+      {
+        item.Title2 =
+          String.Format("By {0}|{1}", youTubeEntry.Uploader.Value,
+                        youTubeEntry.Updated.ToShortDateString());
+       
+      }
+      return item;
+    }
+
+
   }
 }

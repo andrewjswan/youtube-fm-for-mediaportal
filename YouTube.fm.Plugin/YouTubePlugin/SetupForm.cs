@@ -382,6 +382,11 @@ namespace YouTubePlugin
     {
 
     }
+
+    private void btn_tree_add_Click(object sender, EventArgs e)
+    {
+
+    }
   }
 
   class ActionEntry

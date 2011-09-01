@@ -208,9 +208,10 @@ namespace YouTubePlugin
       {
         GUIWaitCursor.Hide();
         VideoInfo qa = SelectQuality(vid);
-        GUIWaitCursor.Show();
         if (qa.Quality == VideoQuality.Unknow)
           return;
+
+        GUIWaitCursor.Show();
         Youtube2MP.temp_player.Reset();
         Youtube2MP.temp_player.RepeatPlaylist = true;
         Youtube2MP.temp_player.CurrentPlaylistType = PlayListType.PLAYLIST_MUSIC_VIDEO;

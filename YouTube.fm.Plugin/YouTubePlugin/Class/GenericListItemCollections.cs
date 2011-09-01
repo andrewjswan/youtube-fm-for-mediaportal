@@ -8,6 +8,7 @@ namespace YouTubePlugin.Class
   {
     public List<GenericListItem> Items { get; set; }
     public string Title { get; set; }
+    public int FolderType { get; set; }
 
     public GenericListItemCollections()
     {

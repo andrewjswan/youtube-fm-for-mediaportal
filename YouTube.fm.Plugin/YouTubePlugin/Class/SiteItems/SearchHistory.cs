@@ -75,7 +75,7 @@ namespace YouTubePlugin.Class.SiteItems
           if (count > ii)
             break;
         }
-      } 
+      }
       else
       {
         GenericListItem listItem = new GenericListItem()
@@ -89,5 +89,6 @@ namespace YouTubePlugin.Class.SiteItems
       }
       return res;
     }
+
   }
 }

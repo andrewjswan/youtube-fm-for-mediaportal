@@ -65,15 +65,9 @@ namespace YouTubePlugin.Class.SiteItems
       YouTubeFeed videos = Youtube2MP.service.Query(query);
       foreach (YouTubeEntry youTubeEntry in videos.Entries)
       {
-        GenericListItem listItem = new GenericListItem()
-        {
-          Title = youTubeEntry.Title.Text,
-          IsFolder = false,
-          LogoUrl = YoutubeGUIBase.GetBestUrl(youTubeEntry.Media.Thumbnails),
-          Tag = youTubeEntry
-        };
-        res.Items.Add(listItem);
+        res.Items.Add(Youtube2MP.YouTubeEntry2ListItem(youTubeEntry));
       }
+      res.FolderType = 1;
       return res;
     }
 

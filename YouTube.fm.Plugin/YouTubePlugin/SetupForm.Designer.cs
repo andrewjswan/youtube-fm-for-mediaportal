@@ -39,6 +39,10 @@ namespace YouTubePlugin
       this.label3 = new System.Windows.Forms.Label();
       this.tabControl1 = new System.Windows.Forms.TabControl();
       this.tabPage6 = new System.Windows.Forms.TabPage();
+      this.btn_tree_del = new System.Windows.Forms.Button();
+      this.btn_tree_add = new System.Windows.Forms.Button();
+      this.label6 = new System.Windows.Forms.Label();
+      this.textBox2 = new System.Windows.Forms.TextBox();
       this.button7 = new System.Windows.Forms.Button();
       this.btn_down = new System.Windows.Forms.Button();
       this.btn_up = new System.Windows.Forms.Button();
@@ -92,11 +96,7 @@ namespace YouTubePlugin
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-      this.treeView1 = new System.Windows.Forms.TreeView();
-      this.textBox2 = new System.Windows.Forms.TextBox();
-      this.label6 = new System.Windows.Forms.Label();
-      this.btn_tree_del = new System.Windows.Forms.Button();
-      this.btn_tree_add = new System.Windows.Forms.Button();
+      this.listBox1 = new System.Windows.Forms.ListBox();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
@@ -208,11 +208,11 @@ namespace YouTubePlugin
       // 
       // tabPage6
       // 
+      this.tabPage6.Controls.Add(this.listBox1);
       this.tabPage6.Controls.Add(this.btn_tree_del);
       this.tabPage6.Controls.Add(this.btn_tree_add);
       this.tabPage6.Controls.Add(this.label6);
       this.tabPage6.Controls.Add(this.textBox2);
-      this.tabPage6.Controls.Add(this.treeView1);
       this.tabPage6.Controls.Add(this.button7);
       this.tabPage6.Controls.Add(this.btn_down);
       this.tabPage6.Controls.Add(this.btn_up);
@@ -228,6 +228,41 @@ namespace YouTubePlugin
       this.tabPage6.TabIndex = 5;
       this.tabPage6.Text = "Start Page";
       this.tabPage6.UseVisualStyleBackColor = true;
+      // 
+      // btn_tree_del
+      // 
+      this.btn_tree_del.Location = new System.Drawing.Point(7, 298);
+      this.btn_tree_del.Name = "btn_tree_del";
+      this.btn_tree_del.Size = new System.Drawing.Size(75, 23);
+      this.btn_tree_del.TabIndex = 12;
+      this.btn_tree_del.Text = "Delete";
+      this.btn_tree_del.UseVisualStyleBackColor = true;
+      // 
+      // btn_tree_add
+      // 
+      this.btn_tree_add.Location = new System.Drawing.Point(157, 298);
+      this.btn_tree_add.Name = "btn_tree_add";
+      this.btn_tree_add.Size = new System.Drawing.Size(75, 23);
+      this.btn_tree_add.TabIndex = 11;
+      this.btn_tree_add.Text = "Add";
+      this.btn_tree_add.UseVisualStyleBackColor = true;
+      this.btn_tree_add.Click += new System.EventHandler(this.btn_tree_add_Click);
+      // 
+      // label6
+      // 
+      this.label6.AutoSize = true;
+      this.label6.Location = new System.Drawing.Point(7, 252);
+      this.label6.Name = "label6";
+      this.label6.Size = new System.Drawing.Size(36, 13);
+      this.label6.TabIndex = 10;
+      this.label6.Text = "Folder";
+      // 
+      // textBox2
+      // 
+      this.textBox2.Location = new System.Drawing.Point(7, 268);
+      this.textBox2.Name = "textBox2";
+      this.textBox2.Size = new System.Drawing.Size(225, 20);
+      this.textBox2.TabIndex = 9;
       // 
       // button7
       // 
@@ -763,46 +798,13 @@ namespace YouTubePlugin
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
       // 
-      // treeView1
+      // listBox1
       // 
-      this.treeView1.Location = new System.Drawing.Point(7, 6);
-      this.treeView1.Name = "treeView1";
-      this.treeView1.Size = new System.Drawing.Size(225, 242);
-      this.treeView1.TabIndex = 8;
-      // 
-      // textBox2
-      // 
-      this.textBox2.Location = new System.Drawing.Point(7, 268);
-      this.textBox2.Name = "textBox2";
-      this.textBox2.Size = new System.Drawing.Size(225, 20);
-      this.textBox2.TabIndex = 9;
-      // 
-      // label6
-      // 
-      this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(7, 252);
-      this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(36, 13);
-      this.label6.TabIndex = 10;
-      this.label6.Text = "Folder";
-      // 
-      // btn_tree_del
-      // 
-      this.btn_tree_del.Location = new System.Drawing.Point(7, 298);
-      this.btn_tree_del.Name = "btn_tree_del";
-      this.btn_tree_del.Size = new System.Drawing.Size(75, 23);
-      this.btn_tree_del.TabIndex = 12;
-      this.btn_tree_del.Text = "Delete";
-      this.btn_tree_del.UseVisualStyleBackColor = true;
-      // 
-      // btn_tree_add
-      // 
-      this.btn_tree_add.Location = new System.Drawing.Point(157, 298);
-      this.btn_tree_add.Name = "btn_tree_add";
-      this.btn_tree_add.Size = new System.Drawing.Size(75, 23);
-      this.btn_tree_add.TabIndex = 11;
-      this.btn_tree_add.Text = "Add";
-      this.btn_tree_add.UseVisualStyleBackColor = true;
+      this.listBox1.FormattingEnabled = true;
+      this.listBox1.Location = new System.Drawing.Point(7, 3);
+      this.listBox1.Name = "listBox1";
+      this.listBox1.Size = new System.Drawing.Size(225, 251);
+      this.listBox1.TabIndex = 13;
       // 
       // SetupForm
       // 
@@ -909,6 +911,6 @@ namespace YouTubePlugin
     private System.Windows.Forms.Button btn_tree_add;
     private System.Windows.Forms.Label label6;
     private System.Windows.Forms.TextBox textBox2;
-    private System.Windows.Forms.TreeView treeView1;
+    private System.Windows.Forms.ListBox listBox1;
   }
 }

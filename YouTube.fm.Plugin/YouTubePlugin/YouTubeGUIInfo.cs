@@ -4,7 +4,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Timers;
 using System.Threading;
-
+using Google.GData.Client;
+using Google.YouTube;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
@@ -184,10 +185,32 @@ namespace YouTubePlugin
           imgFanArt.Visible = false;
         if (Youtube2MP.NowPlayingSong != null)
         {
+          Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(Youtube2MP.NowPlayingEntry));
+          Video video =Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+
           Log.Debug("Youtube.Fm load fanart");
           GUIPropertyManager.SetProperty("#Play.Current.Title", Youtube2MP.NowPlayingSong.Title);
           GUIPropertyManager.SetProperty("#Play.Current.Artist", Youtube2MP.NowPlayingSong.Artist);
           GUIPropertyManager.SetProperty("#Play.Current.Thumb", GetBestUrl(Youtube2MP.NowPlayingEntry.Media.Thumbnails));
+          GUIPropertyManager.SetProperty("#Play.Current.PlotOutline", video.Description);
+
+          if (Youtube2MP.NowPlayingEntry.Rating != null)
+            GUIPropertyManager.SetProperty("#Play.Current.Rating", (Youtube2MP.NowPlayingEntry.Rating.Average * 2).ToString());
+
+          try
+          {
+            Feed<Comment> comments = Youtube2MP.request.GetComments(video);
+            string cm = "\n------------------------------------------\n";
+            foreach (Comment c in comments.Entries)
+            {
+              cm += c.Content + "\n------------------------------------------\n";
+            }
+            GUIPropertyManager.SetProperty("#Play.Current.Plot", video.Description+cm);
+          }
+          catch (Exception ex)
+          {
+            //Log.Error(ex);
+          }
 
           HTBFanArt fanart = new HTBFanArt();
           string file = Youtube2MP._settings.FanartDir.Replace("%artist%", Youtube2MP.NowPlayingSong.Artist);

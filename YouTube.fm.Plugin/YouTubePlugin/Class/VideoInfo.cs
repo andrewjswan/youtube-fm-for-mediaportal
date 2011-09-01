@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using Google.GData.YouTube;
 using MediaPortal.GUI.Library;
 using YouTubePlugin.Class;
@@ -12,34 +14,16 @@ namespace YouTubePlugin
 {
   public class VideoInfo
   {
-    private VideoQuality quality;
 
-    public VideoQuality Quality
-    {
-      get { return quality; }
-      set { quality = value; }
-    }
+    public Dictionary<string,string > PlaybackUrls { get; set; }
 
-    private YouTubeEntry entry;
-    public YouTubeEntry Entry
-    {
-        get { return entry; }
-        set { entry = value; }
-    }
+    public VideoQuality Quality { get; set; }
 
-    private DateTime date;
-    public DateTime Date
-    {
-        get { return date; }
-        set { date = value; }
-    }
+    public YouTubeEntry Entry { get; set; }
 
-    private bool isInited;
-    public bool IsInited
-    {
-      get { return isInited; }
-      set { isInited = value; }
-    }
+    public DateTime Date { get; set; }
+
+    public bool IsInited { get; set; }
 
     public string Token
     {
@@ -64,7 +48,11 @@ namespace YouTubePlugin
         if (Items.ContainsKey("fmt_map"))
           return System.Web.HttpUtility.UrlDecode(Items["fmt_map"]);
         else
-          return string.Empty;
+          if (Items.ContainsKey("fmt_list"))
+            return System.Web.HttpUtility.UrlDecode(Items["fmt_list"]);
+          else
+
+            return string.Empty;
       }
     }
 
@@ -83,32 +71,19 @@ namespace YouTubePlugin
     {
       Init();
     }
-    
+
     public VideoInfo(VideoInfo info)
     {
-        Init();
-        this.Entry = info.Entry;
-        this.Quality = info.Quality;
-        this.Date = info.Date;
+      Init();
+      this.Entry = info.Entry;
+      this.Quality = info.Quality;
+      this.Date = info.Date;
     }
 
     public string GetPlaybackUrl(string fmt)
     {
-      if (!Items.ContainsKey("fmt_url_map"))
-        return "";
-      string[] ss = Items["fmt_url_map"].Split(',');
-      if(!ss[0].Contains("|"))
-        ss = System.Web.HttpUtility.UrlDecode(Items["fmt_url_map"]).Split(',');
-      
-      foreach (string sitem in ss)
-      {
-        string s = ReplaceJSon(sitem);
-        string[] urls = s.Split('|');
-        if (urls[0] == fmt)
-          return urls[1].Replace(@"\/","/");
-      }
-      if (ss.Length > 0)
-        return ss[0].Split('|')[1].Replace(@"\/", "/");
+      if (PlaybackUrls.ContainsKey(fmt))
+        return PlaybackUrls[fmt];
       return "";
     }
 
@@ -127,6 +102,7 @@ namespace YouTubePlugin
     public void Get(string videoId)
     {
       //Init();
+      PlaybackUrls.Clear();
       WebClient client = new WebClient();
       client.CachePolicy = new System.Net.Cache.RequestCachePolicy();
       client.UseDefaultCredentials = true;
@@ -140,8 +116,9 @@ namespace YouTubePlugin
 
         foreach (string s in elemest)
         {
-          Items.Add(s.Split('=')[0], s.Split('=')[1]);
+          Items.Add(s.Split('=')[0], ReplaceJSon(s.Split('=')[1]));
         }
+
         Date = DateTime.Now;
         IsInited = true;
         if (!Items.ContainsKey("token"))
@@ -157,6 +134,37 @@ namespace YouTubePlugin
             Log.Debug(ex.StackTrace);
           }
           
+          //-----
+
+          Regex swfJsonArgs =
+            new Regex(
+              @"(?:var\s)?(?:swfArgs|'SWF_ARGS')\s*(?:=|\:)\s(?<json>\{.+\})|(?:\<param\sname=\\""flashvars\\""\svalue=\\""(?<params>[^""]+)\\""\>)|(flashvars=""(?<params>[^""]+)"")",
+              RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+          Match m = swfJsonArgs.Match(site);
+          if (m.Success)
+          {
+            if (m.Groups["params"].Success)
+            {
+              NameValueCollection qscoll =
+                System.Web.HttpUtility.ParseQueryString(System.Web.HttpUtility.HtmlDecode(m.Groups["params"].Value));
+              foreach (string s in qscoll.AllKeys)
+              {
+                Items.Add(s, qscoll[s]);
+              }
+
+            }
+            else if (m.Groups["json"].Success)
+            {
+              //Items.Clear();
+              //foreach (var z in Newtonsoft.Json.Linq.JObject.Parse(m.Groups["json"].Value))
+              //{
+              //  Items.Add(z.Key, z.Value.Value<string>(z.Key));
+              //}
+            }
+          }
+
+
 
           ArtistItem artistItem = ArtistManager.Instance.Grabber.GetFromVideoSite(site);
           ArtistManager.Instance.SitesCache.Add(new SiteContent()
@@ -204,11 +212,32 @@ namespace YouTubePlugin
         Log.Error(ex);
         Init();
       }
+
+      //-------------
+      if (Items.ContainsKey("url_encoded_fmt_stream_map") && Items.ContainsKey("fmt_list"))
+      {
+        string[] FmtUrlMap = Items["url_encoded_fmt_stream_map"].Split(',');
+        string[] FmtList = Items["fmt_list"].Split(',');
+
+        for (int i = 0; i < FmtUrlMap.Length; i++)
+        {
+          var urlOptions = HttpUtility.ParseQueryString(FmtUrlMap[i]);
+          string type = urlOptions.Get("type");
+          if (!string.IsNullOrEmpty(type))
+          {
+            type = Regex.Replace(type, @"; codecs=""[^""]*""", "");
+            type = type.Substring(type.LastIndexOfAny(new char[] {'/', '-'}) + 1);
+          }
+          string finalUrl = urlOptions.Get("url");
+          PlaybackUrls.Add(FmtList[i].Split('/')[0], finalUrl + "&ext=." + type.Replace("webm", "mkv"));
+        }
+      }
     }
 
     public void Init()
     {
       Items.Clear();
+      PlaybackUrls = new Dictionary<string, string>();
       Quality = VideoQuality.Normal;
       switch (Youtube2MP._settings.VideoQuality)
       {
