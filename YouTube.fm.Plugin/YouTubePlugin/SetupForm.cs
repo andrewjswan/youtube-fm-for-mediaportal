@@ -323,6 +323,7 @@ namespace YouTubePlugin
             treeV.Nodes.Add(siteItemEntry.Title);
         }
       }
+      treeV.ExpandAll();
     }
 
 

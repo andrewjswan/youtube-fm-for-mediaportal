@@ -835,7 +835,8 @@ namespace YouTubePlugin
     protected override void OnShowContextMenu()
     {
       GUIListItem selectedItem = listControl.SelectedListItem;
-      
+      string artistName = string.Empty;
+
       YouTubeEntry videoEntry;
       LocalFileStruct file = selectedItem.MusicTag as LocalFileStruct;
       if (file != null)
@@ -851,6 +852,10 @@ namespace YouTubePlugin
 
       if (videoEntry == null)
         return;
+
+      if (videoEntry.Title.Text.Contains("-"))
+        artistName = videoEntry.Title.Text.Split('-')[0].Trim();
+
       GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_MENU);
       if (dlg == null)
         return;
@@ -864,7 +869,9 @@ namespace YouTubePlugin
       dlg.Add("Add to favorites");
       dlg.Add("Options");
       dlg.Add("Download Video");
-      dlg.Add("All song from this artists");
+      if (!string.IsNullOrEmpty(artistName) && !string.IsNullOrEmpty(ArtistManager.Instance.GetArtistsByName(artistName).Name))
+        dlg.Add("All song from " + artistName);
+
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
         return;
@@ -1003,8 +1010,9 @@ namespace YouTubePlugin
           break;
         case 8:
           {
-            
-      }
+            ArtistItem artistItem = ArtistManager.Instance.GetArtistsByName(artistName);
+            addVideos(ArtistManager.Instance.Grabber.GetArtistVideosIds(artistItem.Id), true);
+          }
           break;
     }
     }
