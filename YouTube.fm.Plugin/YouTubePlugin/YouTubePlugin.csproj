@@ -107,6 +107,12 @@
     <Compile Include="Class\SiteItems\ArtistView.cs" />
     <Compile Include="Class\SiteItems\FavoritesVideos.cs" />
     <Compile Include="Class\SiteItems\Folder.cs" />
+    <Compile Include="Class\SiteItems\FolderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\FolderControl.Designer.cs">
+      <DependentUpon>FolderControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\SiteItems\PlayList.cs" />
     <Compile Include="Class\SiteItems\PlayListControl.cs">
       <SubType>UserControl</SubType>
@@ -174,6 +180,9 @@
     <Compile Include="YouTubeGUIPlaylist.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Class\SiteItems\FolderControl.resx">
+      <DependentUpon>FolderControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\PlayListControl.resx">
       <DependentUpon>PlayListControl.cs</DependentUpon>
     </EmbeddedResource>

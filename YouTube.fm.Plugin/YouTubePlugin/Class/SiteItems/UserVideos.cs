@@ -12,7 +12,7 @@ namespace YouTubePlugin.Class.SiteItems
     public UserVideos()
     {
       Name = "User videos";
-      //ConfigControl = new UserVideosControl();
+      ConfigControl = new UserVideosControl();
     }
 
     public Control ConfigControl { get; set; }

@@ -17,6 +17,7 @@ using Google.GData.Extensions.MediaRss;
 using MediaPortal.GUI.Library;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
+using YouTubePlugin.Class.SiteItems;
 using Action = MediaPortal.GUI.Library.Action;
 
 
@@ -26,6 +27,8 @@ namespace YouTubePlugin
   {
     public Settings _settings;
     private bool loading = true;
+    private SiteItemEntry selectedSiteitem;
+
     public SetupForm()
     {
       InitializeComponent();
@@ -146,10 +149,14 @@ namespace YouTubePlugin
       {
         ListViewItem listViewItem = new ListViewItem(entry.Title);
         listViewItem.Tag = entry;
+        if (entry.Provider == "Folder")
+          listViewItem.BackColor = Color.Cyan;
         listViewItem.Selected = true;
         list_startpage.Items.Add(listViewItem);
       }
       loading = false;
+
+      list_startpage.SelectedIndices.Add(0);
 
       lst_artists.Items.Clear();
       List<ArtistItem> artistItems = ArtistManager.Instance.GetArtists("");
@@ -258,6 +265,8 @@ namespace YouTubePlugin
       ISiteItem siteItem = Youtube2MP.SiteItemProvider[cmb_providers.SelectedItem.ToString()];
       ListViewItem listViewItem = new ListViewItem(siteItem.Name);
       SiteItemEntry entry = new SiteItemEntry() { Provider = siteItem.Name, Title = siteItem.Name };
+      if (siteItem.Name == "Folder")
+        listViewItem.BackColor = Color.Cyan;
       listViewItem.Tag = entry;
       listViewItem.Selected = true;
       list_startpage.Items.Add(listViewItem);
@@ -266,9 +275,28 @@ namespace YouTubePlugin
     private void list_startpage_SelectedIndexChanged(object sender, EventArgs e)
     {
       panel1.Controls.Clear();
+      if (selectedSiteitem != null)
+      {
+        selectedSiteitem.ParentFolder = (string)cmb_folder.SelectedItem;
+        selectedSiteitem.ConfigString = selectedSiteitem.GetConfigString();
+      }
+
+      cmb_folder.Items.Clear();
+      cmb_folder.Items.Add("");
+
+      foreach (ListViewItem item in list_startpage.Items)
+      {
+        SiteItemEntry siteItemEntry = item.Tag as SiteItemEntry;
+        if (siteItemEntry != null && Youtube2MP.SiteItemProvider[siteItemEntry.Provider].GetType() == typeof (Folder))
+        {
+          cmb_folder.Items.Add(siteItemEntry.Title);
+        }
+      }
       if (list_startpage.SelectedItems.Count > 0 && !loading)
       {
         SiteItemEntry entry = list_startpage.SelectedItems[0].Tag as SiteItemEntry;
+        selectedSiteitem = entry;
+        cmb_folder.SelectedItem = selectedSiteitem.ParentFolder;
         ISiteItem siteItem = Youtube2MP.SiteItemProvider[entry.Provider];
         siteItem.Configure(entry);
         if (siteItem.ConfigControl != null)
@@ -278,7 +306,42 @@ namespace YouTubePlugin
       {
         listViewItemitem.Text = ((SiteItemEntry)listViewItemitem.Tag).Title;
       }
+      BuildTree();
     }
+
+    private void BuildTree()
+    {
+      treeV.Nodes.Clear();
+      foreach (ListViewItem item in list_startpage.Items)
+      {
+        SiteItemEntry siteItemEntry = item.Tag as SiteItemEntry;
+        if (string.IsNullOrEmpty(siteItemEntry.ParentFolder))
+        {
+          if (siteItemEntry.Provider == "Folder")
+            AddSubtree(treeV.Nodes.Add(siteItemEntry.Title), siteItemEntry.Title);
+          else
+            treeV.Nodes.Add(siteItemEntry.Title);
+        }
+      }
+    }
+
+
+    private void AddSubtree(TreeNode node, string parent)
+    {
+      if (string.IsNullOrEmpty(parent))
+        return;
+      foreach (ListViewItem item in list_startpage.Items)
+      {
+        SiteItemEntry siteItemEntry = item.Tag as SiteItemEntry;
+        if (!string.IsNullOrEmpty(siteItemEntry.ParentFolder) && siteItemEntry.ParentFolder == parent)
+        {
+          if (siteItemEntry.Title != parent)
+            AddSubtree(node.Nodes.Add(siteItemEntry.Title), siteItemEntry.Title);
+        }
+      }
+    }
+
+
 
     private void btn_del_provider_Click(object sender, EventArgs e)
     {

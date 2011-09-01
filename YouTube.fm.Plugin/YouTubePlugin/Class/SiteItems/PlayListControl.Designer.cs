@@ -37,7 +37,7 @@
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(3, 39);
+      this.label1.Location = new System.Drawing.Point(3, 42);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(51, 13);
       this.label1.TabIndex = 15;
@@ -72,13 +72,12 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.Controls.Add(this.label1);
       this.Controls.Add(this.txt_id);
       this.Controls.Add(this.txt_title);
       this.Controls.Add(this.label2);
+      this.Controls.Add(this.label1);
       this.Name = "PlayListControl";
-      this.Size = new System.Drawing.Size(285, 217);
+      this.Size = new System.Drawing.Size(287, 219);
       this.ResumeLayout(false);
       this.PerformLayout();
 

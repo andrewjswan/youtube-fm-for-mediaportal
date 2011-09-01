@@ -11,17 +11,24 @@ namespace YouTubePlugin.Class.SiteItems
     public Folder()
     {
       Name = "Folder";
+      ConfigControl = new FolderControl();
     }
     public Control ConfigControl { get; set; }
     public void Configure(SiteItemEntry entry)
     {
-      throw new NotImplementedException();
+      ((FolderControl)ConfigControl).SetEntry(entry);
     }
 
     public string Name { get; set; }
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
-      throw new NotImplementedException();
+      GenericListItemCollections res = new GenericListItemCollections();
+      foreach (SiteItemEntry itemEntry in entry.Parent.Items)
+      {
+        if (itemEntry.ParentFolder == entry.Title)
+          res.Items.Add(new GenericListItem {Title = itemEntry.Title, Tag = itemEntry, IsFolder = true,});
+      }
+      return res;
     }
 
     public GenericListItemCollections HomeGetList(SiteItemEntry entry)
@@ -31,7 +38,8 @@ namespace YouTubePlugin.Class.SiteItems
       {
         IsFolder = true,
         Title = entry.Title,
-        //Tag =entry.// new SiteItemEntry() { Provider = "Artists" }
+        Tag =entry
+      // new SiteItemEntry() { Provider = "Artists" }
       });
       return res;
     }

@@ -47,6 +47,7 @@ namespace YouTubePlugin
       AddSiteItem(new VevoVideos());
       AddSiteItem(new ArtistView());
       AddSiteItem(new PlayList());
+      AddSiteItem(new Folder());
     }
 
     public static Dictionary<string, ISiteItem> SiteItemProvider = new Dictionary<string, ISiteItem>();
@@ -66,7 +67,8 @@ namespace YouTubePlugin
       GenericListItemCollections res = new GenericListItemCollections();
       foreach (SiteItemEntry itemEntry in _settings.MainMenu.Items)
       {
-        res.Add(SiteItemProvider[itemEntry.Provider].HomeGetList(itemEntry));
+        if (string.IsNullOrEmpty(itemEntry.ParentFolder))
+          res.Add(SiteItemProvider[itemEntry.Provider].HomeGetList(itemEntry));
       }
       return res;
     }

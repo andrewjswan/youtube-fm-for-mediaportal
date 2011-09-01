@@ -123,21 +123,21 @@
       this.button1.UseVisualStyleBackColor = true;
       this.button1.Click += new System.EventHandler(this.button1_Click);
       // 
-      // GenericSiteItemControl
+      // StandardFeedItemControl
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.Controls.Add(this.button1);
       this.Controls.Add(this.cmb_region);
-      this.Controls.Add(this.label10);
-      this.Controls.Add(this.label3);
       this.Controls.Add(this.cmb_standardfeed);
       this.Controls.Add(this.txt_title);
-      this.Controls.Add(this.label2);
-      this.Controls.Add(this.label1);
       this.Controls.Add(this.cmb_time);
-      this.Name = "GenericSiteItemControl";
+      this.Controls.Add(this.label3);
+      this.Controls.Add(this.label1);
+      this.Controls.Add(this.label2);
+      this.Controls.Add(this.label10);
+      this.Name = "StandardFeedItemControl";
       this.Size = new System.Drawing.Size(291, 223);
       this.ResumeLayout(false);
       this.PerformLayout();

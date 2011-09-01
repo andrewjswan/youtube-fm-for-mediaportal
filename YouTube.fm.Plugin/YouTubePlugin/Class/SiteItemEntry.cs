@@ -19,6 +19,12 @@ namespace YouTubePlugin.Class
     public string Provider { get; set; }
     public string Title { get; set; }
     public string ConfigString { get; set; }
+    public string ParentFolder
+    {
+      get { return GetValue("ParentFolder"); }
+      set { SetValue("ParentFolder", value); }
+    }
+    public SiteItemEnumerator Parent { get; set; }
 
 
     public string GetValue(string en)
@@ -32,7 +38,7 @@ namespace YouTubePlugin.Class
 
     public void SetValue(string en, string val)
     {
-      if (string.IsNullOrEmpty(val))
+      if (val == null)
         return;
       if (setting.ContainsKey(en))
         setting[en] = val;

@@ -1,47 +1,92 @@
 ﻿<SiteItemEnumerator>
 	<Items>
-		<ConfigString />
+		<ConfigString>ParentFolder=|</ConfigString>
 		<Title>Artists</Title>
 		<Provider>Artists</Provider>
 	</Items>
 	<Items>
-		<ConfigString>feed=Most Viewed|feedint=0|title=Most Viewed|</ConfigString>
+		<ConfigString>ParentFolder=|title=Standard feeds|</ConfigString>
+		<Title>Standard feeds</Title>
+		<Provider>Folder</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Most Viewed|ParentFolder=Standard feeds|</ConfigString>
 		<Title>Most Viewed</Title>
+		<Provider>Folder</Provider>
+	</Items>
+	<Items>
+		<ConfigString>feed=Most Viewed|feedint=0|title=Most Viewed : All time|ParentFolder=Most Viewed|</ConfigString>
+		<Title>Most Viewed : All time</Title>
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
-		<ConfigString>time=Today|feed=Most Viewed|feedint=0|title=Most Viewed : Today|</ConfigString>
+		<ConfigString>time=Today|feed=Most Viewed|feedint=0|title=Most Viewed : Today|ParentFolder=Most Viewed|</ConfigString>
 		<Title>Most Viewed : Today</Title>
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
-		<ConfigString>time=This Week|feed=Most Viewed|feedint=0|title=Most Viewed : This Week|</ConfigString>
+		<ConfigString>time=This Week|feed=Most Viewed|feedint=0|title=Most Viewed : This Week|ParentFolder=Most Viewed|</ConfigString>
 		<Title>Most Viewed : This Week</Title>
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
-		<ConfigString>time=This Month|feed=Most Viewed|feedint=0|title=Most Viewed : This Month|</ConfigString>
+		<ConfigString>time=This Month|feed=Most Viewed|feedint=0|title=Most Viewed : This Month|ParentFolder=Most Viewed|</ConfigString>
 		<Title>Most Viewed : This Month</Title>
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
-		<ConfigString>feed=Trending Videos|feedint=9|title=Trending Videos|</ConfigString>
-		<Title>Trending Videos</Title>
-		<Provider>Standard feed</Provider>
-	</Items>
-	<Items>
-		<ConfigString>feed=Top Rated|feedint=1|title=Top Rated|</ConfigString>
+		<ConfigString>title=Top Rated|ParentFolder=Standard feeds|</ConfigString>
 		<Title>Top Rated</Title>
+		<Provider>Folder</Provider>
+	</Items>
+	<Items>
+		<ConfigString>feed=Top Rated|feedint=1|title=Top Rated : All time|ParentFolder=Top Rated|</ConfigString>
+		<Title>Top Rated : All time</Title>
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
-		<ConfigString>time=This Month|feed=Top Rated|feedint=1|title=Top Rated : This Month|</ConfigString>
+		<ConfigString>title=Top Rated : Today|region=|time=Today|feed=Top Rated|feedint=1|ParentFolder=Top Rated|</ConfigString>
+		<Title>Top Rated : Today</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Top Rated : This Week|region=|time=This Week|feed=Top Rated|feedint=1|ParentFolder=Top Rated|</ConfigString>
+		<Title>Top Rated : This Week</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>time=This Month|feed=Top Rated|feedint=1|title=Top Rated : This Month|ParentFolder=Top Rated|</ConfigString>
 		<Title>Top Rated : This Month</Title>
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
-		<ConfigString>feed=Top Favorites|feedint=4|time=This Month|title=Top Favorites : This Month|</ConfigString>
+		<ConfigString>title=Top Favorites|ParentFolder=Standard feeds|</ConfigString>
+		<Title>Top Favorites</Title>
+		<Provider>Folder</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Top Favorites : All Time|region=|time=All Time|feed=Top Favorites|feedint=4|ParentFolder=Top Favorites|</ConfigString>
+		<Title>Top Favorites : All Time</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Top Favorites : Today|region=|time=Today|feed=Top Favorites|feedint=4|ParentFolder=Top Favorites|</ConfigString>
+		<Title>Top Favorites : Today</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Top Favorites : This Week|region=|time=This Week|feed=Top Favorites|feedint=4|ParentFolder=Top Favorites|</ConfigString>
+		<Title>Top Favorites : This Week</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>feed=Top Favorites|feedint=4|time=This Month|title=Top Favorites : This Month|ParentFolder=Top Favorites|</ConfigString>
 		<Title>Top Favorites : This Month</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>feed=Trending Videos|feedint=9|title=Trending Videos|ParentFolder=Standard feeds|</ConfigString>
+		<Title>Trending Videos</Title>
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
@@ -50,12 +95,12 @@
 		<Provider>Vevo Videos</Provider>
 	</Items>
 	<Items>
-		<ConfigString>feed=Recently Featured|feedint=2|title=Recently Featured|</ConfigString>
+		<ConfigString>feed=Recently Featured|feedint=2|title=Recently Featured|ParentFolder=Standard feeds|</ConfigString>
 		<Title>Recently Featured</Title>
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
-		<ConfigString>feed=Most Recent|feedint=7|title=Most Recent|</ConfigString>
+		<ConfigString>feed=Most Recent|feedint=7|title=Most Recent|ParentFolder=Standard feeds|</ConfigString>
 		<Title>Most Recent</Title>
 		<Provider>Standard feed</Provider>
 	</Items>

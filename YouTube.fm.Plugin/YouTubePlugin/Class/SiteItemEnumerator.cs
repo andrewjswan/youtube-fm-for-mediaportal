@@ -75,6 +75,7 @@ namespace YouTubePlugin.Class
             itemEntry.Title = nodefile.SelectSingleNode("Title").InnerText;
             itemEntry.Provider = nodefile.SelectSingleNode("Provider").InnerText;
             itemEntry.ConfigString = nodefile.SelectSingleNode("ConfigString").InnerText;
+            itemEntry.Parent = this; 
             Items.Add(itemEntry);
           }
         }

@@ -26,8 +26,8 @@ namespace YouTubePlugin
     protected GUIThumbnailPanel listControl = null;
     [SkinControlAttribute(166)]
     protected GUIListControl listsimilar = null;
-    [SkinControlAttribute(5)]
-    protected GUIButtonControl btnPlay = null;
+    //[SkinControlAttribute(5)]
+    //protected GUIButtonControl btnPlay = null;
     [SkinControlAttribute(95)]
     protected GUIImage imgFanArt = null;
     #endregion
