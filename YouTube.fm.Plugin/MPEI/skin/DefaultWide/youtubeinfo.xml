@@ -8,7 +8,6 @@
     <define>#header.label:YouTube Videos</define>
     <define>#header.image:-</define>
     <controls>
-        <import>common.window.video.xml</import>
     <control>
       <description>BG</description>
       <type>image</type>

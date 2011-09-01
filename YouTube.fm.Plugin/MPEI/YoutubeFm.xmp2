@@ -84,7 +84,7 @@
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
               <Param1 />
-              <UpdateOption>NeverOverwrite</UpdateOption>
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>base\youtubefmMenu.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{1822c8c4-8a3f-48c8-8699-a71f11c572ca}-youtubefmMenu.xml</ZipFileName>
               <DestinationFilename>%Config%\youtubefmMenu.xml</DestinationFilename>
@@ -133,6 +133,34 @@
               <LocalFileName>skin\DefaultWide\Media\hover_youtubefm.png</LocalFileName>
               <ZipFileName>Installer{GenericSkinFile}\{90f30de8-e068-4d16-acba-39257b364b3c}-hover_youtubefm.png</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\Media\hover_youtubefm.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeinfo.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{6908e4dd-7426-4843-8c45-2bdbd4149e29}-youtubeinfo.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeinfo.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeplaylist.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{8e3cd9b8-2bc1-4b1b-86a6-09f45acd5e0a}-youtubeplaylist.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeplaylist.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubevideosbase.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{22624339-7ba1-47e4-9cd0-115740cf0db4}-youtubevideosbase.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubevideosbase.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\hover_youtubefm.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{e30a861c-fc4c-4356-b112-ad64d498ea9e}-hover_youtubefm.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\hover_youtubefm.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -287,9 +315,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Compatibility with latest SVN</VersionDescription>
+    <VersionDescription>Tree view like home menu
+Minor bug fixes</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.5.0.mpe1</OnlineLocation>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.6.0.mpe1</OnlineLocation>
     <ReleaseDate>2011-08-30T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
@@ -392,7 +421,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
-        <UpdateOption>NeverOverwrite</UpdateOption>
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>base\youtubefmMenu.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{1822c8c4-8a3f-48c8-8699-a71f11c572ca}-youtubefmMenu.xml</ZipFileName>
         <DestinationFilename>%Config%\youtubefmMenu.xml</DestinationFilename>
@@ -408,7 +437,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{fc44cb8c-d0e4-4dbb-af2b-35cfeb561da7}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{497fb410-866e-431e-b094-fde4f5ddcadc}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
@@ -425,12 +454,12 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Group>Default</Group>
         <Recursive>true</Recursive>
       </FolderGroup>
-      <FolderGroup InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
-        <UpdateOption>NeverOverwrite</UpdateOption>
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName />
         <ZipFileName>Installer{GenericSkinFile}\{4aaa0bd3-00c6-4b76-bffd-fe36c5ca930e}-</ZipFileName>
-        <DestinationFilename>%Skin%\[DEFAULT]\</DestinationFilename>
+        <DestinationFilename>%Skin%\DefaultWide</DestinationFilename>
         <Folder>skin\DefaultWide</Folder>
         <Group>Default Skin</Group>
         <Recursive>true</Recursive>

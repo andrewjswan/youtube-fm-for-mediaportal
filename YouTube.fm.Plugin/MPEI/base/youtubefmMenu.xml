@@ -125,8 +125,23 @@
 		<Provider>User favorites videos</Provider>
 	</Items>
 	<Items>
-		<ConfigString>title=Eurovision 2011|id=F86FEC6DA04B8859|</ConfigString>
+		<ConfigString>title=Eurovision 2011|id=F86FEC6DA04B8859|ParentFolder=|</ConfigString>
 		<Title>Eurovision 2011</Title>
 		<Provider>Playlist</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=Standard feeds|title=Most Linked|region=|time=|feed=Most Linked|feedint=5|</ConfigString>
+		<Title>Most Linked</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Most Share|region=|time=|feed=Most Share|feedint=8|ParentFolder=Standard feeds|</ConfigString>
+		<Title>Most Share</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Most Responded|region=|time=|feed=Most Responded|feedint=6|ParentFolder=Standard feeds|</ConfigString>
+		<Title>Most Responded</Title>
+		<Provider>Standard feed</Provider>
 	</Items>
 </SiteItemEnumerator>
