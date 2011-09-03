@@ -84,6 +84,11 @@ namespace YouTubePlugin
     {
       if (PlaybackUrls.ContainsKey(fmt))
         return PlaybackUrls[fmt];
+      if (PlaybackUrls.Count > 0)
+      {
+        PlaybackUrls.GetEnumerator().MoveNext();
+        return PlaybackUrls.GetEnumerator().Current.Value;
+      }
       return "";
     }
 

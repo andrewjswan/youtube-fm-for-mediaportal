@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Reflection;
 using System.Text;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Lastfm.Services;
+using Lastfm.Scrobbling;
 using YouTubePlugin.DataProvider;
 
 using Google.GData.Client;
@@ -14,7 +18,7 @@ using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
 using YouTubePlugin;
-
+using Entry = Lastfm.Scrobbling.Entry;
 
 
 namespace Test
@@ -196,6 +200,37 @@ namespace Test
         HTBFanArt fanart = new HTBFanArt();
         fanart.Search(textBox3.Text);
 
+    }
+
+    private void button4_Click(object sender, EventArgs e)
+    {
+           // Get your own API_KEY and API_SECRET from http://www.last.fm/api/account
+      string API_KEY = "60d35bf7777d870ec958a21872bacb24";
+      string API_SECRET = "099158e5216ad77239be5e0a2228cf04";
+      
+      // Create your session
+      Session session = new Session(API_KEY, API_SECRET);
+      session.Authenticate("",Lastfm.Utilities.md5(""));
+      // Set this static property to a System.Net.IWebProxy object
+      //Lastfm.ProxySupport.Proxy = new System.Net.WebProxy("221.2.216.38", 8080);
+      Artist artist = new Artist("Lady Gaga", session);
+      string s = artist.Bio.GetURL(SiteLanguage.English);
+      ArtistBio artistBio=new ArtistBio(artist,session);
+      string contents =  Regex.Replace(artistBio.getContent(), "<[^>]*>", ""); 
+      string img = artist.GetImageURL();
+      // hzt
+      //Connection connection = new Connection("mpm", Assembly.GetEntryAssembly().GetName().Version.ToString(), "", session);
+      //ScrobbleManager scrobbleManager=new ScrobbleManager(connection);
+      //NowplayingTrack track1 = new NowplayingTrack("Nexx", "Syncronize Lips", new TimeSpan(0, 2, 0));
+      //scrobbleManager.ReportNowplaying(track1);
+      //Entry entry = new Entry("Nexx", "Syncronize Lips", DateTime.Now, PlaybackSource.User, new TimeSpan(0, 2, 0), ScrobbleMode.Played);
+      //scrobbleManager.Queue(entry);
+      //scrobbleManager.Submit();
+//      scrobbleManager.Submit();
+      // Test it out...
+      Track track = new Track("david arnold", "the hot fuzz suite", session);
+      Console.WriteLine(track.GetAlbum());
+    
     }
   }
 

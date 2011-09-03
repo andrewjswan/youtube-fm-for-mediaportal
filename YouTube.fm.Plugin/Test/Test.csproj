@@ -64,6 +64,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\YouTubePlugin\References\Google.GData.YouTube.dll</HintPath>
     </Reference>
+    <Reference Include="lastfm-sharp">
+      <HintPath>..\MPEI\plugin\lastfm-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
