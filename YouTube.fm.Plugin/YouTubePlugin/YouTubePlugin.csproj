@@ -79,6 +79,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\Google.GData.YouTube.dll</HintPath>
     </Reference>
+    <Reference Include="lastfm-sharp">
+      <HintPath>References\lastfm-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -95,7 +98,7 @@
     <Compile Include="Class\Artist\ArtistItem.cs" />
     <Compile Include="Class\Artist\ArtistManager.cs" />
     <Compile Include="Class\FileDownloader.cs" />
-    <None Include="Class\LastProfile.cs" />
+    <Compile Include="Class\LastProfile.cs" />
     <Compile Include="Class\GenericListItem.cs" />
     <Compile Include="Class\GenericListItemCollections.cs" />
     <Compile Include="Class\ISiteItem.cs" />

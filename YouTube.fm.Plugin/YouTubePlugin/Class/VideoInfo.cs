@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
@@ -29,14 +30,14 @@ namespace YouTubePlugin
     {
       get
       {
-          if (Items.ContainsKey("token"))
-          {
-              if (DateTime.Now.Subtract(Date).Minutes > 10)
-                  return "";
-              return Items["token"];
-          }
-          else
-              return string.Empty;
+        if (PlaybackUrls.Count > 0)
+        {
+          if (DateTime.Now.Subtract(Date).Minutes > 10)
+            return "";
+          return "???";
+        }
+        else
+          return string.Empty;
       }
     }
 
@@ -86,8 +87,9 @@ namespace YouTubePlugin
         return PlaybackUrls[fmt];
       if (PlaybackUrls.Count > 0)
       {
-        PlaybackUrls.GetEnumerator().MoveNext();
-        return PlaybackUrls.GetEnumerator().Current.Value;
+        var enumerator = PlaybackUrls.GetEnumerator();
+        if (enumerator.MoveNext())
+          return enumerator.Current.Value;
       }
       return "";
     }

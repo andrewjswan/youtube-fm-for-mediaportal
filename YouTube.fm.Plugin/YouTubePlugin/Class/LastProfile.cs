@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Threading;
@@ -11,18 +12,18 @@ using System.Windows.Forms;
 using MediaPortal.Music.Database;
 
 using Google.GData.YouTube;
-//using Lastfm.Services;
+using Lastfm.Services;
 
 namespace YouTubePlugin
 {
 
     public class LastProfile
-    {
+    { 
         private string username;
         private string password;
-        //private Session session;
-        //private Lastfm.Scrobbling.Connection connection;
-        //private Lastfm.Scrobbling.ScrobbleManager manager;
+        private Session session;
+        private Lastfm.Scrobbling.Connection connection;
+        private Lastfm.Scrobbling.ScrobbleManager manager;
 
         public LastProfile(string username, string password)
         {
@@ -30,7 +31,7 @@ namespace YouTubePlugin
             this.password = password;
             session = new Session("60d35bf7777d870ec958a21872bacb24", "099158e5216ad77239be5e0a2228cf04");
             session.Authenticate(this.username, Lastfm.Utilities.md5(this.password));
-            connection = new Lastfm.Scrobbling.Connection("tst", "0.6", this.username, session);
+            connection = new Lastfm.Scrobbling.Connection("mpm", Assembly.GetEntryAssembly().GetName().Version.ToString(), this.username, session);
             manager = new Lastfm.Scrobbling.ScrobbleManager(connection);
            }
 

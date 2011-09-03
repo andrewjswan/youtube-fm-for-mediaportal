@@ -45,7 +45,7 @@ namespace YouTubePlugin
       _settings.MusicFilter = checkBox_filter.Checked;
       _settings.Time = checkBox_time.Checked;
       _settings.ShowNowPlaying = checkBox_nowplaying.Checked;
-      _settings.UseYouTubePlayer = checkBox_useplayer.Checked;
+      //_settings.UseYouTubePlayer = checkBox_useplayer.Checked;
       _settings.UseExtremFilter = checkBox_extremfilter.Checked;
       _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
       _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;

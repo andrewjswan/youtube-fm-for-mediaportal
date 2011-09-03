@@ -362,6 +362,7 @@ namespace YouTubePlugin
       // chk_oldstyle
       // 
       this.chk_oldstyle.AutoSize = true;
+      this.chk_oldstyle.Enabled = false;
       this.chk_oldstyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.chk_oldstyle.Location = new System.Drawing.Point(292, 169);
       this.chk_oldstyle.Name = "chk_oldstyle";

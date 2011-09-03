@@ -133,12 +133,10 @@ namespace YouTubePlugin
 
     public bool ShowNowPlaying { get; set; }
 
-    private bool useYouTubePlayer;
 
     public bool UseYouTubePlayer
     {
       get { return false; }
-      set { useYouTubePlayer = value; }
     }
 
     public bool UseExtremFilter { get; set; }
@@ -147,18 +145,18 @@ namespace YouTubePlugin
 
     public bool UseSMSStyleKeyBoard { get; set; }
 
-    private Action.ActionType instantAction;
-
-    public Action.ActionType InstantAction
-    {
-      get { return instantAction; }
-      set { instantAction = value; }
-    }
+    public Action.ActionType InstantAction { get; set; }
 
     public int InstantChar { get; set; }
 
     public string DownloadFolder { get; set; }
-    public bool OldStyleHome { get; set; }
+
+    private bool _oldStyleHome;
+    public bool OldStyleHome
+    {
+      get { return false; }
+      set { _oldStyleHome = value; }
+    }
 
     public void Load()
     {
@@ -178,11 +176,11 @@ namespace YouTubePlugin
         string his = xmlreader.GetValueAsString("youtubevideos", "searchhistory", string.Empty);
         this.Time = xmlreader.GetValueAsBool("youtubevideos", "time", false);
         this.ShowNowPlaying = xmlreader.GetValueAsBool("youtubevideos", "ShowNowPlaying", true);
-        this.UseYouTubePlayer = xmlreader.GetValueAsBool("youtubevideos", "UseYouTubePlayer", false);
+        //this.UseYouTubePlayer = xmlreader.GetValueAsBool("youtubevideos", "UseYouTubePlayer", false);
         this.UseExtremFilter = xmlreader.GetValueAsBool("youtubevideos", "UseExtremFilter", false);
         this.LoadOnlineFanart = xmlreader.GetValueAsBool("youtubevideos", "LoadOnlineFanart", true);
         this.FanartDir = xmlreader.GetValueAsString("youtubevideos", "FanartFolder", string.Empty);
-        this.DownloadFolder = xmlreader.GetValueAsString("youtubevideos", "DownloadFolder", Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\My Videos");
+        this.DownloadFolder = xmlreader.GetValueAsString("youtubevideos", "DownloadFolder", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Videos");
         this.OldStyleHome = xmlreader.GetValueAsBool("youtubevideos", "OldStyleHome", false);
         foreach (string s in his.Split('|'))
         {
