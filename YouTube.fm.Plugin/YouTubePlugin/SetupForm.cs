@@ -45,7 +45,6 @@ namespace YouTubePlugin
       _settings.MusicFilter = checkBox_filter.Checked;
       _settings.Time = checkBox_time.Checked;
       _settings.ShowNowPlaying = checkBox_nowplaying.Checked;
-      //_settings.UseYouTubePlayer = checkBox_useplayer.Checked;
       _settings.UseExtremFilter = checkBox_extremfilter.Checked;
       _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
       _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
@@ -54,13 +53,12 @@ namespace YouTubePlugin
       _settings.LoadOnlineFanart = checkBox1.Checked;
       _settings.Region = cmb_region.Text;
       _settings.OldStyleHome = chk_oldstyle.Checked;
-      try
-      {
-      }
-      catch (Exception)
-      {
-        _settings.InstantChar = 0;
-      }
+      
+      _settings.LastFmUser = txt_lastfm_user.Text;
+      _settings.LastFmPass = txt_lastfm_pass.Text;
+      _settings.LastFmNowPlay = chk_lastfm_nowplay.Checked;
+      _settings.LastFmSubmit = chk_lastfm_submit.Checked;
+
 
       foreach (string s in listBox_history.Items)
       {
@@ -82,17 +80,6 @@ namespace YouTubePlugin
       this.Close();
     }
 
-    private ArrayList GenerateActionList()
-    {
-      ArrayList ret = new ArrayList();
-      string[] names = Enum.GetNames(typeof(Action.ActionType));
-      int[] values = (int[])Enum.GetValues(typeof(Action.ActionType));
-      for (int i = 0; i < names.Length; i++)
-      {
-        ret.Add(new ActionEntry(names[i], values[i]));
-      }
-      return ret;
-    }
 
 
     private void SetupForm_Load(object sender, EventArgs e)
@@ -114,6 +101,12 @@ namespace YouTubePlugin
       textBox_fanartdir.Text = _settings.FanartDir;
       checkBox1.Checked = _settings.LoadOnlineFanart;
       chk_oldstyle.Checked = _settings.OldStyleHome;
+
+      txt_lastfm_user.Text = _settings.LastFmUser;
+      txt_lastfm_pass.Text = _settings.LastFmPass;
+      chk_lastfm_nowplay.Checked = _settings.LastFmNowPlay;
+      chk_lastfm_submit.Checked = _settings.LastFmSubmit;
+
       switch (_settings.InitialDisplay)
       {
         case 1:
@@ -442,44 +435,23 @@ namespace YouTubePlugin
       }
     }
 
-    private void panel1_Paint(object sender, PaintEventArgs e)
+
+    private void btn_lastfm_test_Click(object sender, EventArgs e)
     {
-
-    }
-
-    private void btn_tree_add_Click(object sender, EventArgs e)
-    {
-
-    }
-  }
-
-  class ActionEntry
-  {
-    private string actionName;
-    private int actionID;
-
-    public string ActionName
-    {
-      get
+      try
       {
-        return actionName;
+        LastProfile profile = new LastProfile();
+        if (profile.Login(txt_lastfm_user.Text, txt_lastfm_pass.Text))
+          MessageBox.Show("Login OK!");
+        else
+          MessageBox.Show("Invalid login data or no connection !");
+      }
+      catch (Exception exception)
+      {
+         MessageBox.Show(exception.Message);
       }
     }
 
-    public int ActionID
-    {
-      get
-      {
-        return actionID;
-      }
-    }
-
-    public ActionEntry(string Name, int ID)
-    {
-
-      this.actionName = Name;
-      this.actionID = ID;
-    }
   }
 
 }

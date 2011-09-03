@@ -92,9 +92,18 @@ namespace YouTubePlugin
       this.tabPage5 = new System.Windows.Forms.TabPage();
       this.label10 = new System.Windows.Forms.Label();
       this.cmb_region = new System.Windows.Forms.ComboBox();
+      this.tabPage7 = new System.Windows.Forms.TabPage();
+      this.groupBox4 = new System.Windows.Forms.GroupBox();
+      this.btn_lastfm_test = new System.Windows.Forms.Button();
+      this.txt_lastfm_pass = new System.Windows.Forms.TextBox();
+      this.txt_lastfm_user = new System.Windows.Forms.TextBox();
+      this.label12 = new System.Windows.Forms.Label();
+      this.label11 = new System.Windows.Forms.Label();
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+      this.chk_lastfm_nowplay = new System.Windows.Forms.CheckBox();
+      this.chk_lastfm_submit = new System.Windows.Forms.CheckBox();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
@@ -106,6 +115,8 @@ namespace YouTubePlugin
       this.tabPage4.SuspendLayout();
       this.groupBox3.SuspendLayout();
       this.tabPage5.SuspendLayout();
+      this.tabPage7.SuspendLayout();
+      this.groupBox4.SuspendLayout();
       this.SuspendLayout();
       // 
       // button1
@@ -198,6 +209,7 @@ namespace YouTubePlugin
       this.tabControl1.Controls.Add(this.tabPage3);
       this.tabControl1.Controls.Add(this.tabPage4);
       this.tabControl1.Controls.Add(this.tabPage5);
+      this.tabControl1.Controls.Add(this.tabPage7);
       this.tabControl1.Location = new System.Drawing.Point(1, 2);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
@@ -306,7 +318,6 @@ namespace YouTubePlugin
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(300, 236);
       this.panel1.TabIndex = 1;
-      this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
       // 
       // list_startpage
       // 
@@ -356,7 +367,7 @@ namespace YouTubePlugin
       this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
       this.tabPage1.Size = new System.Drawing.Size(824, 353);
       this.tabPage1.TabIndex = 0;
-      this.tabPage1.Text = "General";
+      this.tabPage1.Text = "Youtube";
       this.tabPage1.UseVisualStyleBackColor = true;
       // 
       // chk_oldstyle
@@ -440,6 +451,7 @@ namespace YouTubePlugin
       // checkBox_time
       // 
       this.checkBox_time.AutoSize = true;
+      this.checkBox_time.Enabled = false;
       this.checkBox_time.Location = new System.Drawing.Point(292, 54);
       this.checkBox_time.Name = "checkBox_time";
       this.checkBox_time.Size = new System.Drawing.Size(113, 17);
@@ -465,6 +477,7 @@ namespace YouTubePlugin
       this.groupBox2.Controls.Add(this.radioButton3);
       this.groupBox2.Controls.Add(this.radioButton2);
       this.groupBox2.Controls.Add(this.radioButton1);
+      this.groupBox2.Enabled = false;
       this.groupBox2.Location = new System.Drawing.Point(9, 58);
       this.groupBox2.Name = "groupBox2";
       this.groupBox2.Size = new System.Drawing.Size(254, 159);
@@ -777,6 +790,76 @@ namespace YouTubePlugin
       this.cmb_region.Size = new System.Drawing.Size(521, 21);
       this.cmb_region.TabIndex = 0;
       // 
+      // tabPage7
+      // 
+      this.tabPage7.Controls.Add(this.chk_lastfm_submit);
+      this.tabPage7.Controls.Add(this.chk_lastfm_nowplay);
+      this.tabPage7.Controls.Add(this.groupBox4);
+      this.tabPage7.Location = new System.Drawing.Point(4, 22);
+      this.tabPage7.Name = "tabPage7";
+      this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPage7.Size = new System.Drawing.Size(824, 353);
+      this.tabPage7.TabIndex = 7;
+      this.tabPage7.Text = "Last.Fm";
+      this.tabPage7.UseVisualStyleBackColor = true;
+      // 
+      // groupBox4
+      // 
+      this.groupBox4.Controls.Add(this.btn_lastfm_test);
+      this.groupBox4.Controls.Add(this.txt_lastfm_pass);
+      this.groupBox4.Controls.Add(this.txt_lastfm_user);
+      this.groupBox4.Controls.Add(this.label12);
+      this.groupBox4.Controls.Add(this.label11);
+      this.groupBox4.Location = new System.Drawing.Point(7, 6);
+      this.groupBox4.Name = "groupBox4";
+      this.groupBox4.Size = new System.Drawing.Size(263, 136);
+      this.groupBox4.TabIndex = 0;
+      this.groupBox4.TabStop = false;
+      this.groupBox4.Text = "Last.Fm  Authentication";
+      // 
+      // btn_lastfm_test
+      // 
+      this.btn_lastfm_test.Location = new System.Drawing.Point(173, 102);
+      this.btn_lastfm_test.Name = "btn_lastfm_test";
+      this.btn_lastfm_test.Size = new System.Drawing.Size(75, 23);
+      this.btn_lastfm_test.TabIndex = 1;
+      this.btn_lastfm_test.Text = "Test";
+      this.btn_lastfm_test.UseVisualStyleBackColor = true;
+      this.btn_lastfm_test.Click += new System.EventHandler(this.btn_lastfm_test_Click);
+      // 
+      // txt_lastfm_pass
+      // 
+      this.txt_lastfm_pass.Location = new System.Drawing.Point(6, 76);
+      this.txt_lastfm_pass.Name = "txt_lastfm_pass";
+      this.txt_lastfm_pass.PasswordChar = '*';
+      this.txt_lastfm_pass.Size = new System.Drawing.Size(242, 20);
+      this.txt_lastfm_pass.TabIndex = 10;
+      // 
+      // txt_lastfm_user
+      // 
+      this.txt_lastfm_user.Location = new System.Drawing.Point(6, 37);
+      this.txt_lastfm_user.Name = "txt_lastfm_user";
+      this.txt_lastfm_user.Size = new System.Drawing.Size(242, 20);
+      this.txt_lastfm_user.TabIndex = 7;
+      // 
+      // label12
+      // 
+      this.label12.AutoSize = true;
+      this.label12.Location = new System.Drawing.Point(6, 21);
+      this.label12.Name = "label12";
+      this.label12.Size = new System.Drawing.Size(58, 13);
+      this.label12.TabIndex = 8;
+      this.label12.Text = "User name";
+      // 
+      // label11
+      // 
+      this.label11.AutoSize = true;
+      this.label11.Location = new System.Drawing.Point(6, 60);
+      this.label11.Name = "label11";
+      this.label11.Size = new System.Drawing.Size(53, 13);
+      this.label11.TabIndex = 9;
+      this.label11.Text = "Password";
+      // 
       // saveFileDialog1
       // 
       this.saveFileDialog1.DefaultExt = "xml";
@@ -784,6 +867,26 @@ namespace YouTubePlugin
       // openFileDialog1
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
+      // 
+      // chk_lastfm_nowplay
+      // 
+      this.chk_lastfm_nowplay.AutoSize = true;
+      this.chk_lastfm_nowplay.Location = new System.Drawing.Point(298, 46);
+      this.chk_lastfm_nowplay.Name = "chk_lastfm_nowplay";
+      this.chk_lastfm_nowplay.Size = new System.Drawing.Size(167, 17);
+      this.chk_lastfm_nowplay.TabIndex = 1;
+      this.chk_lastfm_nowplay.Text = "Show now playing on Last.Fm";
+      this.chk_lastfm_nowplay.UseVisualStyleBackColor = true;
+      // 
+      // chk_lastfm_submit
+      // 
+      this.chk_lastfm_submit.AutoSize = true;
+      this.chk_lastfm_submit.Location = new System.Drawing.Point(298, 85);
+      this.chk_lastfm_submit.Name = "chk_lastfm_submit";
+      this.chk_lastfm_submit.Size = new System.Drawing.Size(196, 17);
+      this.chk_lastfm_submit.TabIndex = 2;
+      this.chk_lastfm_submit.Text = "Submit played item to Last.Fm library";
+      this.chk_lastfm_submit.UseVisualStyleBackColor = true;
       // 
       // SetupForm
       // 
@@ -816,6 +919,10 @@ namespace YouTubePlugin
       this.groupBox3.PerformLayout();
       this.tabPage5.ResumeLayout(false);
       this.tabPage5.PerformLayout();
+      this.tabPage7.ResumeLayout(false);
+      this.tabPage7.PerformLayout();
+      this.groupBox4.ResumeLayout(false);
+      this.groupBox4.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -889,5 +996,14 @@ namespace YouTubePlugin
     private System.Windows.Forms.TreeView treeV;
     private System.Windows.Forms.Label label6;
     private System.Windows.Forms.ComboBox cmb_folder;
+    private System.Windows.Forms.TabPage tabPage7;
+    private System.Windows.Forms.GroupBox groupBox4;
+    private System.Windows.Forms.Button btn_lastfm_test;
+    private System.Windows.Forms.TextBox txt_lastfm_pass;
+    private System.Windows.Forms.TextBox txt_lastfm_user;
+    private System.Windows.Forms.Label label12;
+    private System.Windows.Forms.Label label11;
+    private System.Windows.Forms.CheckBox chk_lastfm_submit;
+    private System.Windows.Forms.CheckBox chk_lastfm_nowplay;
   }
 }

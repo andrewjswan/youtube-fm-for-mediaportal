@@ -219,7 +219,7 @@ namespace YouTubePlugin
         playlist.Clear();
         g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
         g_Player.PlayBackEnded += new g_Player.EndedHandler(g_Player_PlayBackEnded);
-        AddItemToPlayList(vid, ref playlist, qa);
+        //AddItemToPlayList(vid, ref playlist, qa);
 
         if (facade != null)
         {

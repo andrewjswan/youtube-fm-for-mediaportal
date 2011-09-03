@@ -36,6 +36,8 @@ namespace YouTubePlugin
     List<GUIListItem> relatated = new List<GUIListItem>();
     List<GUIListItem> similar = new List<GUIListItem>();
     public System.Timers.Timer infoTimer = new System.Timers.Timer(0.3 * 1000);
+    private System.Timers.Timer _lastFmTimer = new System.Timers.Timer(60 * 1000);
+
     private static readonly object locker = new object();
     #endregion
 
@@ -70,11 +72,22 @@ namespace YouTubePlugin
       Youtube2MP.temp_player.PlayStop += new YoutubePlaylistPlayer.StopEventHandler(player_PlayStop);
       Youtube2MP.player.Init();
       Youtube2MP.temp_player.Init();
+      _lastFmTimer.Elapsed += _lastFmTimer_Elapsed;
+    }
+
+    void _lastFmTimer_Elapsed(object sender, ElapsedEventArgs e)
+    {
+      if (Youtube2MP._settings.LastFmSubmit)
+      {
+        Youtube2MP.LastFmProfile.Submit(Youtube2MP.NowPlayingEntry);
+      } 
+      _lastFmTimer.Stop();
     }
 
     void player_PlayStop()
     {
       infoTimer.Enabled = false;
+      _lastFmTimer.Enabled = false;
       ClearLists();
     }
 
@@ -129,7 +142,12 @@ namespace YouTubePlugin
             GUIControl.ClearControl(GetID, listsimilar.GetID);
           }
         }
+        if(Youtube2MP._settings.LastFmNowPlay)
+        {
+          Youtube2MP.LastFmProfile.NowPlaying(Youtube2MP.NowPlayingEntry);
+        }
         infoTimer.Enabled = true;
+        _lastFmTimer.Start();
       }
       catch (Exception exception)
       {

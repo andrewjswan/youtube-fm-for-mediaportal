@@ -1126,10 +1126,10 @@ namespace YouTubePlugin
 
         private void PlaybackStartedThread(object aParam)
         {
-            if (Youtube2MP.NowPlayingSong == null)
-                return;
-            QueueLastSong();
-            OnStateChangedEvent();
+            //if (Youtube2MP.NowPlayingSong == null)
+            //    return;
+            //QueueLastSong();
+            //OnStateChangedEvent();
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

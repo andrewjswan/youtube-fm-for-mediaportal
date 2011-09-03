@@ -37,6 +37,20 @@ namespace YouTubePlugin
 
   static public class Youtube2MP
   {
+    public static YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
+
+    public static YoutubePlaylistPlayer player = new YoutubePlaylistPlayer();
+
+    public static YoutubePlaylistPlayer temp_player = new YoutubePlaylistPlayer();
+
+
+    public static YouTubeRequest request = new YouTubeRequest(new YouTubeRequestSettings("My YouTube Videos For MediaPortal", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg"));
+    public static Settings _settings;
+
+    public static Dictionary<string, YouTubeEntry> UrlHolder = new Dictionary<string, YouTubeEntry>();
+
+    public static LastProfile LastFmProfile { get; set; }
+
     static Youtube2MP()
     {
       AddSiteItem(new StandardFeedItem());
@@ -51,6 +65,7 @@ namespace YouTubePlugin
     }
 
     public static Dictionary<string, ISiteItem> SiteItemProvider = new Dictionary<string, ISiteItem>();
+
 
     static public void AddSiteItem(ISiteItem siteItem)
     {
@@ -72,21 +87,6 @@ namespace YouTubePlugin
       }
       return res;
     }
-
-    public static YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
-    
-    public static YoutubePlaylistPlayer player = new YoutubePlaylistPlayer();
-
-    public static YoutubePlaylistPlayer temp_player = new YoutubePlaylistPlayer();
-
-
-    public static YouTubeRequest request = new YouTubeRequest(new YouTubeRequestSettings("My YouTube Videos For MediaPortal",  "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg"));
-    public static Settings _settings;
-
-    public static Dictionary<string, YouTubeEntry> UrlHolder = new Dictionary<string, YouTubeEntry>();
-
-
-
 
     public static string GetVideoId(YouTubeEntry vid)
     {
@@ -251,29 +251,6 @@ namespace YouTubePlugin
     }
 
 
-    public static bool GetSongsByArtist(string artist,ref List<Song> songs,ref YouTubeFeed vidr)
-    {
-      Log.Debug("Youtube GetSongsByArtist for : {0}", artist);
-      YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
-      //query.VQ = artist;
-      query.Query = artist;
-      //order results by the number of views (most viewed first)
-      query.OrderBy = "relevance";
-      //exclude restricted content from the search
-      query.NumberToRetrieve = 20;
-      //query.Racy = "exclude";
-      query.SafeSearch = YouTubeQuery.SafeSearchValues.Strict;
-      query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
-
-      vidr = service.Query(query);
-      foreach (YouTubeEntry entry in vidr.Entries)
-      {
-        if (entry.Title.Text.ToUpper().Contains(artist.ToUpper().Trim())&&entry.Title.Text.Contains("-"))
-          songs.Add(YoutubeEntry2Song(entry));
-      }
-      return true;
-    }
-
     static public string youtubecatch2(string url)
     {
       string str = getContent(url);
@@ -386,10 +363,13 @@ namespace YouTubePlugin
                                  Tag = youTubeEntry
                                };
       if (youTubeEntry.Statistics!=null)
-      item.Title2 =
-        String.Format("By {0}|{1}|{2} views", youTubeEntry.Uploader.Value,
-                      youTubeEntry.Updated.ToShortDateString(),
-                      youTubeEntry.Statistics.ViewCount);
+      {
+        int i = Convert.ToInt32(youTubeEntry.Statistics.ViewCount);
+        item.Title2 =
+          String.Format("By {0}|{1}|{2} views", youTubeEntry.Uploader.Value,
+                        youTubeEntry.Updated.ToShortDateString(),
+                        i.ToString("0,0"));
+      }
       else
       {
         item.Title2 =

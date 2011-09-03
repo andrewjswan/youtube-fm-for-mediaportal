@@ -255,6 +255,20 @@ namespace YouTubePlugin
     {
       base.OnPageLoad();
 
+      if(Youtube2MP.LastFmProfile==null)
+      {
+        Youtube2MP.LastFmProfile = new LastProfile();
+        try
+        {
+          Youtube2MP.LastFmProfile.Login(_setting.LastFmUser, _setting.LastFmPass);
+        }
+        catch (Exception)
+        {
+          
+          
+        }
+      }
+      
       UpdateGui();
       ShowPanel();
 
