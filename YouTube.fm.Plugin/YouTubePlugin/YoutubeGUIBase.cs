@@ -9,7 +9,7 @@ using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
-
+using Lastfm.Services;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Util;
@@ -24,6 +24,8 @@ using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
+using YouTubePlugin.Class;
+using YouTubePlugin.Class.Artist;
 
 
 namespace YouTubePlugin
@@ -156,6 +158,8 @@ namespace YouTubePlugin
     static public string GetLocalImageFileName(string strURL)
     {
       if (strURL == "")
+        return string.Empty;
+      if (strURL == "@")
         return string.Empty;
       string url = String.Format("youtubevideos-{0}.jpg", MediaPortal.Util.Utils.EncryptLine(strURL));
       return System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.InternetCache), url); ;
@@ -495,10 +499,52 @@ namespace YouTubePlugin
 
     public void OnDownloadTimedEvent(object source, ElapsedEventArgs e)
     {
+      BackgroundWorker backgroundWorker1 = new BackgroundWorker();
+      backgroundWorker1.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
+      backgroundWorker1.RunWorkerAsync();
+    }
+
+    void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+    {
+      OnDownloadTimedEvent();
+    }
+
+    public void OnDownloadTimedEvent()
+    {
       if (!Client.IsBusy && downloaQueue.Count > 0)
       {
-        curentDownlodingFile = (DownloadFileObject)downloaQueue.Dequeue();
-        if (!File.Exists(curentDownlodingFile.FileName))
+        curentDownlodingFile = (DownloadFileObject) downloaQueue.Dequeue();
+        try
+        {
+          if (curentDownlodingFile.ListItem != null)
+          {
+            SiteItemEntry siteItemEntry = curentDownlodingFile.ListItem.MusicTag as SiteItemEntry;
+            if (siteItemEntry != null && !string.IsNullOrEmpty(siteItemEntry.GetValue("id")))
+            {
+              ArtistItem artistItem = ArtistManager.Instance.GetArtistsById(siteItemEntry.GetValue("id"));
+              if (string.IsNullOrEmpty(curentDownlodingFile.Url) || curentDownlodingFile.Url.Contains("@") ||
+                  curentDownlodingFile.Url.Contains("ytimg.com"))
+              {
+                try
+                {
+                  Artist artist = new Artist(artistItem.Name, Youtube2MP.LastFmProfile.Session);
+                  artistItem.Img_url = artist.GetImageURL(ImageSize.Large);
+                  ArtistManager.Instance.Save(artistItem);
+                  curentDownlodingFile.Url = artistItem.Img_url;
+                  curentDownlodingFile.FileName = GetLocalImageFileName(curentDownlodingFile.Url);
+                }
+                catch
+                {
+                }
+              }
+            }
+          }
+        }
+        catch (Exception ex)
+        {
+          Log.Error(ex);
+        }
+        if (!string.IsNullOrEmpty(curentDownlodingFile.FileName) &&!File.Exists(curentDownlodingFile.FileName))
         {
           try
           {
@@ -521,14 +567,21 @@ namespace YouTubePlugin
     {
       if (e.Error == null)
       {
-        File.Copy(Path.GetTempPath() + @"\station.png", curentDownlodingFile.FileName, true);
-        if (curentDownlodingFile.ListItem != null && File.Exists(curentDownlodingFile.FileName))
+        try
         {
-          curentDownlodingFile.ListItem.ThumbnailImage = curentDownlodingFile.FileName;
-          curentDownlodingFile.ListItem.IconImage = curentDownlodingFile.FileName;
-          curentDownlodingFile.ListItem.IconImageBig = curentDownlodingFile.FileName;
-          curentDownlodingFile.ListItem.RefreshCoverArt();
-          OnDownloadTimedEvent(null, null);
+          File.Copy(Path.GetTempPath() + @"\station.png", curentDownlodingFile.FileName, true);
+          if (curentDownlodingFile.ListItem != null && File.Exists(curentDownlodingFile.FileName))
+          {
+            curentDownlodingFile.ListItem.ThumbnailImage = curentDownlodingFile.FileName;
+            curentDownlodingFile.ListItem.IconImage = curentDownlodingFile.FileName;
+            curentDownlodingFile.ListItem.IconImageBig = curentDownlodingFile.FileName;
+            curentDownlodingFile.ListItem.RefreshCoverArt();
+            OnDownloadTimedEvent(null, null);
+          }
+        }
+        catch (Exception ex)
+        {
+          Log.Error(ex);
         }
         //UpdateGui();
       }

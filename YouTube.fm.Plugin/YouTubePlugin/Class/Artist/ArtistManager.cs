@@ -6,6 +6,7 @@ using MediaPortal.Configuration;
 using MediaPortal.Database;
 using MediaPortal.GUI.Library;
 using SQLite.NET;
+using Lastfm.Services;
 
 namespace YouTubePlugin.Class.Artist
 {
@@ -137,6 +138,11 @@ namespace YouTubePlugin.Class.Artist
     {
       if (string.IsNullOrEmpty(artistItem.Id))
         return;
+      //if (Youtube2MP.LastFmProfile.Session != null)
+      //{
+      //  Lastfm.Services.Artist artist = new Lastfm.Services.Artist(artistItem.Name, Youtube2MP.LastFmProfile.Session);
+      //  artistItem.Img_url = artist.GetImageURL(ImageSize.Large);
+      //}
       string lsSQL = string.Format("UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\" WHERE ARTIST_ID=\"{0}\" ", artistItem.Id, DatabaseUtility.RemoveInvalidChars(artistItem.Name),
                                    artistItem.Img_url);
       m_db.Execute(lsSQL);

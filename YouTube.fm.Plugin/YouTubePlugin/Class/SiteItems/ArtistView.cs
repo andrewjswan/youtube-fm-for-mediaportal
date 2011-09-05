@@ -52,12 +52,12 @@ namespace YouTubePlugin.Class.SiteItems
           newentry.SetValue("letter", "false");
           newentry.SetValue("id", artistItem.Id);
           GenericListItem listItem = new GenericListItem()
-          {
-            Title = artistItem.Name,
-            LogoUrl = artistItem.Img_url,
-            IsFolder = true,
-            Tag = newentry
-          };
+                                       {
+                                         Title = artistItem.Name,
+                                         LogoUrl = string.IsNullOrEmpty(artistItem.Img_url.Trim()) ? "@" : artistItem.Img_url,
+                                         IsFolder = true,
+                                         Tag = newentry
+                                       };
           res.Items.Add(listItem);
         }
       }

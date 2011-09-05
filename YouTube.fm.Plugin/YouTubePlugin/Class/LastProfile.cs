@@ -14,7 +14,7 @@ namespace YouTubePlugin.Class
   {
     private string username;
     private string password;
-    private Session session;
+    public Session Session;
     private Lastfm.Scrobbling.Connection connection;
     private Lastfm.Scrobbling.ScrobbleManager manager;
     const string API_KEY = "60d35bf7777d870ec958a21872bacb24";
@@ -25,7 +25,7 @@ namespace YouTubePlugin.Class
 
     public LastProfile()
     {
-      session = new Session(API_KEY, API_SECRET);
+      Session = new Session(API_KEY, API_SECRET);
       IsLoged = false;
     }
 
@@ -33,11 +33,11 @@ namespace YouTubePlugin.Class
     {
       this.username = username;
       this.password = password;
-      session.Authenticate(this.username, Lastfm.Utilities.md5(this.password));
-      if (session.Authenticated)
+      Session.Authenticate(this.username, Lastfm.Utilities.md5(this.password));
+      if (Session.Authenticated)
       {
         connection = new Lastfm.Scrobbling.Connection("mpm", Assembly.GetEntryAssembly().GetName().Version.ToString(),
-                                                      this.username, session);
+                                                      this.username, Session);
         manager = new Lastfm.Scrobbling.ScrobbleManager(connection);
         IsLoged = true;
         return true;
@@ -48,7 +48,7 @@ namespace YouTubePlugin.Class
     public bool Handshake()
     {
       connection.Initialize();
-      return session.Authenticated;
+      return Session.Authenticated;
     }
 
     public void NowPlaying(YouTubeEntry song)
