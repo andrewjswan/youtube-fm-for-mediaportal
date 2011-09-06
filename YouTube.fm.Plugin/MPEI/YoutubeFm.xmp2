@@ -292,10 +292,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.SkinEngine" />
-            <SubSystemItem Name="MP.Players.Video" />
             <SubSystemItem Name="MP.Players.Music" />
             <SubSystemItem Name="MP.Config" />
+            <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Players.Video" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -311,15 +311,14 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>6</Minor>
-      <Build>6</Build>
+      <Build>7</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Tree view like home menu
-Minor bug fixes</VersionDescription>
+    <VersionDescription>More integration with Last.fm</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.6.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-08-30T17:28:13</ReleaseDate>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.7.0.mpe1</OnlineLocation>
+    <ReleaseDate>2011-09-06T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -437,7 +436,7 @@ Minor bug fixes</VersionDescription>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{497fb410-866e-431e-b094-fde4f5ddcadc}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{be5bb0dc-be63-421b-80ed-8872ee3320a5}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
