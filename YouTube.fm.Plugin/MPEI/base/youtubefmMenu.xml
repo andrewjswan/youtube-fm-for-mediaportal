@@ -144,4 +144,29 @@
 		<Title>Most Responded</Title>
 		<Provider>Standard feed</Provider>
 	</Items>
+	<Items>
+		<ConfigString>ParentFolder=|title=Last.Fm|</ConfigString>
+		<Title>Last.Fm</Title>
+		<Provider>Folder</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=Last.Fm|title=Top Tracks :United States|country=United States|</ConfigString>
+		<Title>Top Tracks :United States</Title>
+		<Provider>LastFmTopTracks</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=Last.Fm|title=Top Tracks :Germany|country=Germany|</ConfigString>
+		<Title>Top Tracks :Germany</Title>
+		<Provider>LastFmTopTracks</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=Last.Fm|title=Top Tracks :Hungary|country=Hungary|</ConfigString>
+		<Title>Top Tracks :Hungary</Title>
+		<Provider>LastFmTopTracks</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=Last.Fm|title=Top Played Tracks|type=TopTracks|</ConfigString>
+		<Title>Top Played Tracks</Title>
+		<Provider>LastFmUser</Provider>
+	</Items>
 </SiteItemEnumerator>

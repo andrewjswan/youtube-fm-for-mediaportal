@@ -123,6 +123,13 @@
     <Compile Include="Class\SiteItems\LastFmTopTracksControl.Designer.cs">
       <DependentUpon>LastFmTopTracksControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class\SiteItems\LastFmUser.cs" />
+    <Compile Include="Class\SiteItems\LastFmUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\LastFmUserControl.Designer.cs">
+      <DependentUpon>LastFmUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\SiteItems\PlayList.cs" />
     <Compile Include="Class\SiteItems\PlayListControl.cs">
       <SubType>UserControl</SubType>
@@ -202,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\LastFmTopTracksControl.resx">
       <DependentUpon>LastFmTopTracksControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class\SiteItems\LastFmUserControl.resx">
+      <DependentUpon>LastFmUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\PlayListControl.resx">
       <DependentUpon>PlayListControl.cs</DependentUpon>
