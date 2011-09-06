@@ -649,6 +649,8 @@ namespace YouTubePlugin
     private void DoListSelection()
     {
       GUIListItem selectedItem = listControl.SelectedListItem;
+      YouTubeEntry vide;
+
       if (selectedItem != null)
       {
         if (selectedItem.Label != "..")
@@ -666,16 +668,10 @@ namespace YouTubePlugin
                 }
             }
           //--------------------
-          SiteItemEntry entry = selectedItem.MusicTag as SiteItemEntry;
-          if (entry != null)
-          {
-            //mapSettings.ViewAs = (int)View.Albums;
-            addVideos(Youtube2MP.GetList(entry), true);
-            UpdateGui();
-          }
+
 
           LocalFileStruct file = selectedItem.MusicTag as LocalFileStruct;
-          YouTubeEntry vide;
+
           if (file != null)
           {
             Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + file.VideoId);
@@ -685,6 +681,23 @@ namespace YouTubePlugin
           else
           {
             vide = selectedItem.MusicTag as YouTubeEntry;
+          }
+
+          SiteItemEntry entry = selectedItem.MusicTag as SiteItemEntry;
+          if (entry != null)
+          {
+            GenericListItemCollections genericListItem = Youtube2MP.GetList(entry);
+            if (entry.Provider == "VideoItem" && genericListItem.Items.Count > 0)
+            {
+              vide = genericListItem.Items[0].Tag as YouTubeEntry;
+              DoPlay(vide, true, null);
+              return;
+            }
+            else
+            {
+              addVideos(genericListItem, true);
+              UpdateGui();
+            }
           }
 
           if (vide != null)

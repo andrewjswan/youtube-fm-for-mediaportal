@@ -116,6 +116,13 @@
     <Compile Include="Class\SiteItems\FolderControl.Designer.cs">
       <DependentUpon>FolderControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class\SiteItems\LastFmTopTracks.cs" />
+    <Compile Include="Class\SiteItems\LastFmTopTracksControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\LastFmTopTracksControl.Designer.cs">
+      <DependentUpon>LastFmTopTracksControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\SiteItems\PlayList.cs" />
     <Compile Include="Class\SiteItems\PlayListControl.cs">
       <SubType>UserControl</SubType>
@@ -152,6 +159,13 @@
       <DependentUpon>UserVideosControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Class\SiteItems\VEVOVideos.cs" />
+    <Compile Include="Class\SiteItems\VideoItem.cs" />
+    <Compile Include="Class\SiteItems\VideoItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\VideoItemControl.Designer.cs">
+      <DependentUpon>VideoItemControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\SitesCache.cs" />
     <Compile Include="Class\Translation.cs" />
     <Compile Include="Class\VideoInfo.cs" />
@@ -186,6 +200,9 @@
     <EmbeddedResource Include="Class\SiteItems\FolderControl.resx">
       <DependentUpon>FolderControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Class\SiteItems\LastFmTopTracksControl.resx">
+      <DependentUpon>LastFmTopTracksControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\PlayListControl.resx">
       <DependentUpon>PlayListControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -200,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\UserVideosControl.resx">
       <DependentUpon>UserVideosControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class\SiteItems\VideoItemControl.resx">
+      <DependentUpon>VideoItemControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormItemList.resx">
       <DependentUpon>FormItemList.cs</DependentUpon>

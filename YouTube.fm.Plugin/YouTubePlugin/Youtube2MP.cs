@@ -62,6 +62,8 @@ namespace YouTubePlugin
       AddSiteItem(new ArtistView());
       AddSiteItem(new PlayList());
       AddSiteItem(new Folder());
+      AddSiteItem(new VideoItem());
+      AddSiteItem(new LastFmTopTracks());
     }
 
     public static Dictionary<string, ISiteItem> SiteItemProvider = new Dictionary<string, ISiteItem>();

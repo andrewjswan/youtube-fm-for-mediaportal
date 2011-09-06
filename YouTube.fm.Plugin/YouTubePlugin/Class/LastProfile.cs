@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Lastfm;
 using Lastfm.Scrobbling;
 using MediaPortal.GUI.Library;
 using MediaPortal.Music.Database;
@@ -33,7 +34,7 @@ namespace YouTubePlugin.Class
     {
       this.username = username;
       this.password = password;
-      Session.Authenticate(this.username, Lastfm.Utilities.md5(this.password));
+      Session.Authenticate(this.username, Lastfm.Utilities.MD5(this.password));
       if (Session.Authenticated)
       {
         connection = new Lastfm.Scrobbling.Connection("mpm", Assembly.GetEntryAssembly().GetName().Version.ToString(),

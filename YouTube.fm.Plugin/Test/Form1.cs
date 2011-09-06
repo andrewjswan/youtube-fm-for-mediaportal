@@ -8,6 +8,7 @@ using System.Text;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Lastfm;
 using Lastfm.Services;
 using Lastfm.Scrobbling;
 using YouTubePlugin.DataProvider;
@@ -18,6 +19,7 @@ using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
 using YouTubePlugin;
+using Country = Lastfm.Services.Country;
 using Entry = Lastfm.Scrobbling.Entry;
 
 
@@ -210,14 +212,19 @@ namespace Test
       
       // Create your session
       Session session = new Session(API_KEY, API_SECRET);
-      session.Authenticate("",Lastfm.Utilities.md5(""));
+      //session.Authenticate("",Lastfm.Utilities.md5(""));
       // Set this static property to a System.Net.IWebProxy object
       //Lastfm.ProxySupport.Proxy = new System.Net.WebProxy("221.2.216.38", 8080);
-      Artist artist = new Artist("Lady Gaga", session);
-      string s = artist.Bio.GetURL(SiteLanguage.English);
-      ArtistBio artistBio=new ArtistBio(artist,session);
-      string contents =  Regex.Replace(artistBio.getContent(), "<[^>]*>", ""); 
-      string img = artist.GetImageURL();
+      
+      //Artist artist = new Artist("Lady Gaga", session);
+      //string s = artist.Bio.GetURL(SiteLanguage.English);
+      //ArtistBio artistBio=new ArtistBio(artist,session);
+      //string contents =  Regex.Replace(artistBio.getContent(), "<[^>]*>", ""); 
+      //string img = artist.GetImageURL();
+
+      Country country = new Country("RO", session);
+      TopTrack[] tracks = country.GetTopTracks();
+      string s = tracks[0].Item.ToString();
       // hzt
       //Connection connection = new Connection("mpm", Assembly.GetEntryAssembly().GetName().Version.ToString(), "", session);
       //ScrobbleManager scrobbleManager=new ScrobbleManager(connection);
