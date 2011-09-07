@@ -37,6 +37,7 @@ namespace YouTubePlugin
     List<GUIListItem> similar = new List<GUIListItem>();
     public System.Timers.Timer infoTimer = new System.Timers.Timer(2 * 1000);
     private System.Timers.Timer _lastFmTimer = new System.Timers.Timer(60 * 1000);
+    BackgroundWorker backgroundWorker = new BackgroundWorker();
 
     private static readonly object locker = new object();
     #endregion
@@ -72,7 +73,24 @@ namespace YouTubePlugin
       Youtube2MP.temp_player.PlayStop += new YoutubePlaylistPlayer.StopEventHandler(player_PlayStop);
       Youtube2MP.player.Init();
       Youtube2MP.temp_player.Init();
+      backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
       _lastFmTimer.Elapsed += _lastFmTimer_Elapsed;
+    }
+
+    void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+    {
+      if (Monitor.TryEnter(locker))
+      {
+        try
+        {
+          LoadRelatated();
+          LoadSimilarArtists();
+        }
+        finally
+        {
+          Monitor.Exit(locker);
+        }
+      }
     }
 
     void _lastFmTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -192,12 +210,11 @@ namespace YouTubePlugin
       infoTimer.Enabled = false;
       lock (locker)
       {
-        LoadRelatated();
-        LoadSimilarArtists();
-
+        //LoadRelatated();
+        //LoadSimilarArtists();
         //do we really need to focus? skin will set default focus when entering the screen, and not good to mess with focus while user has window open (is navigating in the window)
         //if (listControl != null)
-        //  GUIControl.FocusControl(GetID, listControl.GetID);
+        //  GUIControl.FocusControl(GetID, listControl.GetID););
 
         if (imgFanArt != null)
           imgFanArt.Visible = false;
@@ -288,6 +305,7 @@ namespace YouTubePlugin
           if (imgFanArt != null) imgFanArt.Visible = false;
         }
       }
+      backgroundWorker.RunWorkerAsync();
     }
 
     private void LoadRelatated()
@@ -367,7 +385,6 @@ namespace YouTubePlugin
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
-
       if (Monitor.TryEnter(locker))
       {
         try
@@ -380,7 +397,6 @@ namespace YouTubePlugin
           Monitor.Exit(locker);
         }
       }
-      
       //leave the focus to the skin
       //GUIControl.FocusControl(GetID, listControl.GetID);
     }
@@ -460,8 +476,7 @@ namespace YouTubePlugin
         if (File.Exists(imageFile))
         {
           item.ThumbnailImage = imageFile;
-          item.IconImage = "defaultVideoBig.png";
-          item.IconImageBig = imageFile;
+          item.IconImage = imageFile; item.IconImageBig = imageFile;
         }
         else
         {

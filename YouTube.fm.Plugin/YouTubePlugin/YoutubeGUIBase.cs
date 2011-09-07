@@ -229,7 +229,7 @@ namespace YouTubePlugin
         {
           qa.Items = new Dictionary<string, string>();
           int selected = facade.SelectedListItemIndex;
-          for (int i = selected + 1; i < facade.ListItems.Count; i++)
+          for (int i = selected + 2; i < facade.ListItems.Count; i++)
           {
             AddItemToPlayList(facade.ListItems[i], ref playlist, new VideoInfo(qa));
           }
@@ -358,8 +358,8 @@ namespace YouTubePlugin
         g_Player.PlayBackEnded -= g_Player_PlayBackEnded;
         ClearLabels("NowPlaying");
         Youtube2MP.player.DoOnStop();
-        if (GUIWindowManager.ActiveWindow == 29052)
-          GUIWindowManager.ShowPreviousWindow();
+        //if (GUIWindowManager.ActiveWindow == 29052)
+        //  GUIWindowManager.ShowPreviousWindow();
       }
       catch
       {
