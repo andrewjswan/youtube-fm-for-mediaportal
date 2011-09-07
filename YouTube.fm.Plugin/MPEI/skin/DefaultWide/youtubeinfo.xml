@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
     <id>29052</id>
-    <defaultcontrol>50</defaultcontrol>
-    <allowoverlay>no</allowoverlay>
-    <define>#header.hover:hover_musicvideo.png</define>
-    <define>#header.title:YouTube Videos</define>
-    <define>#header.label:YouTube Videos</define>
-    <define>#header.image:-</define>
+    <defaultcontrol>50</defaultcontrol>    
+    <allowoverlay>no</allowoverlay>    
     <controls>
     <control>
       <description>BG</description>
@@ -20,13 +16,27 @@
             <id>95</id>
             <description>Fan Art</description>
             <type>image</type>
-            <posX>-86</posX>
-            <posY>-48</posY>
-            <width>1366</width>
-            <height>768</height>
+            <posX>0</posX>
+            <posY></posY>
+            <width>1280</width>
+            <height>720</height>
+            <colordiffuse>ffffffff</colordiffuse>
             <texture>#Youtube.fm.NowPlaying.Video.FanArt</texture>
+            <animation effect="fade" time="300">visible</animation>
+            <animation effect="fade" time="300" delay="300">hidden</animation>
         </control>
         <import>common.time.xml</import>
+        <control>
+          <type>label</type>
+          <description>Header Label</description>
+          <id>1</id>
+          <posX>60</posX>
+          <posY>27</posY>
+          <label>YouTube.FM</label>
+          <font>font16</font>
+          <align>left</align>
+          <textcolor>White</textcolor>
+        </control>
         <control>
             <id>101</id>
             <description>Selected item Label</description>
@@ -40,41 +50,94 @@
             <label>#selecteditem</label>
             <animation effect="Fade" time="250">WindowOpen</animation>
             <animation effect="Fade" time="250">WindowClose</animation>
-        </control>
+        </control>        
         <control>
             <id>1</id>
             <description>Video Image</description>
             <type>videowindow</type>
             <visible>Player.HasVideo</visible>
-            <posX>33</posX>
-            <posY>35</posY>
-            <width>838</width>
-            <height>464</height>
+            <posX>81</posX>
+            <posY>120</posY>
+            <width>597</width>
+            <height>300</height>
+            <keepaspectratio>yes</keepaspectratio>
+            <centered>yes</centered>
             <action>18</action>
             <textureFocus>tv_green_border.png</textureFocus>
-            <keepaspectratio>yes</keepaspectratio>
+            <visible>Player.HasVideo</visible>            
+            <animation effect="fade" time="70" reversible="false">visible</animation>
+        </control>
+        <control>
+            <description>video rectangle</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>50</posX>
+            <posY>90</posY>
+            <width>660</width>
+            <height>360</height>
+            <texture>LCD.png</texture>            
+            <animation effect="fade" time="70" reversible="false">visible</animation>
+        </control>        
+        <control>
+            <id>47</id>
+            <description>meta label</description>
+            <type>fadelabel</type>
+            <posX>755</posX>
+            <posY>100</posY>
+            <width>450</width>         
+            <font>font14</font>
+            <textcolor>ffffffff</textcolor>            
+            <label>#Youtube.fm.NowPlaying.Artist.Name</label>
         </control>
         <control>
             <id>47</id>
             <description>meta label</description>
-            <type>label</type>
-            <posX>336</posX>
-            <posY>8</posY>
-            <font>font12</font>
-            <textcolor>ffffffff</textcolor>
-            <align>LEFT</align>
+            <type>fadelabel</type>
+            <posX>755</posX>
+            <posY>135</posY>
+            <width>450</width>
+            <font>font14</font>
+            <textcolor>ffffffff</textcolor>            
             <label>#Youtube.fm.NowPlaying.Video.Title</label>
         </control>
         <control>
+            <id>1</id>
+            <type>imagelist</type>
+            <posX>755</posX>
+            <posY>180</posY>
+            <width>142</width>
+            <height>40</height>
+            <textureHeight>25</textureHeight>
+            <textureWidth>25</textureWidth>
+            <percentage>#Youtube.fm.NowPlaying.Video.Rating</percentage>
+            <imagesToDraw>5</imagesToDraw>
+            <orientation>HORIZONTAL</orientation>
+            <align>left</align>
+            <subitems>
+                <subitem>greystar.png</subitem>
+                <subitem>starbest.png</subitem>
+            </subitems>
+            <animation effect="fade" time="70" reversible="false">visible</animation>
+        </control>
+        <control>
             <id>47</id>
             <description>meta label</description>
             <type>label</type>
-            <posX>35</posX>
-            <posY>7</posY>
-            <font>font12</font>
-            <textcolor>ffffffff</textcolor>
-            <align>LEFT</align>
-            <label>#Youtube.fm.NowPlaying.Artist.Name</label>
+            <posX>755</posX>
+            <posY>215</posY>
+            <font>font14</font>
+            <textcolor>ffffffff</textcolor>            
+            <label>#Youtube.fm.NowPlaying.Video.Duration</label>
+        </control>        
+        <control>
+            <id>47</id>
+            <description>meta label</description>
+            <type>label</type>
+            <posX>755</posX>
+            <posY>250</posY>
+            <font>font14</font>
+            <textcolor>ffffffff</textcolor>            
+            <label>#Youtube.fm.NowPlaying.Video.ViewCount</label>
         </control>
         <control>
             <id>50</id>
@@ -82,8 +145,8 @@
             <type>thumbnailpanel</type>
             <onleft>166</onleft>
             <onright>166</onright>
-			<onup>166</onup>
-			<ondown>166</ondown>
+	    <onup>166</onup>
+	    <ondown>166</ondown>
             <posX>33</posX>
             <posY>502</posY>
             <width>1237</width>
@@ -139,24 +202,6 @@
             <textureDownFocus>-</textureDownFocus>
             <textureFocus>list_sub_focus_arrow_small.png</textureFocus>
             <textureNoFocus>-</textureNoFocus>
-        </control>
-        <control>
-            <id>1</id>
-            <type>imagelist</type>
-            <posX>515</posX>
-            <posY>472</posY>
-            <width>120</width>
-            <height>24</height>
-            <textureHeight>24</textureHeight>
-            <textureWidth>24</textureWidth>
-            <percentage>#Youtube.fm.NowPlaying.Video.Rating</percentage>
-            <imagesToDraw>5</imagesToDraw>
-            <orientation>HORIZONTAL</orientation>
-            <align>RIGHT</align>
-            <subitems>
-                <subitem>greystar.png</subitem>
-                <subitem>starbest.png</subitem>
-            </subitems>
-        </control>
+        </control>        
     </controls>
 </window>

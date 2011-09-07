@@ -35,7 +35,7 @@ namespace YouTubePlugin
     #region variabiles
     List<GUIListItem> relatated = new List<GUIListItem>();
     List<GUIListItem> similar = new List<GUIListItem>();
-    public System.Timers.Timer infoTimer = new System.Timers.Timer(0.3 * 1000);
+    public System.Timers.Timer infoTimer = new System.Timers.Timer(2 * 1000);
     private System.Timers.Timer _lastFmTimer = new System.Timers.Timer(60 * 1000);
 
     private static readonly object locker = new object();
@@ -160,7 +160,7 @@ namespace YouTubePlugin
     {
       infoTimer.Elapsed += new ElapsedEventHandler(updateStationLogoTimer_Elapsed);
       infoTimer.Enabled = false;
-      infoTimer.Interval = 0.5 * 1000;
+      infoTimer.Interval = 2 * 1000;
       return Load(GUIGraphicsContext.Skin + @"\youtubeinfo.xml");
     }
 
@@ -387,8 +387,8 @@ namespace YouTubePlugin
 
     private void FillRelatedList()
     {
-      if (GUIWindowManager.ActiveWindow != GetID)
-        return;
+      //if (GUIWindowManager.ActiveWindow != GetID)
+      //  return;
       if (listControl == null)
           return;
       GUIControl.ClearControl(GetID, listControl.GetID);
@@ -402,8 +402,8 @@ namespace YouTubePlugin
 
     private void FillSimilarList()
     {
-      if (GUIWindowManager.ActiveWindow != GetID)
-        return;
+      //if (GUIWindowManager.ActiveWindow != GetID)
+      //  return;
       if (listsimilar == null)
           return;
       GUIControl.ClearControl(GetID, listsimilar.GetID);

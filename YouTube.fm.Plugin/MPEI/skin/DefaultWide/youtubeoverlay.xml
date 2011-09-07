@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>  
+  <controls>
+    <control>
+      <description>rectangle image</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>65</posX>
+      <posY>547</posY>
+      <width>330</width>
+      <height>180</height>
+      <texture mask="picturethumbmask.png">blue.png</texture>
+      <colordiffuse>80ffffff</colordiffuse>
+      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+    </control>
+    <control>
+      <description>play time label</description>
+      <type>label</type>
+      <id>0</id>
+      <posX>301</posX>
+      <posY>620</posY>
+      <label>#currentplaytime</label>
+      <align>left</align>
+      <font>font12</font>
+      <textcolor>80ffffff</textcolor>
+      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+    </control>
+    <control>
+      <description>play logo</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>301</posX>
+      <posY>570</posY>
+      <width>52</width>
+      <height>52</height>
+      <texture>play_enabled.png</texture>
+      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+    </control>    
+    <control>
+      <description>scrolling info label Video</description>
+      <type>fadelabel</type>
+      <id>0</id>
+      <posX>78</posX>
+      <posY>680</posY>
+      <width>300</width>
+      <height>37</height>
+      <font>font11</font>
+      <label>#Play.Current.Title\r#Play.Current.Artist\r#Play.Current.Album\r#Play.Current.Duration</label>
+      <textcolor>EFFFFFFF</textcolor>
+      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+    </control>
+    <control>
+      <description>video rectangle</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>78</posX>
+      <posY>553</posY>
+      <width>217</width>
+      <height>126</height>
+      <texture>LCD.png</texture>
+      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+    </control>
+    <control>
+      <description>video preview window</description>
+      <type>videowindow</type>
+      <id>1</id>
+      <posX>86</posX>
+      <posY>558</posY>
+      <width>203</width>
+      <height>115</height>
+      <keepaspectratio>yes</keepaspectratio>
+      <centered>yes</centered>
+      <action>18</action>
+      <textureFocus>tv_green_border.png</textureFocus>
+      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+    </control>
+  </controls>
+</window>
