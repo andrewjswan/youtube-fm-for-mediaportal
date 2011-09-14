@@ -201,55 +201,7 @@
           <cards flipY="yes" diffuse="Thumb_Mask.png" mask="Picturethumbmask.png">Picturethumbmask.png</cards>
           <subitems>
             <subitem>
-              <![CDATA[                 <controls>
-              <control>
-                <description>background</description>
-                <type>image</type>
-                <posX>0</posX>
-                <posY>0</posY>
-                <width>500</width>
-                <height>350</height>
-                <texture flipY="yes" diffuse="Thumb_Mask.png" mask="Picturethumbmask.png">Picturethumbmask.png</texture>
-              </control>
-              <!--control>
-              <description>Movie Details</description>
-              <type>label</type>
-              <posX>0</posX>
-              <posY>10</posY>
-              <width>480</width>
-              <label>Picture Details</label>
-              <font>font12</font>
-              <textcolor>gainsboro</textcolor>
-              <align>center</align>
-              <shadowAngle>0</shadowAngle>
-              <shadowDistance>0</shadowDistance>
-            </control-->
-            <control>
-              <description>genre</description>
-              <type>label</type>
-              <posX>0</posX>
-              <posY>45</posY>
-              <width>480</width>
-              <label>#selecteditem</label>
-              <font>font12</font>
-              <textcolor>gainsboro</textcolor>
-              <align>center</align>
-              <shadowAngle>0</shadowAngle>
-              <shadowDistance>0</shadowDistance>
-            </control>
-            <control>
-              <description>year</description>
-              <type>label</type>
-              <posX>0</posX>
-              <posY>70</posY>
-              <width>480</width>
-              <label>#selecteditem2</label>
-              <font>font12</font>
-              <textcolor>gainsboro</textcolor>
-              <align>center</align>
-              <shadowAngle>0</shadowAngle>
-              <shadowDistance>0</shadowDistance>
-            </control>
+              <![CDATA[                 <controls>            
           </controls>]]></subitem>
       </subitems>
     </control>

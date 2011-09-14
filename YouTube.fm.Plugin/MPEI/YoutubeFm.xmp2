@@ -37,6 +37,20 @@
               <ZipFileName>Installer{CopyFile}\{a50e9b49-3df7-48cd-a691-8162f02fd305}-hover_youtubefm.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\hover_youtubefm.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtube.facade.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{906ba844-2d91-45b3-8a94-240634d5d49c}-youtube.facade.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtube.facade.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeoverlay.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{6f05d1bc-39a8-4ada-b322-ad87629ca2ac}-youtubeoverlay.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeoverlay.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -161,6 +175,20 @@
               <LocalFileName>skin\DefaultWide\Media\hover_youtubefm.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{e30a861c-fc4c-4356-b112-ad64d498ea9e}-hover_youtubefm.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\hover_youtubefm.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtube.facade.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{b1a283b4-6769-4d17-b2c4-a9645d7173f3}-youtube.facade.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtube.facade.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeoverlay.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{7e9004b5-084b-4c00-b0aa-4f565754d169}-youtubeoverlay.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeoverlay.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -292,10 +320,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
+            <SubSystemItem Name="MP.Players.Video" />
             <SubSystemItem Name="MP.Players.Music" />
             <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.SkinEngine" />
-            <SubSystemItem Name="MP.Players.Video" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -311,14 +339,15 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>6</Minor>
-      <Build>7</Build>
+      <Build>8</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>More integration with Last.fm</VersionDescription>
+    <VersionDescription>Some minor GUI Improvements
+New default skin THX  ysmp</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.7.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-09-06T17:28:13</ReleaseDate>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.8.0.mpe1</OnlineLocation>
+    <ReleaseDate>2011-09-14T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -383,6 +412,20 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{a50e9b49-3df7-48cd-a691-8162f02fd305}-hover_youtubefm.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\Media\hover_youtubefm.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\youtube.facade.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{906ba844-2d91-45b3-8a94-240634d5d49c}-youtube.facade.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\youtube.facade.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\youtubeoverlay.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{6f05d1bc-39a8-4ada-b322-ad87629ca2ac}-youtubeoverlay.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\youtubeoverlay.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -436,7 +479,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{be5bb0dc-be63-421b-80ed-8872ee3320a5}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{c7a3d50d-d58a-4626-8c7a-2994db5d15ca}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

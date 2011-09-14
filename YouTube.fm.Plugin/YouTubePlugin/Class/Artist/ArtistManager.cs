@@ -78,7 +78,7 @@ namespace YouTubePlugin.Class.Artist
     public List<string> GetArtistsLetters()
     {
       List<string> res = new List<string>();
-      string lsSQL = string.Format("select distinct substr(ARTIST_NAME,1,1) AS LETTER from ARTISTS order by ARTIST_NAME");
+      string lsSQL = string.Format("select distinct upper(substr(ARTIST_NAME,1,1)) AS LETTER from ARTISTS order by ARTIST_NAME");
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
       {

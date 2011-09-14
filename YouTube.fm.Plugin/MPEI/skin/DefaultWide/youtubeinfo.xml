@@ -32,7 +32,7 @@
           <id>1</id>
           <posX>60</posX>
           <posY>27</posY>
-          <label>YouTube.FM</label>
+          <label>YouTube.fm</label>
           <font>font16</font>
           <align>left</align>
           <textcolor>White</textcolor>
@@ -41,15 +41,13 @@
             <id>101</id>
             <description>Selected item Label</description>
             <type>fadelabel</type>
-            <posX>1272</posX>
-            <posY>478</posY>
-            <width>393</width>
-            <font>font14</font>
+            <posX>1244</posX>
+            <posY>460</posY>
+            <width>550</width>
+            <font>font15</font>
             <textcolor>ffffffff</textcolor>
             <align>RIGHT</align>
-            <label>#selecteditem</label>
-            <animation effect="Fade" time="250">WindowOpen</animation>
-            <animation effect="Fade" time="250">WindowClose</animation>
+            <label>#selecteditem</label>            
         </control>        
         <control>
             <id>1</id>
@@ -68,7 +66,7 @@
             <animation effect="fade" time="70" reversible="false">visible</animation>
         </control>
         <control>
-            <description>video rectangle</description>
+            <description>TV Frame</description>
             <type>image</type>
             <id>0</id>
             <posX>50</posX>
@@ -80,7 +78,7 @@
         </control>        
         <control>
             <id>47</id>
-            <description>meta label</description>
+            <description>Artist Name Value</description>
             <type>fadelabel</type>
             <posX>755</posX>
             <posY>100</posY>
@@ -91,7 +89,7 @@
         </control>
         <control>
             <id>47</id>
-            <description>meta label</description>
+            <description>Video Title Value</description>
             <type>fadelabel</type>
             <posX>755</posX>
             <posY>135</posY>
@@ -102,9 +100,10 @@
         </control>
         <control>
             <id>1</id>
+            <description>Star Rating Value</description>
             <type>imagelist</type>
             <posX>755</posX>
-            <posY>180</posY>
+            <posY>177</posY>
             <width>142</width>
             <height>40</height>
             <textureHeight>25</textureHeight>
@@ -120,62 +119,57 @@
             <animation effect="fade" time="70" reversible="false">visible</animation>
         </control>
         <control>
-            <id>47</id>
-            <description>meta label</description>
+            <id>0</id>
+            <description>Similar Videos label</description>
             <type>label</type>
-            <posX>755</posX>
-            <posY>215</posY>
-            <font>font14</font>
-            <textcolor>ffffffff</textcolor>            
-            <label>#Youtube.fm.NowPlaying.Video.Duration</label>
+            <posX>60</posX>
+            <posY>680</posY>
+            <font>font11</font>
+            <textcolor>ffa9d0f7</textcolor>            
+            <label>Similar Videos...</label>
         </control>        
         <control>
-            <id>47</id>
-            <description>meta label</description>
-            <type>label</type>
-            <posX>755</posX>
-            <posY>250</posY>
-            <font>font14</font>
-            <textcolor>ffffffff</textcolor>            
-            <label>#Youtube.fm.NowPlaying.Video.ViewCount</label>
-        </control>
-        <control>
             <id>50</id>
-            <description>similar videos</description>
+            <description>Similar Videos</description>
             <type>thumbnailpanel</type>
+            <dimColor>90ffffff</dimColor>
             <onleft>166</onleft>
-            <onright>166</onright>
-	    <onup>166</onup>
-	    <ondown>166</ondown>
-            <posX>33</posX>
-            <posY>502</posY>
-            <width>1237</width>
+            <onright>166</onright>	    
+            <posX>60</posX>
+            <posY>533</posY>
+            <width>1190</width>
             <height>217</height>
-            <spinWidth>24</spinWidth>
-            <spinHeight>24</spinHeight>
-            <spinPosX>60</spinPosX>
-            <spinPosY>687</spinPosY>
-            <spinAlign>Right</spinAlign>
             <scrollOffset>1</scrollOffset>
-            <unfocusedAlpha>120</unfocusedAlpha>
-            <imageFolderFocus>thumbborder.png</imageFolderFocus>
-            <itemWidth>185</itemWidth>
-            <itemHeight>200</itemHeight>
-            <textureWidth>170</textureWidth>
-            <textureHeight>170</textureHeight>
+            <renderFocusText>no</renderFocusText>
+            <renderUnfocusText>no</renderUnfocusText>
+            <itemWidth>170</itemWidth>
+            <itemHeight>180</itemHeight>
+            <textureWidth>157</textureWidth>
+            <textureHeight>120</textureHeight>
             <thumbWidth>156</thumbWidth>
-            <thumbHeight>156</thumbHeight>
-            <thumbPosX>7</thumbPosX>
-            <thumbPosY>7</thumbPosY>
-            <itemWidthBig>185</itemWidthBig>
-            <itemHeightBig>200</itemHeightBig>
-            <textureWidthBig>170</textureWidthBig>
-            <textureHeightBig>170</textureHeightBig>
-            <thumbWidthBig>156</thumbWidthBig>
-            <thumbHeightBig>156</thumbHeightBig>
-            <thumbPosXBig>7</thumbPosXBig>
-            <thumbPosYBig>7</thumbPosYBig>
-            <thumbZoom>yes</thumbZoom>
+            <thumbHeight>119</thumbHeight>
+            <thumbPosX>0</thumbPosX>
+            <thumbPosY>0</thumbPosY>
+            <itemWidthBig>235</itemWidthBig>
+            <itemHeightBig>240</itemHeightBig>
+            <thumbWidthBig>219</thumbWidthBig>
+            <thumbHeightBig>165</thumbHeightBig>            
+            <thumbPosXBig>0</thumbPosXBig>
+            <thumbPosYBig>0</thumbPosYBig>
+            <zoomXPixels>50</zoomXPixels>
+            <zoomYPixels>50</zoomYPixels>
+            <hideUnfocusTexture>yes</hideUnfocusTexture>          
+            <showFrame>true</showFrame>
+            <textureMask>Picturethumbmask.png</textureMask>
+            <frameNoFocus>Picturethumbframe.png</frameNoFocus>
+            <frameFocus>Picturethumbframe.png</frameFocus>
+            <imageFolder>-</imageFolder>
+            <imageFolderFocus>-</imageFolderFocus>
+            <keepaspectratio>yes</keepaspectratio> 
+            <spinCanFocus>no</spinCanFocus>
+            <spinPosX>1170</spinPosX>
+            <spinPoxY>670</spinPoxY>          
+            <dimColor>ffffffff</dimColor>                      
             <enableFocusZoom>yes</enableFocusZoom>
             <textureUp>page_up_nofocus.png</textureUp>
             <textureDown>page_down_nofocus.png</textureDown>
@@ -183,25 +177,37 @@
             <textureDownFocus>page_down_focus.png</textureDownFocus>
         </control>
         <control>
+            <id>0</id>
+            <description>Similar Artists label</description>
+            <type>label</type>
+            <posX>755</posX>
+            <posY>212</posY>
+            <font>font11</font>
+            <textcolor>ffa9d0f7</textcolor>            
+            <label>Similar Artists</label>
+        </control>
+        <control>
             <id>166</id>
             <description>list similar artists</description>
-            <type>listcontrol</type>
-            <onright>50</onright>
-            <ondown>50</ondown>
-            <posX>881</posX>
-            <posY>140</posY>
-            <width>391</width>
-            <height>324</height>
-            <textXOff>7</textXOff>
-            <IconXOff>1</IconXOff>
-            <spinColor>-</spinColor>
+            <type>listcontrol</type>            
+            <onleft>50</onleft>    
+            <posX>755</posX>
+            <posY>240</posY>
+            <width>400</width>
+            <height>260</height>
+            <font>font11</font>
+            <textXOff>-30</textXOff>
+            <textXOff3>5</textXOff3>            
+            <IconXOff>1980</IconXOff>
+            <spaceBetweenItems>0</spaceBetweenItems>            
+	    <spinColor>-</spinColor>
             <image>-</image>
             <textureUp>-</textureUp>
             <textureDown>-</textureDown>
             <textureUpFocus>-</textureUpFocus>
             <textureDownFocus>-</textureDownFocus>
-            <textureFocus>list_sub_focus_arrow_small.png</textureFocus>
-            <textureNoFocus>-</textureNoFocus>
+            <textureFocus>list_sub_focus.png</textureFocus>
+            <textureNoFocus>-</textureNoFocus>	    
         </control>        
     </controls>
 </window>
