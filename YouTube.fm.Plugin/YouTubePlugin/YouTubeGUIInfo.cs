@@ -215,13 +215,13 @@ namespace YouTubePlugin
         //do we really need to focus? skin will set default focus when entering the screen, and not good to mess with focus while user has window open (is navigating in the window)
         //if (listControl != null)
         //  GUIControl.FocusControl(GetID, listControl.GetID););
-
         if (imgFanArt != null)
           imgFanArt.Visible = false;
         if (Youtube2MP.NowPlayingSong != null)
         {
-          Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(Youtube2MP.NowPlayingEntry));
-          Video video =Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+          Uri videoEntryUrl =
+            new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(Youtube2MP.NowPlayingEntry));
+          Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
 
           Log.Debug("Youtube.Fm load fanart");
           GUIPropertyManager.SetProperty("#Play.Current.Title", Youtube2MP.NowPlayingSong.Title);
@@ -230,7 +230,8 @@ namespace YouTubePlugin
           GUIPropertyManager.SetProperty("#Play.Current.PlotOutline", video.Description);
 
           if (Youtube2MP.NowPlayingEntry.Rating != null)
-            GUIPropertyManager.SetProperty("#Play.Current.Rating", (Youtube2MP.NowPlayingEntry.Rating.Average * 2).ToString());
+            GUIPropertyManager.SetProperty("#Play.Current.Rating",
+                                           (Youtube2MP.NowPlayingEntry.Rating.Average*2).ToString());
 
           try
           {
@@ -238,9 +239,9 @@ namespace YouTubePlugin
             string cm = "\n------------------------------------------\n";
             foreach (Comment c in comments.Entries)
             {
-              cm += c.Content + "\n------------------------------------------\n";
+              cm +=c.Author+" : "+ c.Content + "\n------------------------------------------\n";
             }
-            GUIPropertyManager.SetProperty("#Play.Current.Plot", video.Description+cm);
+            GUIPropertyManager.SetProperty("#Play.Current.Plot", video.Description + cm);
           }
           catch (Exception ex)
           {
@@ -259,23 +260,35 @@ namespace YouTubePlugin
             return;
           }
 
-          if (!Youtube2MP._settings.LoadOnlineFanart)
-            return;
-
-          if (Client.IsBusy)
-            return;
-
-          file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
-          if (!File.Exists(file))
+          if (Youtube2MP._settings.LoadOnlineFanart && !Client.IsBusy)
           {
-            fanart.Search(Youtube2MP.NowPlayingSong.Artist);
-            Log.Debug("Youtube.Fm found {0} online fanarts for {1}", fanart.ImageUrls.Count, Youtube2MP.NowPlayingSong.Artist);
-            if (fanart.ImageUrls.Count > 0)
+            file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
+            if (!File.Exists(file))
             {
-              Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
-              Client.DownloadFile(fanart.ImageUrls[0].Url, file);
+              fanart.Search(Youtube2MP.NowPlayingSong.Artist);
+              Log.Debug("Youtube.Fm found {0} online fanarts for {1}", fanart.ImageUrls.Count,
+                        Youtube2MP.NowPlayingSong.Artist);
+              if (fanart.ImageUrls.Count > 0)
+              {
+                Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
+                Client.DownloadFile(fanart.ImageUrls[0].Url, file);
+                GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
+                Log.Debug("Youtube.Fm fanart {0} loaded ", file);
+                if (imgFanArt != null)
+                {
+                  imgFanArt.Visible = true;
+                  imgFanArt.FileName = file;
+                  imgFanArt.DoUpdate();
+                }
+              }
+              else
+              {
+                if (imgFanArt != null) imgFanArt.Visible = false;
+              }
+            }
+            else
+            {
               GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
-              Log.Debug("Youtube.Fm fanart {0} loaded ", file);
               if (imgFanArt != null)
               {
                 imgFanArt.Visible = true;
@@ -283,26 +296,12 @@ namespace YouTubePlugin
                 imgFanArt.DoUpdate();
               }
             }
-            else
-            {
-              if (imgFanArt != null) imgFanArt.Visible = false;
-            }
           }
           else
           {
-            GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
-            if (imgFanArt != null)
-            {
-              imgFanArt.Visible = true;
-              imgFanArt.FileName = file;
-              imgFanArt.DoUpdate();
-            }
+            Log.Error("Youtube.Fm fanart NowPlaying not defined");
+            if (imgFanArt != null) imgFanArt.Visible = false;
           }
-        }
-        else
-        {
-          Log.Error("Youtube.Fm fanart NowPlaying not defined");
-          if (imgFanArt != null) imgFanArt.Visible = false;
         }
       }
       backgroundWorker.RunWorkerAsync();

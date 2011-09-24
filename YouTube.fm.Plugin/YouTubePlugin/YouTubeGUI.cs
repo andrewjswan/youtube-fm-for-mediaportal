@@ -257,6 +257,11 @@ namespace YouTubePlugin
     {
       base.OnPageLoad();
 
+      foreach (string name in Translation.Strings.Keys)
+      {
+        SetProperty("#Youtube.fm.Translation." + name + ".Label", Translation.Strings[name]);
+      }
+
       if(Youtube2MP.LastFmProfile==null)
       {
         Youtube2MP.LastFmProfile = new LastProfile();
@@ -440,7 +445,7 @@ namespace YouTubePlugin
         GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
         if (dlg == null) return;
         dlg.Reset();
-        dlg.SetHeading("Search History");
+        dlg.SetHeading(Translation.SearchHistory);
         for (int i = _setting.SearchHistory.Count; i > 0; i--)
         {
           dlg.Add(_setting.SearchHistory[i-1]);
@@ -452,7 +457,7 @@ namespace YouTubePlugin
       }
       else
       {
-        Err_message("No search history was found");
+        Err_message(Translation.NoSearchHistory);
       }
     }
 
@@ -725,7 +730,7 @@ namespace YouTubePlugin
         GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
         if (dlg == null) return;
         dlg.Reset();
-        dlg.SetHeading("Search History");
+        dlg.SetHeading(Translation.SearchHistory);
         dlg.Add(Translation.NewSearch);
         for (int i = _setting.SearchHistory.Count; i > 0; i--)
         {
@@ -776,7 +781,7 @@ namespace YouTubePlugin
                 GUIDialogYesNo dlgYesNo = (GUIDialogYesNo) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_YES_NO);
                 if (null == dlgYesNo)
                     return;
-                dlgYesNo.SetHeading("Did you mean ?"); //resume movie?
+                dlgYesNo.SetHeading(Translation.DidYouMean); //resume movie?
                 dlgYesNo.SetLine(1, link.Title);
                 dlgYesNo.SetDefaultToYes(true);
                 dlgYesNo.DoModal(GUIWindowManager.ActiveWindow);
@@ -800,7 +805,7 @@ namespace YouTubePlugin
         }
         else
         {
-            Err_message("No item was found !");
+            Err_message(Translation.NoItemWasFound);
         }
     }
 
@@ -889,7 +894,7 @@ namespace YouTubePlugin
       if (dlg == null)
         return;
       dlg.Reset();
-      dlg.SetHeading(498); // menu
+      dlg.SetHeading(Translation.ContextMenu); // menu
       dlg.Add("Related Videos");
       dlg.Add("Video responses for this video");
       dlg.Add("All videos from this user : "+videoEntry.Authors[0].Name);

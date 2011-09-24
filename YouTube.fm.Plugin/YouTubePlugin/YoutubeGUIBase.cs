@@ -123,6 +123,21 @@ namespace YouTubePlugin
       }
     }
 
+    internal static void SetProperty(string property, string value)
+    {
+      if (property == null)
+        return;
+
+      //// If the value is empty always add a space
+      //// otherwise the property will keep 
+      //// displaying it's previous value
+      if (String.IsNullOrEmpty(value))
+        value = " ";
+
+      GUIPropertyManager.SetProperty(property, value);
+    }
+
+
     static public void ClearLabels(string type)
     {
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", " ");

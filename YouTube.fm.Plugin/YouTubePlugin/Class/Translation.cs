@@ -197,12 +197,13 @@ namespace YouTubePlugin.Class
     
 
     // A
-    public static string AddToFavorites = "Add to favorites";
+    
 
     // C
-    
-    // D
+    public static string ContextMenu = "Context Menu";
 
+    // D
+    public static string DidYouMean  = "Did you mean ?";
 
     // E
 
@@ -223,6 +224,8 @@ namespace YouTubePlugin.Class
 
     // N
     public static string NewSearch = "New Search";
+    public static string NoSearchHistory = "No search history was found";
+    public static string NoItemWasFound  = "No item was found !";
 
     // O
 
@@ -232,6 +235,7 @@ namespace YouTubePlugin.Class
     // R
 
     // S
+    public static string SearchHistory = "Search History";
 
     // T
 
