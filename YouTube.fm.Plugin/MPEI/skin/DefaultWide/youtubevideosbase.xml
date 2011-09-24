@@ -73,7 +73,7 @@
             <id>5</id>
             <posX>71</posX>
             <posY>121</posY>
-            <label>Search</label>
+            <label>#Youtube.fm.Translation.Search.Label</label>
             <onright>50</onright>
             <onup>17</onup>
             <ondown>6</ondown>
@@ -84,7 +84,7 @@
             <id>6</id>
             <posX>71</posX>
             <posY>163</posY>
-            <label>Search History</label>
+            <label>#Youtube.fm.Translation.SearchHistory.Label</label>
             <onright>50</onright>
             <onup>5</onup>
             <ondown>3</ondown>
@@ -106,7 +106,7 @@
             <id>2</id>
             <posX>71</posX>
             <posY>248</posY>
-            <label>Home</label>
+            <label>#Youtube.fm.Translation.Home.Label</label>
             <onright>50</onright>
             <onup>3</onup>
             <ondown>7</ondown>
@@ -117,7 +117,7 @@
             <id>7</id>
             <posX>71</posX>
             <posY>291</posY>
-            <label>Playlist</label>            
+            <label>#Youtube.fm.Translation.Playlist.Label</label>
             <onright>50</onright>
             <onup>2</onup>
             <ondown>8</ondown>
@@ -128,7 +128,7 @@
             <id>8</id>
             <posX>71</posX>
             <posY>333</posY>
-            <label>4540</label>            
+            <label>#Youtube.fm.Translation.NowPlaying.Label</label>
             <onright>50</onright>
             <onup>7</onup>
             <ondown>106</ondown>

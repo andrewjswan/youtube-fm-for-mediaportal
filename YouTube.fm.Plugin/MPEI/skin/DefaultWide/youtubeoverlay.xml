@@ -23,7 +23,7 @@
       <align>left</align>
       <font>font12</font>
       <textcolor>80ffffff</textcolor>
-      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+      <visible>[facadeview.list|facadeview.filmstrip|facadeview.album]+[Control.HasFocus(50) + player.hasmedia]</visible>
     </control>
     <control>
       <description>play logo</description>
@@ -34,7 +34,7 @@
       <width>52</width>
       <height>52</height>
       <texture>play_enabled.png</texture>
-      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+      <visible>[facadeview.list|facadeview.filmstrip|facadeview.album]+[Control.HasFocus(50) + player.hasmedia]</visible>
     </control>    
     <control>
       <description>scrolling info label Video</description>
@@ -47,7 +47,7 @@
       <font>font11</font>
       <label>#Play.Current.Title\r#Play.Current.Artist\r#Play.Current.Album\r#Play.Current.Duration</label>
       <textcolor>EFFFFFFF</textcolor>
-      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+      <visible>[facadeview.list|facadeview.filmstrip|facadeview.album]+[Control.HasFocus(50) + player.hasmedia]</visible>
     </control>
     <control>
       <description>video rectangle</description>
@@ -58,7 +58,7 @@
       <width>217</width>
       <height>126</height>
       <texture>LCD.png</texture>
-      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+      <visible>[facadeview.list|facadeview.filmstrip|facadeview.album]+[Control.HasFocus(50) + player.hasmedia]</visible>
     </control>
     <control>
       <description>video preview window</description>
@@ -72,7 +72,7 @@
       <centered>yes</centered>
       <action>18</action>
       <textureFocus>tv_green_border.png</textureFocus>
-      <visible>[facadeview.list|facadeview.filmstrip]+[Control.HasFocus(50) + player.hasmedia]</visible>
+      <visible>[facadeview.list|facadeview.filmstrip|facadeview.album]+[Control.HasFocus(50) + player.hasmedia]</visible>
     </control>
   </controls>
 </window>

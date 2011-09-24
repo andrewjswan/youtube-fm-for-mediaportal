@@ -126,7 +126,7 @@
             <posY>680</posY>
             <font>font11</font>
             <textcolor>ffa9d0f7</textcolor>            
-            <label>Similar Videos...</label>
+            <label>#Youtube.fm.Translation.RelatedVideos.Label</label>
         </control>        
         <control>
             <id>50</id>
@@ -184,7 +184,7 @@
             <posY>212</posY>
             <font>font11</font>
             <textcolor>ffa9d0f7</textcolor>            
-            <label>Similar Artists</label>
+            <label>#Youtube.fm.Translation.SimilarArtists.Label</label>
         </control>
         <control>
             <id>166</id>
