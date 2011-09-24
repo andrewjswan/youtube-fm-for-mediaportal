@@ -403,7 +403,7 @@ namespace YouTubePlugin
 
     public void AddItemToPlayList(GUIListItem pItem, VideoInfo qa)
     {
-        PlayList playList = Youtube2MP.player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
+      PlayList playList = Youtube2MP.player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
       AddItemToPlayList(pItem, ref playList, qa);
     }
 

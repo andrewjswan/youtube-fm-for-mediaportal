@@ -203,7 +203,8 @@ namespace YouTubePlugin.Class
     public static string AllMusicVideosFrom = "All music videos from {0}";
     public static string AllVideosFromUser = "All videos from this user : {0}";
     public static string AnotherDonwnloadProgress = "Another donwnload is in progress";
-
+    public static string AutomaticallyFillPlaylist = "Automatically fill playlist with";
+    
     // C
     public static string ContextMenu = "Context Menu";
 
@@ -250,7 +251,10 @@ namespace YouTubePlugin.Class
     public static string Search = "Search";
     public static string SearchHistory = "Search History";
     public static string SimilarArtists = "Similar Artists";
-
+    public static string ScrobbleSimilarVideos = "Youtube related videos";
+    public static string ScrobbleNeighboursLike = "Tracks your neighbours like";
+    public static string ScrobbleRecentlyPlayed = "Tracks your recently played";
+    public static string ScrobbleMode = "Scroble:";
 
     // T
 

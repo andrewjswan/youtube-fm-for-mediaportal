@@ -925,8 +925,7 @@ namespace YouTubePlugin
           {
             Err_message(Translation.NoItemWasFound);
           }
-
-       }
+        }
       }
       else if (dlg.SelectedLabelText == Translation.VideoResponses)
       {
@@ -990,7 +989,7 @@ namespace YouTubePlugin
           Err_message(Translation.WrongRequestWrongUser);
         }
       }
-      else if (dlg.SelectedLabelText == Translation.AddFavorites)
+      else if (dlg.SelectedLabelText == Translation.Options)
       {
         DoOptions();
       }
