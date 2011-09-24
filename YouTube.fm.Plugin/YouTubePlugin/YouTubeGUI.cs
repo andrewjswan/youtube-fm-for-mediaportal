@@ -895,160 +895,146 @@ namespace YouTubePlugin
         return;
       dlg.Reset();
       dlg.SetHeading(Translation.ContextMenu); // menu
-      dlg.Add("Related Videos");
-      dlg.Add("Video responses for this video");
-      dlg.Add("All videos from this user : "+videoEntry.Authors[0].Name);
-      dlg.Add("Add to playlist");
-      dlg.Add("Add All to playlist");
-      dlg.Add("Add to favorites");
-      dlg.Add("Options");
-      dlg.Add("Download Video");
+      dlg.Add(Translation.RelatedVideos);
+      dlg.Add(Translation.VideoResponses);
+      dlg.Add(string.Format(Translation.AllVideosFromUser,videoEntry.Authors[0].Name));
+      dlg.Add(Translation.AddPlaylist);
+      dlg.Add(Translation.AddAllPlaylist);
+      dlg.Add(Translation.AddFavorites);
+      dlg.Add(Translation.Options);
+      dlg.Add(Translation.DownloadVideo);
       if (!string.IsNullOrEmpty(artistName) && !string.IsNullOrEmpty(ArtistManager.Instance.GetArtistsByName(artistName).Name))
-        dlg.Add("All song from " + artistName);
+        dlg.Add(string.Format(Translation.AllMusicVideosFrom , artistName));
 
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
         return;
-      switch (dlg.SelectedLabel)
+      if(dlg.SelectedLabelText==Translation.RelatedVideos)
       {
-        case 0: //relatated
+        if (videoEntry.RelatedVideosUri != null)
+        {
+          YouTubeQuery query = new YouTubeQuery(videoEntry.RelatedVideosUri.Content);
+          YouTubeFeed vidr = service.Query(query);
+          if (vidr.Entries.Count > 0)
           {
-            if (videoEntry.RelatedVideosUri != null)
-            {
-              YouTubeQuery query = new YouTubeQuery(videoEntry.RelatedVideosUri.Content);
-              YouTubeFeed vidr = service.Query(query);
-              if (vidr.Entries.Count > 0)
-              {
-                SaveListState(true);
-                addVideos(vidr, false, query);
-                UpdateGui();
-              }
-              else
-              {
-                Err_message("No item was found !");
-              }
+            SaveListState(true);
+            addVideos(vidr, false, query);
+            UpdateGui();
+          }
+          else
+          {
+            Err_message(Translation.NoItemWasFound);
+          }
 
+       }
+      }
+      else if (dlg.SelectedLabelText == Translation.VideoResponses)
+      {
+        if (videoEntry.VideoResponsesUri != null)
+        {
+          YouTubeQuery query = new YouTubeQuery(videoEntry.VideoResponsesUri.Content);
+          YouTubeFeed vidr = service.Query(query);
+          if (vidr.Entries.Count > 0)
+          {
+            SaveListState(true);
+            addVideos(vidr, false, query);
+            UpdateGui();
+          }
+          else
+          {
+            Err_message(Translation.NoItemWasFound);
+          }
+        }
+ 
+      }
+      else if (dlg.SelectedLabelText == string.Format(Translation.AllVideosFromUser, videoEntry.Authors[0].Name))
+      {
+        YouTubeQuery query = new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", videoEntry.Authors[0].Name));
+        YouTubeFeed vidr = service.Query(query);
+        if (vidr.Entries.Count > 0)
+        {
+          SaveListState(true);
+          addVideos(vidr, false, query);
+          UpdateGui();
+        }
+        else
+        {
+          Err_message(Translation.NoItemWasFound);
+        }
+      }
+      else if (dlg.SelectedLabelText == Translation.AddPlaylist)
+      {
+        VideoInfo inf = SelectQuality(videoEntry);
+        if (inf.Quality != VideoQuality.Unknow)
+        {
+          AddItemToPlayList(selectedItem, inf);
+        }        
+      }
+      else if (dlg.SelectedLabelText == Translation.AddAllPlaylist)
+      {
+        VideoInfo inf = SelectQuality(videoEntry);
+        inf.Items = new Dictionary<string, string>();
+        foreach (GUIListItem item in listControl.ListLayout.ListItems)
+        {
+          AddItemToPlayList(item, new VideoInfo(inf));
+        }
+      }
+      else if (dlg.SelectedLabelText == Translation.AddFavorites)
+      {
+        try
+        {
+          service.Insert(new Uri(YouTubeQuery.CreateFavoritesUri(null)), videoEntry);
+        }
+        catch (Exception)
+        {
+          Err_message(Translation.WrongRequestWrongUser);
+        }
+      }
+      else if (dlg.SelectedLabelText == Translation.AddFavorites)
+      {
+        DoOptions();
+      }
+      else if (dlg.SelectedLabelText == Translation.AddFavorites)
+      {
+        if (Youtube2MP._settings.LocalFile.Get(Youtube2MP.GetVideoId(videoEntry)) != null)
+        {
+          Err_message(Translation.ItemAlreadyDownloaded);
+        }
+        else
+        {
+          if (VideoDownloader.IsBusy)
+          {
+            Err_message(Translation.AnotherDonwnloadProgress);
+            dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
+            if (dlgProgress != null)
+            {
+              dlgProgress.Reset();
+              dlgProgress.SetHeading(Translation.DownloadProgress);
+              dlgProgress.SetLine(1, "");
+              dlgProgress.SetLine(2, "");
+              dlgProgress.SetPercentage(0);
+              dlgProgress.Progress();
+              dlgProgress.ShowProgressBar(true);
+              dlgProgress.DoModal(GetID);
             }
           }
-          break;
-        case 1: //respponse
-          {
-            if (videoEntry.VideoResponsesUri != null)
-            {
-              YouTubeQuery query = new YouTubeQuery(videoEntry.VideoResponsesUri.Content);
-              YouTubeFeed vidr = service.Query(query);
-              if (vidr.Entries.Count > 0)
-              {
-                SaveListState(true);
-                addVideos(vidr, false, query);
-                UpdateGui();
-              }
-              else
-              {
-                Err_message("No response was found !");
-              }
-
-            }
-          }
-          break;
-        case 2: //relatated
-          {
-            if (videoEntry.RelatedVideosUri != null)
-            {
-              YouTubeQuery query = new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", videoEntry.Authors[0].Name));
-              YouTubeFeed vidr = service.Query(query);
-              if (vidr.Entries.Count > 0)
-              {
-                SaveListState(true);
-                addVideos(vidr, false, query);
-                UpdateGui();
-              }
-              else
-              {
-                Err_message("No item was found !");
-              }
-
-            }
-          }
-          break;
-        case 3:
+          else
           {
             VideoInfo inf = SelectQuality(videoEntry);
-            if (inf.Quality != VideoQuality.Unknow)
-            {
-              AddItemToPlayList(selectedItem, inf);
-            }
+            string streamurl = Youtube2MP.StreamPlaybackUrl(videoEntry, inf);
+            VideoDownloader.AsyncDownload(streamurl,
+                                          Youtube2MP._settings.DownloadFolder + "\\" +
+                                          Utils.GetFilename(videoEntry.Title.Text + "{" + Youtube2MP.GetVideoId(videoEntry) + "}") +
+                                          Path.GetExtension(streamurl));
+            VideoDownloader.Entry = videoEntry;
           }
-          break;
-        case 4:
-          {
-            VideoInfo inf = SelectQuality(videoEntry);
-            inf.Items = new Dictionary<string, string>();
-            foreach (GUIListItem item in listControl.ListLayout.ListItems)
-            {
-                AddItemToPlayList(item, new VideoInfo(inf));
-            }
-          }
-          break;
-        case 5:
-          {
-            try
-            {
-              service.Insert(new Uri(YouTubeQuery.CreateFavoritesUri(null)), videoEntry);
-            }
-            catch (Exception)
-            {
-              Err_message("Wrong request or wrong user identification");
-            }
-          }
-          break;
-        case 6:
-          DoOptions();
-          break;
-        case 7: // download
-          {
-            if (Youtube2MP._settings.LocalFile.Get(Youtube2MP.GetVideoId(videoEntry)) != null)
-            {
-              Err_message("Item already downloaded !");
-            }
-            else
-            {
-              if (VideoDownloader.IsBusy)
-              {
-                Err_message("Another donwnload is in progress");
-                dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
-                if (dlgProgress != null)
-                {
-                  dlgProgress.Reset();
-                  dlgProgress.SetHeading("Download progress");
-                  dlgProgress.SetLine(1, "");
-                  dlgProgress.SetLine(2, "");
-                  dlgProgress.SetPercentage(0);
-                  dlgProgress.Progress();
-                  dlgProgress.ShowProgressBar(true);
-                  dlgProgress.DoModal(GetID);
-                }
-              }
-              else
-              {
-                VideoInfo inf = SelectQuality(videoEntry);
-                string streamurl = Youtube2MP.StreamPlaybackUrl(videoEntry, inf);
-                  VideoDownloader.AsyncDownload(streamurl,
-                                                Youtube2MP._settings.DownloadFolder + "\\" +
-                                                Utils.GetFilename(videoEntry.Title.Text + "{" + Youtube2MP.GetVideoId(videoEntry) + "}") +
-                                                Path.GetExtension(streamurl));
-                VideoDownloader.Entry = videoEntry;
-              }
-            }
-          }
-          break;
-        case 8:
-          {
-            ArtistItem artistItem = ArtistManager.Instance.GetArtistsByName(artistName);
-            addVideos(ArtistManager.Instance.Grabber.GetArtistVideosIds(artistItem.Id), true);
-          }
-          break;
-    }
+        }
+      }
+      else if (dlg.SelectedLabelText == string.Format(Translation.AllMusicVideosFrom, artistName))
+      {
+        ArtistItem artistItem = ArtistManager.Instance.GetArtistsByName(artistName);
+        addVideos(ArtistManager.Instance.Grabber.GetArtistVideosIds(artistItem.Id), true);
+      }
     }
 
 
@@ -1090,15 +1076,6 @@ namespace YouTubePlugin
 
       } while (true);
     }
-
-    private void DoInfo()
-    {
-      //YahooMusicInfoGUI guiInfo = (YahooMusicInfoGUI)GUIWindowManager.GetWindow(27051);
-      //guiInfo.InfoItem = listControl.SelectedListItem.MusicTag as VideoResponse;
-      //guiInfo.provider = this.provider;
-      //GUIWindowManager.ActivateWindow(27051);
-    }
-
 
     public void UpdateGui()
     {
@@ -1146,6 +1123,12 @@ namespace YouTubePlugin
 
     void addVideos(GenericListItemCollections itemCollections, bool level)
     {
+      if (itemCollections.Items.Count < 1)
+      {
+        Err_message(Translation.NoItemToDisplay);
+        return;
+      }
+
       SaveListState(true);
 
       if (itemCollections.FolderType == 1)
@@ -1153,11 +1136,6 @@ namespace YouTubePlugin
       else
         mapSettings.ViewAs = (int) View.List;
 
-      if(itemCollections.Items.Count<1)
-      {
-        Err_message("No item to display !");
-        return;
-      }
 
       GUIPropertyManager.SetProperty("#header.title", itemCollections.Title);
       updateStationLogoTimer.Enabled = false;
@@ -1267,10 +1245,10 @@ namespace YouTubePlugin
       if (qu.NumberToRetrieve > 0 && videos.TotalResults > qu.NumberToRetrieve)
       {
         GUIListItem item = new GUIListItem();
-        item.Label = string.Format("Next Page {0} - {1} ", qu.StartIndex + count, qu.StartIndex + qu.NumberToRetrieve + count);
+        item.Label = string.Format(Translation.NextPage+" {0} - {1} ", qu.StartIndex + count, qu.StartIndex + qu.NumberToRetrieve + count);
         qu.StartIndex += qu.NumberToRetrieve;
         item.Label = "";
-        item.Label2 = "Next page";
+        item.Label2 = Translation.NextPage;
         item.IsFolder = true;
         MediaPortal.Util.Utils.SetDefaultIcons(item);
         item.MusicTag = qu;

@@ -197,13 +197,20 @@ namespace YouTubePlugin.Class
     
 
     // A
-    
+    public static string AddAllPlaylist = "Add All to playlist";
+    public static string AddPlaylist = "Add to playlist";
+    public static string AddFavorites = "Add to favorites";
+    public static string AllMusicVideosFrom = "All music videos from {0}";
+    public static string AllVideosFromUser = "All videos from this user : {0}";
+    public static string AnotherDonwnloadProgress = "Another donwnload is in progress";
 
     // C
     public static string ContextMenu = "Context Menu";
 
     // D
     public static string DidYouMean  = "Did you mean ?";
+    public static string DownloadProgress = "Download progress";
+    public static string DownloadVideo = "Download Video";
 
     // E
 
@@ -215,7 +222,7 @@ namespace YouTubePlugin.Class
     public static string Home = "Home";
 
     // I
-
+    public static string ItemAlreadyDownloaded  = "Item already downloaded !";
 
     // L
 
@@ -223,19 +230,27 @@ namespace YouTubePlugin.Class
     public static string Message = "Message";
 
     // N
+    public static string NextPage = "Next page";
     public static string NewSearch = "New Search";
     public static string NoSearchHistory = "No search history was found";
     public static string NoItemWasFound  = "No item was found !";
+    public static string NoItemToDisplay = "No item to dispplay !";
+    public static string NowPlaying = "Now playing";
 
     // O
+    public static string Options = "Options";
 
     // P
-
+    public static string Playlist = "Playlist";
 
     // R
+    public static string RelatedVideos = "Related Videos";
 
     // S
+    public static string Search = "Search";
     public static string SearchHistory = "Search History";
+    public static string SimilarArtists = "Similar Artists";
+
 
     // T
 
@@ -244,8 +259,10 @@ namespace YouTubePlugin.Class
     
     
     // V
+    public static string VideoResponses = "Video responses for this video";
 
     // W
+    public static string WrongRequestWrongUser = "Wrong request or wrong user identification";
 
     // Y
 
