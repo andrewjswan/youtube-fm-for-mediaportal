@@ -165,7 +165,7 @@
 		<Provider>LastFmTopTracks</Provider>
 	</Items>
 	<Items>
-		<ConfigString>ParentFolder=Standard feeds|title=Top Played Tracks|type=TopTracks|</ConfigString>
+		<ConfigString>ParentFolder=Last.Fm|title=Top Played Tracks|type=TopTracks|</ConfigString>
 		<Title>Top Played Tracks</Title>
 		<Provider>LastFmUser</Provider>
 	</Items>

@@ -193,6 +193,22 @@
           </Items>
         </Files>
       </GroupItem>
+      <GroupItem Name="Language">
+        <DisplayName>Language</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Language</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>language\YouTube.Fm\en-US.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{dfb1d797-afdd-4f16-8b49-ba5c078a6067}-en-US.xml</ZipFileName>
+              <DestinationFilename>%Language%\YouTube.Fm\en-US.xml</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
     </Items>
   </Groups>
   <Sections>
@@ -322,8 +338,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
           <Items>
             <SubSystemItem Name="MP.Players.Video" />
             <SubSystemItem Name="MP.Players.Music" />
-            <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -339,15 +355,17 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>6</Minor>
-      <Build>8</Build>
+      <Build>9</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Some minor GUI Improvements
-New default skin THX  ysmp</VersionDescription>
+    <VersionDescription>Dynamic playlist generation remade 
+Minor bug fixes
+Translation 
+</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.8.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-09-14T17:28:13</ReleaseDate>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.9.0.mpe1</OnlineLocation>
+    <ReleaseDate>2011-09-26T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -475,11 +493,18 @@ New default skin THX  ysmp</VersionDescription>
         <ZipFileName>Installer{CopyFile}\{92beeaa5-d975-401d-88d4-629eebe7d300}-YouTubeFm_V01.db3</ZipFileName>
         <DestinationFilename>%Database%\YouTubeFm_V01.db3</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>language\YouTube.Fm\en-US.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{dfb1d797-afdd-4f16-8b49-ba5c078a6067}-en-US.xml</ZipFileName>
+        <DestinationFilename>%Language%\YouTube.Fm\en-US.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{c7a3d50d-d58a-4626-8c7a-2994db5d15ca}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{81959a69-262b-431a-b8a4-abfdbb4ec030}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
@@ -504,6 +529,16 @@ New default skin THX  ysmp</VersionDescription>
         <DestinationFilename>%Skin%\DefaultWide</DestinationFilename>
         <Folder>skin\DefaultWide</Folder>
         <Group>Default Skin</Group>
+        <Recursive>true</Recursive>
+      </FolderGroup>
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName />
+        <ZipFileName>Installer{CopyFile}\{36d3050d-e7f4-4633-8118-af8943f0c3ad}-</ZipFileName>
+        <DestinationFilename>%Language%\</DestinationFilename>
+        <Folder>language</Folder>
+        <Group>Language</Group>
         <Recursive>true</Recursive>
       </FolderGroup>
     </FolderGroups>
