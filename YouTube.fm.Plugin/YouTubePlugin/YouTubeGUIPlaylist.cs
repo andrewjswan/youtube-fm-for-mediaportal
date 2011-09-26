@@ -33,8 +33,7 @@ using System.Threading;
 using System.Text;
 using System.Timers;
 using System.Runtime.CompilerServices;
-
-
+using Lastfm.Services;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
 using MediaPortal.Util;
@@ -94,13 +93,14 @@ namespace YouTubePlugin
     //Song _scrobbleStartTrack;
     VirtualDirectory _virtualDirectory = new VirtualDirectory();
     private bool ScrobblerOn = false;
-    private bool _enableScrobbling = false;
+    //private bool _enableScrobbling = false;
     protected View currentView = View.List;
     protected string _currentPlaying = string.Empty;
     public PlayListType _playlistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
     private ScrobbleMode currentScrobbleMode = ScrobbleMode.Youtube;
     //-----------------------
     BackgroundWorker scroblerBackgroundWorker = new BackgroundWorker();
+    private int maxScrobbledEntry = 3;
     //-----------------------
 
 
@@ -169,6 +169,7 @@ namespace YouTubePlugin
           ScrobbleRecent();
           break;
       }
+      DoRefreshList();
     }
 
     bool CheckTitle(string title)
@@ -191,7 +192,7 @@ namespace YouTubePlugin
         if (vidr.Entries.Count > 0)
         {
           Random random = new Random();
-          for (int i = 0; i < 3; i++)
+          for (int i = 0; i < maxScrobbledEntry; i++)
           {
             int randomNumber = random.Next(0, vidr.Entries.Count - 1);
             PlayList playList = Youtube2MP.player.GetPlaylist(_playlistType);
@@ -204,12 +205,88 @@ namespace YouTubePlugin
 
     void ScrobbleNeighbours()
     {
-
+      if(!Youtube2MP.LastFmProfile.IsLoged)
+        return;
+      User user = new User(Youtube2MP._settings.LastFmUser, Youtube2MP.LastFmProfile.Session);
+      User[] users = user.GetNeighbours();
+      if(users.Length>0)
+      {
+        Random random = new Random();
+        Random randomOther = new Random();
+        Random randomOther1 = new Random();
+        for (int i = 0; i < maxScrobbledEntry; i++)
+        {
+          int randomNumber = random.Next(0, users.Length - 1);
+          TopArtist[] topArtists = users[randomNumber].GetTopArtists();
+          int randomartist = randomOther.Next(0, topArtists.Length - 1);
+          YouTubeEntry tubeEntry = GetArtistEntry(topArtists[randomartist].Item.ToString(), 10);
+          PlayList playList = Youtube2MP.player.GetPlaylist(_playlistType);
+          if (tubeEntry != null && !CheckTitle(tubeEntry.Title.Text))
+            AddItemToPlayList(tubeEntry, ref playList);
+        }
+      }
     }
 
     void ScrobbleRecent()
     {
+      if (!Youtube2MP.LastFmProfile.IsLoged)
+        return;
+      User user = new User(Youtube2MP._settings.LastFmUser, Youtube2MP.LastFmProfile.Session);
+      Track[] recent = user.GetRecentTracks(50);
+      if (recent.Length > 0)
+      {
+        Random random = new Random();
+        for (int i = 0; i < maxScrobbledEntry; i++)
+        {
+          int randomNumber = random.Next(0, recent.Length - 1);
+          YouTubeEntry tubeEntry = GetEntry(recent[randomNumber].ToString());
+          PlayList playList = Youtube2MP.player.GetPlaylist(_playlistType);
+          if (tubeEntry != null && !CheckTitle(tubeEntry.Title.Text))
+            AddItemToPlayList(tubeEntry, ref playList);
+        }
+      }
+    }
 
+    YouTubeEntry GetEntry(string title)
+    {
+      GenericListItemCollections res = new GenericListItemCollections();
+      YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
+      query.Query = title;
+      query.NumberToRetrieve = 1;
+      query.OrderBy = "relevance";
+
+      if (Youtube2MP._settings.MusicFilter)
+      {
+        query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
+      }
+
+      YouTubeFeed videos = Youtube2MP.service.Query(query);
+      foreach (YouTubeEntry youTubeEntry in videos.Entries)
+      {
+        return youTubeEntry;
+      }
+      return null;
+    }
+
+    YouTubeEntry GetArtistEntry(string title,int length)
+    {
+      GenericListItemCollections res = new GenericListItemCollections();
+      YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
+      query.Query = title;
+      query.NumberToRetrieve = length;
+      query.OrderBy = "relevance";
+
+      if (Youtube2MP._settings.MusicFilter)
+      {
+        query.Categories.Add(new QueryCategory("Music", QueryCategoryOperator.AND));
+      }
+
+      YouTubeFeed videos = Youtube2MP.service.Query(query);
+      if (videos.Entries.Count == 0)
+        return null;
+      Random random = new Random();
+      int number = random.Next(0, videos.Entries.Count-1);
+      return (YouTubeEntry)videos.Entries[number];
     }
 
 
@@ -295,9 +372,6 @@ namespace YouTubePlugin
       currentView = View.PlayList;
       facadeView.CurrentLayout = GUIFacadeControl.Layout.Playlist;
 
-      if (ScrobblerOn)
-        btnScrobble.Selected = true;
-
       LoadDirectory(string.Empty);
       if (m_iItemSelected >= 0)
       {
@@ -317,12 +391,16 @@ namespace YouTubePlugin
       {
         playlistPlayer.RepeatPlaylist = settings.GetValueAsBool("youtubeplaylist", "repeat", true);
         ScrobblerOn = settings.GetValueAsBool("youtubeplaylist", "ScrobblerOn", true);
+        currentScrobbleMode =(ScrobbleMode) settings.GetValueAsInt("youtubeplaylist", "ScrobblerMode", 0); 
       }
 
       if (btnRepeatPlaylist != null)
       {
         btnRepeatPlaylist.Selected = playlistPlayer.RepeatPlaylist;
       }
+      if (ScrobblerOn)
+        btnScrobble.Selected = true;
+
       SetScrobbleButonLabel();
       SelectCurrentPlayingSong();
     }
@@ -334,6 +412,7 @@ namespace YouTubePlugin
       {
         settings.SetValueAsBool("youtubeplaylist", "repeat", playlistPlayer.RepeatPlaylist);
         settings.SetValueAsBool("youtubeplaylist", "ScrobblerOn", ScrobblerOn);
+        settings.SetValue("youtubeplaylist", "ScrobblerMode", (int) currentScrobbleMode);
       }
       base.OnPageDestroy(newWindowId);
     }
@@ -446,9 +525,9 @@ namespace YouTubePlugin
             dlg.Add(Translation.ScrobbleRecentlyPlayed); // tracks played recently
             //dlg.Add(GUILocalizeStrings.Get(33013)); // tracks suiting configured tag {0}
           }
-
+          dlg.SelectedId = (int) currentScrobbleMode;
           dlg.DoModal(GetID);
-          if (dlg.SelectedLabel < 0)
+          if (dlg.SelectedId < 0)
             return;
 
           if (dlg.SelectedLabelText == Translation.ScrobbleSimilarVideos)

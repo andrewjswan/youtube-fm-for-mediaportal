@@ -2,7 +2,7 @@
 <window>
     <id>29052</id>
     <defaultcontrol>50</defaultcontrol>    
-    <allowoverlay>no</allowoverlay>    
+    <allowoverlay>no</allowoverlay>        
     <controls>
     <control>
       <description>BG</description>
@@ -13,19 +13,45 @@
       <height>720</height>
     </control>
         <control>
-            <id>95</id>
-            <description>Fan Art</description>
-            <type>image</type>
-            <posX>0</posX>
-            <posY></posY>
-            <width>1280</width>
-            <height>720</height>
-            <colordiffuse>ffffffff</colordiffuse>
-            <texture>#Youtube.fm.NowPlaying.Video.FanArt</texture>
-            <animation effect="fade" time="300">visible</animation>
-            <animation effect="fade" time="300" delay="300">hidden</animation>
+          <id>95</id>
+          <description>Fan Art</description>
+          <type>image</type>
+          <posx>0</posx>
+          <posy>0</posy>          
+          <width>1280</width>
+          <height>720</height>          
+          <texture>#Youtube.fm.NowPlaying.Video.FanArt</texture>
+          <colordiffuse>ffffffff</colordiffuse>    
+          <animation effect="fade" time="300">visible</animation>
+          <animation effect="fade" time="300" delay="300">hidden</animation>
         </control>
-        <import>common.time.xml</import>
+        <control>
+          <description>Overlay for FanArt</description>
+          <id>0</id>
+          <type>image</type>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>1280</width>
+          <height>720</height>
+          <texture>backgroundtop.png</texture>
+          <colordiffuse>ccffffff</colordiffuse>          
+          <animation effect="fade" time="70">visible</animation>
+          <animation effect="fade" time="70" delay="300">hidden</animation>
+        </control>
+        <control>
+          <description>Overlay for FanArt</description>
+          <id>0</id>
+          <type>image</type>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>1280</width>
+          <height>720</height>
+          <texture>backgroundthumbsview.png</texture>
+          <colordiffuse>ffffffff</colordiffuse>          
+          <animation effect="fade" time="70">visible</animation>
+          <animation effect="fade" time="70" delay="300">hidden</animation>
+        </control>
+        <import>common.time.xml</import>        
         <control>
           <type>label</type>
           <description>Header Label</description>

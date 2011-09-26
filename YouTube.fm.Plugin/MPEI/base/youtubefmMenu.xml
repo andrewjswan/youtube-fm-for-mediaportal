@@ -165,8 +165,38 @@
 		<Provider>LastFmTopTracks</Provider>
 	</Items>
 	<Items>
-		<ConfigString>ParentFolder=Last.Fm|title=Top Played Tracks|type=TopTracks|</ConfigString>
+		<ConfigString>ParentFolder=Standard feeds|title=Top Played Tracks|type=TopTracks|</ConfigString>
 		<Title>Top Played Tracks</Title>
 		<Provider>LastFmUser</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Germany|ParentFolder=Standard feeds|</ConfigString>
+		<Title>Germany</Title>
+		<Provider>Folder</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Most Viewed ( Germany )|region=Germany|time=|feed=Most Viewed|feedint=0|ParentFolder=Germany|</ConfigString>
+		<Title>Most Viewed ( Germany )</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Top Rated ( Germany )|region=Germany|time=|feed=Top Rated|feedint=1|ParentFolder=Germany|</ConfigString>
+		<Title>Top Rated ( Germany )</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Top Favorites ( Germany )|region=Germany|time=|feed=Top Favorites|feedint=4|ParentFolder=Germany|</ConfigString>
+		<Title>Top Favorites ( Germany )</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Most Responded ( Germany )|region=Germany|time=|feed=Most Responded|feedint=6|ParentFolder=Germany|</ConfigString>
+		<Title>Most Responded ( Germany )</Title>
+		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=Recently Featured ( Germany )|region=Germany|time=|feed=Recently Featured|feedint=2|ParentFolder=Germany|</ConfigString>
+		<Title>Recently Featured ( Germany )</Title>
+		<Provider>Standard feed</Provider>
 	</Items>
 </SiteItemEnumerator>

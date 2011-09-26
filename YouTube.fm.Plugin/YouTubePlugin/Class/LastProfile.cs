@@ -117,9 +117,5 @@ namespace YouTubePlugin.Class
       }
     }
 
-    public List<string> SimilarArtists(Song song)
-    {
-      return new List<string>();
-    }
   }
 }

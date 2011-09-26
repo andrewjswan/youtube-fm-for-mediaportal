@@ -143,7 +143,6 @@
             <onright>50</onright>
             <onup>26</onup>
             <ondown>27</ondown>
-            <visible>plugin.isenabled(Audioscrobbler)</visible>
           </control>
           <control>
             <description>scrobble on/off button</description>
@@ -153,17 +152,6 @@
             <onright>50</onright>
             <onup>28</onup>
             <ondown>29</ondown>
-            <visible>plugin.isenabled(Audioscrobbler)</visible>
-          </control>
-          <control>
-            <description>scrobble user button</description>
-            <type>button</type>
-            <id>29</id>
-            <label>Scrobbler: </label>
-            <onright>50</onright>
-            <onup>27</onup>
-            <ondown>99</ondown>
-            <visible>plugin.isenabled(Audioscrobbler)</visible>
           </control>
         </control>
       </control>
