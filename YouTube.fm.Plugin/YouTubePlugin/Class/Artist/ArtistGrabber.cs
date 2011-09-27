@@ -69,6 +69,7 @@ namespace YouTubePlugin.Class.Artist
       string url = string.Format("http://www.youtube.com/artist?a={0}", artist_id);
       if (ArtistManager.Instance.SitesCache.GetByUrl(url) == null)
       {
+        client.Encoding = System.Text.Encoding.UTF8;
         site = client.DownloadString(url);
         ArtistManager.Instance.SitesCache.Add(new SiteContent() { SIte = site, ArtistId = artist_id, Url = url });
       }

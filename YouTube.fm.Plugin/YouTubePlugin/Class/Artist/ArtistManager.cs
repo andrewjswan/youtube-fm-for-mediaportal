@@ -69,8 +69,9 @@ namespace YouTubePlugin.Class.Artist
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       if (loResultSet.Rows.Count > 0)
         return;
-      lsSQL = string.Format("insert into ARTISTS (ARTIST_ID,ARTIST_NAME,ARTIST_IMG) VALUES (\"{0}\",\"{1}\",\"{2}\")", artistItem.Id,
-                            DatabaseUtility.RemoveInvalidChars(artistItem.Name), artistItem.Img_url);
+      lsSQL = string.Format("insert into ARTISTS (ARTIST_ID,ARTIST_NAME,ARTIST_IMG) VALUES (\"{0}\",\"{1}\",\"{2}\")",
+                            artistItem.Id,
+                            DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"', '`')), artistItem.Img_url);
       m_db.Execute(lsSQL);
       artistItem.Db_id = m_db.LastInsertID();
     }
@@ -96,7 +97,7 @@ namespace YouTubePlugin.Class.Artist
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
       {
         res.Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID");
-        res.Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME");
+        res.Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'");
         res.Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
       }
       return res;
@@ -112,9 +113,26 @@ namespace YouTubePlugin.Class.Artist
         res.Add(new ArtistItem()
                   {
                     Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
-                    Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME"),
+                    Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'"),
                     Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
                   });
+      }
+      return res;
+    }
+
+    public List<ArtistItem> GetArtists()
+    {
+      List<ArtistItem> res = new List<ArtistItem>();
+      string lsSQL = string.Format("select * from ARTISTS  order by ARTIST_NAME");
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        res.Add(new ArtistItem()
+        {
+          Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
+          Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME"),
+          Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
+        });
       }
       return res;
     }
@@ -143,7 +161,7 @@ namespace YouTubePlugin.Class.Artist
       //  Lastfm.Services.Artist artist = new Lastfm.Services.Artist(artistItem.Name, Youtube2MP.LastFmProfile.Session);
       //  artistItem.Img_url = artist.GetImageURL(ImageSize.Large);
       //}
-      string lsSQL = string.Format("UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\" WHERE ARTIST_ID=\"{0}\" ", artistItem.Id, DatabaseUtility.RemoveInvalidChars(artistItem.Name),
+      string lsSQL = string.Format("UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\" WHERE ARTIST_ID=\"{0}\" ", artistItem.Id, DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"','`')),
                                    artistItem.Img_url);
       m_db.Execute(lsSQL);
     }

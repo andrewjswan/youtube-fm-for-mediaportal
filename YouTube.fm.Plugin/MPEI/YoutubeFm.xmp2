@@ -336,9 +336,9 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.Players.Video" />
-            <SubSystemItem Name="MP.Players.Music" />
             <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Players.Music" />
+            <SubSystemItem Name="MP.Players.Video" />
             <SubSystemItem Name="MP.Config" />
           </Items>
         </SubSystemsUsed>
@@ -354,18 +354,15 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/update.xml</UpdateUrl>
     <Version>
       <Major>0</Major>
-      <Minor>6</Minor>
-      <Build>9</Build>
+      <Minor>7</Minor>
+      <Build>0</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Dynamic playlist creation remade 
-Minor bug fixes
-Translation 
-</VersionDescription>
-    <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.6.9.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-09-26T17:28:13</ReleaseDate>
+    <VersionDescription>Stable release</VersionDescription>
+    <DevelopmentStatus>Stable</DevelopmentStatus>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.0.0.mpe1</OnlineLocation>
+    <ReleaseDate>2011-09-27T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -504,7 +501,7 @@ Translation
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{81959a69-262b-431a-b8a4-abfdbb4ec030}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{c2595703-4f0c-4702-b6cb-77665c78a8f8}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
