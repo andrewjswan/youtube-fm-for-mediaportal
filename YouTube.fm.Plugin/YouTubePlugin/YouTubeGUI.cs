@@ -882,6 +882,11 @@ namespace YouTubePlugin
       else
       {
         videoEntry = selectedItem.MusicTag as YouTubeEntry;
+        if (videoEntry == null)
+          return;
+        Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" +Youtube2MP.GetVideoId(videoEntry));
+        Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+        videoEntry = video.YouTubeEntry;
       }
 
       if (videoEntry == null)

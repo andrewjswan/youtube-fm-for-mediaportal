@@ -95,7 +95,7 @@ namespace YouTubePlugin
     {
       if (!string.IsNullOrEmpty(vid.VideoId))
         return vid.VideoId;
-      return Youtube2MP.getIDSimple(Youtube2MP.NowPlayingEntry.Id.AbsoluteUri);
+      return Youtube2MP.getIDSimple(vid.Id.AbsoluteUri);
     }
 
 
