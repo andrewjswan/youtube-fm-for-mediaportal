@@ -411,6 +411,9 @@ namespace YouTubePlugin
     {
       if (playList == null || pItem == null)
         return;
+      if (pItem.MusicTag == null)
+        return;
+
       string PlayblackUrl = "";
       
       YouTubeEntry vid;
@@ -421,11 +424,29 @@ namespace YouTubePlugin
         Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + file.VideoId);
         Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
         vid = video.YouTubeEntry;
-        
       }
       else
       {
         vid = pItem.MusicTag as YouTubeEntry;
+        if (vid == null)
+        {
+          SiteItemEntry entry = pItem.MusicTag as SiteItemEntry;
+          if (entry != null)
+          {
+            GenericListItemCollections genericListItem = Youtube2MP.GetList(entry);
+            if (entry.Provider == "VideoItem" && genericListItem.Items.Count > 0)
+            {
+              vid = genericListItem.Items[0].Tag as YouTubeEntry;
+            }
+          }
+        }
+
+        if (vid.Authors.Count == 0)
+        {
+          Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(vid));
+          Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+          vid = video.YouTubeEntry;
+        }
       }
 
       if (vid != null)

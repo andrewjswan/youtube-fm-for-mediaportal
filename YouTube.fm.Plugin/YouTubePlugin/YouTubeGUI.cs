@@ -882,6 +882,18 @@ namespace YouTubePlugin
       else
       {
         videoEntry = selectedItem.MusicTag as YouTubeEntry;
+        if(videoEntry == null)
+        {
+          SiteItemEntry entry = selectedItem.MusicTag as SiteItemEntry;
+          if (entry != null)
+          {
+            GenericListItemCollections genericListItem = Youtube2MP.GetList(entry);
+            if (entry.Provider == "VideoItem" && genericListItem.Items.Count > 0)
+            {
+              videoEntry = genericListItem.Items[0].Tag as YouTubeEntry;
+            }
+          }
+        }
         if (videoEntry == null)
           return;
         Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" +Youtube2MP.GetVideoId(videoEntry));
@@ -978,9 +990,12 @@ namespace YouTubePlugin
       {
         VideoInfo inf = SelectQuality(videoEntry);
         inf.Items = new Dictionary<string, string>();
-        foreach (GUIListItem item in listControl.ListLayout.ListItems)
+        if (inf.Quality != VideoQuality.Unknow)
         {
-          AddItemToPlayList(item, new VideoInfo(inf));
+          foreach (GUIListItem item in listControl.FilmstripLayout.ListItems)
+          {
+            AddItemToPlayList(item, new VideoInfo(inf));
+          }
         }
       }
       else if (dlg.SelectedLabelText == Translation.AddFavorites)
