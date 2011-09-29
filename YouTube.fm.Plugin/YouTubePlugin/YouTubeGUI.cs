@@ -242,16 +242,13 @@ namespace YouTubePlugin
       if (!string.IsNullOrEmpty(_setting.User))
       {
         service.setUserCredentials(_setting.User, _setting.Password);
+        Youtube2MP.request.Service = service;
       }
 
       
       return Load(GUIGraphicsContext.Skin + @"\youtubevideosbase.xml");
     }
 
-    void provider_OnError(Exception ex)
-    {
-      
-    }
      //do the init before page load
     protected override void OnPageLoad()
     {

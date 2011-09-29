@@ -48,6 +48,7 @@ using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
 using YouTubePlugin.Class;
 using Action = MediaPortal.GUI.Library.Action;
+using Playlist = Google.YouTube.Playlist;
 using Timer = System.Timers.Timer;
 
 namespace YouTubePlugin
@@ -1126,19 +1127,30 @@ namespace YouTubePlugin
           }
         }
 
-        PlaylistsEntry newPlaylist = new PlaylistsEntry();
-        newPlaylist.Title.Text = strNewFileName;
-        //newPlaylist.Description = "Created or modified in MediaPortal";
-        newPlaylist.Summary.Text = "Created or modified in MediaPortal";
-        PlaylistsEntry createdPlaylist = (PlaylistsEntry)Youtube2MP.service.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), newPlaylist);
+        //PlaylistsEntry newPlaylist = new PlaylistsEntry();
+        //newPlaylist.Title.Text = strNewFileName;
+        ////newPlaylist.Description = "Created or modified in MediaPortal";
+        //newPlaylist.Summary.Text = "Created or modified in MediaPortal";
+        //PlaylistsEntry createdPlaylist = (PlaylistsEntry)Youtube2MP.service.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), newPlaylist);
+
+        Playlist pl = new Playlist();
+        pl.Title = strNewFileName;
+        pl.Summary = "Created or modified in MediaPortal";
+        pl =Youtube2MP.request.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), pl);
 
         foreach (PlayListItem playitem in playList)
         {
           VideoInfo info = (VideoInfo)playitem.MusicTag;
           YouTubeEntry videoEntry = info.Entry;
-          PlaylistEntry newPlaylistEntry = new PlaylistEntry();
-          newPlaylistEntry.Id = videoEntry.Id;
-          PlaylistEntry createdPlaylistEntry = (PlaylistEntry)Youtube2MP.service.Insert(new Uri(createdPlaylist.Content.Src.Content), newPlaylistEntry);
+          //PlaylistEntry newPlaylistEntry = new PlaylistEntry();
+          //newPlaylistEntry.Id = videoEntry.Id;
+          // For Playlist object p
+          PlayListMember pm = new PlayListMember();
+
+          // Insert <id> or <videoid> for video here
+          pm.Id = videoEntry.VideoId;
+          Youtube2MP.request.AddToPlaylist(pl, pm);
+          //PlaylistEntry createdPlaylistEntry = (PlaylistEntry)Youtube2MP.service.Insert(new Uri(createdPlaylist.Content.Src.Content), newPlaylistEntry);
         }
 
       }
