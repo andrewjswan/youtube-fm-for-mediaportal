@@ -91,8 +91,6 @@ namespace YouTubePlugin
     int m_nTempPlayListWindow = 0;
     string m_strTempPlayListDirectory = string.Empty;
     string m_strCurrentFile = string.Empty;
-    //Song _scrobbleStartTrack;
-    VirtualDirectory _virtualDirectory = new VirtualDirectory();
     private bool ScrobblerOn = false;
     //private bool _enableScrobbling = false;
     protected View currentView = View.List;
@@ -102,6 +100,7 @@ namespace YouTubePlugin
     //-----------------------
     BackgroundWorker scroblerBackgroundWorker = new BackgroundWorker();
     private int maxScrobbledEntry = 3;
+    private string playlistname = string.Empty;
     //-----------------------
 
 
@@ -632,6 +631,7 @@ namespace YouTubePlugin
       if (dlg.SelectedId == -1) return;
       PlayList playList = Youtube2MP.player.GetPlaylist(_playlistType);
       playList.Clear();
+      playlistname = dlg.SelectedLabelText;
       foreach (PlaylistsEntry entry in userPlaylists.Entries)
       {
         if (entry.Title.Text == dlg.SelectedLabelText)
@@ -1093,17 +1093,16 @@ namespace YouTubePlugin
 
     void SavePlayList()
     {
-      string strNewFileName = string.Empty;
       VirtualKeyboard keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
       // display an virtual keyboard
       if (null == keyboard) return;
       keyboard.Reset();
-      keyboard.Text = strNewFileName;
+      keyboard.Text = playlistname;
       keyboard.DoModal(GetID);
       if (keyboard.IsConfirmed)
       {
         // input confirmed -- execute the search
-        strNewFileName = keyboard.Text;
+        playlistname = keyboard.Text;
         PlaylistsFeed userPlaylists;
         YouTubeQuery query = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(null));
         try
@@ -1121,7 +1120,7 @@ namespace YouTubePlugin
         PlayList playList = Youtube2MP.player.GetPlaylist(_playlistType);
         foreach (PlaylistsEntry entry in userPlaylists.Entries)
         {
-          if (entry.Title.Text == strNewFileName)
+          if (entry.Title.Text == playlistname)
           {
             entry.Delete();
           }
@@ -1134,7 +1133,7 @@ namespace YouTubePlugin
         //PlaylistsEntry createdPlaylist = (PlaylistsEntry)Youtube2MP.service.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), newPlaylist);
 
         Playlist pl = new Playlist();
-        pl.Title = strNewFileName;
+        pl.Title = playlistname;
         pl.Summary = "Created or modified in MediaPortal";
         pl =Youtube2MP.request.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), pl);
 

@@ -141,6 +141,21 @@ namespace YouTubePlugin
 
         Log.Debug("YouTube.fm playback started");
         YouTubeEntry en = info.Entry;
+
+        if (en.Authors.Count == 0 )
+        {
+          Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(en));
+          try
+          {
+            Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+            en = video.YouTubeEntry;
+          }
+          catch (Exception)
+          {
+            //vid = null;
+          }
+        }
+
         item.FileName = Youtube2MP.StreamPlaybackUrl(en, info);
         Song song = Youtube2MP.YoutubeEntry2Song(en);
             

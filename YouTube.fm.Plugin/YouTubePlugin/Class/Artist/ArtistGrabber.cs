@@ -49,8 +49,15 @@ namespace YouTubePlugin.Class.Artist
       client.Proxy.Credentials = CredentialCache.DefaultCredentials;
       if (ArtistManager.Instance.SitesCache.GetByUrl(url) == null)
       {
-        site = client.DownloadString(url);
-        ArtistManager.Instance.SitesCache.Add(new SiteContent() { SIte = site, Url = url });
+        try
+        {
+          site = client.DownloadString(url);
+          ArtistManager.Instance.SitesCache.Add(new SiteContent() { SIte = site, Url = url });
+        }
+        finally
+        {
+          
+        }
       }
       else
       {

@@ -247,9 +247,9 @@ namespace YouTubePlugin
         {
           qa.Items = new Dictionary<string, string>();
           int selected = facade.SelectedListItemIndex;
-          for (int i = selected + 2; i < facade.ListItems.Count; i++)
+          for (int i = selected + 1; i < facade.ListItems.Count; i++)
           {
-            AddItemToPlayList(facade.ListItems[i], ref playlist, new VideoInfo(qa));
+            AddItemToPlayList(facade.ListItems[i], ref playlist, new VideoInfo(qa), false);
           }
         }
         else
@@ -404,10 +404,10 @@ namespace YouTubePlugin
     public void AddItemToPlayList(GUIListItem pItem, VideoInfo qa)
     {
       PlayList playList = Youtube2MP.player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
-      AddItemToPlayList(pItem, ref playList, qa);
+      AddItemToPlayList(pItem, ref playList, qa, true);
     }
 
-    public void AddItemToPlayList(GUIListItem pItem, ref PlayList playList,VideoInfo qa)
+    public void AddItemToPlayList(GUIListItem pItem, ref PlayList playList,VideoInfo qa, bool check)
     {
       if (playList == null || pItem == null)
         return;
@@ -428,7 +428,7 @@ namespace YouTubePlugin
       else
       {
         vid = pItem.MusicTag as YouTubeEntry;
-        if (vid == null)
+        if (vid == null && check)
         {
           SiteItemEntry entry = pItem.MusicTag as SiteItemEntry;
           if (entry != null)
@@ -441,11 +441,18 @@ namespace YouTubePlugin
           }
         }
 
-        if (vid.Authors.Count == 0)
+        if (vid.Authors.Count == 0 && check)
         {
           Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(vid));
-          Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
-          vid = video.YouTubeEntry;
+          try
+          {
+            Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+            vid = video.YouTubeEntry;
+          }
+          catch (Exception)
+          {
+            vid = null;
+          }
         }
       }
 
