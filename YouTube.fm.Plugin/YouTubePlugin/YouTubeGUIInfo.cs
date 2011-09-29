@@ -314,7 +314,7 @@ namespace YouTubePlugin
           }
           else
           {
-            Log.Error("Youtube.Fm fanart NowPlaying not defined");
+            //Log.Error("Youtube.Fm fanart NowPlaying not defined");
             if (imgFanArt != null) imgFanArt.Visible = false;
           }
         }

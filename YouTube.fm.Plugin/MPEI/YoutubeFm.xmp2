@@ -355,14 +355,16 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>7</Minor>
-      <Build>1</Build>
+      <Build>2</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Fixed playlit related bugs</VersionDescription>
+    <VersionDescription>Fixed playlist saving bug
+Fixed skin properties
+Bigger video thumbs</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.1.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-09-28T17:28:13</ReleaseDate>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.2.0.mpe1</OnlineLocation>
+    <ReleaseDate>2011-09-29T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -501,7 +503,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{9eb5686b-b271-4ad5-87b5-367dc6c02115}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{8fb3e729-88d1-4943-9202-72dc08c4f539}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
