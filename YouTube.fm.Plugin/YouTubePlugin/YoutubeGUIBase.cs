@@ -165,7 +165,19 @@ namespace YouTubePlugin
     {
       if (th.Count > 0)
       {
-        return th[th.Count - 1].Url;
+        int with = 0;
+        string url = string.Empty;
+        foreach (MediaThumbnail mediaThumbnail in th)
+        {
+          int w = 0;
+          int.TryParse(mediaThumbnail.Width, out w);
+          if (w > with)
+          {
+            url = mediaThumbnail.Url;
+            with = w;
+          }
+        }
+        return url;
       }
       else
       {

@@ -92,7 +92,8 @@ namespace YouTubePlugin.Class.Artist
     public ArtistItem GetArtistsByName(string name)
     {
       ArtistItem res = new ArtistItem();
-      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_NAME like \"{0}%\" order by ARTIST_NAME", name);
+      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_NAME like \"{0}%\" order by ARTIST_NAME",
+                                   DatabaseUtility.RemoveInvalidChars(name.Replace('"', '`')));
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
       {
