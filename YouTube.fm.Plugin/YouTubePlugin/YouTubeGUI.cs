@@ -1010,6 +1010,7 @@ namespace YouTubePlugin
             {
               double pr = ((double)i / (double)listControl.Count) * 100;
               dlgProgress.SetLine(1, item.Label);
+              dlgProgress.SetLine(2, i.ToString() + "/" + listControl.Count.ToString());
               dlgProgress.SetPercentage((int)pr);
               dlgProgress.Progress();
               if (dlgProgress.IsCanceled)

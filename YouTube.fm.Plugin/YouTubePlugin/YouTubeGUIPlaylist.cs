@@ -916,11 +916,14 @@ namespace YouTubePlugin
             //pItem.m_bIsShareOrDrive = false;
 
             MediaPortal.Util.Utils.SetDefaultIcons(pItem);
-            if (item.Played)
+            //if (item.Played)
+            //{
+            //  pItem.Shaded = true;
+            //}
+            if(item.Type == PlayListItem.PlayListItemType.Unknown)
             {
               pItem.Shaded = true;
             }
-
             if (item.Duration > 0)
             {
               int nDuration = item.Duration;
@@ -960,9 +963,11 @@ namespace YouTubePlugin
           int iItem = 0;
           foreach (GUIListItem item in itemlist)
           {
-            YouTubeEntry tag = item.MusicTag as YouTubeEntry;
-            if (tag != null)
+            VideoInfo videoInfo = item.MusicTag as VideoInfo;
+
+            if (videoInfo != null)
             {
+              YouTubeEntry tag = videoInfo.Entry;
               string imageFile = GetLocalImageFileName(GetBestUrl(tag.Media.Thumbnails));
               if (File.Exists(imageFile))
               {
@@ -1012,6 +1017,7 @@ namespace YouTubePlugin
           }
           UpdateButtonStates();
           GUIWaitCursor.Hide();
+          OnDownloadTimedEvent(null, null);
         }
         catch (Exception ex)
         {
@@ -1159,14 +1165,29 @@ namespace YouTubePlugin
           pm.Id = videoEntry.VideoId;
 
           if (IsVideoUsable(videoEntry))
-            Youtube2MP.request.AddToPlaylist(pl, pm);
+            try
+            {
+              Youtube2MP.request.AddToPlaylist(pl, pm);
+            }
+            catch (Exception ex)
+            {
+              Thread.Sleep(2000);
+              notsaved++;
+              playitem.Type = PlayListItem.PlayListItemType.Unknown;
+            }
           else
+          {
             notsaved++;
-
+            playitem.Type = PlayListItem.PlayListItemType.Unknown;
+          }
+          if (i % 10 == 0)
+            Thread.Sleep(1000);
           if (dlgProgress != null)
           {
             double pr = ((double)i / (double)playList.Count) * 100;
             dlgProgress.SetLine(1, videoEntry.Title.Text);
+            dlgProgress.SetLine(2,
+                                i.ToString() + "/" + playList.Count.ToString() + "( skipped " + notsaved.ToString() + ")");
             dlgProgress.SetPercentage((int) pr);
             dlgProgress.Progress();
           }
@@ -1177,6 +1198,8 @@ namespace YouTubePlugin
 
         if (notsaved > 0)
           Err_message(Translation.SomePlaylistItemNotSaved);
+
+        LoadDirectory(string.Empty);
       }
     }
 

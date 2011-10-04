@@ -466,7 +466,7 @@ namespace YouTubePlugin
           }
         }
 
-        if (vid.Authors.Count == 0 && check)
+        if (vid != null && vid.Authors.Count == 0 && check)
         {
           Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(vid));
           try
