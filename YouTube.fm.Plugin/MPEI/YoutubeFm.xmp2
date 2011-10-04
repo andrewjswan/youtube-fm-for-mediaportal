@@ -336,9 +336,9 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
+            <SubSystemItem Name="MP.Players.Video" />
             <SubSystemItem Name="MP.SkinEngine" />
             <SubSystemItem Name="MP.Players.Music" />
-            <SubSystemItem Name="MP.Players.Video" />
             <SubSystemItem Name="MP.Config" />
           </Items>
         </SubSystemsUsed>
@@ -355,15 +355,17 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>7</Minor>
-      <Build>2</Build>
+      <Build>3</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Fixed playlist saving bug
-Fixed skin properties
-Bigger video thumbs</VersionDescription>
+    <VersionDescription>Status Progress for saving playlist
+Add to play lit from now playing screen
+Some error handing when saving a playlist
+Recently played tracks from last.fm
+</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.2.0.mpe1</OnlineLocation>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.3.0.mpe1</OnlineLocation>
     <ReleaseDate>2011-09-29T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
@@ -503,7 +505,7 @@ Bigger video thumbs</VersionDescription>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{8fb3e729-88d1-4943-9202-72dc08c4f539}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{5ba8090a-366c-4eb4-ad2c-9568b22de569}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
