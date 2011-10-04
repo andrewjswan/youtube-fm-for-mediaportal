@@ -28,19 +28,46 @@ namespace YouTubePlugin.Class.SiteItems
     {
       GenericListItemCollections res = new GenericListItemCollections();
       User user = new User(Youtube2MP._settings.LastFmUser, Youtube2MP.LastFmProfile.Session);
-      TopTrack[] tracks = user.GetTopTracks();
-      foreach (TopTrack topTrack in tracks)
+      switch (entry.GetValue("type"))
       {
-        SiteItemEntry newentry = new SiteItemEntry();
-        VideoItem videoItem = new VideoItem();
-        newentry.Provider = videoItem.Name;
-        newentry.Title = topTrack.Item.ToString();
-        res.Items.Add(new GenericListItem()
-        {
-          IsFolder = false,
-          Title = newentry.Title,
-          Tag = newentry
-        });
+        case "TopTracks":
+          {
+            TopTrack[] tracks = user.GetTopTracks();
+            //user.GetRecentTracks()
+            foreach (TopTrack topTrack in tracks)
+            {
+              SiteItemEntry newentry = new SiteItemEntry();
+              VideoItem videoItem = new VideoItem();
+              newentry.Provider = videoItem.Name;
+              newentry.Title = topTrack.Item.ToString();
+              res.Items.Add(new GenericListItem()
+              {
+                IsFolder = false,
+                Title = newentry.Title,
+                Tag = newentry
+              });
+            }            
+          }
+          break;
+        case "RecentTracks":
+          {
+            Track[] tracks = user.GetRecentTracks(40);
+            //user.GetRecentTracks()
+            foreach (Track topTrack in tracks)
+            {
+              SiteItemEntry newentry = new SiteItemEntry();
+              VideoItem videoItem = new VideoItem();
+              newentry.Provider = videoItem.Name;
+              newentry.Title = topTrack.ToString();
+              res.Items.Add(new GenericListItem()
+              {
+                IsFolder = false,
+                Title = newentry.Title,
+                Tag = newentry
+              });
+            }
+          }
+          break;
       }
       return res;
     }

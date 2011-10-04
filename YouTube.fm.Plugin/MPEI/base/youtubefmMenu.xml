@@ -170,6 +170,11 @@
 		<Provider>LastFmUser</Provider>
 	</Items>
 	<Items>
+		<ConfigString>ParentFolder=Last.Fm|title=Recent Tracks|type=RecentTracks|</ConfigString>
+		<Title>Recent Tracks</Title>
+		<Provider>LastFmUser</Provider>
+	</Items>
+	<Items>
 		<ConfigString>title=Germany|ParentFolder=Standard feeds|</ConfigString>
 		<Title>Germany</Title>
 		<Provider>Folder</Provider>

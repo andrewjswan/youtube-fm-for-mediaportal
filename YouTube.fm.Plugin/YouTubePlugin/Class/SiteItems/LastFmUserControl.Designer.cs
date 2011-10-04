@@ -39,7 +39,8 @@
       this.cmb_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.cmb_type.FormattingEnabled = true;
       this.cmb_type.Items.AddRange(new object[] {
-            "TopTracks"});
+            "TopTracks",
+            "RecentTracks"});
       this.cmb_type.Location = new System.Drawing.Point(0, 69);
       this.cmb_type.Name = "cmb_type";
       this.cmb_type.Size = new System.Drawing.Size(279, 21);
