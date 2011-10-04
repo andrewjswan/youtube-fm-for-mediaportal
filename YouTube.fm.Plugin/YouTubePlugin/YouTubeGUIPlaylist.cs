@@ -632,6 +632,7 @@ namespace YouTubePlugin
       PlayList playList = Youtube2MP.player.GetPlaylist(_playlistType);
       playList.Clear();
       playlistname = dlg.SelectedLabelText;
+
       foreach (PlaylistsEntry entry in userPlaylists.Entries)
       {
         if (entry.Title.Text == dlg.SelectedLabelText)
@@ -646,7 +647,8 @@ namespace YouTubePlugin
             playlistFeed = Youtube2MP.service.GetPlaylist(playlistQuery);
             foreach (YouTubeEntry playlistEntry in playlistFeed.Entries)
             {
-              AddItemToPlayList(playlistEntry, ref playList);
+              if (IsVideoUsable(playlistEntry))
+                AddItemToPlayList(playlistEntry, ref playList);
             }
             start += 50;
           } while (playlistFeed.TotalResults > start - 1);
@@ -1126,32 +1128,55 @@ namespace YouTubePlugin
           }
         }
 
-        //PlaylistsEntry newPlaylist = new PlaylistsEntry();
-        //newPlaylist.Title.Text = strNewFileName;
-        ////newPlaylist.Description = "Created or modified in MediaPortal";
-        //newPlaylist.Summary.Text = "Created or modified in MediaPortal";
-        //PlaylistsEntry createdPlaylist = (PlaylistsEntry)Youtube2MP.service.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), newPlaylist);
+        GUIDialogProgress dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
+        if (dlgProgress != null)
+        {
+          dlgProgress.Reset();
+          dlgProgress.SetHeading(Translation.PlaylistSavingProgress);
+          dlgProgress.SetLine(1, "");
+          dlgProgress.SetLine(2, "");
+          dlgProgress.SetPercentage(0);
+          dlgProgress.Progress();
+          dlgProgress.ShowProgressBar(true);
+          dlgProgress.StartModal(GetID);
+        }
 
+        int notsaved = 0;
+        
         Playlist pl = new Playlist();
         pl.Title = playlistname;
         pl.Summary = "Created or modified in MediaPortal";
         pl =Youtube2MP.request.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), pl);
-
+        int i = 1;
         foreach (PlayListItem playitem in playList)
         {
           VideoInfo info = (VideoInfo)playitem.MusicTag;
           YouTubeEntry videoEntry = info.Entry;
-          //PlaylistEntry newPlaylistEntry = new PlaylistEntry();
-          //newPlaylistEntry.Id = videoEntry.Id;
-          // For Playlist object p
+
           PlayListMember pm = new PlayListMember();
 
           // Insert <id> or <videoid> for video here
           pm.Id = videoEntry.VideoId;
-          Youtube2MP.request.AddToPlaylist(pl, pm);
-          //PlaylistEntry createdPlaylistEntry = (PlaylistEntry)Youtube2MP.service.Insert(new Uri(createdPlaylist.Content.Src.Content), newPlaylistEntry);
-        }
 
+          if (IsVideoUsable(videoEntry))
+            Youtube2MP.request.AddToPlaylist(pl, pm);
+          else
+            notsaved++;
+
+          if (dlgProgress != null)
+          {
+            double pr = ((double)i / (double)playList.Count) * 100;
+            dlgProgress.SetLine(1, videoEntry.Title.Text);
+            dlgProgress.SetPercentage((int) pr);
+            dlgProgress.Progress();
+          }
+          i++;
+        }
+        if (dlgProgress != null)
+          dlgProgress.Close();
+
+        if (notsaved > 0)
+          Err_message(Translation.SomePlaylistItemNotSaved);
       }
     }
 

@@ -955,7 +955,7 @@ namespace YouTubePlugin
           }
           else
           {
-            Err_message(Translation.NoItemWasFound);
+            Err_message(Translation.NoVideoResponse);
           }
         }
  
@@ -985,14 +985,41 @@ namespace YouTubePlugin
       }
       else if (dlg.SelectedLabelText == Translation.AddAllPlaylist)
       {
+
         VideoInfo inf = SelectQuality(videoEntry);
         inf.Items = new Dictionary<string, string>();
         if (inf.Quality != VideoQuality.Unknow)
         {
-          foreach (GUIListItem item in listControl.FilmstripLayout.ListItems)
+          GUIDialogProgress dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
+          if (dlgProgress != null)
           {
+            dlgProgress.Reset();
+            dlgProgress.SetHeading(Translation.AddAllPlaylist);
+            dlgProgress.SetLine(1, "");
+            dlgProgress.SetLine(2, "");
+            dlgProgress.SetPercentage(0);
+            dlgProgress.Progress();
+            dlgProgress.ShowProgressBar(true);
+            dlgProgress.StartModal(GetID);
+          }
+          int i = 0;
+          for (int j = 0; j < listControl.Count; j++)
+          {
+            GUIListItem item = listControl[j];
+            if (dlgProgress != null)
+            {
+              double pr = ((double)i / (double)listControl.Count) * 100;
+              dlgProgress.SetLine(1, item.Label);
+              dlgProgress.SetPercentage((int)pr);
+              dlgProgress.Progress();
+              if (dlgProgress.IsCanceled)
+                break;
+            }
+            i++;
             AddItemToPlayList(item, new VideoInfo(inf));
           }
+          if (dlgProgress != null)
+            dlgProgress.Close();
         }
       }
       else if (dlg.SelectedLabelText == Translation.AddFavorites)

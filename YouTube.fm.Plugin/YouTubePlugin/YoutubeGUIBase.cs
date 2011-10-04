@@ -123,6 +123,19 @@ namespace YouTubePlugin
       }
     }
 
+    public bool IsVideoUsable(YouTubeEntry tubeEntry)
+    {
+      // this is cas can hapen only if the entry is generated, so no information about video avaiablity
+      if (tubeEntry.State == null)
+        return true;
+      if (tubeEntry.State.Name == "deleted")
+        return false;
+      if (tubeEntry.State.Name == "rejected" && tubeEntry.State.Reason == "suspended")
+        return false;
+
+      return true;
+    }
+
     internal static void SetProperty(string property, string value)
     {
       if (property == null)
@@ -484,7 +497,8 @@ namespace YouTubePlugin
           qa.Entry = vid;
           playlistItem.FileName = PlayblackUrl;
           playlistItem.Description = pItem.Label;
-          playlistItem.Duration = pItem.Duration;
+          if (vid.Duration != null && vid.Duration.Seconds != null)
+            playlistItem.Duration = Convert.ToInt32(vid.Duration.Seconds, 10);
           playlistItem.MusicTag = qa;
           playList.Add(playlistItem);
       }

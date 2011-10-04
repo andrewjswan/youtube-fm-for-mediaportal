@@ -237,12 +237,14 @@ namespace YouTubePlugin.Class
     public static string NoItemWasFound  = "No item was found !";
     public static string NoItemToDisplay = "No item to dispplay !";
     public static string NowPlaying = "Now playing";
+    public static string NoVideoResponse = "This video doesn't have any video response !";
 
     // O
     public static string Options = "Options";
 
     // P
     public static string Playlist = "Playlist";
+    public static string PlaylistSavingProgress = "Playlist saving progress ";
 
     // R
     public static string RelatedVideos = "Related Videos";
@@ -255,6 +257,7 @@ namespace YouTubePlugin.Class
     public static string ScrobbleNeighboursLike = "Tracks your neighbours like";
     public static string ScrobbleRecentlyPlayed = "Tracks your recently played";
     public static string ScrobbleMode = "Scroble:";
+    public static string SomePlaylistItemNotSaved = "Some playlist item not saved !";
 
     // T
 
