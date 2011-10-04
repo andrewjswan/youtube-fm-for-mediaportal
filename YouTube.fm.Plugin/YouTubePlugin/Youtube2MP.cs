@@ -365,6 +365,9 @@ namespace YouTubePlugin
                                  LogoUrl = YoutubeGUIBase.GetBestUrl(youTubeEntry.Media.Thumbnails),
                                  Tag = youTubeEntry
                                };
+      if (youTubeEntry.Duration != null)
+        item.Duration = Convert.ToInt32(youTubeEntry.Duration.Seconds, 10);
+      item.Title3 = MediaPortal.Util.Utils.SecondsToHMSString(item.Duration);
       if (youTubeEntry.Statistics!=null)
       {
         int i = Convert.ToInt32(youTubeEntry.Statistics.ViewCount);

@@ -1200,6 +1200,7 @@ namespace YouTubePlugin
         // and add station name & bitrate
         item.Label = listItem.Title;
         item.Label2 = listItem.Title2;
+        item.Label3 = listItem.Title3;
         item.IsFolder = listItem.IsFolder;
         item.Duration = listItem.Duration;
         item.Rating = listItem.Rating;

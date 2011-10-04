@@ -216,6 +216,7 @@ namespace YouTubePlugin.Class
     // E
 
     // F
+    public static string Fullscreen = "Fullscreen";
 
     // G
 
@@ -256,6 +257,7 @@ namespace YouTubePlugin.Class
     public static string ScrobbleSimilarVideos = "Youtube related videos";
     public static string ScrobbleNeighboursLike = "Tracks your neighbours like";
     public static string ScrobbleRecentlyPlayed = "Tracks your recently played";
+    public static string ShowPreviousWindow = "Show Previous Window";
     public static string ScrobbleMode = "Scroble:";
     public static string SomePlaylistItemNotSaved = "Some playlist item not saved !";
 

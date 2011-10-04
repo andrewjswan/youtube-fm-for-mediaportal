@@ -12,6 +12,7 @@ using MediaPortal.Player;
 using MediaPortal.Playlists;
 using MediaPortal.Music.Database;
 using Google.GData.YouTube;
+using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
 using YouTubePlugin.DataProvider;
 using Action = MediaPortal.GUI.Library.Action;
@@ -199,24 +200,79 @@ namespace YouTubePlugin
 
     protected override void OnShowContextMenu()
     {
-      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+      GUIListItem selectedItem = listControl.SelectedListItem;
+      YouTubeEntry videoEntry = selectedItem.MusicTag as YouTubeEntry;
+      GUIDialogMenu dlg = (GUIDialogMenu) GUIWindowManager.GetWindow((int) GUIWindow.Window.WINDOW_DIALOG_MENU);
       if (dlg == null)
         return;
       dlg.Reset();
       dlg.SetHeading(498); // menu
-      dlg.AddLocalizedString(970);//prev screen
-      dlg.Add("Fullscreen");
+      dlg.Add(Translation.ShowPreviousWindow);
+      dlg.Add(Translation.Fullscreen);
+      if (videoEntry != null)
+      {
+        dlg.Add(Translation.AddPlaylist);
+        dlg.Add(Translation.AddAllPlaylist);
+      }
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
         return;
-      switch (dlg.SelectedLabel)
-      { 
-        case 0:
-          GUIWindowManager.ShowPreviousWindow();
-          break;
-        case 1:
-          g_Player.ShowFullScreenWindow();
-          break;
+      if (dlg.SelectedLabelText == Translation.ShowPreviousWindow)
+      {
+        GUIWindowManager.ShowPreviousWindow();
+      }
+      else if (dlg.SelectedLabelText == Translation.Fullscreen)
+      {
+        g_Player.ShowFullScreenWindow();
+      }
+      else if (dlg.SelectedLabelText == Translation.AddPlaylist)
+      {
+        VideoInfo inf = SelectQuality(videoEntry);
+        if (inf.Quality != VideoQuality.Unknow)
+        {
+          AddItemToPlayList(selectedItem, inf);
+        }
+      }
+      else if (dlg.SelectedLabelText == Translation.AddAllPlaylist)
+      {
+
+        VideoInfo inf = SelectQuality(videoEntry);
+        inf.Items = new Dictionary<string, string>();
+        if (inf.Quality != VideoQuality.Unknow)
+        {
+          GUIDialogProgress dlgProgress =
+            (GUIDialogProgress) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_PROGRESS);
+          if (dlgProgress != null)
+          {
+            dlgProgress.Reset();
+            dlgProgress.SetHeading(Translation.AddAllPlaylist);
+            dlgProgress.SetLine(1, "");
+            dlgProgress.SetLine(2, "");
+            dlgProgress.SetPercentage(0);
+            dlgProgress.Progress();
+            dlgProgress.ShowProgressBar(true);
+            dlgProgress.StartModal(GetID);
+          }
+          int i = 0;
+          for (int j = 0; j < listControl.Count; j++)
+          {
+            GUIListItem item = listControl[j];
+            if (dlgProgress != null)
+            {
+              double pr = ((double) i/(double) listControl.Count)*100;
+              dlgProgress.SetLine(1, item.Label);
+              dlgProgress.SetLine(2, i.ToString() + "/" + listControl.Count.ToString());
+              dlgProgress.SetPercentage((int) pr);
+              dlgProgress.Progress();
+              if (dlgProgress.IsCanceled)
+                break;
+            }
+            i++;
+            AddItemToPlayList(item, new VideoInfo(inf));
+          }
+          if (dlgProgress != null)
+            dlgProgress.Close();
+        }
       }
     }
 

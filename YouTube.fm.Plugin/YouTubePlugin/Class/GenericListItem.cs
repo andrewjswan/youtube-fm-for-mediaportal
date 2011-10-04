@@ -8,6 +8,7 @@ namespace YouTubePlugin.Class
   {
     public string Title { get; set; }
     public string Title2 { get; set; }
+    public string Title3 { get; set; }
     public string LogoUrl { get; set; }
     public string LogoFile { get; set; }
     public bool IsFolder { get; set; }
