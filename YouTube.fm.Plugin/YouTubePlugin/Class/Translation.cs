@@ -271,7 +271,8 @@ namespace YouTubePlugin.Class
     public static string VideoResponses = "Video responses for this video";
 
     // W
-    public static string WrongRequestWrongUser = "Wrong request or wrong user identification";
+    public static string WrongRequestWrongUser = "Wrong request or wrong user identification ";
+    public static string WrongUser = "Wrong username or password or account is disabled ";
 
     // Y
 

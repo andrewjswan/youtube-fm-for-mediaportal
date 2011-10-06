@@ -10,6 +10,7 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.Extensions.MediaRss;
 using Google.GData.YouTube;
+using HttpUtility = Google.GData.Client.HttpUtility;
 using MediaGroup = Google.GData.YouTube.MediaGroup;
 
 namespace YouTubePlugin.Class.Artist

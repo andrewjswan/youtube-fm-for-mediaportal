@@ -243,6 +243,16 @@ namespace YouTubePlugin
       {
         service.setUserCredentials(_setting.User, _setting.Password);
         Youtube2MP.request.Service = service;
+        string feedUrl = "http://gdata.youtube.com/feeds/api/users/default";
+        try
+        {
+          var profileEntry = (ProfileEntry)service.Get(feedUrl);
+        }
+        catch (InvalidCredentialsException)
+        {
+          Log.Error("Wrong username or password or account is disabled ");
+          service.Credentials = null;
+        }
       }
 
       

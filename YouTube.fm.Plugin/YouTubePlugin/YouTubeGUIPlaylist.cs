@@ -604,6 +604,11 @@ namespace YouTubePlugin
 
     private void OnShowSavedPlaylists()
     {
+      if (Youtube2MP.service.Credentials == null)
+      {
+        Err_message(Translation.WrongUser);
+        return;
+      }
       GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
       if (dlg == null) return;
       dlg.Reset();
@@ -1101,6 +1106,12 @@ namespace YouTubePlugin
 
     void SavePlayList()
     {
+      if (Youtube2MP.service.Credentials == null)
+      {
+        Err_message(Translation.WrongUser);
+        return;
+      }
+
       VirtualKeyboard keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
       // display an virtual keyboard
       if (null == keyboard) return;
