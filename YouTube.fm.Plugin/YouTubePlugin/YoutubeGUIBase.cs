@@ -604,7 +604,7 @@ namespace YouTubePlugin
                 try
                 {
                   Artist artist = new Artist(artistItem.Name, Youtube2MP.LastFmProfile.Session);
-                  artistItem.Img_url = artist.GetImageURL(ImageSize.Large);
+                  artistItem.Img_url = artist.GetImageURL(ImageSize.Huge);
                   ArtistManager.Instance.Save(artistItem);
                   curentDownlodingFile.Url = artistItem.Img_url;
                   curentDownlodingFile.FileName = GetLocalImageFileName(curentDownlodingFile.Url);

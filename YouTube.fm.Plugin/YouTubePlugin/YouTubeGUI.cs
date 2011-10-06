@@ -28,7 +28,8 @@ namespace YouTubePlugin
     BigIcons = 2,
     Albums = 3,
     PlayList = 4,
-    Filmstrip = 5
+    Filmstrip = 5,
+    CoverFlow = 6
   }
   [PluginIcons("YouTubePlugin.logo.png", "YouTubePlugin.logo_disabled.png")]
   public class YouTubeGUI : YoutubeGUIBase, ISetupForm 
@@ -404,7 +405,10 @@ namespace YouTubePlugin
             mapSettings.ViewAs = (int)View.Filmstrip;
             break;
           case View.Filmstrip:
-            mapSettings.ViewAs = (int)View.Icons;
+            mapSettings.ViewAs = (int)View.CoverFlow;
+            break;
+          case View.CoverFlow:
+            mapSettings.ViewAs = (int)View.List;
             break;
         }
         ShowPanel();
@@ -862,7 +866,10 @@ namespace YouTubePlugin
       {
         listControl.CurrentLayout = GUIFacadeControl.Layout.Playlist;
       }
-
+      else if (mapSettings.ViewAs == (int)View.CoverFlow)
+      {
+        listControl.CurrentLayout = GUIFacadeControl.Layout.CoverFlow;
+      }
       if (itemIndex > -1)
       {
         GUIControl.SelectItemControl(GetID, listControl.GetID, itemIndex);
@@ -1170,7 +1177,9 @@ namespace YouTubePlugin
         case View.PlayList:
           textLine = GUILocalizeStrings.Get(101);
           break;
-
+        case View.CoverFlow:
+          textLine = GUILocalizeStrings.Get(791);
+          break;
       }
       GUIControl.SetControlLabel(GetID, btnSwitchView.GetID, textLine);
 
