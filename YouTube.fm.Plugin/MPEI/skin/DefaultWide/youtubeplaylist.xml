@@ -2,9 +2,10 @@
 <window>
   <id>29051</id>
   <defaultcontrol>2</defaultcontrol>
-  <allowoverlay>no</allowoverlay>  
+  <allowoverlay>[facadeview.playlist|facadeview.filmstrip|facadeview.coverflow]</allowoverlay>
+  <define>#useSelectedFanart:Yes</define>
   <controls>
-      <control>
+    <control>
       <description>BG</description>
       <type>image</type>
       <id>1</id>
@@ -14,6 +15,7 @@
     </control>
     <import>common.window.xml</import>
     <import>common.time.xml</import>
+    <import>common.music.fanart.xml</import>
     <control>
       <type>label</type>
       <description>Header Label</description>
@@ -34,11 +36,11 @@
       <buttonY>0</buttonY>
       <buttonwidth>106</buttonwidth>
       <buttonheight>720</buttonheight>
-      <textureFocus>Action_focus.png</textureFocus>
+      <textureFocus>-</textureFocus>
       <textureNoFocus>Action_nofocus.png</textureNoFocus>
-      <width>568</width>
-      <height>900</height>
-      <dimColor>00ffffff</dimColor>            
+      <width>275</width>
+      <height>720</height>
+      <dimColor>00ffffff</dimColor>
       <control>
         <type>image</type>
         <posX>26</posX>
@@ -60,13 +62,17 @@
         <control>
           <description>group element</description>
           <type>group</type>
+          <animation effect="slide" time="70" start="-300,0" reversible="false">visible</animation>
+          <animation effect="slide" time="70" end="-300,0" reversible="false">hidden</animation>
           <posX>71</posX>
           <posY>121</posY>
-          <layout>StackLayout</layout>
+          <visible>!Control.HasFocus(50)</visible>
           <control>
             <description>View-As button</description>
             <type>button</type>
             <id>2</id>
+            <posX>71</posX>
+            <posY>121</posY>
             <label>100</label>
             <onright>50</onright>
             <onup>17</onup>
@@ -76,6 +82,8 @@
             <description>Shuffle button</description>
             <type>button</type>
             <id>20</id>
+            <posX>71</posX>
+            <posY>163</posY>
             <label>191</label>
             <onright>50</onright>
             <onup>2</onup>
@@ -85,6 +93,8 @@
             <description>Repeat on/off button</description>
             <type>togglebutton</type>
             <id>30</id>
+            <posX>71</posX>
+            <posY>206</posY>
             <label>486</label>
             <onright>50</onright>
             <onup>20</onup>
@@ -94,6 +104,8 @@
             <description>My Playlists</description>
             <type>button</type>
             <id>10</id>
+            <posX>71</posX>
+            <posY>248</posY>
             <label>983</label>
             <onright>50</onright>
             <onup>30</onup>
@@ -103,6 +115,8 @@
             <description>Save button</description>
             <type>button</type>
             <id>21</id>
+            <posX>71</posX>
+            <posY>291</posY>
             <label>190</label>
             <onright>50</onright>
             <onup>10</onup>
@@ -112,75 +126,93 @@
             <description>Clear button</description>
             <type>button</type>
             <id>22</id>
+            <posX>71</posX>
+            <posY>333</posY>
             <label>192</label>
             <onright>50</onright>
             <onup>21</onup>
             <ondown>26</ondown>
           </control>
           <!--       <control>
-        <description>Play button</description>
-        <type>button</type>
-        <id>23</id>
-        <label>208</label>
-        <onright>50</onright>
-        <visible>false</visible>
-      </control> -->
+             <description>Play button</description>
+             <type>button</type>
+             <id>23</id>
+             <label>208</label>
+             <onright>50</onright>
+             <visible>false</visible>
+          </control> -->
           <control>
             <description>Now playing</description>
             <type>button</type>
-            <id>26</id>
+            <id>26</id>            
+            <posX>71</posX>
+            <posY>377</posY>
             <label>4540</label>
             <onright>50</onright>
             <onup>22</onup>
-            <ondown>28</ondown>
-            <!-- <ondown>99</ondown> -->
+            <ondown>28</ondown>                       
           </control>
           <control>
             <description>scrobble mode button</description>
             <type>button</type>
-            <id>28</id>
+            <id>28</id>            
+            <posX>71</posX>
+            <posY>421</posY>
             <label>33001</label>
             <onright>50</onright>
             <onup>26</onup>
-            <ondown>27</ondown>
+            <ondown>27</ondown>                       
           </control>
           <control>
             <description>scrobble on/off button</description>
             <type>togglebutton</type>
-            <id>27</id>
+            <id>27</id>            
+            <posX>71</posX>
+            <posY>465</posY>
             <label>33000</label>
             <onright>50</onright>
             <onup>28</onup>
-            <ondown>29</ondown>
+            <ondown>2</ondown>                       
           </control>
         </control>
       </control>
     </control>
     <import>youtube.facade.xml</import>
     <control>
+      <id>1</id>
+      <type>image</type>
+      <posX>78</posX>
+      <posY>170</posY>
+      <width>245</width>
+      <height>232</height>
+      <texture mask="Picturethumbmask.png">missing_Coverart.png</texture>
+      <visible>[facadeview.playlist|facadeview.album]+[Control.HasFocus(50)+!control.hasthumb(500)]</visible>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+    </control>
+    <control>
       <id>500</id>
       <type>image</type>
-      <posX>68</posX>
-      <posY>160</posY>
-      <width>338</width>
-      <height>250</height>
+      <posX>78</posX>
+      <posY>170</posY>
+      <width>245</width>
+      <height>232</height>
       <keepaspectratio>yes</keepaspectratio>
       <centered>yes</centered>
       <texture mask="Picturethumbmask.png">#selectedthumb</texture>
-      <visible>[facadeview.list|facadeview.album]+[Control.HasFocus(50)]</visible>
+      <visible>[facadeview.playlist|facadeview.album]+[Control.HasFocus(50)]</visible>
       <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
       <type>image</type>
       <id>1</id>
-      <posX>68</posX>
-      <posY>160</posY>
-      <width>338</width>
-      <height>250</height>
+      <posX>78</posX>
+      <posY>170</posY>
+      <width>245</width>
+      <height>232</height>
       <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>
-      <visible>[facadeview.list|facadeview.album]+[Control.HasFocus(50)]</visible>
+      <visible>[facadeview.playlist|facadeview.album]+[Control.HasFocus(50)]</visible>
       <animation effect="fade" time="70" reversible="false">visible</animation>
-    </control>    
+    </control>
     <control>
       <description>Selected item Label</description>
       <type>fadelabel</type>
@@ -191,7 +223,7 @@
       <label>Info:</label>
       <font>font14</font>
       <visible>[facadeview.playlist|facadeview.album]+Control.HasFocus(50)</visible>
-      <animation effect="fade" time="450" reversible="false">visible</animation>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
       <description>Selected item Label</description>
@@ -203,7 +235,7 @@
       <label>#selecteditem</label>
       <font>font14</font>
       <visible>[facadeview.playlist|facadeview.album]+Control.HasFocus(50)</visible>
-      <animation effect="fade" time="450" reversible="false">visible</animation>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
       <description>Selected item Label</description>
@@ -215,7 +247,7 @@
       <label>#selecteditem2</label>
       <font>font14</font>
       <visible>[facadeview.playlist|facadeview.album]+Control.HasFocus(50)</visible>
-      <animation effect="fade" time="450" reversible="false">visible</animation>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <import>youtubeoverlay.xml</import>
   </controls>

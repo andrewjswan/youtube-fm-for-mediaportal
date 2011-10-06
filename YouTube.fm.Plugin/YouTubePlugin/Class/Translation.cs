@@ -200,6 +200,7 @@ namespace YouTubePlugin.Class
     public static string AddAllPlaylist = "Add All to playlist";
     public static string AddPlaylist = "Add to playlist";
     public static string AddFavorites = "Add to favorites";
+    public static string AddWatchLater = "Add to Watch Later";
     public static string AllMusicVideosFrom = "All music videos from {0}";
     public static string AllVideosFromUser = "All videos from this user : {0}";
     public static string AnotherDonwnloadProgress = "Another donwnload is in progress";
@@ -245,6 +246,7 @@ namespace YouTubePlugin.Class
 
     // P
     public static string Playlist = "Playlist";
+    public static string PlaylistSummary = "Created or modified in MediaPortal";
     public static string PlaylistSavingProgress = "Playlist saving progress ";
 
     // R
@@ -273,6 +275,7 @@ namespace YouTubePlugin.Class
     // W
     public static string WrongRequestWrongUser = "Wrong request or wrong user identification ";
     public static string WrongUser = "Wrong username or password or account is disabled ";
+    public static string WatchLater = "Watch Later";
 
     // Y
 

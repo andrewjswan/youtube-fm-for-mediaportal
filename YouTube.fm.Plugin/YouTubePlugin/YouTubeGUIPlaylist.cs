@@ -609,7 +609,7 @@ namespace YouTubePlugin
         Err_message(Translation.WrongUser);
         return;
       }
-      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+      GUIDialogMenu dlg = (GUIDialogMenu) GUIWindowManager.GetWindow((int) GUIWindow.Window.WINDOW_DIALOG_MENU);
       if (dlg == null) return;
       dlg.Reset();
       dlg.SetHeading(983); // Saved Playlists
@@ -628,6 +628,8 @@ namespace YouTubePlugin
           Err_message(exception.Message);
         return;
       }
+      dlg.Add(Translation.WatchLater);
+
       foreach (PlaylistsEntry entry in userPlaylists.Entries)
       {
         dlg.Add(entry.Title.Text);
@@ -638,27 +640,40 @@ namespace YouTubePlugin
       playList.Clear();
       playlistname = dlg.SelectedLabelText;
 
-      foreach (PlaylistsEntry entry in userPlaylists.Entries)
+      YouTubeQuery playlistQuery = null;
+      if (dlg.SelectedLabelText == Translation.WatchLater)
       {
-        if (entry.Title.Text == dlg.SelectedLabelText)
+        playlistQuery = new YouTubeQuery("https://gdata.youtube.com/feeds/api/users/default/watch_later");
+      }
+      else
+      {
+        foreach (PlaylistsEntry entry in userPlaylists.Entries)
         {
-          PlaylistFeed playlistFeed;
-          int start = 1;
-          do
+          if (entry.Title.Text == dlg.SelectedLabelText)
           {
-            YouTubeQuery playlistQuery = new YouTubeQuery(entry.Content.Src.Content);
-            playlistQuery.StartIndex = start;
-            playlistQuery.NumberToRetrieve = 50;
-            playlistFeed = Youtube2MP.service.GetPlaylist(playlistQuery);
-            foreach (YouTubeEntry playlistEntry in playlistFeed.Entries)
-            {
-              if (IsVideoUsable(playlistEntry))
-                AddItemToPlayList(playlistEntry, ref playList);
-            }
-            start += 50;
-          } while (playlistFeed.TotalResults > start - 1);
+            playlistQuery = new YouTubeQuery(entry.Content.Src.Content);
+          }
         }
       }
+      if(playlistQuery==null)
+        return;
+
+      YouTubeFeed playlistFeed=null;
+      int start = 1;
+      do
+      {
+        playlistQuery.StartIndex = start;
+        playlistQuery.NumberToRetrieve = 50;
+        playlistFeed = Youtube2MP.service.Query(playlistQuery);
+        foreach (YouTubeEntry playlistEntry in playlistFeed.Entries)
+        {
+          if (IsVideoUsable(playlistEntry))
+            AddItemToPlayList(playlistEntry, ref playList);
+        }
+        start += 50;
+      } while (playlistFeed.TotalResults > start - 1);
+
+
       LoadDirectory(string.Empty);
     }
 
@@ -1122,6 +1137,11 @@ namespace YouTubePlugin
       {
         // input confirmed -- execute the search
         playlistname = keyboard.Text;
+        if (playlistname == Translation.WatchLater)
+        {
+          Err_message("Saving Watch Later not supported !");
+          return;
+        }
         PlaylistsFeed userPlaylists;
         YouTubeQuery query = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(null));
         try
@@ -1137,12 +1157,33 @@ namespace YouTubePlugin
           return;
         }
         PlayList playList = Youtube2MP.player.GetPlaylist(_playlistType);
-        foreach (PlaylistsEntry entry in userPlaylists.Entries)
+        if (playlistname != Translation.WatchLater)
         {
-          if (entry.Title.Text == playlistname)
+          foreach (PlaylistsEntry entry in userPlaylists.Entries)
           {
-            entry.Delete();
+            if (entry.Title.Text == playlistname)
+            {
+              entry.Delete();
+            }
           }
+        }
+        else
+        {
+          YouTubeQuery playlistQuery = new YouTubeQuery("https://gdata.youtube.com/feeds/api/users/default/watch_later");
+          YouTubeFeed playlistFeed = null;
+          int start = 1;
+          do
+          {
+            playlistQuery.StartIndex = start;
+            playlistQuery.NumberToRetrieve = 50;
+            playlistFeed = Youtube2MP.service.Query(playlistQuery);
+            foreach (YouTubeEntry playlistEntry in playlistFeed.Entries)
+            {
+              playlistEntry.Delete();
+            }
+            start += 50;
+          } while (playlistFeed.TotalResults > start - 1);
+          //Youtube2MP.service.Delete(new Uri("https://gdata.youtube.com/feeds/api/users/default/watch_later"));
         }
 
         GUIDialogProgress dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
@@ -1162,7 +1203,7 @@ namespace YouTubePlugin
         
         Playlist pl = new Playlist();
         pl.Title = playlistname;
-        pl.Summary = "Created or modified in MediaPortal";
+        pl.Summary = Translation.PlaylistSummary;
         pl =Youtube2MP.request.Insert(new Uri(YouTubeQuery.CreatePlaylistsUri(null)), pl);
         int i = 1;
         foreach (PlayListItem playitem in playList)
@@ -1178,7 +1219,15 @@ namespace YouTubePlugin
           if (IsVideoUsable(videoEntry))
             try
             {
-              Youtube2MP.request.AddToPlaylist(pl, pm);
+              if (playlistname != Translation.WatchLater)
+              {
+                Youtube2MP.request.AddToPlaylist(pl, pm);
+              }
+              else
+              {
+                Youtube2MP.service.Insert(new Uri("https://gdata.youtube.com/feeds/api/users/default/watch_later"),
+                                          videoEntry);
+              }
             }
             catch (Exception ex)
             {

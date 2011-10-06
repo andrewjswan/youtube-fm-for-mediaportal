@@ -924,7 +924,11 @@ namespace YouTubePlugin
       dlg.Add(string.Format(Translation.AllVideosFromUser,videoEntry.Authors[0].Name));
       dlg.Add(Translation.AddPlaylist);
       dlg.Add(Translation.AddAllPlaylist);
-      dlg.Add(Translation.AddFavorites);
+      if (Youtube2MP.service.Credentials != null)
+      {
+        dlg.Add(Translation.AddFavorites);
+        dlg.Add(Translation.AddWatchLater);
+      }
       dlg.Add(Translation.Options);
       dlg.Add(Translation.DownloadVideo);
       if (!string.IsNullOrEmpty(artistName) && !string.IsNullOrEmpty(ArtistManager.Instance.GetArtistsByName(artistName).Name))
@@ -1043,6 +1047,15 @@ namespace YouTubePlugin
         {
           Err_message(Translation.WrongRequestWrongUser);
         }
+      }
+      else if (dlg.SelectedLabelText == Translation.AddWatchLater)
+      {
+        //YouTubeQuery query = new YouTubeQuery("");
+        //PlaylistFeed userPlaylists = Youtube2MP.service.GetPlaylist(query);
+        PlayListMember pm = new PlayListMember();
+        pm.Id = videoEntry.VideoId;
+        //Youtube2MP.request.AddToPlaylist(userPlaylists, pm);
+        Youtube2MP.request.Insert(new Uri("https://gdata.youtube.com/feeds/api/users/default/watch_later"), pm);
       }
       else if (dlg.SelectedLabelText == Translation.Options)
       {
