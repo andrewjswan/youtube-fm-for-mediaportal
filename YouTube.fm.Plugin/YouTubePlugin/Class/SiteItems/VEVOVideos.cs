@@ -23,8 +23,8 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       Dictionary<string, GenericListItem> artists = new Dictionary<string, GenericListItem>();
-
       GenericListItemCollections res = new GenericListItemCollections();
+      res.Title = entry.Title;
       YouTubeQuery query = new YouTubeQuery("http://gdata.youtube.com/feeds/api/users/vevo/favorites");
       query.NumberToRetrieve = 50;
       query.OrderBy = "viewCount";

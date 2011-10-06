@@ -23,6 +23,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
+      res.Title = entry.Title;
       int count = 0;
       int ii = 0;
       int.TryParse(entry.GetValue("items"), out ii);

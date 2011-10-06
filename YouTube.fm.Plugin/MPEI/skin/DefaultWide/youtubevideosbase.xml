@@ -16,7 +16,7 @@
     <import>common.window.xml</import>
     <import>common.time.xml</import>
     <import>common.music.fanart.xml</import>
-    <control>
+<!--     <control>
       <type>label</type>
       <description>Header Label</description>
       <id>1</id>
@@ -27,7 +27,7 @@
       <align>left</align>
       <textcolor>White</textcolor>
     </control>
-    <control>
+ -->    <control>
       <type>actiongroup</type>
       <description>action menu</description>
       <defaultcontrol>2</defaultcontrol>

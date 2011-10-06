@@ -28,6 +28,7 @@ namespace YouTubePlugin.Class.SiteItems
       GenericListItemCollections res = new GenericListItemCollections();
       string query = YouTubeQuery.TopRatedVideo;
       bool usetime = true;
+      res.Title = entry.Title;
       switch (Convert.ToInt32(entry.GetValue("feedint")))
       {
         case 0:

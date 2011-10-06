@@ -306,7 +306,8 @@ namespace YouTubePlugin
         {
           ClearLabels("Curent");
           ClearLabels("NowPlaying");
-          GUIPropertyManager.SetProperty("#header.title", _setting.PluginName);
+          GUIPropertyManager.SetProperty("#header.title", " ");
+          GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm - Home");
           StartUpHome();
           UpdateGui();
           }
@@ -361,7 +362,7 @@ namespace YouTubePlugin
           {
               SaveListState(true);
               addVideos(vidr, false, query);
-              GUIPropertyManager.SetProperty("#header.title", vidr.Title.Text);
+              //GUIPropertyManager.SetProperty("#header.title", vidr.Title.Text);
               UpdateGui();
           }
           else
@@ -611,7 +612,7 @@ namespace YouTubePlugin
               item.OnItemSelected += new GUIListItem.ItemSelectedHandler(item_OnItemSelected);
               listControl.Add(item);
             }
-            GUIPropertyManager.SetProperty("#header.title", Youtube2MP._settings.OldCats[9]);
+            //GUIPropertyManager.SetProperty("#header.title", Youtube2MP._settings.OldCats[9]);
             listControl.SelectedListItemIndex = 0;
             UpdateGui();
           }
@@ -828,7 +829,8 @@ namespace YouTubePlugin
         NavigationObject obj = NavigationStack.Pop() as NavigationObject;
         obj.SetItems(listControl);
         listControl.SelectedListItemIndex = obj.Position;
-        GUIPropertyManager.SetProperty("#header.title", obj.Title);
+        GUIPropertyManager.SetProperty("#currentmodule", obj.Title);
+        //GUIPropertyManager.SetProperty("#header.title", obj.Title);
         mapSettings.ViewAs = (int)obj.CurrentView;
         ShowPanel();
       }
@@ -1213,7 +1215,8 @@ namespace YouTubePlugin
         mapSettings.ViewAs = (int) View.List;
 
 
-      GUIPropertyManager.SetProperty("#header.title", itemCollections.Title);
+      //GUIPropertyManager.SetProperty("#header.title", itemCollections.Title);
+      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm - " + itemCollections.Title);
       updateStationLogoTimer.Enabled = false;
       downloaQueue.Clear();
       if (level)
@@ -1277,7 +1280,8 @@ namespace YouTubePlugin
         MediaPortal.Util.Utils.SetDefaultIcons(item);
         listControl.Add(item);
       }
-      GUIPropertyManager.SetProperty("#header.title", videos.Title.Text);
+      //GUIPropertyManager.SetProperty("#header.title", videos.Title.Text);
+      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm - " + videos.Title.Text);
       updateStationLogoTimer.Enabled = false;
       downloaQueue.Clear();
       foreach (YouTubeEntry entry in videos.Entries)
@@ -1354,7 +1358,7 @@ namespace YouTubePlugin
     {
       if (listControl.ListLayout.ListItems.Count > 0)
       {
-        NavigationStack.Push(new NavigationObject(listControl.ListLayout, GUIPropertyManager.GetProperty("#header.title"), listControl.SelectedListItemIndex, (View)mapSettings.ViewAs));
+        NavigationStack.Push(new NavigationObject(listControl.ListLayout, GUIPropertyManager.GetProperty("#currentmodule"), listControl.SelectedListItemIndex, (View)mapSettings.ViewAs));
       }
       if (clear)
       {

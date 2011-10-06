@@ -52,7 +52,7 @@
           <animation effect="fade" time="70" delay="300">hidden</animation>
         </control>
         <import>common.time.xml</import>        
-        <control>
+        <!-- <control>
           <type>label</type>
           <description>Header Label</description>
           <id>1</id>
@@ -62,7 +62,7 @@
           <font>font16</font>
           <align>left</align>
           <textcolor>White</textcolor>
-        </control>
+        </control> -->
         <control>
             <id>101</id>
             <description>Selected item Label</description>

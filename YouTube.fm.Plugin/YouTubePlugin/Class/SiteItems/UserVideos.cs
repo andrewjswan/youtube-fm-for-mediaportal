@@ -25,6 +25,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
+      res.Title = entry.Title;
       res.FolderType = 1;
       YouTubeQuery query =
         new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", entry.GetValue("id")));

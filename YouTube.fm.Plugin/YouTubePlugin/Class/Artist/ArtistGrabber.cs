@@ -118,7 +118,7 @@ namespace YouTubePlugin.Class.Artist
                                        {
                                          Title = youTubeEntry.Title.Text,
                                          IsFolder = false,
-                                         LogoUrl = "http:" + matchResult.Groups["thumb"].Value,
+                                         LogoUrl = "http:" + matchResult.Groups["thumb"].Value.Replace("default.jpg", "hqdefault.jpg"),
                                          Tag = youTubeEntry
                                        };
           res.Items.Add(listItem);

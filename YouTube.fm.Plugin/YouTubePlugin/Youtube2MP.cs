@@ -83,6 +83,7 @@ namespace YouTubePlugin
     static public GenericListItemCollections GetHomeMenu()
     {
       GenericListItemCollections res = new GenericListItemCollections();
+      res.Title = "Home";
       foreach (SiteItemEntry itemEntry in _settings.MainMenu.Items)
       {
         if (string.IsNullOrEmpty(itemEntry.ParentFolder))

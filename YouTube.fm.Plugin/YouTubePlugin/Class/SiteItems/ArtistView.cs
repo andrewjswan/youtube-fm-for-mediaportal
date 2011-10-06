@@ -28,6 +28,7 @@ namespace YouTubePlugin.Class.SiteItems
       GenericListItemCollections res = new GenericListItemCollections();
       if (entry.GetValue("letter") == "")
       {
+        res.Title = "Artists";
         foreach (string letter in ArtistManager.Instance.GetArtistsLetters())
         {
           SiteItemEntry newentry = new SiteItemEntry();
@@ -45,12 +46,14 @@ namespace YouTubePlugin.Class.SiteItems
       }
       if (entry.GetValue("letter") == "true")
       {
+        res.Title = "Artists - Letter :" + entry.Title;
         foreach (ArtistItem artistItem in ArtistManager.Instance.GetArtists(entry.Title))
         {
           SiteItemEntry newentry = new SiteItemEntry();
           newentry.Provider = this.Name;
           newentry.SetValue("letter", "false");
           newentry.SetValue("id", artistItem.Id);
+          newentry.SetValue("name", artistItem.Name);
           GenericListItem listItem = new GenericListItem()
                                        {
                                          Title = artistItem.Name,
@@ -63,7 +66,8 @@ namespace YouTubePlugin.Class.SiteItems
       }
       if (entry.GetValue("letter") == "false")
       {
-        return ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
+        res = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
+        res.Title = "Artists - " + entry.GetValue("name");
       }
       return res;
     }

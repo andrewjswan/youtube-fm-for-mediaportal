@@ -27,6 +27,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
+      res.Title = entry.Title;
       Country country = new Country(entry.GetValue("country"), Youtube2MP.LastFmProfile.Session);
       TopTrack[] tracks = country.GetTopTracks();
       foreach (TopTrack topTrack in tracks)

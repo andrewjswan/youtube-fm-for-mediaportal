@@ -27,6 +27,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
+      res.Title = entry.Title;
       User user = new User(Youtube2MP._settings.LastFmUser, Youtube2MP.LastFmProfile.Session);
       switch (entry.GetValue("type"))
       {

@@ -26,6 +26,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
+      res.Title = entry.Title;
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
       query.Query = entry.GetValue("term");
       query.NumberToRetrieve = 50;
