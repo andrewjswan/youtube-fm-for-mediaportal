@@ -104,6 +104,25 @@
     <Compile Include="Class\ISiteItem.cs" />
     <Compile Include="Class\LocalFileEnumerator.cs" />
     <Compile Include="Class\LocalFileStruct.cs" />
+    <Compile Include="Class\Rss\ConcreteOpmlFactory.cs" />
+    <Compile Include="Class\Rss\ConcreteRssFactory.cs" />
+    <Compile Include="Class\Rss\IPersistentManager.cs" />
+    <Compile Include="Class\Rss\opmlbase.cs" />
+    <Compile Include="Class\Rss\opmlbody.cs" />
+    <Compile Include="Class\Rss\opmldocument.cs" />
+    <Compile Include="Class\Rss\opmlhead.cs" />
+    <Compile Include="Class\Rss\opmloutline.cs" />
+    <Compile Include="Class\Rss\rssbase.cs" />
+    <Compile Include="Class\Rss\rsschannel.cs" />
+    <Compile Include="Class\Rss\rsscloud.cs" />
+    <Compile Include="Class\Rss\rssenclosure.cs" />
+    <Compile Include="Class\Rss\RssFeedManager.cs" />
+    <Compile Include="Class\Rss\rssguid.cs" />
+    <Compile Include="Class\Rss\rssimage.cs" />
+    <Compile Include="Class\Rss\rssitem.cs" />
+    <Compile Include="Class\Rss\rsssource.cs" />
+    <Compile Include="Class\Rss\rsstextinput.cs" />
+    <Compile Include="Class\Rss\XmlSerializationUtil.cs" />
     <Compile Include="Class\SiteContent.cs" />
     <Compile Include="Class\SiteItemEntry.cs" />
     <Compile Include="Class\SiteItemEnumerator.cs" />
@@ -187,6 +206,12 @@
       <DependentUpon>FormItemList.cs</DependentUpon>
     </Compile>
     <Compile Include="MessageGUI.cs" />
+    <None Include="Class\Rss\atom.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Class\Rss\atom.xsx">
+      <DependentUpon>atom.xsd</DependentUpon>
+    </None>
     <None Include="SearchProvider.cs" />
     <Compile Include="SetupForm.cs">
       <SubType>Form</SubType>
