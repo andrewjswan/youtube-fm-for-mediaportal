@@ -69,12 +69,12 @@ namespace YouTubePlugin
         if (vid.Statistics != null)
         {
           if (vid.Statistics.ViewCount != null)
-            GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.ViewCount", vid.Statistics.ViewCount);
+            GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.ViewCount",Youtube2MP.FormatNumber(vid.Statistics.ViewCount));
           if (vid.Statistics.WatchCount != null)
             GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount", vid.Statistics.WatchCount);
           if (vid.Statistics.FavoriteCount != null)
             GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount",
-                                           vid.Statistics.FavoriteCount);
+                                          Youtube2MP.FormatNumber(vid.Statistics.FavoriteCount));
         }
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image",
                                        GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));

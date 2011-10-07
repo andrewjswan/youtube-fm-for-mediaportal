@@ -371,11 +371,10 @@ namespace YouTubePlugin
       item.Title3 = MediaPortal.Util.Utils.SecondsToHMSString(item.Duration);
       if (youTubeEntry.Statistics!=null)
       {
-        int i = Convert.ToInt32(youTubeEntry.Statistics.ViewCount);
         item.Title2 =
           String.Format("By {0}|{1}|{2} views", youTubeEntry.Uploader.Value,
                         youTubeEntry.Updated.ToShortDateString(),
-                        i.ToString("0,0"));
+                        FormatNumber(youTubeEntry.Statistics.ViewCount));
       }
       else
       {
@@ -385,6 +384,15 @@ namespace YouTubePlugin
        
       }
       return item;
+    }
+
+    public static string FormatNumber(string numeber)
+    {
+      if (string.IsNullOrEmpty(numeber))
+        return " ";
+      int i = Convert.ToInt32(numeber);
+      return i.ToString("0,0");
+      return " ";
     }
 
 

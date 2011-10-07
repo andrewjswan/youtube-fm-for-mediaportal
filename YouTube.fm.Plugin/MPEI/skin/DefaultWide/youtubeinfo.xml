@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
     <id>29052</id>
-    <defaultcontrol>50</defaultcontrol>    
+    <defaultcontrol>5555</defaultcontrol>    
     <allowoverlay>no</allowoverlay>        
     <controls>
     <control>
@@ -52,7 +52,7 @@
           <animation effect="fade" time="70" delay="300">hidden</animation>
         </control>
         <import>common.time.xml</import>        
-        <!-- <control>
+        <control>
           <type>label</type>
           <description>Header Label</description>
           <id>1</id>
@@ -62,19 +62,35 @@
           <font>font16</font>
           <align>left</align>
           <textcolor>White</textcolor>
-        </control> -->
+        </control>        
         <control>
             <id>101</id>
             <description>Selected item Label</description>
             <type>fadelabel</type>
             <posX>1244</posX>
             <posY>460</posY>
-            <width>550</width>
+            <width>610</width>
             <font>font15</font>
             <textcolor>ffffffff</textcolor>
             <align>RIGHT</align>
             <label>#selecteditem</label>            
-        </control>        
+        </control>
+        <control>
+	    <description>Full Screen Button</description>
+	    <type>button</type>
+	    <id>5555</id>
+	    <posX>50</posX>
+	    <posY>450</posY>
+	    <width>80</width>
+	    <height>50</height>
+	    <textureFocus>minimize_enabled.png</textureFocus>
+	    <textureNoFocus>minimize_disabled.png</textureNoFocus>
+	    <label>-</label>
+	    <action>18</action>	    
+	    <onright>166</onright>
+	    <onup>17</onup>
+	    <ondown>50</ondown>
+	</control>        
         <control>
             <id>1</id>
             <description>Video Image</description>
@@ -82,7 +98,7 @@
             <visible>Player.HasVideo</visible>
             <posX>81</posX>
             <posY>120</posY>
-            <width>597</width>
+            <width>537</width>
             <height>300</height>
             <keepaspectratio>yes</keepaspectratio>
             <centered>yes</centered>
@@ -97,7 +113,7 @@
             <id>0</id>
             <posX>50</posX>
             <posY>90</posY>
-            <width>660</width>
+            <width>600</width>
             <height>360</height>
             <texture>LCD.png</texture>            
             <animation effect="fade" time="70" reversible="false">visible</animation>
@@ -106,9 +122,9 @@
             <id>47</id>
             <description>Artist Name Value</description>
             <type>fadelabel</type>
-            <posX>755</posX>
+            <posX>695</posX>
             <posY>100</posY>
-            <width>450</width>         
+            <width>550</width>         
             <font>font14</font>
             <textcolor>ffffffff</textcolor>            
             <label>#Youtube.fm.NowPlaying.Artist.Name</label>
@@ -117,18 +133,18 @@
             <id>47</id>
             <description>Video Title Value</description>
             <type>fadelabel</type>
-            <posX>755</posX>
+            <posX>695</posX>
             <posY>135</posY>
-            <width>450</width>
+            <width>550</width>
             <font>font14</font>
             <textcolor>ffffffff</textcolor>            
             <label>#Youtube.fm.NowPlaying.Video.Title</label>
-        </control>
+        </control>        
         <control>
             <id>1</id>
             <description>Star Rating Value</description>
             <type>imagelist</type>
-            <posX>755</posX>
+            <posX>695</posX>
             <posY>177</posY>
             <width>142</width>
             <height>40</height>
@@ -146,20 +162,108 @@
         </control>
         <control>
             <id>0</id>
+            <description>Duration Label</description>
+            <type>label</type>
+            <posX>695</posX>
+            <posY>212</posY>
+            <width>250</width>         
+            <font>font11</font>
+            <textcolor>ffa9d0f7</textcolor>            
+            <label>Duration</label>
+        </control>
+        <control>
+            <id>47</id>
+            <description>Duration Value</description>
+            <type>label</type>
+            <posX>695</posX>
+            <posY>237</posY>
+            <width>250</width>         
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>            
+            <label>#Youtube.fm.NowPlaying.Video.Duration</label>
+        </control>
+        <control>
+            <id>0</id>
+            <description>ViewCount Label</description>
+            <type>label</type>
+            <posX>695</posX>
+            <posY>268</posY>
+            <width>250</width>         
+            <font>font11</font>
+            <textcolor>ffa9d0f7</textcolor>            
+            <label>ViewCount</label>
+        </control>
+        <control>
+            <id>47</id>
+            <description>ViewCount Value</description>
+            <type>label</type>
+            <posX>695</posX>
+            <posY>293</posY>
+            <width>250</width>         
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>            
+            <label>#Youtube.fm.NowPlaying.Video.ViewCount</label>
+        </control>
+        <control>
+            <id>0</id>
+            <description>WatchCount Label</description>
+            <type>label</type>
+            <posX>695</posX>
+            <posY>324</posY>
+            <width>250</width>         
+            <font>font11</font>
+            <textcolor>ffa9d0f7</textcolor>            
+            <label>WatchCount</label>
+        </control>        
+        <control>
+            <id>47</id>
+            <description>WatchCount Value</description>
+            <type>label</type>
+            <posX>695</posX>
+            <posY>349</posY>
+            <width>250</width>         
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>            
+            <label>#Youtube.fm.NowPlaying.Video.WatchCount</label>
+        </control>                   
+        <control>
+            <id>0</id>
+            <description>FavoriteCount Label</description>
+            <type>label</type>
+            <posX>695</posX>
+            <posY>380</posY>
+            <width>250</width>         
+            <font>font11</font>
+            <textcolor>ffa9d0f7</textcolor>            
+            <label>FavoriteCount</label>
+        </control>        
+        <control>
+            <id>47</id>
+            <description>FavoriteCount Value</description>
+            <type>label</type>
+            <posX>695</posX>
+            <posY>405</posY>
+            <width>250</width>         
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>            
+            <label>#Youtube.fm.NowPlaying.Video.FavoriteCount</label>
+        </control>                   
+        <control>
+            <id>0</id>
             <description>Similar Videos label</description>
             <type>label</type>
             <posX>60</posX>
             <posY>680</posY>
-            <font>font11</font>
+            <font>font12</font>
             <textcolor>ffa9d0f7</textcolor>            
             <label>#Youtube.fm.Translation.RelatedVideos.Label</label>
-        </control>        
+        </control>                
         <control>
             <id>50</id>
             <description>Similar Videos</description>
             <type>thumbnailpanel</type>
             <dimColor>90ffffff</dimColor>
-            <onleft>166</onleft>
+            <onleft>5555</onleft>
             <onright>166</onright>	    
             <posX>60</posX>
             <posY>533</posY>
@@ -206,7 +310,7 @@
             <id>0</id>
             <description>Similar Artists label</description>
             <type>label</type>
-            <posX>755</posX>
+            <posX>940</posX>
             <posY>212</posY>
             <font>font11</font>
             <textcolor>ffa9d0f7</textcolor>            
@@ -216,10 +320,10 @@
             <id>166</id>
             <description>list similar artists</description>
             <type>listcontrol</type>            
-            <onleft>50</onleft>    
-            <posX>755</posX>
+            <onleft>5555</onleft>    
+            <posX>940</posX>
             <posY>240</posY>
-            <width>400</width>
+            <width>320</width>
             <height>260</height>
             <font>font11</font>
             <textXOff>-30</textXOff>
