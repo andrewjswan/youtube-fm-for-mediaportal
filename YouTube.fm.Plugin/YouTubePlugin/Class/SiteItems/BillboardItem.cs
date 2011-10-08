@@ -89,12 +89,19 @@ namespace YouTubePlugin.Class.SiteItems
                             IsFolder = false,
                             Title = newentry.Title,
                             Tag = newentry,
-                            LogoUrl = ArtistManager.Instance.GetArtistsImgUrl(title[1].Trim())
+                            LogoUrl = ArtistManager.Instance.GetArtistsImgUrl(GetArtistName(title[1]))
                             
                           });
         }
       }
       return res;
+    }
+
+    string GetArtistName(string name)
+    {
+      if (name.Contains("Featuring "))
+        return name.Substring(0,name.IndexOf("Featuring ")).Trim();
+      return name.Trim();
     }
 
     public GenericListItemCollections HomeGetList(SiteItemEntry itemEntry)

@@ -80,6 +80,18 @@ namespace YouTubePlugin
                                        GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
         if (vid.Media.Description != null)
           GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", vid.Media.Description.Value);
+        if (vid.YtRating != null && !string.IsNullOrEmpty(vid.YtRating.NumLikes) && !string.IsNullOrEmpty(vid.YtRating.NumDislikes))
+        {
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumLike", Youtube2MP.FormatNumber(vid.YtRating.NumLikes));
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumDisLike", Youtube2MP.FormatNumber(vid.YtRating.NumDislikes));
+          double numlike = Convert.ToDouble(vid.YtRating.NumLikes);
+          double numdislike = Convert.ToDouble(vid.YtRating.NumDislikes);
+          if (numlike + numdislike > 0)
+          {
+            double proc = numlike/(numdislike + numlike)*100;
+            GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.PercentLike", proc.ToString());
+          }
+        }
       }
       catch (Exception ex)
       {
@@ -142,6 +154,11 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", "0");
+      
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumLike", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumDisLike", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.PercentLike", "0");
+      
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FanArt", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", " ");

@@ -200,10 +200,35 @@ namespace Test
 
     private void button2_Click(object sender, EventArgs e)
     {
-      //    LastProfile profile = new LastProfile("", "");
-      //    bool res = profile.Handshake();
-      //    //profile.NowPlaying(new YouTubeEntry());
-      //    profile.Submit(new YouTubeEntry());
+      string API_KEY = "60d35bf7777d870ec958a21872bacb24";
+      string API_SECRET = "099158e5216ad77239be5e0a2228cf04";
+      Session session = new Session(API_KEY, API_SECRET);
+      ArtistManager.Instance.InitDatabase();
+      List<ArtistItem> arts = ArtistManager.Instance.GetArtists();
+      int i = 0;
+      foreach (ArtistItem artistItem in arts)
+      {
+         
+        i++;
+        if (string.IsNullOrEmpty(artistItem.Img_url))
+        {
+          try
+          {
+            Artist artist = new Artist(artistItem.Name, session);
+            artistItem.Img_url = artist.GetImageURL(ImageSize.Huge);
+            ArtistManager.Instance.Save(artistItem);
+            //ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
+
+          }
+          catch (Exception)
+          {
+            
+          }
+          label1.Text = i.ToString();
+          Application.DoEvents();
+          //Thread.Sleep(200);
+        }
+      }
     }
 
     private void button3_Click(object sender, EventArgs e)

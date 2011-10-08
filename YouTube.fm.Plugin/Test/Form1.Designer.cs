@@ -34,6 +34,8 @@ namespace Test
       this.textBox2 = new System.Windows.Forms.TextBox();
       this.tabControl1 = new System.Windows.Forms.TabControl();
       this.tabPage1 = new System.Windows.Forms.TabPage();
+      this.label1 = new System.Windows.Forms.Label();
+      this.button5 = new System.Windows.Forms.Button();
       this.tabPage2 = new System.Windows.Forms.TabPage();
       this.listBox1 = new System.Windows.Forms.ListBox();
       this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -41,8 +43,6 @@ namespace Test
       this.textBox3 = new System.Windows.Forms.TextBox();
       this.tabPage3 = new System.Windows.Forms.TabPage();
       this.button4 = new System.Windows.Forms.Button();
-      this.button5 = new System.Windows.Forms.Button();
-      this.label1 = new System.Windows.Forms.Label();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.tabPage2.SuspendLayout();
@@ -73,7 +73,7 @@ namespace Test
       this.button2.Name = "button2";
       this.button2.Size = new System.Drawing.Size(114, 27);
       this.button2.TabIndex = 2;
-      this.button2.Text = "Last fm test";
+      this.button2.Text = "Last fm image";
       this.button2.UseVisualStyleBackColor = true;
       this.button2.Click += new System.EventHandler(this.button2_Click);
       // 
@@ -112,6 +112,25 @@ namespace Test
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "Youtube";
       this.tabPage1.UseVisualStyleBackColor = true;
+      // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(455, 63);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(35, 13);
+      this.label1.TabIndex = 5;
+      this.label1.Text = "label1";
+      // 
+      // button5
+      // 
+      this.button5.Location = new System.Drawing.Point(439, 22);
+      this.button5.Name = "button5";
+      this.button5.Size = new System.Drawing.Size(75, 23);
+      this.button5.TabIndex = 4;
+      this.button5.Text = "Artist";
+      this.button5.UseVisualStyleBackColor = true;
+      this.button5.Click += new System.EventHandler(this.button5_Click);
       // 
       // tabPage2
       // 
@@ -180,25 +199,6 @@ namespace Test
       this.button4.Text = "button4";
       this.button4.UseVisualStyleBackColor = true;
       this.button4.Click += new System.EventHandler(this.button4_Click);
-      // 
-      // button5
-      // 
-      this.button5.Location = new System.Drawing.Point(439, 22);
-      this.button5.Name = "button5";
-      this.button5.Size = new System.Drawing.Size(75, 23);
-      this.button5.TabIndex = 4;
-      this.button5.Text = "Artist";
-      this.button5.UseVisualStyleBackColor = true;
-      this.button5.Click += new System.EventHandler(this.button5_Click);
-      // 
-      // label1
-      // 
-      this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(455, 63);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(35, 13);
-      this.label1.TabIndex = 5;
-      this.label1.Text = "label1";
       // 
       // Form1
       // 
