@@ -121,6 +121,17 @@ namespace YouTubePlugin.Class.Artist
       return res;
     }
 
+    public string GetArtistsImgUrl(string letter)
+    {
+      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_NAME like \"{0}%\" order by ARTIST_NAME", letter);
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        return DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
+      }
+      return "";
+    }
+
     public List<ArtistItem> GetArtists()
     {
       List<ArtistItem> res = new List<ArtistItem>();

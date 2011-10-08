@@ -127,6 +127,13 @@
     <Compile Include="Class\SiteItemEntry.cs" />
     <Compile Include="Class\SiteItemEnumerator.cs" />
     <Compile Include="Class\SiteItems\ArtistView.cs" />
+    <Compile Include="Class\SiteItems\BillboardItem.cs" />
+    <Compile Include="Class\SiteItems\BillboardItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\BillboardItemControl.Designer.cs">
+      <DependentUpon>BillboardItemControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\SiteItems\FavoritesVideos.cs" />
     <Compile Include="Class\SiteItems\Folder.cs" />
     <Compile Include="Class\SiteItems\FolderControl.cs">
@@ -229,6 +236,9 @@
     <Compile Include="YouTubeGUIPlaylist.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Class\SiteItems\BillboardItemControl.resx">
+      <DependentUpon>BillboardItemControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\FolderControl.resx">
       <DependentUpon>FolderControl.cs</DependentUpon>
     </EmbeddedResource>

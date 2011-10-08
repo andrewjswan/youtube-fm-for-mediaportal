@@ -27,7 +27,8 @@ namespace YouTubePlugin.Class.SiteItems
     {
       GenericListItemCollections res = new GenericListItemCollections();
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
-      query.Query = entry.Title;
+      query.Query = string.IsNullOrEmpty(entry.GetValue("search")) ? entry.Title : entry.GetValue("search");
+      
       query.NumberToRetrieve = 1;
       query.OrderBy = "relevance";
 
