@@ -23,13 +23,13 @@ namespace YouTubePlugin.Class.Artist
 
       try
       {
-        Regex regexObj = new Regex(@"/artist\?a=(?<id>.*?)&.*?<img class=""disco-artist-icon"" src=""(?<img_url>.*?)\?.*?<span class=.link-like.>(?<name>.*?)</span>", RegexOptions.Singleline);
+        Regex regexObj = new Regex(@"/artist\?a=(?<id>.*?)&amp;.*?Artist: <span class=.link-like.>(?<name>.*?)</span>", RegexOptions.Singleline);
         Match matchResult = regexObj.Match(site);
         while (matchResult.Success)
         {
           res.Id = matchResult.Groups["id"].Value;
           res.Name = HttpUtility.HtmlDecode(matchResult.Groups["name"].Value);
-          res.Img_url = HttpUtility.HtmlDecode(matchResult.Groups["img_url"].Value);
+          //res.Img_url = HttpUtility.HtmlDecode(matchResult.Groups["img_url"].Value);
           matchResult = matchResult.NextMatch();
         }
       }

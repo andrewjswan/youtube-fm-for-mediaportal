@@ -100,27 +100,6 @@ namespace YouTubePlugin
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", vid.Title.Text);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
       }
-      if (type == "NowPlaying")
-      {
-        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", " ");
-        //try
-        //{
-        //  Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.VideoId);
-        //  Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
-
-        //  Feed<Comment> comments = Youtube2MP.request.GetComments(video);
-        //  string cm = "";
-        //  foreach (Comment c in comments.Entries)
-        //  {
-        //    cm += c.Content + "\n------------------------------------------\n";
-        //  }
-        //  GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", cm);
-        //}
-        //catch (Exception ex)
-        //{
-        //  Log.Error(ex);
-        //}
-      }
     }
 
     public bool IsVideoUsable(YouTubeEntry tubeEntry)
