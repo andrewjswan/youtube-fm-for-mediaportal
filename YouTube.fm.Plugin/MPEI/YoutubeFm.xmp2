@@ -105,10 +105,17 @@
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
               <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>database\YouTubeFm_V01.db3</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{92beeaa5-d975-401d-88d4-629eebe7d300}-YouTubeFm_V01.db3</ZipFileName>
               <DestinationFilename>%Database%\YouTubeFm_V01.db3</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>plugin\YouTubePlugin.pdb</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{fda1c7e1-680e-4f36-bfb3-db4ae7f8ad9c}-YouTubePlugin.pdb</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\YouTubePlugin.pdb</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -336,10 +343,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.Players.Video" />
-            <SubSystemItem Name="MP.SkinEngine" />
             <SubSystemItem Name="MP.Players.Music" />
+            <SubSystemItem Name="MP.Players.Video" />
             <SubSystemItem Name="MP.Config" />
+            <SubSystemItem Name="MP.SkinEngine" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -356,17 +363,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>7</Minor>
       <Build>3</Build>
-      <Revision>0</Revision>
+      <Revision>1</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Status Progress for saving playlist
-Add to play lit from now playing screen
-Some error handing when saving a playlist
-Recently played tracks from last.fm
-</VersionDescription>
-    <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.3.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-09-29T17:28:13</ReleaseDate>
+    <VersionDescription>Billboard support</VersionDescription>
+    <DevelopmentStatus>Beta</DevelopmentStatus>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.3.1.mpe1</OnlineLocation>
+    <ReleaseDate>2011-10-08T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -489,10 +492,17 @@ Recently played tracks from last.fm
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>database\YouTubeFm_V01.db3</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{92beeaa5-d975-401d-88d4-629eebe7d300}-YouTubeFm_V01.db3</ZipFileName>
         <DestinationFilename>%Database%\YouTubeFm_V01.db3</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>plugin\YouTubePlugin.pdb</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{fda1c7e1-680e-4f36-bfb3-db4ae7f8ad9c}-YouTubePlugin.pdb</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\YouTubePlugin.pdb</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -505,7 +515,7 @@ Recently played tracks from last.fm
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{5ba8090a-366c-4eb4-ad2c-9568b22de569}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{8662b8e4-91e3-47e4-ae5a-09b61c105f44}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

@@ -204,4 +204,9 @@
 		<Title>Recently Featured ( Germany )</Title>
 		<Provider>Standard feed</Provider>
 	</Items>
+	<Items>
+		<ConfigString>ParentFolder=|title=Billboard|feed=Billboard Hot 100 Chart|feedint=0|all=true|</ConfigString>
+		<Title>Billboard</Title>
+		<Provider>Billboard feed</Provider>
+	</Items>
 </SiteItemEnumerator>
