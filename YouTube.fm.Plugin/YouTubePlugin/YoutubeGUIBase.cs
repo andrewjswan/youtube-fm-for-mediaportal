@@ -260,8 +260,8 @@ namespace YouTubePlugin
         Youtube2MP.temp_player.CurrentPlaylistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
         PlayList playlist = Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
         playlist.Clear();
-        g_Player.PlayBackStopped += new g_Player.StoppedHandler(g_Player_PlayBackStopped);
-        g_Player.PlayBackEnded += new g_Player.EndedHandler(g_Player_PlayBackEnded);
+        g_Player.PlayBackStopped += g_Player_PlayBackStopped;
+        g_Player.PlayBackEnded += g_Player_PlayBackEnded;
         AddItemToPlayList(vid, ref playlist, qa);
 
         if (facade != null)
@@ -270,7 +270,14 @@ namespace YouTubePlugin
           int selected = facade.SelectedListItemIndex;
           for (int i = selected + 1; i < facade.ListItems.Count; i++)
           {
-            AddItemToPlayList(facade.ListItems[i], ref playlist, new VideoInfo(qa), false);
+            try
+            {
+              AddItemToPlayList(facade.ListItems[i], ref playlist, new VideoInfo(qa), false);
+            }
+            catch (Exception ex)
+            {
+              Log.Error(ex);
+            }
           }
         }
         else
