@@ -367,7 +367,7 @@ namespace YouTubePlugin
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
-      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm - Playlist - " + playlistname);
+      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Playlist/" + playlistname);
       _playlistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
 
       currentView = View.PlayList;
@@ -674,7 +674,7 @@ namespace YouTubePlugin
         start += 50;
       } while (playlistFeed.TotalResults > start - 1);
 
-      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm - Playlist - " + playlistname);
+      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Playlist/" + playlistname);
       LoadDirectory(string.Empty);
     }
 

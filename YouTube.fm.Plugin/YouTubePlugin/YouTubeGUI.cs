@@ -307,7 +307,7 @@ namespace YouTubePlugin
           ClearLabels("Curent");
           ClearLabels("NowPlaying");
           GUIPropertyManager.SetProperty("#header.title", " ");
-          GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm - Home");
+          GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Home");
           StartUpHome();
           UpdateGui();
           }
@@ -1216,7 +1216,7 @@ namespace YouTubePlugin
 
 
       //GUIPropertyManager.SetProperty("#header.title", itemCollections.Title);
-      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm - " + itemCollections.Title);
+      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/" + itemCollections.Title);
       updateStationLogoTimer.Enabled = false;
       downloaQueue.Clear();
       if (level)
@@ -1281,7 +1281,7 @@ namespace YouTubePlugin
         listControl.Add(item);
       }
       //GUIPropertyManager.SetProperty("#header.title", videos.Title.Text);
-      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm - " + videos.Title.Text);
+      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/" + videos.Title.Text);
       updateStationLogoTimer.Enabled = false;
       downloaQueue.Clear();
       foreach (YouTubeEntry entry in videos.Entries)
