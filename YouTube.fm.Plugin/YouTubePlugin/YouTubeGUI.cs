@@ -1209,10 +1209,10 @@ namespace YouTubePlugin
 
       SaveListState(true);
 
-      if (itemCollections.FolderType == 1)
-        mapSettings.ViewAs = (int)View.Albums;
-      else
-        mapSettings.ViewAs = (int) View.List;
+      //if (itemCollections.FolderType == 1)
+      //  mapSettings.ViewAs = (int)View.Albums;
+      //else
+      //  mapSettings.ViewAs = (int) View.List;
 
 
       //GUIPropertyManager.SetProperty("#header.title", itemCollections.Title);

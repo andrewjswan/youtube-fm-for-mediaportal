@@ -369,21 +369,21 @@ namespace YouTubePlugin
                                };
       if (youTubeEntry.Duration != null)
         item.Duration = Convert.ToInt32(youTubeEntry.Duration.Seconds, 10);
-      item.Title3 = MediaPortal.Util.Utils.SecondsToHMSString(item.Duration);
-      if (youTubeEntry.Statistics!=null)
-      {
-        item.Title2 =
-          String.Format("By {0}|{1}|{2} views", youTubeEntry.Uploader.Value,
-                        youTubeEntry.Updated.ToShortDateString(),
-                        FormatNumber(youTubeEntry.Statistics.ViewCount));
-      }
-      else
-      {
-        item.Title2 =
-          String.Format("By {0}|{1}", youTubeEntry.Uploader.Value,
-                        youTubeEntry.Updated.ToShortDateString());
+      item.Title2 = MediaPortal.Util.Utils.SecondsToHMSString(item.Duration);
+      //if (youTubeEntry.Statistics!=null)
+      //{
+      //  item.Title3 =
+      //    String.Format("By {0}|{1}|{2} views", youTubeEntry.Uploader.Value,
+      //                  youTubeEntry.Updated.ToShortDateString(),
+      //                  FormatNumber(youTubeEntry.Statistics.ViewCount));
+      //}
+      //else
+      //{
+      //  item.Title3 =
+      //    String.Format("By {0}|{1}", youTubeEntry.Uploader.Value,
+      //                  youTubeEntry.Updated.ToShortDateString());
        
-      }
+      //}
       return item;
     }
 
