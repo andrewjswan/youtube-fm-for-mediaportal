@@ -114,7 +114,7 @@ namespace YouTubePlugin.Class.Artist
         res.Add(new ArtistItem()
                   {
                     Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
-                    Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'"),
+                    Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'").Replace("`","\""),
                     Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
                   });
       }
@@ -123,7 +123,7 @@ namespace YouTubePlugin.Class.Artist
 
     public string GetArtistsImgUrl(string letter)
     {
-      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_NAME like \"{0}%\" order by ARTIST_NAME", letter);
+      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_NAME like \"{0}%\" order by ARTIST_NAME", DatabaseUtility.RemoveInvalidChars( letter.Replace('"','`')));
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
       {
@@ -177,5 +177,7 @@ namespace YouTubePlugin.Class.Artist
                                    artistItem.Img_url);
       m_db.Execute(lsSQL);
     }
+
+
   }
 }
