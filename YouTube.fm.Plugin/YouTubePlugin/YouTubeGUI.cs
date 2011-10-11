@@ -889,6 +889,7 @@ namespace YouTubePlugin
 
       YouTubeEntry videoEntry;
       LocalFileStruct file = selectedItem.MusicTag as LocalFileStruct;
+      SiteItemEntry entry = selectedItem.MusicTag as SiteItemEntry;
       if (file != null)
       {
         Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + file.VideoId);
@@ -900,7 +901,6 @@ namespace YouTubePlugin
         videoEntry = selectedItem.MusicTag as YouTubeEntry;
         if(videoEntry == null)
         {
-          SiteItemEntry entry = selectedItem.MusicTag as SiteItemEntry;
           if (entry != null)
           {
             GenericListItemCollections genericListItem = Youtube2MP.GetList(entry);
@@ -938,6 +938,7 @@ namespace YouTubePlugin
         dlg.Add(Translation.AddFavorites);
         dlg.Add(Translation.AddWatchLater);
       }
+      dlg.Add(Translation.Info);
       dlg.Add(Translation.Options);
       dlg.Add(Translation.DownloadVideo);
       if (!string.IsNullOrEmpty(artistName) && !string.IsNullOrEmpty(ArtistManager.Instance.GetArtistsByName(artistName).Name))
@@ -1070,7 +1071,7 @@ namespace YouTubePlugin
       {
         DoOptions();
       }
-      else if (dlg.SelectedLabelText == Translation.AddFavorites)
+      else if (dlg.SelectedLabelText == Translation.DownloadVideo)
       {
         if (Youtube2MP._settings.LocalFile.Get(Youtube2MP.GetVideoId(videoEntry)) != null)
         {
@@ -1111,6 +1112,17 @@ namespace YouTubePlugin
         ArtistItem artistItem = ArtistManager.Instance.GetArtistsByName(artistName);
         addVideos(ArtistManager.Instance.Grabber.GetArtistVideosIds(artistItem.Id), true);
       }
+      else if (dlg.SelectedLabelText == Translation.Info)
+      {
+        YoutubeGuiInfoEx scr = (YoutubeGuiInfoEx) GUIWindowManager.GetWindow(29053);
+        scr.YouTubeEntry = videoEntry;
+        //if (entry!=null)
+        //{
+        //  ArtistItem artistItem=ent
+        //}
+        GUIWindowManager.ActivateWindow(29053);
+      }
+
     }
 
 

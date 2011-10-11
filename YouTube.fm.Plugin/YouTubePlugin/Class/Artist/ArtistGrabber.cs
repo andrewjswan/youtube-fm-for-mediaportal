@@ -97,10 +97,10 @@ namespace YouTubePlugin.Class.Artist
       {
         GetSimilarArtistsSite(site);
         //------------------------------
-        string img = Regex.Match(site, "<img class=\"artist-image\" src=\"(?<url>.*?)\" />", RegexOptions.Singleline).Groups["url"].Value;
+        //string img = Regex.Match(site, "<img class=\"artist-image\" src=\"(?<url>.*?)\" />", RegexOptions.Singleline).Groups["url"].Value;
         ArtistItem artistItem = ArtistManager.Instance.GetArtistsById(artist_id);
-        artistItem.Img_url = img;
-        ArtistManager.Instance.Save(artistItem);
+        //artistItem.Img_url = img;
+        //ArtistManager.Instance.Save(artistItem);
         //----------------------------
         Regex regexObj = new Regex("album-row.*?data-video-ids=\"(?<vid_id>.*?)\".*?<span class=\"clip\"><img src=\"(?<thumb>.*?)\".*?album-track-name\">(?<title>.*?)</span>", RegexOptions.Singleline);
         Match matchResult = regexObj.Match(site);
@@ -119,7 +119,8 @@ namespace YouTubePlugin.Class.Artist
                                          Title = youTubeEntry.Title.Text,
                                          IsFolder = false,
                                          LogoUrl = "http:" + matchResult.Groups["thumb"].Value.Replace("default.jpg", "hqdefault.jpg"),
-                                         Tag = youTubeEntry
+                                         Tag = youTubeEntry,
+                                         ParentTag = artistItem
                                        };
           res.Items.Add(listItem);
           //resultList.Add(matchResult.Groups["groupname"].Value);

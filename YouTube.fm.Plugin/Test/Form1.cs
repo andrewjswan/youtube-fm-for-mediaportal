@@ -270,6 +270,9 @@ namespace Test
       //      scrobbleManager.Submit();
       // Test it out...
       Track track = new Track("david arnold", "the hot fuzz suite", session);
+      Artist artist = track.Artist;
+      ArtistBio artistBio = artist.Bio;
+      string ss = artistBio.getContent();
       Console.WriteLine(track.GetAlbum());
 
     }

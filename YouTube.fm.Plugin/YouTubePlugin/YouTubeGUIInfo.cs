@@ -20,27 +20,15 @@ using Action = MediaPortal.GUI.Library.Action;
 namespace YouTubePlugin
 {
 
-  public class YouTubeGUIInfo : YoutubeGUIBase
+  public class YouTubeGUIInfo : YouTubeGuiInfoBase
   {
-    #region skin connection
-    [SkinControlAttribute(50)]
-    protected GUIThumbnailPanel listControl = null;
-    [SkinControlAttribute(166)]
-    protected GUIListControl listsimilar = null;
-    //[SkinControlAttribute(5)]
-    //protected GUIButtonControl btnPlay = null;
-    [SkinControlAttribute(95)]
-    protected GUIImage imgFanArt = null;
-    #endregion
+
 
     #region variabiles
-    List<GUIListItem> relatated = new List<GUIListItem>();
-    List<GUIListItem> similar = new List<GUIListItem>();
     public System.Timers.Timer infoTimer = new System.Timers.Timer(2 * 1000);
     private System.Timers.Timer _lastFmTimer = new System.Timers.Timer(60 * 1000);
     BackgroundWorker backgroundWorker = new BackgroundWorker();
 
-    private static readonly object locker = new object();
     #endregion
 
     public override int GetID
@@ -84,8 +72,8 @@ namespace YouTubePlugin
       {
         try
         {
-          LoadRelatated();
-          LoadSimilarArtists();
+          LoadRelatated(Youtube2MP.NowPlayingEntry);
+          LoadSimilarArtists(Youtube2MP.NowPlayingEntry);
         }
         finally
         {
@@ -110,26 +98,6 @@ namespace YouTubePlugin
       ClearLists();
     }
 
-    void ClearLists()
-    {
-      relatated.Clear();
-      similar.Clear();
-
-      if (GUIWindowManager.ActiveWindow != GetID)
-        return;
-
-      lock (locker)
-      {
-        if (listControl != null)
-        {
-          GUIControl.ClearControl(GetID, listControl.GetID);
-        }
-        if (listsimilar != null)
-        {
-          GUIControl.ClearControl(GetID, listsimilar.GetID);
-        }
-      }
-    }
 
     void player_PlayBegin(PlayListItem item)
     {
@@ -213,6 +181,11 @@ namespace YouTubePlugin
       {
         dlg.Add(Translation.AddPlaylist);
         dlg.Add(Translation.AddAllPlaylist);
+        if (Youtube2MP.service.Credentials != null)
+        {
+          dlg.Add(Translation.AddFavorites);
+          dlg.Add(Translation.AddWatchLater);
+        }
       }
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
@@ -273,6 +246,22 @@ namespace YouTubePlugin
           if (dlgProgress != null)
             dlgProgress.Close();
         }
+      }else if (dlg.SelectedLabelText == Translation.AddFavorites)
+      {
+        try
+        {
+         Youtube2MP.service.Insert(new Uri(YouTubeQuery.CreateFavoritesUri(null)), videoEntry);
+        }
+        catch (Exception)
+        {
+          Err_message(Translation.WrongRequestWrongUser);
+        }
+
+      }else if (dlg.SelectedLabelText == Translation.AddWatchLater)
+      {
+        PlayListMember pm = new PlayListMember();
+        pm.Id = videoEntry.VideoId;
+        Youtube2MP.request.Insert(new Uri("https://gdata.youtube.com/feeds/api/users/default/watch_later"), pm);
       }
     }
 
@@ -378,80 +367,6 @@ namespace YouTubePlugin
       backgroundWorker.RunWorkerAsync();
     }
 
-    private void LoadRelatated()
-    {
-      //Youtube2MP.getIDSimple(Youtube2MP.NowPlayingEntry.Id.AbsoluteUri));
-      //GUIControl.ClearControl(GetID, listControl.GetID);
-      string relatatedUrl = string.Format("http://gdata.youtube.com/feeds/api/videos/{0}/related",
-                                         Youtube2MP.GetVideoId(Youtube2MP.NowPlayingEntry));
-      relatated.Clear();
-      YouTubeQuery query = new YouTubeQuery(relatatedUrl);
-      YouTubeFeed vidr = Youtube2MP.service.Query(query);
-      if (vidr.Entries.Count > 0)
-      {
-        addVideos(vidr, query);
-      }
-      if (listControl != null)
-      {
-        FillRelatedList();
-      }
-    }
-
-    private void LoadSimilarArtists()
-    {
-      //if (listsimilar != null)
-      {
-        similar.Clear();
-        string vidId = Youtube2MP.GetVideoId(Youtube2MP.NowPlayingEntry);
-        ArtistItem artistItem = ArtistManager.Instance.SitesCache.GetByVideoId(vidId) != null
-                                  ? ArtistManager.Instance.Grabber.GetFromVideoSite(
-                                    ArtistManager.Instance.SitesCache.GetByVideoId(vidId).SIte)
-                                  : ArtistManager.Instance.Grabber.GetFromVideoId(vidId);
-
-        if (string.IsNullOrEmpty(artistItem.Id) && Youtube2MP.NowPlayingEntry.Title.Text.Contains("-"))
-        {
-          artistItem =
-            ArtistManager.Instance.GetArtistsByName(Youtube2MP.NowPlayingEntry.Title.Text.Split('-')[0].TrimEnd());
-        }
-
-        if (!string.IsNullOrEmpty(artistItem.Id))
-        {
-          List<ArtistItem> items = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
-          //GUIControl.ClearControl(GetID, listsimilar.GetID);
-          foreach (ArtistItem aitem in items)
-          {
-            GUIListItem item = new GUIListItem();
-            // and add station name & bitrate
-            item.Label = aitem.Name;
-            item.Label2 = "";
-            item.IsFolder = true;
-
-            string imageFile = GetLocalImageFileName(aitem.Img_url);
-            if (File.Exists(imageFile))
-            {
-              item.ThumbnailImage = imageFile;
-              item.IconImage = "defaultVideoBig.png";
-              item.IconImageBig = imageFile;
-            }
-            else
-            {
-              MediaPortal.Util.Utils.SetDefaultIcons(item);
-              DownloadImage(aitem.Img_url, item);
-              //DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
-            }
-            item.MusicTag = aitem;
-            similar.Add(item);
-            //listsimilar.Add(item);
-          }
-          OnDownloadTimedEvent(null, null);
-        }
-        if (listsimilar != null)
-        {
-          FillSimilarList();
-        }
-      }
-    }
-
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
@@ -472,35 +387,6 @@ namespace YouTubePlugin
       //GUIControl.FocusControl(GetID, listControl.GetID);
     }
 
-    private void FillRelatedList()
-    {
-      //if (GUIWindowManager.ActiveWindow != GetID)
-      //  return;
-      if (listControl == null)
-          return;
-      GUIControl.ClearControl(GetID, listControl.GetID);
-      if (relatated == null || relatated.Count < 1) return;
-      foreach (GUIListItem item in relatated)
-      {
-        listControl.Add(item);
-      }
-      listControl.SelectedListItemIndex = 0;
-    }
-
-    private void FillSimilarList()
-    {
-      //if (GUIWindowManager.ActiveWindow != GetID)
-      //  return;
-      if (listsimilar == null)
-          return;
-      GUIControl.ClearControl(GetID, listsimilar.GetID);
-      if (similar == null || similar.Count < 1) return;
-      foreach (GUIListItem item in similar)
-      {
-          listsimilar.Add(item);
-      }
-      listsimilar.SelectedListItemIndex = 0;
-    }
 
     void item_OnItemSelected(GUIListItem item, GUIControl parent)
     {
@@ -520,58 +406,6 @@ namespace YouTubePlugin
         GUIWindowManager.ActivateWindow(29050);
       }
       base.OnClicked(controlId, control, actionType);
-    }
-    
-    void addVideos(YouTubeFeed videos, YouTubeQuery qu)
-    {
-      foreach (YouTubeEntry entry in videos.Entries)
-      {
-        GUIListItem item = new GUIListItem();
-        // and add station name & bitrate
-        item.Label = entry.Title.Text; //ae.Entry.Author.Name + " - " + ae.Entry.Title.Content;
-        item.Label2 = "";
-        item.IsFolder = false;
-
-        try
-        {
-          item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
-          if (entry.Rating != null)
-            item.Rating = (float) entry.Rating.Average;
-        }
-        catch
-        {
-
-        }
-
-        string imageFile = GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
-        if (File.Exists(imageFile))
-        {
-          item.ThumbnailImage = imageFile;
-          item.IconImage = imageFile; item.IconImageBig = imageFile;
-        }
-        else
-        {
-          MediaPortal.Util.Utils.SetDefaultIcons(item);
-          item.OnRetrieveArt += item_OnRetrieveArt;
-          DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
-          //DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
-        }
-        item.MusicTag = entry;
-        relatated.Add(item);
-      }
-      OnDownloadTimedEvent(null, null);
-    }
-
-    void item_OnRetrieveArt(GUIListItem item)
-    {
-      YouTubeEntry entry = item.MusicTag as YouTubeEntry;
-      string imageFile = GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
-      if (File.Exists(imageFile))
-      {
-        item.ThumbnailImage = imageFile;
-        item.IconImage = "defaultVideoBig.png";
-        item.IconImageBig = imageFile;
-      }
     }
 
   }

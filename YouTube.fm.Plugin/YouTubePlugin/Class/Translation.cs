@@ -226,6 +226,7 @@ namespace YouTubePlugin.Class
 
     // I
     public static string ItemAlreadyDownloaded  = "Item already downloaded !";
+    public static string Info = "Info";
 
     // L
 

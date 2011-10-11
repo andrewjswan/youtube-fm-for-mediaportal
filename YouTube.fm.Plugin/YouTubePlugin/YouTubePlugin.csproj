@@ -233,6 +233,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="YouTubeGUIInfo.cs" />
+    <Compile Include="YouTubeGuiInfoBase.cs" />
+    <Compile Include="YoutubeGuiInfoEx.cs" />
     <Compile Include="YouTubeGUIPlaylist.cs" />
   </ItemGroup>
   <ItemGroup>

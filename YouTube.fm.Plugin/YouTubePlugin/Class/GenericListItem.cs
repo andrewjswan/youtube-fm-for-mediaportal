@@ -13,6 +13,7 @@ namespace YouTubePlugin.Class
     public string LogoFile { get; set; }
     public bool IsFolder { get; set; }
     public object Tag { get; set; }
+    public object ParentTag { get; set; }
     public int Duration { get; set; }
     public float Rating { get; set; }
   }
