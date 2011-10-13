@@ -4,7 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Timers;
+using Google.GData.Client;
 using Google.GData.YouTube;
+using Google.YouTube;
+using Lastfm.Services;
 using MediaPortal.GUI.Library;
 using YouTubePlugin.Class.Artist;
 
@@ -59,12 +62,45 @@ namespace YouTubePlugin
 
     void Worker_Youtube_DoWork(object sender, DoWorkEventArgs e)
     {
-      //throw new NotImplementedException();
+      Uri videoEntryUrl =
+        new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(YouTubeEntry));
+      Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+      Feed<Comment> comments = Youtube2MP.request.GetComments(video);
+      string cm = "\n------------------------------------------\n";
+      foreach (Comment c in comments.Entries)
+      {
+        cm += c.Author + " : " + c.Content + "\n------------------------------------------\n";
+      }
+      GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Comments", cm);
     }
 
     void Worker_Artist_DoWork(object sender, DoWorkEventArgs e)
     {
-      //throw new NotImplementedException();
+      try
+      {
+        string imgurl =
+          ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+        if (!string.IsNullOrEmpty(imgurl))
+        {
+          string artistimg = GetLocalImageFileName(imgurl);
+          DownloadImage(artistimg, null);
+          OnDownloadTimedEvent();
+        }
+
+        Track track = new Track(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"), GUIPropertyManager.GetProperty("#Youtube.fm.Info.Video.Title"), Youtube2MP.LastFmProfile.Session);
+        //string s = track.Wiki.getContent();
+        GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio",  HttpUtility.HtmlDecode(track.Artist.Bio.getContent()));
+        string tags = " ";
+        foreach (TopTag tag in track.Artist.GetTopTags())
+        {
+          tags += tag.Item.Name + "|";
+        }
+        GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Tags", tags);
+      }
+      catch (Exception)
+      {
+
+      }
     }
 
     protected override void OnPageLoad()
@@ -98,6 +134,7 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Name", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Tags", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image", " ");
     }
   }
 }

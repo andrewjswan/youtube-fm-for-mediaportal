@@ -123,13 +123,15 @@ namespace YouTubePlugin.Class.Artist
 
     public string GetArtistsImgUrl(string letter)
     {
+      if (string.IsNullOrEmpty(letter))
+        return string.Empty;
       string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_NAME like \"{0}%\" order by ARTIST_NAME", DatabaseUtility.RemoveInvalidChars( letter.Replace('"','`')));
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
       {
         return DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
       }
-      return "";
+      return string.Empty;
     }
 
     public List<ArtistItem> GetArtists()

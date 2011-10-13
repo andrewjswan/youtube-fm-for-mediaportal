@@ -54,15 +54,15 @@ namespace YouTubePlugin
     {
       updateStationLogoTimer.AutoReset = true;
       updateStationLogoTimer.Enabled = false;
-      updateStationLogoTimer.Elapsed += new ElapsedEventHandler(OnDownloadTimedEvent);
-      Client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadLogoEnd);
-      Youtube2MP.player.PlayBegin += new YoutubePlaylistPlayer.EventHandler(player_PlayBegin);
-      Youtube2MP.player.PlayStop += new YoutubePlaylistPlayer.StopEventHandler(player_PlayStop);
-      Youtube2MP.temp_player.PlayBegin += new YoutubePlaylistPlayer.EventHandler(player_PlayBegin);
-      Youtube2MP.temp_player.PlayStop += new YoutubePlaylistPlayer.StopEventHandler(player_PlayStop);
+      updateStationLogoTimer.Elapsed += OnDownloadTimedEvent;
+      Client.DownloadFileCompleted += DownloadLogoEnd;
+      Youtube2MP.player.PlayBegin += player_PlayBegin;
+      Youtube2MP.player.PlayStop += player_PlayStop;
+      Youtube2MP.temp_player.PlayBegin += player_PlayBegin;
+      Youtube2MP.temp_player.PlayStop += player_PlayStop;
       Youtube2MP.player.Init();
       Youtube2MP.temp_player.Init();
-      backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
+      backgroundWorker.DoWork += backgroundWorker_DoWork;
       _lastFmTimer.Elapsed += _lastFmTimer_Elapsed;
     }
 
