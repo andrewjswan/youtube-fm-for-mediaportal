@@ -51,6 +51,13 @@
               <ZipFileName>Installer{CopyFile}\{6f05d1bc-39a8-4ada-b322-ad87629ca2ac}-youtubeoverlay.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\youtubeoverlay.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeinfoex.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{835b3aef-9895-4b35-b3fb-8354488a59cf}-youtubeinfoex.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeinfoex.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -196,6 +203,20 @@
               <LocalFileName>skin\DefaultWide\youtubeoverlay.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{7e9004b5-084b-4c00-b0aa-4f565754d169}-youtubeoverlay.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\youtubeoverlay.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeinfoex.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{18c0ead7-9cde-4732-92b6-c79fe594505d}-youtubeinfoex.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeinfoex.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeinfoex.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{7fb69b59-3fd9-40d8-b012-1fed89398675}-youtubeinfoex.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeinfoex.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -343,10 +364,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.Players.Music" />
-            <SubSystemItem Name="MP.Players.Video" />
-            <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
+            <SubSystemItem Name="MP.Players.Video" />
+            <SubSystemItem Name="MP.Players.Music" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -363,13 +384,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>7</Minor>
       <Build>3</Build>
-      <Revision>1</Revision>
+      <Revision>2</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
-    <VersionDescription>Billboard support</VersionDescription>
+    <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.3.1.mpe1</OnlineLocation>
-    <ReleaseDate>2011-10-08T17:28:13</ReleaseDate>
+    <ReleaseDate>2011-10-14T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -448,6 +469,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{6f05d1bc-39a8-4ada-b322-ad87629ca2ac}-youtubeoverlay.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\youtubeoverlay.xml</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\youtubeinfoex.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{835b3aef-9895-4b35-b3fb-8354488a59cf}-youtubeinfoex.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\youtubeinfoex.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -515,7 +543,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{8662b8e4-91e3-47e4-ae5a-09b61c105f44}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{681f68eb-3f50-4966-9e5f-a0886d71a7bb}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
