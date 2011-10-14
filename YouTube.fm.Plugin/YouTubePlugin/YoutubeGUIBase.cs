@@ -98,6 +98,7 @@ namespace YouTubePlugin
           if(extensionElementFactory.XmlPrefix=="yt" && extensionElementFactory.XmlName=="hd")
           {
             GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsHD", "true");
+            break;
           }
         }
       }

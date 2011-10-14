@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Google.GData.Client;
 using Google.GData.YouTube;
 using Google.YouTube;
 using YouTubePlugin.Class.Artist;
@@ -36,11 +37,11 @@ namespace YouTubePlugin.Class.SiteItems
           newentry.SetValue("letter", "true");
           newentry.Title = letter;
           GenericListItem listItem = new GenericListItem()
-          {
-            Title = letter,
-            IsFolder = true,
-            Tag = newentry
-          };
+                                       {
+                                         Title = letter,
+                                         IsFolder = true,
+                                         Tag = newentry
+                                       };
           res.Items.Add(listItem);
         }
       }
@@ -57,7 +58,8 @@ namespace YouTubePlugin.Class.SiteItems
           GenericListItem listItem = new GenericListItem()
                                        {
                                          Title = artistItem.Name,
-                                         LogoUrl = string.IsNullOrEmpty(artistItem.Img_url.Trim()) ? "@" : artistItem.Img_url,
+                                         LogoUrl =
+                                           string.IsNullOrEmpty(artistItem.Img_url.Trim()) ? "@" : artistItem.Img_url,
                                          IsFolder = true,
                                          Tag = newentry
                                        };
@@ -66,8 +68,37 @@ namespace YouTubePlugin.Class.SiteItems
       }
       if (entry.GetValue("letter") == "false")
       {
-        res = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
-        res.Title = "Artists - " + entry.GetValue("name");
+        //res = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
+        GenericListItemCollections resart = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
+        string search = "";
+        foreach (GenericListItem genericListItem in resart.Items)
+        {
+          YouTubeEntry tubeEntry = genericListItem.Tag as YouTubeEntry;
+          if (!Youtube2MP.GetVideoId(tubeEntry).Contains("-"))
+            search += Youtube2MP.GetVideoId(tubeEntry) + "|";
+        }
+        res.Title = "Artists/" + entry.GetValue("name");
+        YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
+        query.Query = search;
+        query.NumberToRetrieve = 50;
+
+        YouTubeFeed videos = Youtube2MP.service.Query(query);
+
+        foreach (GenericListItem genericListItem in resart.Items)
+        {
+          YouTubeEntry tubeEntry = genericListItem.Tag as YouTubeEntry;
+          YouTubeEntry searchEntry = GetVideFromFeed(Youtube2MP.GetVideoId(tubeEntry), videos);
+          if (searchEntry != null)
+          {
+            searchEntry.Title.Text = tubeEntry.Title.Text;
+            res.Items.Add(Youtube2MP.YouTubeEntry2ListItem(searchEntry));
+          }
+          else
+          {
+            res.Items.Add(genericListItem);
+          }
+        }
+        res.FolderType = 1;
       }
       return res;
     }
@@ -83,6 +114,17 @@ namespace YouTubePlugin.Class.SiteItems
                         Tag = new SiteItemEntry() { Provider = "Artists" }
                       });
       return res;
+    }
+
+
+    YouTubeEntry GetVideFromFeed(string videoId,YouTubeFeed videos)
+    {
+      foreach (YouTubeEntry youTubeEntry in videos.Entries)
+      {
+        if (Youtube2MP.GetVideoId(youTubeEntry) == videoId)
+          return youTubeEntry;
+      }
+      return null;
     }
 
 
