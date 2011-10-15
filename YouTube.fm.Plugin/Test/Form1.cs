@@ -217,7 +217,7 @@ namespace Test
             Artist artist = new Artist(artistItem.Name, session);
             artistItem.Img_url = artist.GetImageURL(ImageSize.Huge);
             ArtistManager.Instance.Save(artistItem);
-            //ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
+            ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
 
           }
           catch (Exception)

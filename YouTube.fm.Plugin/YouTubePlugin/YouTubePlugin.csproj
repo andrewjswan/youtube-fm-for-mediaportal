@@ -97,6 +97,7 @@
     <Compile Include="Class\Artist\ArtistGrabber.cs" />
     <Compile Include="Class\Artist\ArtistItem.cs" />
     <Compile Include="Class\Artist\ArtistManager.cs" />
+    <Compile Include="Class\Database\DatabaseProvider.cs" />
     <Compile Include="Class\FileDownloader.cs" />
     <Compile Include="Class\LastProfile.cs" />
     <Compile Include="Class\GenericListItem.cs" />

@@ -14,6 +14,7 @@ using MediaPortal.Music.Database;
 using Google.GData.YouTube;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
+using YouTubePlugin.Class.Database;
 using YouTubePlugin.DataProvider;
 using Action = MediaPortal.GUI.Library.Action;
 
@@ -128,7 +129,7 @@ namespace YouTubePlugin
 
         item.FileName = Youtube2MP.StreamPlaybackUrl(en, info);
         Song song = Youtube2MP.YoutubeEntry2Song(en);
-            
+        DatabaseProvider.InstanInstance.SavePlayData(en, DateTime.Now);
         Youtube2MP.NowPlayingEntry = en;
         Youtube2MP.NowPlayingSong = song;
         SetLabels(en, "NowPlaying");

@@ -16,6 +16,7 @@ using Google.GData.YouTube;
 using Google.YouTube;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
+using YouTubePlugin.Class.Database;
 using Action = MediaPortal.GUI.Library.Action;
 
 
@@ -124,9 +125,11 @@ namespace YouTubePlugin
       Client.DownloadFileCompleted += DownloadLogoEnd;
       VideoDownloader.DownloadComplete += VideoDownloader_DownloadComplete;
       VideoDownloader.ProgressChanged += VideoDownloader_ProgressChanged;
-      ArtistManager.Instance.InitDatabase();      
+     
+      ArtistManager.Instance.InitDatabase();
+      DatabaseProvider.InstanInstance.InitDatabase();
+      
       GUIWindowManager.Receivers += GUIWindowManager_Receivers;
- 
     }
 
     void VideoDownloader_ProgressChanged(object sender, DownloadEventArgs e)

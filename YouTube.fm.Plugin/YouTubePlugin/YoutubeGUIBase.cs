@@ -182,7 +182,7 @@ namespace YouTubePlugin
   
     static public string GetBestUrl(ExtensionCollection<MediaThumbnail> th)
     {
-      if (th.Count > 0)
+      if (th !=null && th.Count > 0)
       {
         int with = 0;
         string url = string.Empty;

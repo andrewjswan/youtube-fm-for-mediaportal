@@ -8,6 +8,7 @@ using MediaPortal.GUI.Library;
 using MediaPortal.Player;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
+using YouTubePlugin.Class.Database;
 using Action = MediaPortal.GUI.Library.Action;
 
 namespace YouTubePlugin
@@ -142,14 +143,15 @@ namespace YouTubePlugin
                                     ArtistManager.Instance.SitesCache.GetByVideoId(vidId).SIte)
                                   : ArtistManager.Instance.Grabber.GetFromVideoId(vidId);
 
-        if (string.IsNullOrEmpty(artistItem.Id) && Youtube2MP.NowPlayingEntry.Title.Text.Contains("-"))
+        if (string.IsNullOrEmpty(artistItem.Id) && entry.Title.Text.Contains("-"))
         {
           artistItem =
-            ArtistManager.Instance.GetArtistsByName(Youtube2MP.NowPlayingEntry.Title.Text.Split('-')[0].TrimEnd());
+            ArtistManager.Instance.GetArtistsByName(entry.Title.Text.Split('-')[0].TrimEnd());
         }
 
         if (!string.IsNullOrEmpty(artistItem.Id))
         {
+          DatabaseProvider.InstanInstance.Save(entry, artistItem);
           List<ArtistItem> items = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
           //GUIControl.ClearControl(GetID, listsimilar.GetID);
           foreach (ArtistItem aitem in items)

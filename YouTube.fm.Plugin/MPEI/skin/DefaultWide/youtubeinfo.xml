@@ -89,8 +89,25 @@
             <onleft>50</onleft>	    
 	    <onright>166</onright>
 	    <onup>17</onup>
-	    <ondown>50</ondown>
+	    <ondown>96</ondown>
 	</control>        
+        <control>
+	    <description>Info Screen Button</description>
+	    <type>button</type>
+	    <id>96</id>
+	    <posX>687</posX>
+	    <posY>426</posY>
+	    <width>80</width>
+	    <height>45</height>
+	    <textureFocus>minimize_enabled.png</textureFocus>
+	    <textureNoFocus>minimize_disabled.png</textureNoFocus>
+        <onleft>50</onleft>	    
+	    <onright>166</onright>
+	    <onup>17</onup>
+	    <ondown>50</ondown>
+		<label>i</label>
+	</control>        
+
         <control>
             <id>1</id>
             <description>Video Image</description>
