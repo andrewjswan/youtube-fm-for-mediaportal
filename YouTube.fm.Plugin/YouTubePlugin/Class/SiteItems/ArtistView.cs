@@ -47,7 +47,7 @@ namespace YouTubePlugin.Class.SiteItems
       }
       if (entry.GetValue("letter") == "true")
       {
-        res.Title = "Artists - Letter :" + entry.Title;
+        res.Title = "Artists/Letter/" + entry.Title;
         foreach (ArtistItem artistItem in ArtistManager.Instance.GetArtists(entry.Title))
         {
           SiteItemEntry newentry = new SiteItemEntry();

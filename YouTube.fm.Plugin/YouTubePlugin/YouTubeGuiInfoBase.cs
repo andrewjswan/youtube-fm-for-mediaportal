@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Google.GData.YouTube;
+using Google.YouTube;
+using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
+using MediaPortal.Player;
+using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
+using Action = MediaPortal.GUI.Library.Action;
 
 namespace YouTubePlugin
 {
@@ -50,7 +53,8 @@ namespace YouTubePlugin
         if (File.Exists(imageFile))
         {
           item.ThumbnailImage = imageFile;
-          item.IconImage = imageFile; item.IconImageBig = imageFile;
+          item.IconImage = imageFile;
+          item.IconImageBig = imageFile;
         }
         else
         {
@@ -204,6 +208,121 @@ namespace YouTubePlugin
       }
     }
 
+    protected override void OnShowContextMenu()
+    {
+      GUIListItem selectedItem = listControl.SelectedListItem;
+      YouTubeEntry videoEntry = selectedItem.MusicTag as YouTubeEntry;
+      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+      if (dlg == null)
+        return;
+      dlg.Reset();
+      dlg.SetHeading(498); // menu
+      dlg.Add(Translation.ShowPreviousWindow);
+      dlg.Add(Translation.Fullscreen);
+      if (videoEntry != null)
+      {
+        dlg.Add(Translation.AddPlaylist);
+        dlg.Add(Translation.AddAllPlaylist);
+        if (Youtube2MP.service.Credentials != null)
+        {
+          dlg.Add(Translation.AddFavorites);
+          dlg.Add(Translation.AddWatchLater);
+        }
+      }
+      dlg.DoModal(GetID);
+      if (dlg.SelectedId == -1)
+        return;
+      if (dlg.SelectedLabelText == Translation.ShowPreviousWindow)
+      {
+        GUIWindowManager.ShowPreviousWindow();
+      }
+      else if (dlg.SelectedLabelText == Translation.Fullscreen)
+      {
+        g_Player.ShowFullScreenWindow();
+      }
+      else if (dlg.SelectedLabelText == Translation.AddPlaylist)
+      {
+        VideoInfo inf = SelectQuality(videoEntry);
+        if (inf.Quality != VideoQuality.Unknow)
+        {
+          AddItemToPlayList(selectedItem, inf);
+        }
+      }
+      else if (dlg.SelectedLabelText == Translation.AddAllPlaylist)
+      {
+
+        VideoInfo inf = SelectQuality(videoEntry);
+        inf.Items = new Dictionary<string, string>();
+        if (inf.Quality != VideoQuality.Unknow)
+        {
+          GUIDialogProgress dlgProgress =
+            (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
+          if (dlgProgress != null)
+          {
+            dlgProgress.Reset();
+            dlgProgress.SetHeading(Translation.AddAllPlaylist);
+            dlgProgress.SetLine(1, "");
+            dlgProgress.SetLine(2, "");
+            dlgProgress.SetPercentage(0);
+            dlgProgress.Progress();
+            dlgProgress.ShowProgressBar(true);
+            dlgProgress.StartModal(GetID);
+          }
+          int i = 0;
+          for (int j = 0; j < listControl.Count; j++)
+          {
+            GUIListItem item = listControl[j];
+            if (dlgProgress != null)
+            {
+              double pr = ((double)i / (double)listControl.Count) * 100;
+              dlgProgress.SetLine(1, item.Label);
+              dlgProgress.SetLine(2, i.ToString() + "/" + listControl.Count.ToString());
+              dlgProgress.SetPercentage((int)pr);
+              dlgProgress.Progress();
+              if (dlgProgress.IsCanceled)
+                break;
+            }
+            i++;
+            AddItemToPlayList(item, new VideoInfo(inf));
+          }
+          if (dlgProgress != null)
+            dlgProgress.Close();
+        }
+      }
+      else if (dlg.SelectedLabelText == Translation.AddFavorites)
+      {
+        try
+        {
+          Youtube2MP.service.Insert(new Uri(YouTubeQuery.CreateFavoritesUri(null)), videoEntry);
+        }
+        catch (Exception)
+        {
+          Err_message(Translation.WrongRequestWrongUser);
+        }
+
+      }
+      else if (dlg.SelectedLabelText == Translation.AddWatchLater)
+      {
+        PlayListMember pm = new PlayListMember();
+        pm.Id = videoEntry.VideoId;
+        Youtube2MP.request.Insert(new Uri("https://gdata.youtube.com/feeds/api/users/default/watch_later"), pm);
+      }
+    }
+
+    protected override void OnClicked(int controlId, GUIControl control, Action.ActionType actionType)
+    {
+      if (control == listControl && actionType == Action.ActionType.ACTION_SELECT_ITEM && listControl.SelectedListItem != null)
+      {
+        DoPlay(listControl.SelectedListItem.MusicTag as YouTubeEntry, false, null);
+      }
+      else if (control == listsimilar && actionType == Action.ActionType.ACTION_SELECT_ITEM && listsimilar.SelectedListItem != null)
+      {
+        ArtistItem artistItem = listsimilar.SelectedListItem.MusicTag as ArtistItem;
+        MessageGUI.Item = artistItem;
+        GUIWindowManager.ActivateWindow(29050);
+      }
+      base.OnClicked(controlId, control, actionType);
+    }
 
   }
 }

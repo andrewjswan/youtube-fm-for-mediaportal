@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Timers;
 using Google.GData.Client;
 using Google.GData.YouTube;
@@ -10,6 +12,7 @@ using Google.YouTube;
 using Lastfm.Services;
 using MediaPortal.GUI.Library;
 using YouTubePlugin.Class.Artist;
+using YouTubePlugin.DataProvider;
 
 namespace YouTubePlugin
 {
@@ -21,6 +24,7 @@ namespace YouTubePlugin
     private BackgroundWorker Worker_Youtube = new BackgroundWorker();
     private BackgroundWorker Worker_Artist = new BackgroundWorker();
     private BackgroundWorker Worker_Fast = new BackgroundWorker();
+    private BackgroundWorker Worker_FanArt = new BackgroundWorker();
 
     public override int GetID
     {
@@ -46,13 +50,73 @@ namespace YouTubePlugin
       Worker_Fast.DoWork += Worker_Fast_DoWork;
       Worker_Youtube.DoWork += Worker_Youtube_DoWork;
       Worker_Artist.DoWork += Worker_Artist_DoWork;
+      Worker_FanArt.DoWork += Worker_FanArt_DoWork;
+      Client.DownloadFileCompleted += DownloadLogoEnd;
       return Load(GUIGraphicsContext.Skin + @"\youtubeinfoex.xml");
+    }
+
+    void Worker_FanArt_DoWork(object sender, DoWorkEventArgs e)
+    {
+      string file = Youtube2MP._settings.FanartDir.Replace("%artist%", GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+
+      if (File.Exists(file) && imgFanArt != null)
+      {
+        Log.Debug("Youtube.Fm local fanart {0} loaded ", file);
+        imgFanArt.Visible = true;
+        imgFanArt.FileName = file;
+        imgFanArt.DoUpdate();
+        return;
+      }
+
+      if (Youtube2MP._settings.LoadOnlineFanart && !Client.IsBusy)
+      {
+        HTBFanArt fanart = new HTBFanArt();
+        file = GetFanArtImage(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+        if (!File.Exists(file))
+        {
+          fanart.Search(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+          Log.Debug("Youtube.Fm found {0} online fanarts for {1}", fanart.ImageUrls.Count,
+                   GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+          if (fanart.ImageUrls.Count > 0)
+          {
+            Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
+            Client.DownloadFile(fanart.ImageUrls[0].Url, file);
+            GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.FanArt", file);
+            Log.Debug("Youtube.Fm fanart {0} loaded ", file);
+            if (imgFanArt != null)
+            {
+              imgFanArt.Visible = true;
+              imgFanArt.FileName = file;
+              imgFanArt.DoUpdate();
+            }
+          }
+          else
+          {
+            if (imgFanArt != null) imgFanArt.Visible = false;
+          }
+        }
+        else
+        {
+          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.FanArt", file);
+          if (imgFanArt != null)
+          {
+            imgFanArt.Visible = true;
+            imgFanArt.FileName = file;
+            imgFanArt.DoUpdate();
+          }
+        }
+      }
+      else
+      {
+        if (imgFanArt != null) imgFanArt.Visible = false;
+      }
     }
 
     void Worker_Fast_DoWork(object sender, DoWorkEventArgs e)
     {
       ClearLists();
       SetLabels(YouTubeEntry,"Info");
+      Worker_FanArt.RunWorkerAsync();
       LoadRelatated(YouTubeEntry);
       LoadSimilarArtists(YouTubeEntry);
       Worker_Youtube.RunWorkerAsync();
@@ -89,7 +153,8 @@ namespace YouTubePlugin
 
         Track track = new Track(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"), GUIPropertyManager.GetProperty("#Youtube.fm.Info.Video.Title"), Youtube2MP.LastFmProfile.Session);
         //string s = track.Wiki.getContent();
-        GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio",  HttpUtility.HtmlDecode(track.Artist.Bio.getContent()));
+        GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio", Regex.Replace(HttpUtility.HtmlDecode(track.Artist.Bio.getContent()), "<.*?>", string.Empty)); 
+        
         string tags = " ";
         foreach (TopTag tag in track.Artist.GetTopTags())
         {

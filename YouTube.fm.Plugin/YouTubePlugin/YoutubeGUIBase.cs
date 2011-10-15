@@ -198,10 +198,7 @@ namespace YouTubePlugin
         }
         return url;
       }
-      else
-      {
-        return string.Empty;
-      }
+      return "http://i2.ytimg.com/vi/hqdefault.jpg";
     }
 
     static public string GetLocalImageFileName(string strURL)
@@ -665,7 +662,6 @@ namespace YouTubePlugin
             curentDownlodingFile.ListItem.IconImage = curentDownlodingFile.FileName;
             curentDownlodingFile.ListItem.IconImageBig = curentDownlodingFile.FileName;
             curentDownlodingFile.ListItem.RefreshCoverArt();
-            OnDownloadTimedEvent(null, null);
           }
         }
         catch (Exception ex)
@@ -674,6 +670,7 @@ namespace YouTubePlugin
         }
         //UpdateGui();
       }
+      OnDownloadTimedEvent(null, null);
     }
    
     protected  YouTubeQuery SetParamToYouTubeQuery(YouTubeQuery query, bool safe)
