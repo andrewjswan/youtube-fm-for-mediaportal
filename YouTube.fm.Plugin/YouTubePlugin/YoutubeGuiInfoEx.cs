@@ -13,11 +13,15 @@ using Lastfm.Services;
 using MediaPortal.GUI.Library;
 using YouTubePlugin.Class.Artist;
 using YouTubePlugin.DataProvider;
+using Action = MediaPortal.GUI.Library.Action;
 
 namespace YouTubePlugin
 {
   public class YoutubeGuiInfoEx : YouTubeGuiInfoBase
   {
+    [SkinControlAttribute(35)]
+    protected GUIButtonControl playbutton = null;
+
     public string VideoId { get; set; }
     public YouTubeEntry YouTubeEntry { get; set; }
     public ArtistItem ArtistItem { get; set; }
@@ -53,6 +57,15 @@ namespace YouTubePlugin
       Worker_FanArt.DoWork += Worker_FanArt_DoWork;
       Client.DownloadFileCompleted += DownloadLogoEnd;
       return Load(GUIGraphicsContext.Skin + @"\youtubeinfoex.xml");
+    }
+
+    protected override void OnClicked(int controlId, GUIControl control, Action.ActionType actionType)
+    {
+      base.OnClicked(controlId, control, actionType);
+      if (control == playbutton)
+      {
+        DoPlay(YouTubeEntry, true, null);
+      }
     }
 
     void Worker_FanArt_DoWork(object sender, DoWorkEventArgs e)
@@ -156,7 +169,8 @@ namespace YouTubePlugin
         GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio", Regex.Replace(HttpUtility.HtmlDecode(track.Artist.Bio.getContent()), "<.*?>", string.Empty)); 
         
         string tags = " ";
-        foreach (TopTag tag in track.Artist.GetTopTags())
+        TopTag[] topTags = track.Artist.GetTopTags();
+        foreach (TopTag tag in topTags)
         {
           tags += tag.Item.Name + "|";
         }
@@ -170,10 +184,20 @@ namespace YouTubePlugin
 
     protected override void OnPageLoad()
     {
+      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Info");
       ClearInfoLabels();
       GUIWaitCursor.Init();
       GUIWaitCursor.Show();
-      Worker_Fast.RunWorkerAsync();
+      if (!Worker_Fast.IsBusy)
+      {
+        Worker_Fast.RunWorkerAsync();
+      }
+      else
+      {
+        // not a really good method need some rework using Worker_Fast.CancelAsync();
+        System.Threading.Thread.Sleep(500);
+        Worker_Fast.RunWorkerAsync();
+      }
       base.OnPageLoad();
     }
 
