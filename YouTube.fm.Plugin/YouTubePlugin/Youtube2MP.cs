@@ -23,6 +23,7 @@ using Google.YouTube;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.SiteItems;
 using PlayList = YouTubePlugin.Class.SiteItems.PlayList;
+using Statistics = YouTubePlugin.Class.SiteItems.Statistics;
 
 namespace YouTubePlugin
 {
@@ -66,6 +67,7 @@ namespace YouTubePlugin
       AddSiteItem(new LastFmTopTracks());
       AddSiteItem(new LastFmUser());
       AddSiteItem(new BillboardItem());
+      AddSiteItem(new Statistics());
     }
 
     public static Dictionary<string, ISiteItem> SiteItemProvider = new Dictionary<string, ISiteItem>();

@@ -101,6 +101,8 @@ namespace YouTubePlugin.Class.SiteItems
     {
       if (name.Contains("Featuring "))
         return name.Substring(0,name.IndexOf("Featuring ")).Trim();
+      if (name.Contains("Feat."))
+        return name.Substring(0, name.IndexOf("Feat.")).Trim();
       return name.Trim();
     }
 

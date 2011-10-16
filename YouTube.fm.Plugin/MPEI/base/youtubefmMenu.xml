@@ -209,4 +209,9 @@
 		<Title>Billboard</Title>
 		<Provider>Billboard feed</Provider>
 	</Items>
+	<Items>
+		<ConfigString>ParentFolder=|</ConfigString>
+		<Title>Play Statistics</Title>
+		<Provider>Play Statistics</Provider>
+	</Items>
 </SiteItemEnumerator>

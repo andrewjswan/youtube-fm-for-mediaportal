@@ -146,9 +146,9 @@ namespace YouTubePlugin
           ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
         if (!string.IsNullOrEmpty(imgurl))
         {
-          string artistimg = GetLocalImageFileName(imgurl);
-          DownloadImage(artistimg, null);
+          string artistimg = DownloadImage(imgurl, null);
           OnDownloadTimedEvent();
+          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image", artistimg);
         }
 
         Track track = new Track(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"), GUIPropertyManager.GetProperty("#Youtube.fm.Info.Video.Title"), Youtube2MP.LastFmProfile.Session);

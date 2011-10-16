@@ -153,7 +153,6 @@ namespace YouTubePlugin
         {
           DatabaseProvider.InstanInstance.Save(entry, artistItem);
           List<ArtistItem> items = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
-          //GUIControl.ClearControl(GetID, listsimilar.GetID);
           foreach (ArtistItem aitem in items)
           {
             GUIListItem item = new GUIListItem();
@@ -166,18 +165,16 @@ namespace YouTubePlugin
             if (File.Exists(imageFile))
             {
               item.ThumbnailImage = imageFile;
-              item.IconImage = "defaultVideoBig.png";
+              item.IconImage = imageFile;
               item.IconImageBig = imageFile;
             }
             else
             {
               MediaPortal.Util.Utils.SetDefaultIcons(item);
               DownloadImage(aitem.Img_url, item);
-              //DownloadImage(GetBestUrl(entry.Media.Thumbnails), item);
             }
             item.MusicTag = aitem;
             similar.Add(item);
-            //listsimilar.Add(item);
           }
           OnDownloadTimedEvent(null, null);
         }
