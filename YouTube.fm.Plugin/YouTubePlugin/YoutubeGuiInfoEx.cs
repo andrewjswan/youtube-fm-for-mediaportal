@@ -56,6 +56,7 @@ namespace YouTubePlugin
       Worker_Artist.DoWork += Worker_Artist_DoWork;
       Worker_FanArt.DoWork += Worker_FanArt_DoWork;
       Client.DownloadFileCompleted += DownloadLogoEnd;
+      _setting.Load();
       return Load(GUIGraphicsContext.Skin + @"\youtubeinfoex.xml");
     }
 

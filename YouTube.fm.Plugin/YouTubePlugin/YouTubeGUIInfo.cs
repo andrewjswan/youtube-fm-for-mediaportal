@@ -165,6 +165,7 @@ namespace YouTubePlugin
       infoTimer.Elapsed += new ElapsedEventHandler(updateStationLogoTimer_Elapsed);
       infoTimer.Enabled = false;
       infoTimer.Interval = 2 * 1000;
+      _setting.Load();
       return Load(GUIGraphicsContext.Skin + @"\youtubeinfo.xml");
     }
 
