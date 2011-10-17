@@ -24,6 +24,7 @@ namespace YouTubePlugin
 
     public string VideoId { get; set; }
     public YouTubeEntry YouTubeEntry { get; set; }
+    public YouTubeEntry OldYouTubeEntry { get; set; }
     public ArtistItem ArtistItem { get; set; }
     private BackgroundWorker Worker_Youtube = new BackgroundWorker();
     private BackgroundWorker Worker_Artist = new BackgroundWorker();
@@ -71,6 +72,9 @@ namespace YouTubePlugin
 
     void Worker_FanArt_DoWork(object sender, DoWorkEventArgs e)
     {
+      if (string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name").Trim()))
+        return;
+
       string file = Youtube2MP._settings.FanartDir.Replace("%artist%", GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
 
       if (File.Exists(file) && imgFanArt != null)
@@ -133,9 +137,14 @@ namespace YouTubePlugin
       Worker_FanArt.RunWorkerAsync();
       LoadRelatated(YouTubeEntry);
       LoadSimilarArtists(YouTubeEntry);
-      Worker_Youtube.RunWorkerAsync();
       Worker_Artist.RunWorkerAsync();
+      Worker_Youtube.RunWorkerAsync();
+    }
+
+    protected override void OnPageDestroy(int new_windowId)
+    {
       GUIWaitCursor.Hide();
+      base.OnPageDestroy(new_windowId);
     }
 
     void Worker_Youtube_DoWork(object sender, DoWorkEventArgs e)
@@ -150,34 +159,51 @@ namespace YouTubePlugin
         cm += c.Author + " : " + c.Content + "\n------------------------------------------\n";
       }
       GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Comments", cm);
+      GUIWaitCursor.Hide();
     }
 
     void Worker_Artist_DoWork(object sender, DoWorkEventArgs e)
     {
       try
       {
-        string imgurl =
-          ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
-        if (!string.IsNullOrEmpty(imgurl))
+        if (!string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name").Trim()))
         {
-          string artistimg = DownloadImage(imgurl, null);
-          OnDownloadTimedEvent();
-          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image", artistimg);
-        }
+          Track track = new Track(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"),
+                                  GUIPropertyManager.GetProperty("#Youtube.fm.Info.Video.Title"),
+                                  Youtube2MP.LastFmProfile.Session);
 
-        Track track = new Track(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"), GUIPropertyManager.GetProperty("#Youtube.fm.Info.Video.Title"), Youtube2MP.LastFmProfile.Session);
-        //string s = track.Wiki.getContent();
-        GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio", Regex.Replace(HttpUtility.HtmlDecode(track.Artist.Bio.getContent()), "<.*?>", string.Empty)); 
-        
-        string tags = " ";
-        TopTag[] topTags = track.Artist.GetTopTags();
-        foreach (TopTag tag in topTags)
-        {
-          tags += tag.Item.Name + "|";
+          if (string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Image").Trim()))
+          {
+            string imgurl =
+              ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+            if (string.IsNullOrEmpty(imgurl))
+            {
+              imgurl = track.Artist.GetImageURL(ImageSize.Huge);
+            }
+            if (!string.IsNullOrEmpty(imgurl))
+            {
+              string artistimg = GetLocalImageFileName(imgurl);
+              if (!File.Exists(artistimg))
+              {
+                DownloadFile(imgurl, artistimg);
+              }
+              GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image", artistimg);
+            }
+          }
+
+          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio",
+                                         Regex.Replace(HttpUtility.HtmlDecode(track.Artist.Bio.getContent()), "<.*?>",
+                                                       string.Empty));
+          string tags = " ";
+          TopTag[] topTags = track.Artist.GetTopTags();
+          foreach (TopTag tag in topTags)
+          {
+            tags += tag.Item.Name + "|";
+          }
+          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Tags", tags);
         }
-        GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Tags", tags);
       }
-      catch (Exception)
+      catch (Exception ex)
       {
 
       }
@@ -186,18 +212,22 @@ namespace YouTubePlugin
     protected override void OnPageLoad()
     {
       GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Info");
-      ClearInfoLabels();
-      GUIWaitCursor.Init();
-      GUIWaitCursor.Show();
-      if (!Worker_Fast.IsBusy)
+      if (OldYouTubeEntry == null || (OldYouTubeEntry != null && Youtube2MP.GetVideoId(OldYouTubeEntry) != Youtube2MP.GetVideoId(YouTubeEntry)))
       {
-        Worker_Fast.RunWorkerAsync();
-      }
-      else
-      {
-        // not a really good method need some rework using Worker_Fast.CancelAsync();
-        System.Threading.Thread.Sleep(500);
-        Worker_Fast.RunWorkerAsync();
+        OldYouTubeEntry = YouTubeEntry;
+        ClearInfoLabels();
+        GUIWaitCursor.Init();
+        GUIWaitCursor.Show();
+        if (!Worker_Fast.IsBusy)
+        {
+          Worker_Fast.RunWorkerAsync();
+        }
+        else
+        {
+          // not a really good method need some rework using Worker_Fast.CancelAsync();
+          System.Threading.Thread.Sleep(500);
+          Worker_Fast.RunWorkerAsync();
+        }
       }
       base.OnPageLoad();
     }

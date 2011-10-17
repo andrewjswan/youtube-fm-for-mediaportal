@@ -13,7 +13,7 @@
       <height>720</height>
     </control>
         <control>
-            <id>95</id>
+            <id>0</id>
             <description>Fan Art</description>
             <type>image</type>
             <posx>0</posx>
@@ -68,7 +68,7 @@
             <type>fadelabel</type>
             <posX>1244</posX>
             <posY>460</posY>
-            <width>590</width>
+            <width>550</width>
             <font>font15</font>
             <textcolor>ffffffff</textcolor>
             <align>RIGHT</align>
@@ -79,9 +79,9 @@
 	    <type>button</type>
 	    <id>5555</id>
 	    <posX>687</posX>
-	    <posY>396</posY>
+	    <posY>336</posY>
 	    <width>80</width>
-	    <height>45</height>
+	    <height>50</height>
 	    <textureFocus>minimize_enabled.png</textureFocus>
 	    <textureNoFocus>minimize_disabled.png</textureNoFocus>
 	    <label>-</label>
@@ -90,24 +90,23 @@
 	    <onright>166</onright>
 	    <onup>17</onup>
 	    <ondown>96</ondown>
-	</control>        
+	</control>
         <control>
 	    <description>Info Screen Button</description>
 	    <type>button</type>
 	    <id>96</id>
 	    <posX>687</posX>
-	    <posY>426</posY>
+	    <posY>384</posY>
 	    <width>80</width>
-	    <height>45</height>
-	    <textureFocus>minimize_enabled.png</textureFocus>
-	    <textureNoFocus>minimize_disabled.png</textureNoFocus>
-        <onleft>50</onleft>	    
+	    <height>50</height>
+            <textureFocus>nav_refresh_focus.png</textureFocus>
+	    <textureNoFocus>nav_refresh_nofocus.png</textureNoFocus>	    
+	    <label>-</label>                       	    
+            <onleft>50</onleft>	    
 	    <onright>166</onright>
-	    <onup>17</onup>
+	    <onup>5555</onup>
 	    <ondown>50</ondown>
-		<label>i</label>
-	</control>        
-
+	</control>                
         <control>
             <id>1</id>
             <description>Video Image</description>
@@ -135,6 +134,19 @@
             <texture>LCD.png</texture>            
             <animation effect="fade" time="70" reversible="false">visible</animation>
         </control>        
+        <control>
+            <description>HD Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>590</posX>
+            <posY>460</posY>
+            <width>70</width>
+            <height>35</height>
+            <keepaspectratio>yes</keepaspectratio>            
+            <texture>Logos\hd.png</texture>	  
+            <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>                                          
         <control>
             <id>47</id>
             <description>Artist Name Value</description>
@@ -176,68 +188,35 @@
                 <subitem>starbest.png</subitem>
             </subitems>
             <animation effect="fade" time="70" reversible="false">visible</animation>
-        </control>
-        <control>
-            <id>0</id>
-            <description>Like /Dislike Label</description>
-            <type>label</type>
-            <posX>849</posX>
-            <posY>175</posY>
-            <width>180</width>         
-            <font>font11</font>
-            <textcolor>80ffffff</textcolor>             
-            <label>Like / Dislike :</label>
-        </control>
+        </control>        
         <control>
             <id>47</id>
             <description>Like /Dislike Value</description>
-            <type>label</type>
-            <posX>1020</posX>
+            <type>fadelabel</type>
+            <posX>860</posX>
             <posY>175</posY>
-            <width>240</width>         
+            <width>356</width>         
             <font>font11</font>
-            <textcolor>80ffffff</textcolor>            
-            <label>#Youtube.fm.NowPlaying.Video.NumLike / #Youtube.fm.NowPlaying.Video.NumDisLike</label>
-        </control>
+            <textcolor>90ffffff</textcolor>            
+            <label>#Youtube.fm.NowPlaying.Video.NumLike//#Youtube.fm.Translation.Like.Label , #Youtube.fm.NowPlaying.Video.NumDisLike/#Youtube.fm.Translation.Dislike.Label</label>
+        </control>        
         <control>
             <id>0</id>
-            <description>Duration Label</description>
+            <description>ViewCount Label</description>
             <type>label</type>
             <posX>695</posX>
             <posY>212</posY>
             <width>250</width>         
             <font>font11</font>
             <textcolor>ffa9d0f7</textcolor>            
-            <label>Duration</label>
-        </control>
-        <control>
-            <id>47</id>
-            <description>Duration Value</description>
-            <type>label</type>
-            <posX>695</posX>
-            <posY>238</posY>
-            <width>250</width>         
-            <font>font12</font>
-            <textcolor>ffffffff</textcolor>            
-            <label>#Youtube.fm.NowPlaying.Video.Duration</label>
-        </control>
-        <control>
-            <id>0</id>
-            <description>ViewCount Label</description>
-            <type>label</type>
-            <posX>695</posX>
-            <posY>272</posY>
-            <width>250</width>         
-            <font>font11</font>
-            <textcolor>ffa9d0f7</textcolor>            
-            <label>ViewCount</label>
+            <label>#Youtube.fm.Translation.ViewCount.Label</label>
         </control>
         <control>
             <id>47</id>
             <description>ViewCount Value</description>
             <type>label</type>
             <posX>695</posX>
-            <posY>298</posY>
+            <posY>238</posY>
             <width>250</width>         
             <font>font12</font>
             <textcolor>ffffffff</textcolor>            
@@ -248,34 +227,23 @@
             <description>FavoriteCount Label</description>
             <type>label</type>
             <posX>695</posX>
-            <posY>332</posY>
+            <posY>272</posY>
             <width>250</width>         
             <font>font11</font>
             <textcolor>ffa9d0f7</textcolor>            
-            <label>FavoriteCount</label>
+            <label>#Youtube.fm.Translation.FavoriteCount.Label</label>
         </control>        
         <control>
             <id>47</id>
             <description>FavoriteCount Value</description>
             <type>label</type>
             <posX>695</posX>
-            <posY>358</posY>
+            <posY>298</posY>
             <width>250</width>         
             <font>font12</font>
             <textcolor>ffffffff</textcolor>            
             <label>#Youtube.fm.NowPlaying.Video.FavoriteCount</label>
-        </control>
-        <control>
-            <description>Progress background</description>
-            <type>image</type>
-            <id>117</id>
-            <posX>196</posX>
-            <posY>463</posY>
-            <width>296</width>
-            <height>27</height>
-            <visible>player.hasmedia</visible>
-            <texture>osd_progress_background.png</texture>          
-        </control>
+        </control>        
         <control>
             <description>Progress Bar</description>
             <type>progress</type>
@@ -283,8 +251,7 @@
             <posX>196</posX>
             <posY>463</posY>
             <width>296</width>
-            <height>27</height>
-            <label>#percentage</label>
+            <height>27</height>            
             <texturebg>osd_progress_background.png</texturebg>
             <onlymidtexture>yes</onlymidtexture>
             <midwidth>294</midwidth>
@@ -292,6 +259,7 @@
             <midoffsetX>2</midoffsetX>
             <midoffsetY>4</midoffsetY>
             <midtexture>osd_progress_mid.png</midtexture>
+            <label>#percentage</label>
             <visible>player.hasmedia</visible>
         </control>
         <control>
@@ -315,7 +283,7 @@
             <font>font14</font>
             <align>left</align>
             <visible>player.hasmedia</visible>
-        </control>                   
+        </control>                    
         <control>
             <id>0</id>
             <description>Related Videos label</description>
@@ -373,7 +341,7 @@
             <textureDown>page_down_nofocus.png</textureDown>
             <textureUpFocus>page_up_focus.png</textureUpFocus>
             <textureDownFocus>page_down_focus.png</textureDownFocus>
-        </control>
+        </control>        
         <control>
             <id>0</id>
             <description>Similar Artists label</description>

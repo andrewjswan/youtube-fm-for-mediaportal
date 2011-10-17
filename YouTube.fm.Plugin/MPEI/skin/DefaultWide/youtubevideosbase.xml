@@ -142,7 +142,7 @@
       <id>1</id>
       <type>image</type>
       <posX>68</posX>
-      <posY>160</posY>
+      <posY>140</posY>
       <width>338</width>
       <height>250</height>
       <texture mask="Picturethumbmask.png">missing_Coverart.png</texture>
@@ -153,7 +153,7 @@
       <id>500</id>
       <type>image</type>
       <posX>68</posX>
-      <posY>160</posY>
+      <posY>140</posY>
       <width>338</width>
       <height>250</height>
       <keepaspectratio>yes</keepaspectratio>
@@ -166,7 +166,7 @@
       <type>image</type>
       <id>1</id>
       <posX>68</posX>
-      <posY>160</posY>
+      <posY>140</posY>
       <width>338</width>
       <height>250</height>
       <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>
@@ -178,7 +178,7 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>412</posY>
+      <posY>392</posY>
       <width>355</width>
       <label>Info:</label>
       <font>font14</font>
@@ -190,7 +190,7 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>442</posY>
+      <posY>422</posY>
       <width>355</width>
       <label>#selecteditem</label>
       <font>font14</font>
@@ -202,12 +202,25 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>475</posY>
+      <posY>455</posY>
       <width>355</width>
       <label>#selecteditem2</label>
       <font>font14</font>
       <visible>[facadeview.list|facadeview.album]+[Control.HasFocus(50)]</visible>
       <animation effect="fade" time="70" reversible="false">visible</animation>
-    </control>    
+    </control>
+    <control>
+      <description>HD Logo</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>78</posX>
+      <posY>498</posY>
+      <width>70</width>
+      <height>35</height>
+      <keepaspectratio>yes</keepaspectratio>            
+      <texture>Logos\hd.png</texture>	  
+      <visible>string.equals(#Youtube.fm.Curent.Video.IsHD, True)</visible>
+      <animation effect="fade" time="70" reversible="false">visible</animation>	        
+    </control>             
   </controls>
 </window>

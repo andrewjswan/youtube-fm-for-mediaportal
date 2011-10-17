@@ -69,22 +69,26 @@ namespace YouTubePlugin
         if (vid.Statistics != null)
         {
           if (vid.Statistics.ViewCount != null)
-            GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.ViewCount",Youtube2MP.FormatNumber(vid.Statistics.ViewCount));
+            GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.ViewCount",
+                                           Youtube2MP.FormatNumber(vid.Statistics.ViewCount));
           if (vid.Statistics.WatchCount != null)
             GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount", vid.Statistics.WatchCount);
           if (vid.Statistics.FavoriteCount != null)
             GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount",
-                                          Youtube2MP.FormatNumber(vid.Statistics.FavoriteCount));
+                                           Youtube2MP.FormatNumber(vid.Statistics.FavoriteCount));
         }
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image",
                                        GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
 
         if (vid.Media.Description != null)
           GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", vid.Media.Description.Value);
-        if (vid.YtRating != null && !string.IsNullOrEmpty(vid.YtRating.NumLikes) && !string.IsNullOrEmpty(vid.YtRating.NumDislikes))
+        if (vid.YtRating != null && !string.IsNullOrEmpty(vid.YtRating.NumLikes) &&
+            !string.IsNullOrEmpty(vid.YtRating.NumDislikes))
         {
-          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumLike", Youtube2MP.FormatNumber(vid.YtRating.NumLikes));
-          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumDisLike", Youtube2MP.FormatNumber(vid.YtRating.NumDislikes));
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumLike",
+                                         Youtube2MP.FormatNumber(vid.YtRating.NumLikes));
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumDisLike",
+                                         Youtube2MP.FormatNumber(vid.YtRating.NumDislikes));
           double numlike = Convert.ToDouble(vid.YtRating.NumLikes);
           double numdislike = Convert.ToDouble(vid.YtRating.NumDislikes);
           if (numlike + numdislike > 0)
@@ -95,7 +99,7 @@ namespace YouTubePlugin
         }
         foreach (IExtensionElementFactory extensionElementFactory in vid.ExtensionElements)
         {
-          if(extensionElementFactory.XmlPrefix=="yt" && extensionElementFactory.XmlName=="hd")
+          if (extensionElementFactory.XmlPrefix == "yt" && extensionElementFactory.XmlName == "hd")
           {
             GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsHD", "true");
             break;
@@ -106,6 +110,7 @@ namespace YouTubePlugin
       {
 
       }
+
       if (vid.Title.Text.Contains("-"))
       {
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", vid.Title.Text.Split('-')[1].Trim());
@@ -114,12 +119,21 @@ namespace YouTubePlugin
           GUIPropertyManager.SetProperty("#Play.Current.Title", vid.Title.Text.Split('-')[1].Trim().Trim());
         }
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", vid.Title.Text.Split('-')[0].Trim());
-        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FanArt", GetFanArtImage(vid.Title.Text.Split('-')[0]).Trim());
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FanArt",
+                                       GetFanArtImage(vid.Title.Text.Split('-')[0]).Trim());
       }
       else
       {
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", vid.Title.Text);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
+      }
+
+      string imgurl =
+        ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+      string artistimg = GetLocalImageFileName(imgurl);
+      if (!string.IsNullOrEmpty(imgurl) && File.Exists(artistimg))
+      {
+        GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image", artistimg);
       }
     }
 
@@ -552,6 +566,11 @@ namespace YouTubePlugin
 
     #region download manager
 
+    protected void DownloadFile(string Url,string localFile)
+    {
+      WebClient webClient = new WebClient();
+      webClient.DownloadFile(Url, localFile);
+    }
 
 
     private string DownloadImage(string Url)

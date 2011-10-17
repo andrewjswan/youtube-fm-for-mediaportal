@@ -6,68 +6,102 @@
 
     <!-- A  -->
     <string Field="AddToFavorites">Add to favorites</string>
+
+    <!-- A -->
     <string Field="AddAllPlaylist">Add All to playlist</string>
     <string Field="AddPlaylist">Add to playlist</string>
     <string Field="AddFavorites">Add to favorites</string>
+    <string Field="AddWatchLater">Add to Watch Later</string>
     <string Field="AllMusicVideosFrom">All music videos from {0}</string>
     <string Field="AllVideosFromUser">All videos from this user : {0}</string>
+    <string Field="ArtistInfo">Artist Info</string>
     <string Field="AnotherDonwnloadProgress">Another donwnload is in progress</string>
     <string Field="AutomaticallyFillPlaylist">Automatically fill playlist with</string>
-    <!-- C  -->
+    <string Field="Autor">Autor</string>
+
+    <!-- C -->
     <string Field="ContextMenu">Context Menu</string>
 
-    <!--  D -->
+    <!-- D -->
     <string Field="DidYouMean ">Did you mean ?</string>
     <string Field="DownloadProgress">Download progress</string>
     <string Field="DownloadVideo">Download Video</string>
+    <string Field="Dislike">Dislike</string>
+    <string Field="Duration">Duration</string>
 
-    <!--  E -->
+    <!-- E -->
 
-    <!--  H -->
+    <!-- F -->
+    <string Field="Fullscreen">Fullscreen</string>
+    <string Field="FavoriteCount">FavoriteCount</string>
+
+
+    <!-- G -->
+
+    <!-- H -->
     <string Field="Home">Home</string>
 
-    <!--  I -->
+    <!-- I -->
     <string Field="ItemAlreadyDownloaded ">Item already downloaded !</string>
+    <string Field="Info">Info</string>
 
-    <!--  L -->
+    <!-- L -->
+    <string Field="Like">Like</string>
 
-    <!--  M -->
+    <!-- M -->
     <string Field="Message">Message</string>
 
-    <!--  N -->
+
+
+    <!-- N -->
     <string Field="NextPage">Next page</string>
     <string Field="NewSearch">New Search</string>
     <string Field="NoSearchHistory">No search history was found</string>
     <string Field="NoItemWasFound ">No item was found !</string>
     <string Field="NoItemToDisplay">No item to dispplay !</string>
     <string Field="NowPlaying">Now playing</string>
+    <string Field="NoVideoResponse">This video doesn't have any video response !</string>
 
-    <!--  O -->
+    <!-- O -->
     <string Field="Options">Options</string>
 
-    <!--  P -->
+    <!-- P -->
     <string Field="Playlist">Playlist</string>
+    <string Field="PlaylistSummary">Created or modified in MediaPortal</string>
+    <string Field="PlaylistSavingProgress">Playlist saving progress </string>
+    <string Field="PublishDate">PublishDate</string>
 
-    <!--  R -->
+    <!-- R -->
     <string Field="RelatedVideos">Related Videos</string>
 
-    <!--  S -->
+    <!-- S -->
     <string Field="Search">Search</string>
     <string Field="SearchHistory">Search History</string>
     <string Field="SimilarArtists">Similar Artists</string>
     <string Field="ScrobbleSimilarVideos">Youtube related videos</string>
     <string Field="ScrobbleNeighboursLike">Tracks your neighbours like</string>
     <string Field="ScrobbleRecentlyPlayed">Tracks your recently played</string>
+    <string Field="ShowPreviousWindow">Show Previous Window</string>
     <string Field="ScrobbleMode">Scroble:</string>
+    <string Field="SomePlaylistItemNotSaved">Some playlist item not saved !</string>
 
-    <!--  T -->
+    <!-- T -->
 
+
+    <!-- U -->
     
-    <!--  V -->
+    
+    <!-- V -->
     <string Field="VideoResponses">Video responses for this video</string>
+    <string Field="VideoInfo">Video Info</string>
+    <string Field="ViewCount">View Count</string>
 
-    <!--  W -->
-    <string Field="WrongRequestWrongUser">Wrong request or wrong user identification</string>
+    <!-- W -->
+    <string Field="WrongRequestWrongUser">Wrong request or wrong user identification </string>
+    <string Field="WrongUser">Wrong username or password or account is disabled </string>
+    <string Field="WatchLater">Watch Later</string>
+
+    <!-- Y -->
 
 
 </strings>

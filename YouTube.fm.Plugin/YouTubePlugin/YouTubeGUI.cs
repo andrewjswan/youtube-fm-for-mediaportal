@@ -1285,7 +1285,6 @@ namespace YouTubePlugin
 
     void addVideos(YouTubeFeed videos, bool level,YouTubeQuery qu)
     {
-      mapSettings.ViewAs = (int)View.Albums;
       int count = 0;
       if (level)
       {
@@ -1295,7 +1294,6 @@ namespace YouTubePlugin
         MediaPortal.Util.Utils.SetDefaultIcons(item);
         listControl.Add(item);
       }
-      //GUIPropertyManager.SetProperty("#header.title", videos.Title.Text);
       GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/" + videos.Title.Text);
       updateStationLogoTimer.Enabled = false;
       downloaQueue.Clear();

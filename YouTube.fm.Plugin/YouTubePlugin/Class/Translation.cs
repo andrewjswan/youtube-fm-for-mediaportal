@@ -203,9 +203,11 @@ namespace YouTubePlugin.Class
     public static string AddWatchLater = "Add to Watch Later";
     public static string AllMusicVideosFrom = "All music videos from {0}";
     public static string AllVideosFromUser = "All videos from this user : {0}";
+    public static string ArtistInfo = "Artist Info";
     public static string AnotherDonwnloadProgress = "Another donwnload is in progress";
     public static string AutomaticallyFillPlaylist = "Automatically fill playlist with";
-    
+    public static string Autor = "Autor";
+
     // C
     public static string ContextMenu = "Context Menu";
 
@@ -213,11 +215,15 @@ namespace YouTubePlugin.Class
     public static string DidYouMean  = "Did you mean ?";
     public static string DownloadProgress = "Download progress";
     public static string DownloadVideo = "Download Video";
+    public static string Dislike = "Dislike";
+    public static string Duration = "Duration";
 
     // E
 
     // F
     public static string Fullscreen = "Fullscreen";
+    public static string FavoriteCount = "FavoriteCount";
+
 
     // G
 
@@ -229,9 +235,12 @@ namespace YouTubePlugin.Class
     public static string Info = "Info";
 
     // L
+    public static string Like = "Like";
 
     // M
     public static string Message = "Message";
+
+
 
     // N
     public static string NextPage = "Next page";
@@ -249,6 +258,7 @@ namespace YouTubePlugin.Class
     public static string Playlist = "Playlist";
     public static string PlaylistSummary = "Created or modified in MediaPortal";
     public static string PlaylistSavingProgress = "Playlist saving progress ";
+    public static string PublishDate = "PublishDate";
 
     // R
     public static string RelatedVideos = "Related Videos";
@@ -272,6 +282,8 @@ namespace YouTubePlugin.Class
     
     // V
     public static string VideoResponses = "Video responses for this video";
+    public static string VideoInfo = "Video Info";
+    public static string ViewCount = "View Count";
 
     // W
     public static string WrongRequestWrongUser = "Wrong request or wrong user identification ";
