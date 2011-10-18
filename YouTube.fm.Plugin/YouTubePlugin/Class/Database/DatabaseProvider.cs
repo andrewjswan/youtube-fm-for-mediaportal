@@ -91,6 +91,18 @@ namespace YouTubePlugin.Class.Database
       m_db.Execute(lsSQL);
     }
 
+    public int GetWatchCount(YouTubeEntry entry)
+    {
+      string id = Youtube2MP.GetVideoId(entry);
+      string lsSQL = string.Format("select count(*) AS CNT from PLAY_HISTORY WHERE VIDEO_ID=\"{0}\"", id);
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      if(loResultSet.Rows.Count>0)
+      {
+        return DatabaseUtility.GetAsInt(loResultSet, 0, "CNT");
+      }
+      return 0;
+    }
+
     public GenericListItemCollections GetTopPlayed()
     {
       GenericListItemCollections res = new GenericListItemCollections();

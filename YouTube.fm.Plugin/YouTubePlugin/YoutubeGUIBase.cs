@@ -26,6 +26,7 @@ using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
+using YouTubePlugin.Class.Database;
 
 
 namespace YouTubePlugin
@@ -60,7 +61,8 @@ namespace YouTubePlugin
           GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Duration",
                                          string.Format("{0}:{1:0#}", min, (sec - (min*60))));
         }
-
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount",
+                                       DatabaseProvider.InstanInstance.GetWatchCount(vid).ToString("0,0"));
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.PublishDate", vid.Published.ToShortDateString());
         if (vid.Authors != null && vid.Authors.Count > 0)
           GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Autor", vid.Authors[0].Name);
