@@ -15,8 +15,8 @@ namespace YouTubePlugin.Class.SiteItems
       Name = "Play Statistics";
       stats.Add("Recently played videos");
       stats.Add("Most played videos");
+      stats.Add("Random");
       //stats.Add("Most played artists");
-      //stats.Add("Random");
     }
 
     #region Implementation of ISiteItem
@@ -51,11 +51,18 @@ namespace YouTubePlugin.Class.SiteItems
       }
       if (entry.GetValue("level") == "0")//Recently played videos
       {
-        return DatabaseProvider.InstanInstance.GetRecentlyPlayed();
+        res = DatabaseProvider.InstanInstance.GetRecentlyPlayed();
+        res.Title = Name + "/" + stats[0];
       }
       if (entry.GetValue("level") == "1")//Recently played videos
       {
-        return DatabaseProvider.InstanInstance.GetTopPlayed();
+        res = DatabaseProvider.InstanInstance.GetTopPlayed();
+        res.Title = Name + "/" + stats[1];
+      }
+      if (entry.GetValue("level") == "2")//Recently played videos
+      {
+        res =  DatabaseProvider.InstanInstance.GetRandom();
+        res.Title = Name + "/" + stats[2];
       }
       return res;
     }

@@ -96,7 +96,38 @@ namespace YouTubePlugin.Class.Database
       GenericListItemCollections res = new GenericListItemCollections();
       string lsSQL =
         string.Format(
-          "SELECT VIDEOS.VIDEO_ID, ARTIST_ID, TITLE, IMG_URL, count(PLAY_HISTORY.VIDEO_ID) as num_play FROM VIDEOS, PLAY_HISTORY WHERE VIDEOS.VIDEO_ID=PLAY_HISTORY.VIDEO_ID group by VIDEOS.VIDEO_ID, ARTIST_ID, TITLE, IMG_URL order by count(PLAY_HISTORY.VIDEO_ID) desc");
+          "SELECT VIDEOS.VIDEO_ID AS VIDEO_ID, ARTIST_ID, TITLE, IMG_URL, count(PLAY_HISTORY.VIDEO_ID) as num_play FROM VIDEOS, PLAY_HISTORY WHERE VIDEOS.VIDEO_ID=PLAY_HISTORY.VIDEO_ID group by VIDEOS.VIDEO_ID, ARTIST_ID, TITLE, IMG_URL order by count(PLAY_HISTORY.VIDEO_ID) desc");
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        YouTubeEntry youTubeEntry = new YouTubeEntry();
+
+        youTubeEntry.AlternateUri = new AtomUri("http://www.youtube.com/watch?v=" + DatabaseUtility.Get(loResultSet, iRow, "VIDEO_ID"));
+        youTubeEntry.Title = new AtomTextConstruct();
+        youTubeEntry.Title.Text = DatabaseUtility.Get(loResultSet, iRow, "TITLE");
+        youTubeEntry.Media = new MediaGroup();
+        youTubeEntry.Media.Description = new MediaDescription("");
+        youTubeEntry.Id = new AtomId(youTubeEntry.AlternateUri.Content);
+        GenericListItem listItem = new GenericListItem()
+        {
+          Title = youTubeEntry.Title.Text,
+          IsFolder = false,
+          LogoUrl = DatabaseUtility.Get(loResultSet, iRow, "IMG_URL"),
+          Tag = youTubeEntry,
+          Title2 = DatabaseUtility.Get(loResultSet, iRow, "num_play"),
+          //ParentTag = artistItem
+        };
+        res.Items.Add(listItem);
+      };
+      return res;
+    }
+
+    public GenericListItemCollections GetRandom()
+    {
+      GenericListItemCollections res = new GenericListItemCollections();
+      string lsSQL =
+        string.Format(
+          "SELECT VIDEOS.VIDEO_ID AS VIDEO_ID, ARTIST_ID, TITLE, IMG_URL, count(PLAY_HISTORY.VIDEO_ID) as num_play FROM VIDEOS, PLAY_HISTORY WHERE VIDEOS.VIDEO_ID=PLAY_HISTORY.VIDEO_ID group by VIDEOS.VIDEO_ID, ARTIST_ID, TITLE, IMG_URL order by RANDOM()");
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
       {
@@ -125,7 +156,7 @@ namespace YouTubePlugin.Class.Database
     public GenericListItemCollections GetRecentlyPlayed()
     {
       GenericListItemCollections res = new GenericListItemCollections();
-      string lsSQL = string.Format("SELECT * FROM VIDEOS, PLAY_HISTORY WHERE VIDEOS.VIDEO_ID=PLAY_HISTORY.VIDEO_ID order by datePlayed DESC");
+      string lsSQL = string.Format("SELECT * FROM VIDEOS AS VIDEO_ID, PLAY_HISTORY WHERE VIDEOS.VIDEO_ID=PLAY_HISTORY.VIDEO_ID order by datePlayed DESC");
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
       {

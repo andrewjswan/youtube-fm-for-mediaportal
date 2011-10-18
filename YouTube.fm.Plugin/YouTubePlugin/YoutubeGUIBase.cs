@@ -129,11 +129,11 @@ namespace YouTubePlugin
       }
 
       string imgurl =
-        ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+        ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm." + type + ".Artist.Name"));
       string artistimg = GetLocalImageFileName(imgurl);
       if (!string.IsNullOrEmpty(imgurl) && File.Exists(artistimg))
       {
-        GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image", artistimg);
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Image", artistimg);
       }
     }
 
@@ -343,7 +343,7 @@ namespace YouTubePlugin
     public VideoInfo SelectQuality(YouTubeEntry vid)
     {
       VideoInfo info = new VideoInfo();
-      info.Get(Youtube2MP.getIDSimple(vid.AlternateUri.Content));
+      info.Get(Youtube2MP.GetVideoId(vid));
       if (!string.IsNullOrEmpty(info.Reason))
       {
         Err_message(info.Reason);
