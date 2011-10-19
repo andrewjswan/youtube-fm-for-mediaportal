@@ -222,6 +222,7 @@ namespace YouTubePlugin
       {
         dlg.Add(Translation.AddPlaylist);
         dlg.Add(Translation.AddAllPlaylist);
+        dlg.Add(Translation.Info);
         if (Youtube2MP.service.Credentials != null)
         {
           dlg.Add(Translation.AddFavorites);
@@ -305,6 +306,16 @@ namespace YouTubePlugin
         PlayListMember pm = new PlayListMember();
         pm.Id = videoEntry.VideoId;
         Youtube2MP.request.Insert(new Uri("https://gdata.youtube.com/feeds/api/users/default/watch_later"), pm);
+      }
+      else if (dlg.SelectedLabelText == Translation.Info)
+      {
+        YoutubeGuiInfoEx scr = (YoutubeGuiInfoEx)GUIWindowManager.GetWindow(29053);
+        scr.YouTubeEntry = videoEntry;
+        //if (entry!=null)
+        //{
+        //  ArtistItem artistItem=ent
+        //}
+        GUIWindowManager.ActivateWindow(29053);
       }
     }
 

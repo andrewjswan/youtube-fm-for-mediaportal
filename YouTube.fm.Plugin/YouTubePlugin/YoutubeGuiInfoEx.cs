@@ -98,7 +98,7 @@ namespace YouTubePlugin
           if (fanart.ImageUrls.Count > 0)
           {
             Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
-            Client.DownloadFile(fanart.ImageUrls[0].Url, file);
+            DownloadFile(fanart.ImageUrls[0].Url, file);
             GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.FanArt", file);
             Log.Debug("Youtube.Fm fanart {0} loaded ", file);
             if (imgFanArt != null)
