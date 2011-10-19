@@ -255,6 +255,7 @@ namespace YouTubePlugin.Class
     public static string Options = "Options";
 
     // P
+    public static string PlayNext = "Play Next";
     public static string Playlist = "Playlist";
     public static string PlaylistSummary = "Created or modified in MediaPortal";
     public static string PlaylistSavingProgress = "Playlist saving progress ";

@@ -216,6 +216,8 @@ namespace YouTubePlugin
         return;
       dlg.Reset();
       dlg.SetHeading(498); // menu
+      if (Youtube2MP.player.CurrentSong > -1 || Youtube2MP.temp_player.CurrentSong > -1)
+        dlg.Add(Translation.PlayNext);
       dlg.Add(Translation.ShowPreviousWindow);
       dlg.Add(Translation.Fullscreen);
       if (videoEntry != null)
@@ -316,6 +318,10 @@ namespace YouTubePlugin
         //  ArtistItem artistItem=ent
         //}
         GUIWindowManager.ActivateWindow(29053);
+      }
+      else if (dlg.SelectedLabelText == Translation.PlayNext)
+      {
+        PlayNext(videoEntry);
       }
     }
 

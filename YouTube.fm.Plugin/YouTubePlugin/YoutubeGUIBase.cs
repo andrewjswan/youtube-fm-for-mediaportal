@@ -268,6 +268,30 @@ namespace YouTubePlugin
     }
 
 
+    public void PlayNext(YouTubeEntry entry)
+    {
+      PlayList playlist = null;
+      int poz = 0;
+      if (Youtube2MP.temp_player.CurrentSong > -1)
+      {
+        poz = Youtube2MP.temp_player.CurrentSong;
+        playlist = Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
+      }
+      if (Youtube2MP.player.CurrentSong > -1)
+      {
+        poz = Youtube2MP.player.CurrentSong;
+        playlist = Youtube2MP.player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
+      }
+      if (playlist == null)
+        return;
+      GUIWaitCursor.Hide();
+      VideoInfo qa = SelectQuality(entry);
+      if (qa.Quality == VideoQuality.Unknow)
+        return;
+      GUIWaitCursor.Show();
+      AddItemToPlayList(entry, ref playlist, qa, poz );
+    }
+
     public void BackGroundDoPlay(object param_)
     {
       PlayParams param = (PlayParams) param_;
@@ -289,7 +313,8 @@ namespace YouTubePlugin
         playlist.Clear();
         g_Player.PlayBackStopped += g_Player_PlayBackStopped;
         g_Player.PlayBackEnded += g_Player_PlayBackEnded;
-        AddItemToPlayList(vid, ref playlist, qa);
+
+        AddItemToPlayList(vid, ref playlist, qa, -1);
 
         if (facade != null)
         {
@@ -462,7 +487,7 @@ namespace YouTubePlugin
       AddItemToPlayList(pItem, ref playList, qa, true);
     }
 
-    public void AddItemToPlayList(GUIListItem pItem, ref PlayList playList,VideoInfo qa, bool check)
+    public void AddItemToPlayList(GUIListItem pItem, ref PlayList playList, VideoInfo qa, bool check)
     {
       if (playList == null || pItem == null)
         return;
@@ -470,7 +495,7 @@ namespace YouTubePlugin
         return;
 
       string PlayblackUrl = "";
-      
+
       YouTubeEntry vid;
 
       LocalFileStruct file = pItem.MusicTag as LocalFileStruct;
@@ -513,28 +538,28 @@ namespace YouTubePlugin
 
       if (vid != null)
       {
-          if (vid.Media.Contents.Count > 0)
-          {
-              PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
-          }
-          else
-          {
-              PlayblackUrl = vid.AlternateUri.ToString();
-          }
+        if (vid.Media.Contents.Count > 0)
+        {
+          PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
+        }
+        else
+        {
+          PlayblackUrl = vid.AlternateUri.ToString();
+        }
 
-          PlayListItem playlistItem = new PlayListItem();
-          playlistItem.Type = PlayListItem.PlayListItemType.VideoStream;// Playlists.PlayListItem.PlayListItemType.Audio;
-          qa.Entry = vid;
-          playlistItem.FileName = PlayblackUrl;
-          playlistItem.Description = pItem.Label;
-          if (vid.Duration != null && vid.Duration.Seconds != null)
-            playlistItem.Duration = Convert.ToInt32(vid.Duration.Seconds, 10);
-          playlistItem.MusicTag = qa;
-          playList.Add(playlistItem);
+        PlayListItem playlistItem = new PlayListItem();
+        playlistItem.Type = PlayListItem.PlayListItemType.VideoStream; // Playlists.PlayListItem.PlayListItemType.Audio;
+        qa.Entry = vid;
+        playlistItem.FileName = PlayblackUrl;
+        playlistItem.Description = pItem.Label;
+        if (vid.Duration != null && vid.Duration.Seconds != null)
+          playlistItem.Duration = Convert.ToInt32(vid.Duration.Seconds, 10);
+        playlistItem.MusicTag = qa;
+        playList.Add(playlistItem);
       }
     }
 
-    public void AddItemToPlayList(YouTubeEntry vid, ref PlayList playList, VideoInfo qa)
+    public void AddItemToPlayList(YouTubeEntry vid, ref PlayList playList, VideoInfo qa, int nextitem)
     {
         if (playList == null || vid == null)
             return;
@@ -544,24 +569,31 @@ namespace YouTubePlugin
 
         if (vid != null)
         {
-            if (vid.Media.Contents.Count > 0)
-            {
-                PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
-            }
-            else
-            {
-                PlayblackUrl = vid.AlternateUri.ToString();
-            }
-            PlayListItem playlistItem = new PlayListItem();
-            playlistItem.Type = PlayListItem.PlayListItemType.VideoStream;// Playlists.PlayListItem.PlayListItemType.Audio;
-            qa.Entry = vid;
-            playlistItem.FileName = PlayblackUrl;
-            playlistItem.Description = vid.Title.Text;
-            if (vid.Duration != null && vid.Duration.Seconds != null)
-              playlistItem.Duration = Convert.ToInt32(vid.Duration.Seconds, 10);
+          if (vid.Media.Contents.Count > 0)
+          {
+            PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
+          }
+          else
+          {
+            PlayblackUrl = vid.AlternateUri.ToString();
+          }
+          PlayListItem playlistItem = new PlayListItem();
+          playlistItem.Type = PlayListItem.PlayListItemType.VideoStream;
+          qa.Entry = vid;
+          playlistItem.FileName = PlayblackUrl;
+          playlistItem.Description = vid.Title.Text;
+          if (vid.Duration != null && vid.Duration.Seconds != null)
+            playlistItem.Duration = Convert.ToInt32(vid.Duration.Seconds, 10);
 
-            playlistItem.MusicTag = qa;
+          playlistItem.MusicTag = qa;
+          if (nextitem < 0)
+          {
             playList.Add(playlistItem);
+          }
+          else
+          {
+            playList.Insert(playlistItem, nextitem);
+          }
         }
     }
 

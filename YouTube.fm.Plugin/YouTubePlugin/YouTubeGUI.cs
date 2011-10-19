@@ -902,7 +902,7 @@ namespace YouTubePlugin
       else
       {
         videoEntry = selectedItem.MusicTag as YouTubeEntry;
-        if(videoEntry == null)
+        if (videoEntry == null)
         {
           if (entry != null)
           {
@@ -915,7 +915,7 @@ namespace YouTubePlugin
         }
         if (videoEntry == null)
           return;
-        Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" +Youtube2MP.GetVideoId(videoEntry));
+        Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(videoEntry));
         Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
         videoEntry = video.YouTubeEntry;
       }
@@ -926,14 +926,16 @@ namespace YouTubePlugin
       if (videoEntry.Title.Text.Contains("-"))
         artistName = videoEntry.Title.Text.Split('-')[0].Trim();
 
-      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_MENU);
+      GUIDialogMenu dlg = (GUIDialogMenu) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_MENU);
       if (dlg == null)
         return;
       dlg.Reset();
       dlg.SetHeading(Translation.ContextMenu); // menu
+      if (Youtube2MP.player.CurrentSong > -1 || Youtube2MP.temp_player.CurrentSong > -1)
+        dlg.Add(Translation.PlayNext);
       dlg.Add(Translation.RelatedVideos);
       dlg.Add(Translation.VideoResponses);
-      dlg.Add(string.Format(Translation.AllVideosFromUser,videoEntry.Authors[0].Name));
+      dlg.Add(string.Format(Translation.AllVideosFromUser, videoEntry.Authors[0].Name));
       dlg.Add(Translation.AddPlaylist);
       dlg.Add(Translation.AddAllPlaylist);
       if (Youtube2MP.service.Credentials != null)
@@ -944,13 +946,14 @@ namespace YouTubePlugin
       dlg.Add(Translation.Info);
       dlg.Add(Translation.Options);
       dlg.Add(Translation.DownloadVideo);
-      if (!string.IsNullOrEmpty(artistName) && !string.IsNullOrEmpty(ArtistManager.Instance.GetArtistsByName(artistName).Name))
-        dlg.Add(string.Format(Translation.AllMusicVideosFrom , artistName));
+      if (!string.IsNullOrEmpty(artistName) &&
+          !string.IsNullOrEmpty(ArtistManager.Instance.GetArtistsByName(artistName).Name))
+        dlg.Add(string.Format(Translation.AllMusicVideosFrom, artistName));
 
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
         return;
-      if(dlg.SelectedLabelText==Translation.RelatedVideos)
+      if (dlg.SelectedLabelText == Translation.RelatedVideos)
       {
         if (videoEntry.RelatedVideosUri != null)
         {
@@ -985,11 +988,13 @@ namespace YouTubePlugin
             Err_message(Translation.NoVideoResponse);
           }
         }
- 
+
       }
       else if (dlg.SelectedLabelText == string.Format(Translation.AllVideosFromUser, videoEntry.Authors[0].Name))
       {
-        YouTubeQuery query = new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", videoEntry.Authors[0].Name));
+        YouTubeQuery query =
+          new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads",
+                                         videoEntry.Authors[0].Name));
         YouTubeFeed vidr = service.Query(query);
         if (vidr.Entries.Count > 0)
         {
@@ -1008,7 +1013,7 @@ namespace YouTubePlugin
         if (inf.Quality != VideoQuality.Unknow)
         {
           AddItemToPlayList(selectedItem, inf);
-        }        
+        }
       }
       else if (dlg.SelectedLabelText == Translation.AddAllPlaylist)
       {
@@ -1017,7 +1022,8 @@ namespace YouTubePlugin
         inf.Items = new Dictionary<string, string>();
         if (inf.Quality != VideoQuality.Unknow)
         {
-          GUIDialogProgress dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
+          GUIDialogProgress dlgProgress =
+            (GUIDialogProgress) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_PROGRESS);
           if (dlgProgress != null)
           {
             dlgProgress.Reset();
@@ -1035,10 +1041,10 @@ namespace YouTubePlugin
             GUIListItem item = listControl[j];
             if (dlgProgress != null)
             {
-              double pr = ((double)i / (double)listControl.Count) * 100;
+              double pr = ((double) i/(double) listControl.Count)*100;
               dlgProgress.SetLine(1, item.Label);
               dlgProgress.SetLine(2, i.ToString() + "/" + listControl.Count.ToString());
-              dlgProgress.SetPercentage((int)pr);
+              dlgProgress.SetPercentage((int) pr);
               dlgProgress.Progress();
               if (dlgProgress.IsCanceled)
                 break;
@@ -1085,7 +1091,7 @@ namespace YouTubePlugin
           if (VideoDownloader.IsBusy)
           {
             Err_message(Translation.AnotherDonwnloadProgress);
-            dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
+            dlgProgress = (GUIDialogProgress) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_PROGRESS);
             if (dlgProgress != null)
             {
               dlgProgress.Reset();
@@ -1104,7 +1110,8 @@ namespace YouTubePlugin
             string streamurl = Youtube2MP.StreamPlaybackUrl(videoEntry, inf);
             VideoDownloader.AsyncDownload(streamurl,
                                           Youtube2MP._settings.DownloadFolder + "\\" +
-                                          Utils.GetFilename(videoEntry.Title.Text + "{" + Youtube2MP.GetVideoId(videoEntry) + "}") +
+                                          Utils.GetFilename(videoEntry.Title.Text + "{" +
+                                                            Youtube2MP.GetVideoId(videoEntry) + "}") +
                                           Path.GetExtension(streamurl));
             VideoDownloader.Entry = videoEntry;
           }
@@ -1125,7 +1132,10 @@ namespace YouTubePlugin
         //}
         GUIWindowManager.ActivateWindow(29053);
       }
-
+      else if (dlg.SelectedLabelText == Translation.PlayNext)
+      {
+        PlayNext(videoEntry);
+      }
     }
 
 
