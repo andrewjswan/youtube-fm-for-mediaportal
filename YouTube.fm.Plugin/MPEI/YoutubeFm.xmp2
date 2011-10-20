@@ -58,6 +58,20 @@
               <ZipFileName>Installer{CopyFile}\{991ecdc7-aeae-4409-812b-7d46caf214ce}-youtube.common.logos.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\youtube.common.logos.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\overlayunwatched.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{31563add-e9e8-4428-8600-5486a94cb633}-overlayunwatched.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\overlayunwatched.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\overlaywatched.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{ee14b4d4-09f5-402f-aacd-54f9b8a0b9d4}-overlaywatched.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\overlaywatched.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -217,6 +231,20 @@
               <LocalFileName>skin\DefaultWide\youtube.common.logos.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{ec20d460-c6fe-4845-be07-2fdafdb0b00d}-youtube.common.logos.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\youtube.common.logos.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\overlayunwatched.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{40fbd8e8-7c2a-4914-b0f8-fa474a19af23}-overlayunwatched.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\overlayunwatched.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\overlaywatched.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{68b20e56-5075-4812-87ac-fbbd7c1d6153}-overlaywatched.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\overlaywatched.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -384,12 +412,12 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>7</Minor>
       <Build>4</Build>
-      <Revision>167</Revision>
+      <Revision>169</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.3.1.mpe1</OnlineLocation>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.4.169.mpe1</OnlineLocation>
     <ReleaseDate>2011-10-20T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
@@ -476,6 +504,20 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{991ecdc7-aeae-4409-812b-7d46caf214ce}-youtube.common.logos.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\youtube.common.logos.xml</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\overlayunwatched.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{31563add-e9e8-4428-8600-5486a94cb633}-overlayunwatched.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\overlayunwatched.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\overlaywatched.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{ee14b4d4-09f5-402f-aacd-54f9b8a0b9d4}-overlaywatched.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\overlaywatched.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -543,7 +585,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{fb109cae-db8d-4e93-8ef1-73b223ddf8e4}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{b02d4856-ad1c-4838-8aef-fbfe418283c7}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

@@ -264,6 +264,18 @@ namespace YouTubePlugin
         }
       }
 
+      if (Youtube2MP.LastFmProfile == null)
+      {
+        Youtube2MP.LastFmProfile = new LastProfile();
+        try
+        {
+          Youtube2MP.LastFmProfile.Login(_setting.LastFmUser, _setting.LastFmPass);
+        }
+        catch (Exception exception)
+        {
+          Log.Error(exception);
+        }
+      }
       
       return Load(GUIGraphicsContext.Skin + @"\youtubevideosbase.xml");
     }
@@ -278,19 +290,7 @@ namespace YouTubePlugin
         SetProperty("#Youtube.fm.Translation." + name + ".Label", Translation.Strings[name]);
       }
 
-      if(Youtube2MP.LastFmProfile==null)
-      {
-        Youtube2MP.LastFmProfile = new LastProfile();
-        try
-        {
-          Youtube2MP.LastFmProfile.Login(_setting.LastFmUser, _setting.LastFmPass);
-        }
-        catch (Exception exception)
-        {
-          Log.Error(exception);
-        }
-      }
-      
+     
       UpdateGui();
       ShowPanel();
 
