@@ -1,11 +1,7 @@
 using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Net;
-using System.Xml.Serialization;
 using System.IO;
-using System.Text;
-using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
@@ -13,9 +9,6 @@ using Lastfm.Services;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Util;
-using MediaPortal.TagReader;
-using MediaPortal.Localisation;
-using MediaPortal.Configuration;
 using MediaPortal.Player;
 using MediaPortal.Playlists;
 
@@ -42,7 +35,7 @@ namespace YouTubePlugin
   {
     public Settings _setting = new Settings();
     protected YoutubePlaylistPlayer playlistPlayer;
-    public System.Timers.Timer updateStationLogoTimer = new System.Timers.Timer(0.3 * 1000);
+    public Timer updateStationLogoTimer = new System.Timers.Timer(0.3 * 1000);
     public WebClient Client = new WebClient();
     public Queue downloaQueue = new Queue();
     private DownloadFileObject curentDownlodingFile;
@@ -51,6 +44,7 @@ namespace YouTubePlugin
 
     static public void SetLabels(YouTubeEntry vid, string type)
     {
+     
       ClearLabels(type);
       try
       {
@@ -113,7 +107,7 @@ namespace YouTubePlugin
       }
       catch (Exception ex)
       {
-
+        Log.Error(ex);
       }
 
       if (vid.Title.Text.Contains("-"))
@@ -133,12 +127,15 @@ namespace YouTubePlugin
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
       }
 
-      string imgurl =
-        ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm." + type + ".Artist.Name"));
-      string artistimg = GetLocalImageFileName(imgurl);
-      if (!string.IsNullOrEmpty(imgurl) && File.Exists(artistimg))
+      if (type != "Curent")
       {
-        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Image", artistimg);
+        string imgurl =
+          ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm." + type + ".Artist.Name"));
+        string artistimg = GetLocalImageFileName(imgurl);
+        if (!string.IsNullOrEmpty(imgurl) && File.Exists(artistimg))
+        {
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Image", artistimg);
+        }
       }
     }
 

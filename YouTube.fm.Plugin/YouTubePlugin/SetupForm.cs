@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using ConsoleApplication2.com.amazon.webservices;
@@ -51,7 +52,6 @@ namespace YouTubePlugin
       _settings.DownloadFolder = textBox_downloaddir.Text;
       _settings.FanartDir = textBox_fanartdir.Text;
       _settings.LoadOnlineFanart = checkBox1.Checked;
-      _settings.Region = cmb_region.Text;
       _settings.OldStyleHome = chk_oldstyle.Checked;
       
       _settings.LastFmUser = txt_lastfm_user.Text;
@@ -121,12 +121,12 @@ namespace YouTubePlugin
         default:
           break;
       }
-      foreach (KeyValuePair<string, string> valuePair in _settings.Regions)
-      {
-        cmb_region.Items.Add(valuePair.Key);
-      }
-      cmb_region.Items.Add("Ask");
-      cmb_region.Text = _settings.Region;
+      //foreach (KeyValuePair<string, string> valuePair in _settings.Regions)
+      //{
+      //  cmb_region.Items.Add(valuePair.Key);
+      //}
+      //cmb_region.Items.Add("Ask");
+      //cmb_region.Text = _settings.Region;
       comboBox_startup.Items.AddRange(_settings.OldCats.ToArray());
       comboBox_startup.SelectedIndex = _settings.InitialCat;
       textBox_startup.Text = _settings.InitialSearch;
@@ -449,6 +449,61 @@ namespace YouTubePlugin
       catch (Exception exception)
       {
          MessageBox.Show(exception.Message);
+      }
+    }
+
+    private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      try
+      {
+        System.Diagnostics.Process.Start("http://code.google.com/p/youtube-fm-for-mediaportal/");
+      }
+      catch (Exception)
+      {
+      }
+    }
+
+    private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      try
+      {
+        System.Diagnostics.Process.Start("http://forum.team-mediaportal.com/mediaportal-plugins-47/youtube-fm-youtube-music-videos-updated-04-10-2011-a-49148/");
+      }
+      catch (Exception)
+      {
+      }
+    }
+
+    private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      try
+      {
+        System.Diagnostics.Process.Start("http://www.youtube.com/");
+      }
+      catch (Exception)
+      {
+      }
+    }
+
+    private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      try
+      {
+        System.Diagnostics.Process.Start("http://www.last.fm/home");
+      }
+      catch (Exception)
+      {
+      }
+    }
+
+    private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      try
+      {
+        System.Diagnostics.Process.Start("http://www.billboard.com");
+      }
+      catch (Exception)
+      {
       }
     }
 

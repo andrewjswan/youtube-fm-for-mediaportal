@@ -1,7 +1,4 @@
 using System;
-using System.ComponentModel;
-using System.Threading;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
 using System.Collections;
@@ -288,10 +285,9 @@ namespace YouTubePlugin
         {
           Youtube2MP.LastFmProfile.Login(_setting.LastFmUser, _setting.LastFmPass);
         }
-        catch (Exception)
+        catch (Exception exception)
         {
-          
-          
+          Log.Error(exception);
         }
       }
       
@@ -332,56 +328,6 @@ namespace YouTubePlugin
       OnDownloadTimedEvent(null, null);
     }
 
-      private string GetRegionOpt()
-      {
-          if (_setting.Region == "All")
-              return "";
-          if (_setting.Region == "Ask")
-          {
-              GUIDialogMenu dlg = (GUIDialogMenu) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_MENU);
-              if (dlg == null) return "";
-              dlg.Reset();
-              //dlg.SetHeading(25653); // Sort options
-              foreach (KeyValuePair<string, string> valuePair in Youtube2MP._settings.Regions)
-              {
-                  dlg.Add(valuePair.Key);
-              }
-              dlg.DoModal(GetID);
-              if (dlg.SelectedId == -1) return "";
-              return Youtube2MP._settings.Regions[dlg.SelectedLabelText];
-          }
-          return Youtube2MP._settings.Regions[_setting.Region];
-      }
-
-      private void InitList(string queryuri)
-      {
-          if (_setting.MusicFilter && queryuri != YouTubeQuery.CreateFavoritesUri(null))
-              queryuri += "_Music";
-          string reg = GetRegionOpt();
-          if (!string.IsNullOrEmpty(reg))
-              queryuri = queryuri.Replace("standardfeeds", "standardfeeds/" + reg);
-          YouTubeQuery query = new YouTubeQuery(queryuri);
-
-          query.NumberToRetrieve = 50;
-          query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
-          if (uploadtime != YouTubeQuery.UploadTime.AllTime)
-              query.Time = uploadtime;
-
-          YouTubeFeed vidr = service.Query(query);
-
-          if (vidr.Entries.Count > 0)
-          {
-              SaveListState(true);
-              addVideos(vidr, false, query);
-              //GUIPropertyManager.SetProperty("#header.title", vidr.Title.Text);
-              UpdateGui();
-          }
-          else
-          {
-              Err_message("No item was found !");
-          }
-      }
-
       // remeber the selection on page leave
     protected override void OnPageDestroy(int new_windowId)
     {
@@ -392,15 +338,7 @@ namespace YouTubePlugin
     //// do the clicked action
     protected override void OnClicked(int controlId, GUIControl control, Action.ActionType actionType)
     {
-      ////
-      //// look for button pressed
-      ////
-      //// record ?
-      if (actionType == Action.ActionType.ACTION_RECORD)
-      {
-        //ExecuteRecord();
-      }
-      else if (control == btnSwitchView)
+    if (control == btnSwitchView)
       {
         switch ((View)mapSettings.ViewAs)
         {
@@ -486,149 +424,8 @@ namespace YouTubePlugin
 
     private void StartUpHome()
     {
-      if (!_setting.OldStyleHome)
-      {
-        //mapSettings.ViewAs = (int)View.List;
-        addVideos(Youtube2MP.GetHomeMenu(), false);
-        ShowPanel();
-      }
-      else
-      {
-        switch (_setting.InitialDisplay)
-        {
-          case 1:
-            ShowHome(_setting.InitialCat);
-            break;
-          case 2:
-            SearchVideo(_setting.InitialSearch);
-            break;
-          case 3:
-            DoHome();
-            break;
-          default:
-            break;
-        }
-        ShowPanel();
-      }
-    }
-
-    private void DoHome()
-    {
-      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
-      if (dlg == null) return;
-      dlg.Reset();
-      //dlg.SetHeading(25653); // Sort options
-      for (int i = 0; i < _setting.OldCats.Count; i++)
-      {
-        dlg.Add(_setting.OldCats[i]);
-      }
-
-      dlg.DoModal(GetID);
-      if (dlg.SelectedId == -1) return;
-      int select = dlg.SelectedLabel;
-      ShowHome(select);
-      NavigationStack.Clear();
-      uploadtime = YouTubeQuery.UploadTime.AllTime;
-    }
-
-    void GetTimeOpt()
-    {
-      if (_setting.Time)
-      {
-        GUIDialogMenu dlg1 = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
-        if (dlg1 == null) return;
-        dlg1.Reset();
-        for (int i = 0; i < _setting.TimeList.Count; i++)
-        {
-          dlg1.Add(_setting.TimeList[i]);
-        }
-
-        dlg1.DoModal(GetID);
-        if (dlg1.SelectedId != -1)
-        {
-          uploadtime = (YouTubeQuery.UploadTime)dlg1.SelectedLabel + 1;
-        }
-      }    
-    }
-
-    private void ShowHome(int poz)
-    {
-      switch (poz)
-      {
-        case 0:
-          GetTimeOpt();
-          InitList(YouTubeQuery.MostViewedVideo);
-          UpdateGui();
-          break;
-        case 1:
-          GetTimeOpt();
-          InitList(YouTubeQuery.TopRatedVideo);
-          UpdateGui();
-          break;
-        case 2:
-          InitList(YouTubeQuery.RecentlyFeaturedVideo);
-          UpdateGui();
-          break;
-        case 3:
-          GetTimeOpt();
-          InitList(YouTubeQuery.MostDiscussedVideo);
-          UpdateGui();
-          break;
-        case 4:
-          GetTimeOpt();
-          InitList(YouTubeQuery.FavoritesVideo);
-          UpdateGui();
-          break;
-        case 5:
-          InitList(YouTubeQuery.MostLinkedVideo);
-          UpdateGui();
-          break;
-        case 6:
-          InitList(YouTubeQuery.MostRespondedVideo);
-          UpdateGui();
-          break;
-        case 7:
-          InitList(YouTubeQuery.MostRecentVideo);
-          UpdateGui();
-          break;
-        case 8:
-          InitList(YouTubeQuery.CreateFavoritesUri(null));
-          UpdateGui();
-          break;
-        case 9:
-          if (Youtube2MP._settings.LocalFile.Items.Count == 0)
-          {
-            Err_message("No downloaded item was found !");
-          }
-          else
-          {
-            SaveListState(true);
-            foreach (LocalFileStruct entry in Youtube2MP._settings.LocalFile.Items)
-            {
-              GUIListItem item = new GUIListItem();
-              // and add station name & bitrate
-              item.Label = entry.Title;
-              item.Label2 = "";
-              item.IsFolder = false;
-
-              string imageFile = Path.GetDirectoryName(entry.LocalFile) + "\\" + Path.GetFileNameWithoutExtension(entry.LocalFile) + ".png";
-              if (File.Exists(imageFile))
-              {
-                item.ThumbnailImage = imageFile;
-                //item.IconImage = "defaultVideoBig.png";
-                item.IconImage = imageFile;
-                item.IconImageBig = imageFile;
-              }
-              item.MusicTag = entry;
-              item.OnItemSelected += new GUIListItem.ItemSelectedHandler(item_OnItemSelected);
-              listControl.Add(item);
-            }
-            //GUIPropertyManager.SetProperty("#header.title", Youtube2MP._settings.OldCats[9]);
-            listControl.SelectedListItemIndex = 0;
-            UpdateGui();
-          }
-          break;
-      }
+      addVideos(Youtube2MP.GetHomeMenu(), false);
+      ShowPanel();
     }
 
     //// override action responses
@@ -667,9 +464,6 @@ namespace YouTubePlugin
       base.Process();
     }
 
-    protected void OnShowSortOptions()
-    {
-    }
  
     #endregion
     #region helper func's
@@ -740,8 +534,6 @@ namespace YouTubePlugin
           DoBack();
         }
       }
-     // GUIWaitCursor.Hide();
-      //throw new Exception("The method or operation is not implemented.");
     }
 
     private void DoSearch()
@@ -791,7 +583,6 @@ namespace YouTubePlugin
     {
         YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
         query = SetParamToYouTubeQuery(query, false);
-        //query.VQ = searchString;
         query.Query = searchString;
         query.OrderBy = "relevance";
         
@@ -841,17 +632,11 @@ namespace YouTubePlugin
         obj.SetItems(listControl);
         listControl.SelectedListItemIndex = obj.Position;
         GUIPropertyManager.SetProperty("#currentmodule", obj.Title);
-        //GUIPropertyManager.SetProperty("#header.title", obj.Title);
         mapSettings.ViewAs = (int)obj.CurrentView;
         ShowPanel();
       }
     }
     
-    //public void UpdateList()
-    //{
-   
-    //}
-
     void ShowPanel()
     {
       int itemIndex = listControl.SelectedListItemIndex;
@@ -941,6 +726,7 @@ namespace YouTubePlugin
       dlg.SetHeading(Translation.ContextMenu); // menu
       if (Youtube2MP.player.CurrentSong > -1 || Youtube2MP.temp_player.CurrentSong > -1)
         dlg.Add(Translation.PlayNext);
+      dlg.Add(Translation.Info);
       dlg.Add(Translation.RelatedVideos);
       dlg.Add(Translation.VideoResponses);
       dlg.Add(string.Format(Translation.AllVideosFromUser, videoEntry.Authors[0].Name));
@@ -951,7 +737,6 @@ namespace YouTubePlugin
         dlg.Add(Translation.AddFavorites);
         dlg.Add(Translation.AddWatchLater);
       }
-      dlg.Add(Translation.Info);
       dlg.Add(Translation.Options);
       dlg.Add(Translation.DownloadVideo);
       if (!string.IsNullOrEmpty(artistName) &&
@@ -1077,11 +862,8 @@ namespace YouTubePlugin
       }
       else if (dlg.SelectedLabelText == Translation.AddWatchLater)
       {
-        //YouTubeQuery query = new YouTubeQuery("");
-        //PlaylistFeed userPlaylists = Youtube2MP.service.GetPlaylist(query);
         PlayListMember pm = new PlayListMember();
         pm.Id = videoEntry.VideoId;
-        //Youtube2MP.request.AddToPlaylist(userPlaylists, pm);
         Youtube2MP.request.Insert(new Uri("https://gdata.youtube.com/feeds/api/users/default/watch_later"), pm);
       }
       else if (dlg.SelectedLabelText == Translation.Options)
@@ -1191,7 +973,6 @@ namespace YouTubePlugin
 
       string textLine = string.Empty;
       View view = (View)mapSettings.ViewAs;
-      //bool sortAsc = mapSettings.SortAscending;
       switch (view)
       {
         case View.List:
@@ -1219,17 +1000,6 @@ namespace YouTubePlugin
       GUIControl.SetControlLabel(GetID, btnSwitchView.GetID, textLine);
 
     }
-
-    void SortChanged(object sender, SortEventArgs e)
-    {
-      // save the new state
-      mapSettings.SortAscending = e.Order != SortOrder.Descending;
-      // update the list
-      //UpdateList();
-      //UpdateButtonStates();
-      GUIControl.FocusControl(GetID, ((GUIControl)sender).GetID);
-    }
-
     #endregion
 
     void addVideos(GenericListItemCollections itemCollections, bool level)
@@ -1242,13 +1012,6 @@ namespace YouTubePlugin
 
       SaveListState(true);
 
-      //if (itemCollections.FolderType == 1)
-      //  mapSettings.ViewAs = (int)View.Albums;
-      //else
-      //  mapSettings.ViewAs = (int) View.List;
-
-
-      //GUIPropertyManager.SetProperty("#header.title", itemCollections.Title);
       GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/" + itemCollections.Title);
       updateStationLogoTimer.Enabled = false;
       downloaQueue.Clear();
@@ -1265,7 +1028,6 @@ namespace YouTubePlugin
       foreach (GenericListItem listItem in itemCollections.Items)
       {
         GUIListItem item = new GUIListItem();
-        // and add station name & bitrate
         item.Label = listItem.Title;
         item.Label2 = listItem.Title2;
         item.Label3 = listItem.Title3;
@@ -1309,7 +1071,7 @@ namespace YouTubePlugin
         GUIListItem item = new GUIListItem();
         item.Label = "..";
         item.IsFolder = true;
-        MediaPortal.Util.Utils.SetDefaultIcons(item);
+        Utils.SetDefaultIcons(item);
         listControl.Add(item);
       }
       GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/" + videos.Title.Text);
@@ -1362,7 +1124,7 @@ namespace YouTubePlugin
         item.Label = "";
         item.Label2 = Translation.NextPage;
         item.IsFolder = true;
-        MediaPortal.Util.Utils.SetDefaultIcons(item);
+        Utils.SetDefaultIcons(item);
         item.MusicTag = qu;
         listControl.Add(item);
       }
