@@ -245,16 +245,24 @@ namespace YouTubePlugin
     {
       if (!string.IsNullOrEmpty(_setting.User))
       {
-        service.setUserCredentials(_setting.User, _setting.Password);
-        Youtube2MP.request.Service = service;
-        string feedUrl = "http://gdata.youtube.com/feeds/api/users/default";
         try
         {
-          var profileEntry = (ProfileEntry)service.Get(feedUrl);
+          service.setUserCredentials(_setting.User, _setting.Password);
+          Youtube2MP.request.Service = service;
+          string feedUrl = "http://gdata.youtube.com/feeds/api/users/default";
+          try
+          {
+            var profileEntry = (ProfileEntry)service.Get(feedUrl);
+          }
+          catch (InvalidCredentialsException)
+          {
+            Log.Error("Wrong username or password or account is disabled ");
+            service.Credentials = null;
+          }
         }
-        catch (InvalidCredentialsException)
+        catch (Exception ex)
         {
-          Log.Error("Wrong username or password or account is disabled ");
+          Log.Error(ex);
           service.Credentials = null;
         }
       }
@@ -1183,7 +1191,7 @@ namespace YouTubePlugin
 
       string textLine = string.Empty;
       View view = (View)mapSettings.ViewAs;
-      bool sortAsc = mapSettings.SortAscending;
+      //bool sortAsc = mapSettings.SortAscending;
       switch (view)
       {
         case View.List:
