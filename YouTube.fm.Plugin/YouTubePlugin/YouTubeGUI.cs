@@ -243,12 +243,12 @@ namespace YouTubePlugin
     // init the skin
     public override bool Init()
     {
+      Youtube2MP.request.Service = service;
       if (!string.IsNullOrEmpty(_setting.User))
       {
         try
         {
           service.setUserCredentials(_setting.User, _setting.Password);
-          Youtube2MP.request.Service = service;
           string feedUrl = "http://gdata.youtube.com/feeds/api/users/default";
           try
           {
