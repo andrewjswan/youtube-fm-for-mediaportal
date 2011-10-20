@@ -13,7 +13,7 @@
       <height>720</height>
     </control>
         <control>
-            <id>0</id>
+            <id>95</id>
             <description>Fan Art</description>
             <type>image</type>
             <posx>0</posx>
@@ -52,6 +52,7 @@
             <animation effect="fade" time="70" delay="300">hidden</animation>
         </control>
         <control>
+            <description>Current Module Label</description> 
             <type>label</type>
             <id>1</id>
             <posX>60</posX>
@@ -64,7 +65,7 @@
         <import>common.time.xml</import>
         <control>         
             <id>101</id>
-            <description>Selected item Label</description>
+            <description>Selected Item Label / similar Artist/Related Videos</description>
             <type>fadelabel</type>
             <posX>1244</posX>
             <posY>460</posY>
@@ -92,7 +93,7 @@
 	    <ondown>96</ondown>
 	</control>
         <control>
-	    <description>Info Screen Button</description>
+	    <description>Info Screen Button/Jump To Info Screen</description>
 	    <type>button</type>
 	    <id>96</id>
 	    <posX>687</posX>
@@ -148,7 +149,7 @@
             <animation effect="fade" time="70" reversible="false">visible</animation>	        
         </control>                                          
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>Artist Name Value</description>
             <type>fadelabel</type>
             <posX>695</posX>
@@ -159,7 +160,7 @@
             <label>#Youtube.fm.NowPlaying.Artist.Name</label>
         </control>
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>Video Title Value</description>
             <type>fadelabel</type>
             <posX>695</posX>
@@ -190,15 +191,15 @@
             <animation effect="fade" time="70" reversible="false">visible</animation>
         </control>        
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>Like /Dislike Value</description>
             <type>fadelabel</type>
             <posX>860</posX>
             <posY>175</posY>
-            <width>356</width>         
+            <width>370</width>         
             <font>font11</font>
             <textcolor>90ffffff</textcolor>            
-            <label>#Youtube.fm.NowPlaying.Video.NumLike//#Youtube.fm.Translation.Like.Label , #Youtube.fm.NowPlaying.Video.NumDisLike/#Youtube.fm.Translation.Dislike.Label</label>
+            <label>#Youtube.fm.NowPlaying.Video.NumLike/#Youtube.fm.Translation.Like.Label . #Youtube.fm.NowPlaying.Video.NumDisLike/#Youtube.fm.Translation.Dislike.Label</label>
         </control>        
         <control>
             <id>0</id>
@@ -212,7 +213,7 @@
             <label>#Youtube.fm.Translation.ViewCount.Label</label>
         </control>
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>ViewCount Value</description>
             <type>label</type>
             <posX>695</posX>
@@ -234,7 +235,7 @@
             <label>#Youtube.fm.Translation.FavoriteCount.Label</label>
         </control>        
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>FavoriteCount Value</description>
             <type>label</type>
             <posX>695</posX>
@@ -263,9 +264,9 @@
             <visible>player.hasmedia</visible>
         </control>
         <control>
-            <type>label</type>
-            <description>track progress label</description>
             <id>0</id>
+            <type>label</type>
+            <description>Track Progress/Currentplaytime</description>            
             <posX>181</posX>
             <posY>460</posY>
             <label>#currentplaytime</label>
@@ -274,19 +275,52 @@
             <visible>player.hasmedia</visible>
         </control>
         <control>
-            <type>label</type>
-            <description>track duration label</description>
             <id>0</id>
+            <type>label</type>
+            <description>Track Progress/Duration</description>            
             <posX>504</posX>
             <posY>460</posY>
             <label>#Youtube.fm.NowPlaying.Video.Duration</label>
             <font>font14</font>
             <align>left</align>
             <visible>player.hasmedia</visible>
-        </control>                    
+        </control>        
         <control>
             <id>0</id>
-            <description>Related Videos label</description>
+            <description>Similar Artists Label</description>
+            <type>label</type>
+            <posX>940</posX>
+            <posY>212</posY>
+            <font>font11</font>
+            <textcolor>ffa9d0f7</textcolor>            
+            <label>#Youtube.fm.Translation.SimilarArtists.Label</label>
+        </control>
+        <control>
+            <id>166</id>
+            <description>Similar Artists List</description>
+            <type>listcontrol</type>            
+            <onleft>5555</onleft>               
+            <posX>940</posX>
+            <posY>240</posY>
+            <width>320</width>
+            <height>260</height>
+            <font>font11</font>
+            <textXOff>-30</textXOff>
+            <textXOff3>5</textXOff3>            
+            <IconXOff>1980</IconXOff>
+            <spaceBetweenItems>0</spaceBetweenItems>            
+	    <spinColor>-</spinColor>
+            <image>-</image>
+            <textureUp>-</textureUp>
+            <textureDown>-</textureDown>
+            <textureUpFocus>-</textureUpFocus>
+            <textureDownFocus>-</textureDownFocus>
+            <textureFocus>list_sub_focus.png</textureFocus>
+            <textureNoFocus>-</textureNoFocus>	    
+        </control>
+        <control>
+            <id>0</id>
+            <description>Related Videos Label</description>
             <type>label</type>
             <posX>60</posX>
             <posY>680</posY>
@@ -296,7 +330,7 @@
         </control>                
         <control>
             <id>50</id>
-            <description>List Related Videos</description>
+            <description>Related Videos List</description>
             <type>thumbnailpanel</type>
             <dimColor>90ffffff</dimColor>
             <onleft>5555</onleft>
@@ -341,39 +375,6 @@
             <textureDown>page_down_nofocus.png</textureDown>
             <textureUpFocus>page_up_focus.png</textureUpFocus>
             <textureDownFocus>page_down_focus.png</textureDownFocus>
-        </control>        
-        <control>
-            <id>0</id>
-            <description>Similar Artists label</description>
-            <type>label</type>
-            <posX>940</posX>
-            <posY>212</posY>
-            <font>font11</font>
-            <textcolor>ffa9d0f7</textcolor>            
-            <label>#Youtube.fm.Translation.SimilarArtists.Label</label>
-        </control>
-        <control>
-            <id>166</id>
-            <description>list similar artists</description>
-            <type>listcontrol</type>            
-            <onleft>5555</onleft>               
-            <posX>940</posX>
-            <posY>240</posY>
-            <width>320</width>
-            <height>260</height>
-            <font>font11</font>
-            <textXOff>-30</textXOff>
-            <textXOff3>5</textXOff3>            
-            <IconXOff>1980</IconXOff>
-            <spaceBetweenItems>0</spaceBetweenItems>            
-	    <spinColor>-</spinColor>
-            <image>-</image>
-            <textureUp>-</textureUp>
-            <textureDown>-</textureDown>
-            <textureUpFocus>-</textureUpFocus>
-            <textureDownFocus>-</textureDownFocus>
-            <textureFocus>list_sub_focus.png</textureFocus>
-            <textureNoFocus>-</textureNoFocus>	    
-        </control>        
+        </control>                
     </controls>
 </window>

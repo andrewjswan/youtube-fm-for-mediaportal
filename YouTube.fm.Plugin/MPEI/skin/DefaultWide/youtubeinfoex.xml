@@ -13,7 +13,7 @@
       <height>720</height>
     </control>
         <control>
-            <id>0</id>
+            <id>95</id>
             <description>Fan Art</description>
             <type>image</type>
             <posx>0</posx>
@@ -52,11 +52,12 @@
             <animation effect="fade" time="70" delay="300">hidden</animation>
         </control>
         <control>
+            <description>Current Module Label</description>
             <type>label</type>
             <id>1</id>
             <posX>60</posX>
             <posY>27</posY>
-            <label>Youtube.fm/Info</label>
+            <label>#currentmodule</label>
             <font>font16</font>
             <align>left</align>
             <textcolor>White</textcolor>
@@ -107,7 +108,7 @@
             <animation effect="fade" time="70" reversible="false">visible</animation>
         </control>
         <control>
-	    <description>Play Button</description>
+	    <description>Play Button/Hiden</description>
 	    <type>button</type>
 	    <id>35</id>
 	    <posX>2255</posX>
@@ -120,20 +121,43 @@
 	    <onup>17</onup>	    
 	</control>
         <control>
+            <description>UnWatched BG Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>65</posX>
+            <posY>337</posY>
+            <width>28</width>
+            <height>28</height>                       
+            <texture>overlayunwatched.png</texture>            
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>                 
+        <control>
+            <description>Watched Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>65</posX>
+            <posY>337</posY>
+            <width>28</width>
+            <height>28</height>                      
+            <texture>overlaywatched.png</texture>	  
+            <visible>string.equals(#Youtube.fm.Info.Video.IsWatched, true)</visible>
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>         
+        <control>
             <description>HD Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>55</posX>
+            <posX>110</posX>
             <posY>335</posY>
             <width>70</width>
             <height>35</height>
             <keepaspectratio>yes</keepaspectratio>            
             <texture>Logos\hd.png</texture>	  
-            <visible>string.equals(#Youtube.fm.Info.Video.IsHD, True)</visible>
+            <visible>string.equals(#Youtube.fm.Info.Video.IsHD, true)</visible>
             <animation effect="fade" time="70" reversible="false">visible</animation>	        
         </control>         
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>Video Title Value</description>
             <type>fadelabel</type>
             <posX>390</posX>
@@ -169,12 +193,12 @@
             <id>20</id>
             <posX>849</posX>
             <posY>142</posY>
-            <width>356</width>
+            <width>366</width>
             <height>21</height>
             <texturebg>osd_progress_mid_red.png</texturebg>
             <label>#Youtube.fm.Info.Video.PercentLike</label>            
             <onlymidtexture>yes</onlymidtexture>
-            <midwidth>356</midwidth>
+            <midwidth>366</midwidth>
             <midheight>21</midheight>
             <midoffsetX>-</midoffsetX>
             <midoffsetY>-</midoffsetY>            
@@ -182,15 +206,15 @@
             <visible>yes</visible>            
         </control>        
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>Like /Dislike Value</description>
             <type>fadelabel</type>
             <posX>849</posX>
             <posY>166</posY>
-            <width>356</width>         
+            <width>366</width>         
             <font>font11</font>
             <textcolor>90ffffff</textcolor>            
-            <label>#Youtube.fm.Info.Video.NumLike/#Youtube.fm.Translation.Like.Label , #Youtube.fm.Info.Video.NumDisLike/#Youtube.fm.Translation.Dislike.Label</label>
+            <label>#Youtube.fm.Info.Video.NumLike/#Youtube.fm.Translation.Like.Label . #Youtube.fm.Info.Video.NumDisLike/#Youtube.fm.Translation.Dislike.Label</label>
         </control>
         <control>
             <id>0</id>
@@ -204,7 +228,7 @@
             <label>#Youtube.fm.Translation.Autor.Label</label>
         </control>        
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>Autor Value</description>
             <type>fadelabel</type>
             <posX>390</posX>
@@ -226,7 +250,7 @@
             <label>#Youtube.fm.Translation.ViewCount.Label</label>
         </control>
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>ViewCount Value</description>
             <type>label</type>
             <posX>390</posX>
@@ -248,7 +272,7 @@
             <label>#Youtube.fm.Translation.FavoriteCount.Label</label>
         </control>        
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>FavoriteCount Value</description>
             <type>label</type>
             <posX>390</posX>
@@ -270,7 +294,7 @@
             <label>#Youtube.fm.Translation.PublishDate.Label</label>
         </control>        
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>PublishDate Value</description>
             <type>label</type>
             <posX>620</posX>
@@ -292,7 +316,7 @@
             <label>#Youtube.fm.Translation.Duration.Label</label>
         </control>
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>Duration Value</description>
             <type>label</type>
             <posX>620</posX>
@@ -350,7 +374,7 @@
             <animation effect="fade" time="70" reversible="false">visible</animation>
         </control>        
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>Artist Name Value</description>
             <type>fadelabel</type>
             <posX>390</posX>
@@ -361,12 +385,12 @@
             <label>#Youtube.fm.Info.Artist.Name</label>
         </control>               
         <control>
-            <id>47</id>
+            <id>0</id>
             <description>Artist Tags</description>
             <type>label</type>
             <posX>383</posX>
             <posY>457</posY>
-            <width>600</width>         
+            <width>630</width>         
             <font>font12</font>
             <textcolor>ffa9d0f7</textcolor>            
             <label>#Youtube.fm.Info.Artist.Tags</label>

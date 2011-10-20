@@ -51,6 +51,13 @@
               <ZipFileName>Installer{CopyFile}\{835b3aef-9895-4b35-b3fb-8354488a59cf}-youtubeinfoex.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\youtubeinfoex.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtube.common.logos.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{991ecdc7-aeae-4409-812b-7d46caf214ce}-youtube.common.logos.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtube.common.logos.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -204,6 +211,13 @@
               <ZipFileName>Installer{CopyFile}\{7fb69b59-3fd9-40d8-b012-1fed89398675}-youtubeinfoex.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\youtubeinfoex.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtube.common.logos.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{ec20d460-c6fe-4845-be07-2fdafdb0b00d}-youtube.common.logos.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtube.common.logos.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -350,10 +364,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.Players.Music" />
-            <SubSystemItem Name="MP.Players.Video" />
-            <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
+            <SubSystemItem Name="MP.Players.Video" />
+            <SubSystemItem Name="MP.Players.Music" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -370,13 +384,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>7</Minor>
       <Build>4</Build>
-      <Revision>148</Revision>
+      <Revision>167</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.3.1.mpe1</OnlineLocation>
-    <ReleaseDate>2011-10-15T17:28:13</ReleaseDate>
+    <ReleaseDate>2011-10-20T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -455,6 +469,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{835b3aef-9895-4b35-b3fb-8354488a59cf}-youtubeinfoex.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\youtubeinfoex.xml</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\youtube.common.logos.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{991ecdc7-aeae-4409-812b-7d46caf214ce}-youtube.common.logos.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\youtube.common.logos.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -522,7 +543,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{9f1651a4-0771-4584-b24c-5b5d378b55c7}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{fb109cae-db8d-4e93-8ef1-73b223ddf8e4}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

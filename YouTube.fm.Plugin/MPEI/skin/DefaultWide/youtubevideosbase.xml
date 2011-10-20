@@ -2,7 +2,7 @@
 <window>
   <id>29050</id>
   <defaultcontrol>50</defaultcontrol>
-  <allowoverlay>[facadeview.list|facadeview.filmstrip]</allowoverlay>
+  <allowoverlay>[facadeview.list|facadeview.filmstrip|facadeview.album]</allowoverlay>
   <define>#useSelectedFanart:Yes</define>
   <controls>
     <control>
@@ -14,7 +14,7 @@
       <height>720</height>
     </control>
     <import>common.window.xml</import>
-    <import>common.time.xml</import>
+    <import>common.time.xml</import>    
     <import>common.music.fanart.xml</import>
     <control>
       <type>actiongroup</type>
@@ -138,11 +138,12 @@
       </control>
     </control>
     <import>youtube.facade.xml</import>
+    <import>youtube.common.logos.xml</import>
     <control>
       <id>1</id>
       <type>image</type>
       <posX>68</posX>
-      <posY>140</posY>
+      <posY>160</posY>
       <width>338</width>
       <height>250</height>
       <texture mask="Picturethumbmask.png">missing_Coverart.png</texture>
@@ -153,7 +154,7 @@
       <id>500</id>
       <type>image</type>
       <posX>68</posX>
-      <posY>140</posY>
+      <posY>160</posY>
       <width>338</width>
       <height>250</height>
       <keepaspectratio>yes</keepaspectratio>
@@ -166,7 +167,7 @@
       <type>image</type>
       <id>1</id>
       <posX>68</posX>
-      <posY>140</posY>
+      <posY>160</posY>
       <width>338</width>
       <height>250</height>
       <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>
@@ -178,7 +179,7 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>392</posY>
+      <posY>412</posY>
       <width>355</width>
       <label>Info:</label>
       <font>font14</font>
@@ -190,7 +191,7 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>422</posY>
+      <posY>442</posY>
       <width>355</width>
       <label>#selecteditem</label>
       <font>font14</font>
@@ -202,25 +203,12 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>455</posY>
+      <posY>475</posY>
       <width>355</width>
       <label>#selecteditem2</label>
       <font>font14</font>
       <visible>[facadeview.list|facadeview.album]+[Control.HasFocus(50)]</visible>
       <animation effect="fade" time="70" reversible="false">visible</animation>
-    </control>
-    <control>
-      <description>HD Logo</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>78</posX>
-      <posY>498</posY>
-      <width>70</width>
-      <height>35</height>
-      <keepaspectratio>yes</keepaspectratio>            
-      <texture>Logos\hd.png</texture>	  
-      <visible>string.equals(#Youtube.fm.Curent.Video.IsHD, True)</visible>
-      <animation effect="fade" time="70" reversible="false">visible</animation>	        
-    </control>             
+    </control>                         
   </controls>
 </window>

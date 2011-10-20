@@ -171,7 +171,7 @@
       <id>1</id>
       <type>image</type>
       <posX>68</posX>
-      <posY>140</posY>
+      <posY>160</posY>
       <width>338</width>
       <height>250</height>
       <texture mask="Picturethumbmask.png">missing_Coverart.png</texture>
@@ -182,7 +182,7 @@
       <id>500</id>
       <type>image</type>
       <posX>68</posX>
-      <posY>140</posY>
+      <posY>160</posY>
       <width>338</width>
       <height>250</height>
       <keepaspectratio>yes</keepaspectratio>
@@ -195,7 +195,7 @@
       <type>image</type>
       <id>1</id>
       <posX>68</posX>
-      <posY>140</posY>
+      <posY>160</posY>
       <width>338</width>
       <height>250</height>
       <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>
@@ -207,7 +207,7 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>392</posY>
+      <posY>412</posY>
       <width>355</width>
       <label>Info:</label>
       <font>font14</font>
@@ -219,7 +219,7 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>422</posY>
+      <posY>442</posY>
       <width>355</width>
       <label>#selecteditem</label>
       <font>font14</font>
@@ -231,12 +231,12 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>455</posY>
+      <posY>475</posY>
       <width>355</width>
       <label>#selecteditem2</label>
       <font>font14</font>
       <visible>[facadeview.playlist|facadeview.album]+Control.HasFocus(50)</visible>
       <animation effect="fade" time="70" reversible="false">visible</animation>
-    </control>      
+    </control>    
   </controls>
 </window>
