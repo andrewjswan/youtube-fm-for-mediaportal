@@ -1034,7 +1034,16 @@ namespace YouTubePlugin
         item.IsFolder = listItem.IsFolder;
         item.Duration = listItem.Duration;
         item.Rating = listItem.Rating;
-        Utils.SetDefaultIcons(item);
+        if (string.IsNullOrEmpty(listItem.DefaultImage))
+        {
+          Utils.SetDefaultIcons(item);
+        }
+        else
+        {
+          item.ThumbnailImage = listItem.DefaultImage;
+          item.IconImage = listItem.DefaultImage;
+          item.IconImageBig = listItem.DefaultImage;
+        }
 
         if (!string.IsNullOrEmpty(listItem.LogoUrl))
         {
@@ -1047,7 +1056,6 @@ namespace YouTubePlugin
           }
           else
           {
-            Utils.SetDefaultIcons(item);
             DownloadImage(listItem.LogoUrl, item);
           }
         }
@@ -1089,7 +1097,7 @@ namespace YouTubePlugin
           try
           {
             if (entry.Duration != null)
-            item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
+              item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
             if (entry.Rating != null)
               item.Rating = (float) entry.Rating.Average*2;
           }
@@ -1102,7 +1110,6 @@ namespace YouTubePlugin
           if (File.Exists(imageFile))
           {
             item.ThumbnailImage = imageFile;
-            //item.IconImage = "defaultVideoBig.png";
             item.IconImage = imageFile;
             item.IconImageBig = imageFile;
           }

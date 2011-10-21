@@ -61,6 +61,7 @@ namespace YouTubePlugin.Class.SiteItems
                                          LogoUrl =
                                            string.IsNullOrEmpty(artistItem.Img_url.Trim()) ? "@" : artistItem.Img_url,
                                          IsFolder = true,
+                                         DefaultImage = "defaultArtistBig.png",
                                          Tag = newentry
                                        };
           res.Items.Add(listItem);

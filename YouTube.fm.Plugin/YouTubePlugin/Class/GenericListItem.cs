@@ -16,5 +16,6 @@ namespace YouTubePlugin.Class
     public object ParentTag { get; set; }
     public int Duration { get; set; }
     public float Rating { get; set; }
+    public string DefaultImage { get; set; }
   }
 }

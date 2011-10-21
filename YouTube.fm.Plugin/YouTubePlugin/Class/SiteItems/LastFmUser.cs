@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Lastfm.Services;
+using YouTubePlugin.Class.Artist;
 
 namespace YouTubePlugin.Class.SiteItems
 {
@@ -45,7 +46,9 @@ namespace YouTubePlugin.Class.SiteItems
               {
                 IsFolder = false,
                 Title = newentry.Title,
-                Tag = newentry
+                Tag = newentry,
+                LogoUrl = ArtistManager.Instance.GetArtistsImgUrl(topTrack.Item.Artist.Name),
+                DefaultImage = "defaultArtistBig.png"
               });
             }            
           }
@@ -64,7 +67,10 @@ namespace YouTubePlugin.Class.SiteItems
               {
                 IsFolder = false,
                 Title = newentry.Title,
-                Tag = newentry
+                Tag = newentry,
+                LogoUrl = ArtistManager.Instance.GetArtistsImgUrl(topTrack.Artist.Name),
+                DefaultImage = "defaultArtistBig.png"
+
               });
             }
           }
