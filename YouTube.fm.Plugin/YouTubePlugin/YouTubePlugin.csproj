@@ -202,6 +202,7 @@
       <DependentUpon>VideoItemControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Class\SitesCache.cs" />
+    <Compile Include="Class\SkinUtil.cs" />
     <Compile Include="Class\Translation.cs" />
     <Compile Include="Class\VideoInfo.cs" />
     <Compile Include="Class\YoutubePlaylistPlayer.cs" />

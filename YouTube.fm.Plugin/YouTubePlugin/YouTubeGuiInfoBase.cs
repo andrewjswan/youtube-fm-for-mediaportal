@@ -17,11 +17,12 @@ namespace YouTubePlugin
   {
     #region skin connection
     [SkinControl(50)]
-    protected GUIThumbnailPanel listControl = null;
+    protected GUIFacadeControl listControl = null;
     [SkinControlAttribute(166)]
     protected GUIListControl listsimilar = null;
     [SkinControlAttribute(95)]
     protected GUIImage imgFanArt = null;
+
     #endregion
 
     protected List<GUIListItem> relatated = new List<GUIListItem>();
@@ -322,6 +323,52 @@ namespace YouTubePlugin
       else if (dlg.SelectedLabelText == Translation.PlayNext)
       {
         PlayNext(videoEntry);
+      }
+    }
+
+    protected override void OnPageLoad()
+    {
+      base.OnPageLoad();
+      if(listControl!=null){
+        switch (SkinUtil.GetDefine(_windowXmlFileName, "#viewmode"))
+        {
+          case "":
+          case "largeicons":
+            {
+              listControl.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
+            }
+            break;
+          case "album":
+            {
+              listControl.CurrentLayout = GUIFacadeControl.Layout.AlbumView;
+            }
+            break;
+          case "filmstrip":
+            {
+              listControl.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
+            }
+            break;
+          case "list":
+            {
+              listControl.CurrentLayout = GUIFacadeControl.Layout.List;
+            }
+            break;
+          case "playlist":
+            {
+              listControl.CurrentLayout = GUIFacadeControl.Layout.Playlist;
+            }
+            break;
+          case "smallicons":
+            {
+              listControl.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
+            }
+            break;
+          case "coverflow":
+            {
+              listControl.CurrentLayout = GUIFacadeControl.Layout.CoverFlow;
+            }
+            break;
+        }
       }
     }
 
