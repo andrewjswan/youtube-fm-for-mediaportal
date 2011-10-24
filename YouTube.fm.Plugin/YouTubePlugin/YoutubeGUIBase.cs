@@ -42,9 +42,14 @@ namespace YouTubePlugin
     protected YouTubeQuery.UploadTime uploadtime = YouTubeQuery.UploadTime.AllTime;
     public FileDownloader VideoDownloader = new FileDownloader();
 
+    private static YouTubeEntry label_last_entry;
+    private static string label_last_type;
+
     static public void SetLabels(YouTubeEntry vid, string type)
     {
-     
+      if (vid == label_last_entry && type == label_last_type)
+        return;
+
       ClearLabels(type);
       try
       {
@@ -224,8 +229,8 @@ namespace YouTubePlugin
         return string.Empty;
       if (strURL == "@")
         return string.Empty;
-      string url = String.Format("youtubevideos-{0}.jpg", MediaPortal.Util.Utils.EncryptLine(strURL));
-      return System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.InternetCache), url); ;
+      string url = String.Format("youtubevideos-{0}.jpg", Utils.EncryptLine(strURL));
+      return Path.Combine(Youtube2MP._settings.CacheDir, url); ;
     }
 
     public bool filterVideoContens(YouTubeEntry vid)
@@ -566,14 +571,9 @@ namespace YouTubePlugin
 
         if (vid != null)
         {
-          if (vid.Media.Contents.Count > 0)
-          {
-            PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri));
-          }
-          else
-          {
-            PlayblackUrl = vid.AlternateUri.ToString();
-          }
+          PlayblackUrl = vid.Media.Contents.Count > 0
+                           ? string.Format("http://www.youtube.com/v/{0}", Youtube2MP.getIDSimple(vid.Id.AbsoluteUri))
+                           : vid.AlternateUri.ToString();
           PlayListItem playlistItem = new PlayListItem();
           playlistItem.Type = PlayListItem.PlayListItemType.VideoStream;
           qa.Entry = vid;
@@ -596,15 +596,15 @@ namespace YouTubePlugin
 
     static public string GetFanArtImage(string artist)
     {
-      return String.Format(@"{0}\{1}_fanart.jpg", Thumbs.MusicArtists, MediaPortal.Util.Utils.MakeFileName(artist));
+      return Youtube2MP._settings.FanartDir.Replace("%artist%", Utils.MakeFileName(artist));
     }
 
     #region download manager
 
-    protected void DownloadFile(string Url,string localFile)
+    protected void DownloadFile(string url,string localFile)
     {
       WebClient webClient = new WebClient();
-      webClient.DownloadFile(Url, localFile);
+      webClient.DownloadFile(url, localFile);
     }
 
 

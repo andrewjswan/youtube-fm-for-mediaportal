@@ -222,7 +222,7 @@ namespace YouTubePlugin
             }
 
 
-            string file = Youtube2MP._settings.FanartDir.Replace("%artist%", Youtube2MP.NowPlayingSong.Artist);
+            string file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
 
             if (File.Exists(file) && imgFanArt != null)
             {
@@ -236,7 +236,7 @@ namespace YouTubePlugin
             if (Youtube2MP._settings.LoadOnlineFanart && !Client.IsBusy)
             {
               HTBFanArt fanart = new HTBFanArt();
-              file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
+              //file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
               if (!File.Exists(file))
               {
                 fanart.Search(Youtube2MP.NowPlayingSong.Artist);

@@ -2,7 +2,8 @@
 <window>
     <id>29052</id>
     <defaultcontrol>5555</defaultcontrol>    
-    <allowoverlay>no</allowoverlay>        
+    <allowoverlay>no</allowoverlay>   
+    <define>#viewmode:filmstrip</define>    
     <controls>
     <control>
       <description>BG</description>
@@ -327,7 +328,58 @@
             <font>font12</font>
             <textcolor>ffa9d0f7</textcolor>            
             <label>#Youtube.fm.Translation.RelatedVideos.Label</label>
-        </control>                
+        </control>         
+      <control>
+        <description>composite control consisting of a list control and a thumbnail panel</description>
+        <type>facadeview</type>
+        <id>50</id>
+	        <control>
+    <description>listcontrol</description>
+    <type>listcontrol</type>
+    <id>50</id>
+    <scrollOffset>2</scrollOffset>
+  </control>
+
+		  <control>
+          <description>Filmstrip view</description>
+          <type>filmstrip</type>
+          <dimColor>90ffffff</dimColor>
+          <id>50</id>
+          <posX>100</posX>
+          <posY>500</posY>          
+          <onup>2</onup>
+          <ondown>2</ondown>
+          <scrollOffset>2</scrollOffset>
+          <width>1180</width>
+          <height>576</height>
+          <thumbWidth>100</thumbWidth>
+          <thumbHeight>100</thumbHeight>
+          <thumbPosX>4</thumbPosX>
+          <thumbPosY>4</thumbPosY>
+          <itemWidth>120</itemWidth>
+          <itemHeight>85</itemHeight>
+          <textureWidth>150</textureWidth>
+          <textureHeight>52</textureHeight>
+          <thumbs flipY="true" diffuse="Thumb_Mask.png">
+          </thumbs>
+          <showFrame>no</showFrame>
+          <showFolder>no</showFolder>
+          <showBackGround>no</showBackGround>
+          <showInfoImage>no</showInfoImage>
+          <spinPosX>565</spinPosX>
+          <spinPosY>685</spinPosY>
+          <spinAlign>center</spinAlign>
+          <spinColor>ff006698</spinColor>
+          <spinWidth>50</spinWidth>
+          <spinHeight>37</spinHeight>
+          <textureUp>arrow_round_right_nofocus.png</textureUp>
+          <textureDown>arrow_round_left_nofocus.png</textureDown>
+          <textureUpFocus>arrow_round_right_focus.png</textureUpFocus>
+          <textureDownFocus>arrow_round_left_focus.png</textureDownFocus>
+          <thumbAnimation effect="zoom" start="100,100" end="180,180" time="700" tween="circle" ease="inout">focus</thumbAnimation>
+          <thumbAnimation effect="zoom" start="170,170" end="100,100" time="900" tween="back" ease="inout">unfocus</thumbAnimation>
+        </control>
+
         <control>
             <id>50</id>
             <description>Related Videos List</description>
@@ -376,5 +428,7 @@
             <textureUpFocus>page_up_focus.png</textureUpFocus>
             <textureDownFocus>page_down_focus.png</textureDownFocus>
         </control>                
+      
+	  </control> 		
     </controls>
 </window>

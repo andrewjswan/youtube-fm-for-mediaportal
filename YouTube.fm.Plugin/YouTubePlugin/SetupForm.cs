@@ -53,7 +53,7 @@ namespace YouTubePlugin
       _settings.FanartDir = textBox_fanartdir.Text;
       _settings.LoadOnlineFanart = checkBox1.Checked;
       _settings.OldStyleHome = chk_oldstyle.Checked;
-      
+      _settings.CacheDir = txt_cachedir.Text;
       _settings.LastFmUser = txt_lastfm_user.Text;
       _settings.LastFmPass = txt_lastfm_pass.Text;
       _settings.LastFmNowPlay = chk_lastfm_nowplay.Checked;
@@ -101,7 +101,7 @@ namespace YouTubePlugin
       textBox_fanartdir.Text = _settings.FanartDir;
       checkBox1.Checked = _settings.LoadOnlineFanart;
       chk_oldstyle.Checked = _settings.OldStyleHome;
-
+      txt_cachedir.Text = _settings.CacheDir;
       txt_lastfm_user.Text = _settings.LastFmUser;
       txt_lastfm_pass.Text = _settings.LastFmPass;
       chk_lastfm_nowplay.Checked = _settings.LastFmNowPlay;
@@ -505,6 +505,32 @@ namespace YouTubePlugin
       catch (Exception)
       {
       }
+    }
+
+    private void button10_Click(object sender, EventArgs e)
+    {
+      folderBrowserDialog1.SelectedPath = txt_cachedir.Text;
+      if(folderBrowserDialog1.ShowDialog()==DialogResult.OK)
+      {
+        txt_cachedir.Text = folderBrowserDialog1.SelectedPath;
+      }
+    }
+
+    private void btn_empty_cache_Click(object sender, EventArgs e)
+    {
+      string[] files = Directory.GetFiles(txt_cachedir.Text, "youtubevideos-*.jpg");
+      foreach (string file in files)
+      {
+        try
+        {
+          File.Delete(file);
+        }
+        catch (Exception ex)
+        {
+          Log.Error(ex);
+        }
+      }
+      MessageBox.Show("Operation done !");
     }
 
   }

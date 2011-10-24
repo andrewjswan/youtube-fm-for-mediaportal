@@ -114,8 +114,6 @@ namespace YouTubePlugin
 
     public string PluginName { get; set; }
 
-    //public string Region { get; set; }
-
     public List<string> SearchHistory { get; set; }
 
     public int InitialDisplay { get; set; }
@@ -125,6 +123,7 @@ namespace YouTubePlugin
     public string Password { get; set; }
 
     public string FanartDir { get; set; }
+    public string CacheDir { get; set; }
 
     public bool LoadOnlineFanart { get; set; }
 
@@ -181,8 +180,11 @@ namespace YouTubePlugin
         this.ShowNowPlaying = xmlreader.GetValueAsBool("youtubevideos", "ShowNowPlaying", true);
         this.UseExtremFilter = xmlreader.GetValueAsBool("youtubevideos", "UseExtremFilter", false);
         this.LoadOnlineFanart = xmlreader.GetValueAsBool("youtubevideos", "LoadOnlineFanart", true);
+        this.CacheDir = xmlreader.GetValueAsString("youtubevideos", "CacheDir", string.Empty);
         this.FanartDir = xmlreader.GetValueAsString("youtubevideos", "FanartFolder", string.Empty);
-        this.DownloadFolder = xmlreader.GetValueAsString("youtubevideos", "DownloadFolder", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Videos");
+        this.DownloadFolder = xmlreader.GetValueAsString("youtubevideos", "DownloadFolder",
+                                                         Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                                                         "\\My Videos");
         this.OldStyleHome = xmlreader.GetValueAsBool("youtubevideos", "OldStyleHome", false);
         this.LastFmUser = xmlreader.GetValueAsString("youtubevideos", "LastFmUser", string.Empty);
         this.LastFmPass = xmlreader.GetValueAsString("youtubevideos", "LastFmPass", string.Empty);
@@ -193,6 +195,14 @@ namespace YouTubePlugin
           if (!string.IsNullOrEmpty(s.Trim()))
             SearchHistory.Add(s);
         }
+      }
+      if (string.IsNullOrEmpty(CacheDir))
+      {
+        CacheDir = Config.GetFile(Config.Dir.Thumbs, @"Youtube.Fm\Cache");
+      }
+      if (string.IsNullOrEmpty(FanartDir))
+      {
+        FanartDir = Config.GetFile(Config.Dir.Thumbs, @"Youtube.Fm\Fanart\", "%artist%.png");
       }
       this.LocalFile.Load();
       MainMenu.Load("youtubefmMenu.xml");
@@ -211,6 +221,7 @@ namespace YouTubePlugin
         xmlwriter.SetValue("youtubevideos", "VideoQuality", this.VideoQuality);
         xmlwriter.SetValue("youtubevideos", "DownloadFolder", this.DownloadFolder);
         xmlwriter.SetValue("youtubevideos", "FanartFolder", this.FanartDir);
+        xmlwriter.SetValue("youtubevideos", "CacheDir", this.CacheDir);
         xmlwriter.SetValue("youtubevideos", "LastFmUser", this.LastFmUser);
         xmlwriter.SetValue("youtubevideos", "LastFmPass", this.LastFmPass);
         xmlwriter.SetValueAsBool("youtubevideos", "LastFmNowPlay", this.LastFmNowPlay);
@@ -229,6 +240,21 @@ namespace YouTubePlugin
           his += s + "|";
         }
         xmlwriter.SetValue("youtubevideos", "searchhistory", his);
+      }
+      try
+      {
+        if (!Directory.Exists(CacheDir))
+        {
+          Directory.CreateDirectory(CacheDir);
+        }
+        if (!Directory.Exists(Path.GetDirectoryName(FanartDir)))
+        {
+          Directory.CreateDirectory(Path.GetDirectoryName(FanartDir));
+        }
+      }
+      catch (Exception ex)
+      {
+        Log.Error(ex);
       }
       this.LocalFile.Save();
       MainMenu.Save("youtubefmMenu.xml");

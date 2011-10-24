@@ -1143,7 +1143,11 @@ namespace YouTubePlugin
 
     private void item_OnItemSelected(GUIListItem item, GUIControl parent)
     {
-      YouTubeEntry vid = item.MusicTag as YouTubeEntry ;
+      if (item == null || parent == null)
+        return;
+      //YouTubeEntry vid = item.MusicTag as YouTubeEntry ;
+      YouTubeEntry vid = listControl.SelectedListItem.MusicTag as YouTubeEntry;
+      
       if (vid != null)
       {
         SetLabels(vid, "Curent");

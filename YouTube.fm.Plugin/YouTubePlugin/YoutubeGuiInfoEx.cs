@@ -75,7 +75,7 @@ namespace YouTubePlugin
       if (string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name").Trim()))
         return;
 
-      string file = Youtube2MP._settings.FanartDir.Replace("%artist%", GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+      string file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
 
       if (File.Exists(file) && imgFanArt != null)
       {
@@ -89,7 +89,7 @@ namespace YouTubePlugin
       if (Youtube2MP._settings.LoadOnlineFanart && !Client.IsBusy)
       {
         HTBFanArt fanart = new HTBFanArt();
-        file = GetFanArtImage(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+        //file = GetFanArtImage(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
         if (!File.Exists(file))
         {
           fanart.Search(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));

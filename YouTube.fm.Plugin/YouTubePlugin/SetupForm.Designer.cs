@@ -98,23 +98,28 @@ namespace YouTubePlugin
       this.txt_lastfm_user = new System.Windows.Forms.TextBox();
       this.label12 = new System.Windows.Forms.Label();
       this.label11 = new System.Windows.Forms.Label();
+      this.tabPage5 = new System.Windows.Forms.TabPage();
+      this.groupBox7 = new System.Windows.Forms.GroupBox();
+      this.linkLabel5 = new System.Windows.Forms.LinkLabel();
+      this.linkLabel4 = new System.Windows.Forms.LinkLabel();
+      this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+      this.groupBox6 = new System.Windows.Forms.GroupBox();
+      this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+      this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+      this.groupBox5 = new System.Windows.Forms.GroupBox();
+      this.label16 = new System.Windows.Forms.Label();
+      this.label15 = new System.Windows.Forms.Label();
+      this.label14 = new System.Windows.Forms.Label();
+      this.label13 = new System.Windows.Forms.Label();
+      this.label10 = new System.Windows.Forms.Label();
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-      this.tabPage5 = new System.Windows.Forms.TabPage();
-      this.label10 = new System.Windows.Forms.Label();
-      this.groupBox5 = new System.Windows.Forms.GroupBox();
-      this.label13 = new System.Windows.Forms.Label();
-      this.label14 = new System.Windows.Forms.Label();
-      this.label15 = new System.Windows.Forms.Label();
-      this.label16 = new System.Windows.Forms.Label();
-      this.groupBox6 = new System.Windows.Forms.GroupBox();
-      this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-      this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-      this.groupBox7 = new System.Windows.Forms.GroupBox();
-      this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-      this.linkLabel4 = new System.Windows.Forms.LinkLabel();
-      this.linkLabel5 = new System.Windows.Forms.LinkLabel();
+      this.groupBox8 = new System.Windows.Forms.GroupBox();
+      this.txt_cachedir = new System.Windows.Forms.TextBox();
+      this.label17 = new System.Windows.Forms.Label();
+      this.button10 = new System.Windows.Forms.Button();
+      this.btn_empty_cache = new System.Windows.Forms.Button();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
@@ -128,9 +133,10 @@ namespace YouTubePlugin
       this.tabPage7.SuspendLayout();
       this.groupBox4.SuspendLayout();
       this.tabPage5.SuspendLayout();
-      this.groupBox5.SuspendLayout();
-      this.groupBox6.SuspendLayout();
       this.groupBox7.SuspendLayout();
+      this.groupBox6.SuspendLayout();
+      this.groupBox5.SuspendLayout();
+      this.groupBox8.SuspendLayout();
       this.SuspendLayout();
       // 
       // button1
@@ -676,6 +682,7 @@ namespace YouTubePlugin
       // 
       // tabPage4
       // 
+      this.tabPage4.Controls.Add(this.groupBox8);
       this.tabPage4.Controls.Add(this.groupBox3);
       this.tabPage4.Controls.Add(this.button_getdir);
       this.tabPage4.Controls.Add(this.textBox_downloaddir);
@@ -864,14 +871,6 @@ namespace YouTubePlugin
       this.label11.TabIndex = 9;
       this.label11.Text = "Password";
       // 
-      // saveFileDialog1
-      // 
-      this.saveFileDialog1.DefaultExt = "xml";
-      // 
-      // openFileDialog1
-      // 
-      this.openFileDialog1.FileName = "openFileDialog1";
-      // 
       // tabPage5
       // 
       this.tabPage5.Controls.Add(this.groupBox7);
@@ -885,15 +884,83 @@ namespace YouTubePlugin
       this.tabPage5.Text = "About";
       this.tabPage5.UseVisualStyleBackColor = true;
       // 
-      // label10
+      // groupBox7
       // 
-      this.label10.AutoSize = true;
-      this.label10.Location = new System.Drawing.Point(6, 16);
-      this.label10.Name = "label10";
-      this.label10.Size = new System.Drawing.Size(491, 13);
-      this.label10.TabIndex = 0;
-      this.label10.Text = "Youtube.Fm is a plugin for browsing Youtube music videos and generate dinamyc pla" +
-          "ylist using Last.Fm\r\n";
+      this.groupBox7.Controls.Add(this.linkLabel5);
+      this.groupBox7.Controls.Add(this.linkLabel4);
+      this.groupBox7.Controls.Add(this.linkLabel3);
+      this.groupBox7.Location = new System.Drawing.Point(388, 119);
+      this.groupBox7.Name = "groupBox7";
+      this.groupBox7.Size = new System.Drawing.Size(430, 100);
+      this.groupBox7.TabIndex = 3;
+      this.groupBox7.TabStop = false;
+      this.groupBox7.Text = "Used web services";
+      // 
+      // linkLabel5
+      // 
+      this.linkLabel5.AutoSize = true;
+      this.linkLabel5.Location = new System.Drawing.Point(17, 72);
+      this.linkLabel5.Name = "linkLabel5";
+      this.linkLabel5.Size = new System.Drawing.Size(50, 13);
+      this.linkLabel5.TabIndex = 2;
+      this.linkLabel5.TabStop = true;
+      this.linkLabel5.Text = "Billboard.";
+      this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked);
+      // 
+      // linkLabel4
+      // 
+      this.linkLabel4.AutoSize = true;
+      this.linkLabel4.Location = new System.Drawing.Point(17, 47);
+      this.linkLabel4.Name = "linkLabel4";
+      this.linkLabel4.Size = new System.Drawing.Size(44, 13);
+      this.linkLabel4.TabIndex = 1;
+      this.linkLabel4.TabStop = true;
+      this.linkLabel4.Text = "Last.Fm";
+      this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
+      // 
+      // linkLabel3
+      // 
+      this.linkLabel3.AutoSize = true;
+      this.linkLabel3.Location = new System.Drawing.Point(17, 25);
+      this.linkLabel3.Name = "linkLabel3";
+      this.linkLabel3.Size = new System.Drawing.Size(47, 13);
+      this.linkLabel3.TabIndex = 0;
+      this.linkLabel3.TabStop = true;
+      this.linkLabel3.Text = "Youtube";
+      this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
+      // 
+      // groupBox6
+      // 
+      this.groupBox6.Controls.Add(this.linkLabel2);
+      this.groupBox6.Controls.Add(this.linkLabel1);
+      this.groupBox6.Location = new System.Drawing.Point(7, 119);
+      this.groupBox6.Name = "groupBox6";
+      this.groupBox6.Size = new System.Drawing.Size(330, 100);
+      this.groupBox6.TabIndex = 2;
+      this.groupBox6.TabStop = false;
+      this.groupBox6.Text = "Project sites";
+      // 
+      // linkLabel2
+      // 
+      this.linkLabel2.AutoSize = true;
+      this.linkLabel2.Location = new System.Drawing.Point(6, 47);
+      this.linkLabel2.Name = "linkLabel2";
+      this.linkLabel2.Size = new System.Drawing.Size(96, 13);
+      this.linkLabel2.TabIndex = 1;
+      this.linkLabel2.TabStop = true;
+      this.linkLabel2.Text = "Project forum page";
+      this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+      // 
+      // linkLabel1
+      // 
+      this.linkLabel1.AutoSize = true;
+      this.linkLabel1.Location = new System.Drawing.Point(6, 25);
+      this.linkLabel1.Name = "linkLabel1";
+      this.linkLabel1.Size = new System.Drawing.Size(96, 13);
+      this.linkLabel1.TabIndex = 0;
+      this.linkLabel1.TabStop = true;
+      this.linkLabel1.Text = "Project home page";
+      this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
       // 
       // groupBox5
       // 
@@ -909,15 +976,23 @@ namespace YouTubePlugin
       this.groupBox5.TabStop = false;
       this.groupBox5.Text = "About";
       // 
-      // label13
+      // label16
       // 
-      this.label13.AutoSize = true;
-      this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label13.Location = new System.Drawing.Point(6, 39);
-      this.label13.Name = "label13";
-      this.label13.Size = new System.Drawing.Size(73, 13);
-      this.label13.TabIndex = 1;
-      this.label13.Text = "Developer :";
+      this.label16.AutoSize = true;
+      this.label16.Location = new System.Drawing.Point(143, 63);
+      this.label16.Name = "label16";
+      this.label16.Size = new System.Drawing.Size(83, 13);
+      this.label16.TabIndex = 4;
+      this.label16.Text = "Ysmp, MP users";
+      // 
+      // label15
+      // 
+      this.label15.AutoSize = true;
+      this.label15.Location = new System.Drawing.Point(143, 39);
+      this.label15.Name = "label15";
+      this.label15.Size = new System.Drawing.Size(38, 13);
+      this.label15.TabIndex = 3;
+      this.label15.Text = "Dukus";
       // 
       // label14
       // 
@@ -929,101 +1004,82 @@ namespace YouTubePlugin
       this.label14.TabIndex = 2;
       this.label14.Text = "Skinning and testing :";
       // 
-      // label15
+      // label13
       // 
-      this.label15.AutoSize = true;
-      this.label15.Location = new System.Drawing.Point(143, 39);
-      this.label15.Name = "label15";
-      this.label15.Size = new System.Drawing.Size(38, 13);
-      this.label15.TabIndex = 3;
-      this.label15.Text = "Dukus";
+      this.label13.AutoSize = true;
+      this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label13.Location = new System.Drawing.Point(6, 39);
+      this.label13.Name = "label13";
+      this.label13.Size = new System.Drawing.Size(73, 13);
+      this.label13.TabIndex = 1;
+      this.label13.Text = "Developer :";
       // 
-      // label16
+      // label10
       // 
-      this.label16.AutoSize = true;
-      this.label16.Location = new System.Drawing.Point(143, 63);
-      this.label16.Name = "label16";
-      this.label16.Size = new System.Drawing.Size(83, 13);
-      this.label16.TabIndex = 4;
-      this.label16.Text = "Ysmp, MP users";
+      this.label10.AutoSize = true;
+      this.label10.Location = new System.Drawing.Point(6, 16);
+      this.label10.Name = "label10";
+      this.label10.Size = new System.Drawing.Size(491, 13);
+      this.label10.TabIndex = 0;
+      this.label10.Text = "Youtube.Fm is a plugin for browsing Youtube music videos and generate dinamyc pla" +
+          "ylist using Last.Fm\r\n";
       // 
-      // groupBox6
+      // saveFileDialog1
       // 
-      this.groupBox6.Controls.Add(this.linkLabel2);
-      this.groupBox6.Controls.Add(this.linkLabel1);
-      this.groupBox6.Location = new System.Drawing.Point(7, 119);
-      this.groupBox6.Name = "groupBox6";
-      this.groupBox6.Size = new System.Drawing.Size(330, 100);
-      this.groupBox6.TabIndex = 2;
-      this.groupBox6.TabStop = false;
-      this.groupBox6.Text = "Project sites";
+      this.saveFileDialog1.DefaultExt = "xml";
       // 
-      // linkLabel1
+      // openFileDialog1
       // 
-      this.linkLabel1.AutoSize = true;
-      this.linkLabel1.Location = new System.Drawing.Point(6, 25);
-      this.linkLabel1.Name = "linkLabel1";
-      this.linkLabel1.Size = new System.Drawing.Size(96, 13);
-      this.linkLabel1.TabIndex = 0;
-      this.linkLabel1.TabStop = true;
-      this.linkLabel1.Text = "Project home page";
-      this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+      this.openFileDialog1.FileName = "openFileDialog1";
       // 
-      // linkLabel2
+      // groupBox8
       // 
-      this.linkLabel2.AutoSize = true;
-      this.linkLabel2.Location = new System.Drawing.Point(6, 47);
-      this.linkLabel2.Name = "linkLabel2";
-      this.linkLabel2.Size = new System.Drawing.Size(96, 13);
-      this.linkLabel2.TabIndex = 1;
-      this.linkLabel2.TabStop = true;
-      this.linkLabel2.Text = "Project forum page";
-      this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+      this.groupBox8.Controls.Add(this.btn_empty_cache);
+      this.groupBox8.Controls.Add(this.button10);
+      this.groupBox8.Controls.Add(this.label17);
+      this.groupBox8.Controls.Add(this.txt_cachedir);
+      this.groupBox8.Location = new System.Drawing.Point(10, 185);
+      this.groupBox8.Name = "groupBox8";
+      this.groupBox8.Size = new System.Drawing.Size(517, 100);
+      this.groupBox8.TabIndex = 5;
+      this.groupBox8.TabStop = false;
+      this.groupBox8.Text = "Local image cache";
       // 
-      // groupBox7
+      // txt_cachedir
       // 
-      this.groupBox7.Controls.Add(this.linkLabel5);
-      this.groupBox7.Controls.Add(this.linkLabel4);
-      this.groupBox7.Controls.Add(this.linkLabel3);
-      this.groupBox7.Location = new System.Drawing.Point(388, 119);
-      this.groupBox7.Name = "groupBox7";
-      this.groupBox7.Size = new System.Drawing.Size(430, 100);
-      this.groupBox7.TabIndex = 3;
-      this.groupBox7.TabStop = false;
-      this.groupBox7.Text = "Used web services";
+      this.txt_cachedir.Location = new System.Drawing.Point(6, 41);
+      this.txt_cachedir.Name = "txt_cachedir";
+      this.txt_cachedir.Size = new System.Drawing.Size(462, 20);
+      this.txt_cachedir.TabIndex = 0;
       // 
-      // linkLabel3
+      // label17
       // 
-      this.linkLabel3.AutoSize = true;
-      this.linkLabel3.Location = new System.Drawing.Point(17, 25);
-      this.linkLabel3.Name = "linkLabel3";
-      this.linkLabel3.Size = new System.Drawing.Size(47, 13);
-      this.linkLabel3.TabIndex = 0;
-      this.linkLabel3.TabStop = true;
-      this.linkLabel3.Text = "Youtube";
-      this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
+      this.label17.AutoSize = true;
+      this.label17.Location = new System.Drawing.Point(6, 25);
+      this.label17.Name = "label17";
+      this.label17.Size = new System.Drawing.Size(67, 13);
+      this.label17.TabIndex = 1;
+      this.label17.Text = "Cache folder";
       // 
-      // linkLabel4
+      // button10
       // 
-      this.linkLabel4.AutoSize = true;
-      this.linkLabel4.Location = new System.Drawing.Point(17, 47);
-      this.linkLabel4.Name = "linkLabel4";
-      this.linkLabel4.Size = new System.Drawing.Size(44, 13);
-      this.linkLabel4.TabIndex = 1;
-      this.linkLabel4.TabStop = true;
-      this.linkLabel4.Text = "Last.Fm";
-      this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
+      this.button10.Location = new System.Drawing.Point(478, 41);
+      this.button10.Name = "button10";
+      this.button10.Size = new System.Drawing.Size(30, 20);
+      this.button10.TabIndex = 6;
+      this.button10.Text = "...";
+      this.button10.UseVisualStyleBackColor = true;
+      this.button10.Click += new System.EventHandler(this.button10_Click);
       // 
-      // linkLabel5
+      // btn_empty_cache
       // 
-      this.linkLabel5.AutoSize = true;
-      this.linkLabel5.Location = new System.Drawing.Point(17, 72);
-      this.linkLabel5.Name = "linkLabel5";
-      this.linkLabel5.Size = new System.Drawing.Size(50, 13);
-      this.linkLabel5.TabIndex = 2;
-      this.linkLabel5.TabStop = true;
-      this.linkLabel5.Text = "Billboard.";
-      this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked);
+      this.btn_empty_cache.Location = new System.Drawing.Point(6, 67);
+      this.btn_empty_cache.Name = "btn_empty_cache";
+      this.btn_empty_cache.Size = new System.Drawing.Size(125, 23);
+      this.btn_empty_cache.TabIndex = 7;
+      this.btn_empty_cache.Text = "Empty cache";
+      this.btn_empty_cache.UseVisualStyleBackColor = true;
+      this.btn_empty_cache.Click += new System.EventHandler(this.btn_empty_cache_Click);
       // 
       // SetupForm
       // 
@@ -1059,12 +1115,14 @@ namespace YouTubePlugin
       this.groupBox4.ResumeLayout(false);
       this.groupBox4.PerformLayout();
       this.tabPage5.ResumeLayout(false);
-      this.groupBox5.ResumeLayout(false);
-      this.groupBox5.PerformLayout();
-      this.groupBox6.ResumeLayout(false);
-      this.groupBox6.PerformLayout();
       this.groupBox7.ResumeLayout(false);
       this.groupBox7.PerformLayout();
+      this.groupBox6.ResumeLayout(false);
+      this.groupBox6.PerformLayout();
+      this.groupBox5.ResumeLayout(false);
+      this.groupBox5.PerformLayout();
+      this.groupBox8.ResumeLayout(false);
+      this.groupBox8.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -1158,5 +1216,10 @@ namespace YouTubePlugin
     private System.Windows.Forms.LinkLabel linkLabel3;
     private System.Windows.Forms.LinkLabel linkLabel4;
     private System.Windows.Forms.LinkLabel linkLabel5;
+    private System.Windows.Forms.GroupBox groupBox8;
+    private System.Windows.Forms.Button btn_empty_cache;
+    private System.Windows.Forms.Button button10;
+    private System.Windows.Forms.Label label17;
+    private System.Windows.Forms.TextBox txt_cachedir;
   }
 }

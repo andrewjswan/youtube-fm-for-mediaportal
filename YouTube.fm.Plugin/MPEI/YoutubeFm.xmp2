@@ -220,14 +220,7 @@
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
               <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>skin\DefaultWide\youtubeinfoex.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{7fb69b59-3fd9-40d8-b012-1fed89398675}-youtubeinfoex.xml</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\youtubeinfoex.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>skin\DefaultWide\youtube.common.logos.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{ec20d460-c6fe-4845-be07-2fdafdb0b00d}-youtube.common.logos.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\youtube.common.logos.xml</DestinationFilename>
@@ -412,13 +405,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>7</Minor>
       <Build>4</Build>
-      <Revision>169</Revision>
+      <Revision>176</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.4.169.mpe1</OnlineLocation>
-    <ReleaseDate>2011-10-20T17:28:13</ReleaseDate>
+    <ReleaseDate>2011-10-22T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -585,7 +578,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{b02d4856-ad1c-4838-8aef-fbfe418283c7}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{7c57feb1-3495-420b-bb08-4f5cdbfdb009}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
@@ -600,16 +593,6 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <DestinationFilename>%Skin%\DefaultWide</DestinationFilename>
         <Folder>skin\DefaultWide</Folder>
         <Group>Default</Group>
-        <Recursive>true</Recursive>
-      </FolderGroup>
-      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName />
-        <ZipFileName>Installer{GenericSkinFile}\{4aaa0bd3-00c6-4b76-bffd-fe36c5ca930e}-</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide</DestinationFilename>
-        <Folder>skin\DefaultWide</Folder>
-        <Group>Default Skin</Group>
         <Recursive>true</Recursive>
       </FolderGroup>
       <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
