@@ -1049,6 +1049,14 @@ namespace YouTubePlugin
         item.IsFolder = listItem.IsFolder;
         item.Duration = listItem.Duration;
         item.Rating = listItem.Rating;
+        
+        if (string.IsNullOrEmpty(listItem.DefaultImage))
+        {
+          string file = GUIGraphicsContext.Skin + "\\Media\\Youtube.Fm\\" + listItem.Title + ".png";
+          if (File.Exists(file))
+            listItem.DefaultImage = file;
+        }
+
         if (string.IsNullOrEmpty(listItem.DefaultImage))
         {
           Utils.SetDefaultIcons(item);

@@ -93,6 +93,12 @@ namespace YouTubePlugin
         if (string.IsNullOrEmpty(itemEntry.ParentFolder))
           res.Add(SiteItemProvider[itemEntry.Provider].HomeGetList(itemEntry));
       }
+      foreach (GenericListItem genericListItem in res.Items)
+      {
+        string file = GUIGraphicsContext.Skin + "\\Media\\Youtube.Fm\\" + genericListItem.Title + ".png";
+        if (File.Exists(file))
+          genericListItem.DefaultImage = file;
+      }
       return res;
     }
 

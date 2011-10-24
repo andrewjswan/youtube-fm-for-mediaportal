@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MediaPortal.GUI.Library;
 using Raccoom.Xml;
 using YouTubePlugin.Class.Artist;
 

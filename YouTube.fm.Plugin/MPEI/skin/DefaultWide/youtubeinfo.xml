@@ -3,7 +3,7 @@
     <id>29052</id>
     <defaultcontrol>5555</defaultcontrol>    
     <allowoverlay>no</allowoverlay>   
-    <define>#viewmode:filmstrip</define>    
+    <define>#viewmode:coverflow</define>    
     <controls>
     <control>
       <description>BG</description>
@@ -69,7 +69,7 @@
             <description>Selected Item Label / similar Artist/Related Videos</description>
             <type>fadelabel</type>
             <posX>1244</posX>
-            <posY>460</posY>
+            <posY>440</posY>
             <width>550</width>
             <font>font15</font>
             <textcolor>ffffffff</textcolor>
@@ -81,7 +81,7 @@
 	    <type>button</type>
 	    <id>5555</id>
 	    <posX>687</posX>
-	    <posY>336</posY>
+	    <posY>326</posY>
 	    <width>80</width>
 	    <height>50</height>
 	    <textureFocus>minimize_enabled.png</textureFocus>
@@ -98,7 +98,7 @@
 	    <type>button</type>
 	    <id>96</id>
 	    <posX>687</posX>
-	    <posY>384</posY>
+	    <posY>374</posY>
 	    <width>80</width>
 	    <height>50</height>
             <textureFocus>nav_refresh_focus.png</textureFocus>
@@ -115,7 +115,7 @@
             <type>videowindow</type>
             <visible>Player.HasVideo</visible>
             <posX>81</posX>
-            <posY>120</posY>
+            <posY>110</posY>
             <width>537</width>
             <height>300</height>
             <keepaspectratio>yes</keepaspectratio>
@@ -130,7 +130,7 @@
             <type>image</type>
             <id>0</id>
             <posX>50</posX>
-            <posY>90</posY>
+            <posY>80</posY>
             <width>600</width>
             <height>360</height>
             <texture>LCD.png</texture>            
@@ -141,7 +141,7 @@
             <type>image</type>
             <id>0</id>
             <posX>590</posX>
-            <posY>460</posY>
+            <posY>450</posY>
             <width>70</width>
             <height>35</height>
             <keepaspectratio>yes</keepaspectratio>            
@@ -154,7 +154,7 @@
             <description>Artist Name Value</description>
             <type>fadelabel</type>
             <posX>695</posX>
-            <posY>100</posY>
+            <posY>90</posY>
             <width>550</width>         
             <font>font14</font>
             <textcolor>ffffffff</textcolor>            
@@ -165,7 +165,7 @@
             <description>Video Title Value</description>
             <type>fadelabel</type>
             <posX>695</posX>
-            <posY>135</posY>
+            <posY>125</posY>
             <width>550</width>
             <font>font14</font>
             <textcolor>ffffffff</textcolor>            
@@ -176,7 +176,7 @@
             <description>Star Rating Value</description>
             <type>imagelist</type>
             <posX>695</posX>
-            <posY>177</posY>
+            <posY>167</posY>
             <width>142</width>
             <height>40</height>
             <textureHeight>25</textureHeight>
@@ -196,8 +196,8 @@
             <description>Like /Dislike Value</description>
             <type>fadelabel</type>
             <posX>860</posX>
-            <posY>175</posY>
-            <width>370</width>         
+            <posY>165</posY>
+            <width>390</width>         
             <font>font11</font>
             <textcolor>90ffffff</textcolor>            
             <label>#Youtube.fm.NowPlaying.Video.NumLike/#Youtube.fm.Translation.Like.Label . #Youtube.fm.NowPlaying.Video.NumDisLike/#Youtube.fm.Translation.Dislike.Label</label>
@@ -207,7 +207,7 @@
             <description>ViewCount Label</description>
             <type>label</type>
             <posX>695</posX>
-            <posY>212</posY>
+            <posY>202</posY>
             <width>250</width>         
             <font>font11</font>
             <textcolor>ffa9d0f7</textcolor>            
@@ -218,7 +218,7 @@
             <description>ViewCount Value</description>
             <type>label</type>
             <posX>695</posX>
-            <posY>238</posY>
+            <posY>228</posY>
             <width>250</width>         
             <font>font12</font>
             <textcolor>ffffffff</textcolor>            
@@ -229,7 +229,7 @@
             <description>FavoriteCount Label</description>
             <type>label</type>
             <posX>695</posX>
-            <posY>272</posY>
+            <posY>262</posY>
             <width>250</width>         
             <font>font11</font>
             <textcolor>ffa9d0f7</textcolor>            
@@ -240,7 +240,7 @@
             <description>FavoriteCount Value</description>
             <type>label</type>
             <posX>695</posX>
-            <posY>298</posY>
+            <posY>288</posY>
             <width>250</width>         
             <font>font12</font>
             <textcolor>ffffffff</textcolor>            
@@ -251,7 +251,7 @@
             <type>progress</type>
             <id>118</id>
             <posX>196</posX>
-            <posY>463</posY>
+            <posY>453</posY>
             <width>296</width>
             <height>27</height>            
             <texturebg>osd_progress_background.png</texturebg>
@@ -269,7 +269,7 @@
             <type>label</type>
             <description>Track Progress/Currentplaytime</description>            
             <posX>181</posX>
-            <posY>460</posY>
+            <posY>450</posY>
             <label>#currentplaytime</label>
             <font>font14</font>
             <align>right</align>
@@ -280,7 +280,7 @@
             <type>label</type>
             <description>Track Progress/Duration</description>            
             <posX>504</posX>
-            <posY>460</posY>
+            <posY>450</posY>
             <label>#Youtube.fm.NowPlaying.Video.Duration</label>
             <font>font14</font>
             <align>left</align>
@@ -291,7 +291,7 @@
             <description>Similar Artists Label</description>
             <type>label</type>
             <posX>940</posX>
-            <posY>212</posY>
+            <posY>202</posY>
             <font>font11</font>
             <textcolor>ffa9d0f7</textcolor>            
             <label>#Youtube.fm.Translation.SimilarArtists.Label</label>
@@ -302,7 +302,7 @@
             <type>listcontrol</type>            
             <onleft>5555</onleft>               
             <posX>940</posX>
-            <posY>240</posY>
+            <posY>230</posY>
             <width>320</width>
             <height>260</height>
             <font>font11</font>
@@ -329,106 +329,63 @@
             <textcolor>ffa9d0f7</textcolor>            
             <label>#Youtube.fm.Translation.RelatedVideos.Label</label>
         </control>         
-      <control>
-        <description>composite control consisting of a list control and a thumbnail panel</description>
-        <type>facadeview</type>
-        <id>50</id>
-	        <control>
-    <description>listcontrol</description>
-    <type>listcontrol</type>
-    <id>50</id>
-    <scrollOffset>2</scrollOffset>
-  </control>
-
-		  <control>
-          <description>Filmstrip view</description>
-          <type>filmstrip</type>
-          <dimColor>90ffffff</dimColor>
-          <id>50</id>
-          <posX>100</posX>
-          <posY>500</posY>          
-          <onup>2</onup>
-          <ondown>2</ondown>
-          <scrollOffset>2</scrollOffset>
-          <width>1180</width>
-          <height>576</height>
-          <thumbWidth>100</thumbWidth>
-          <thumbHeight>100</thumbHeight>
-          <thumbPosX>4</thumbPosX>
-          <thumbPosY>4</thumbPosY>
-          <itemWidth>120</itemWidth>
-          <itemHeight>85</itemHeight>
-          <textureWidth>150</textureWidth>
-          <textureHeight>52</textureHeight>
-          <thumbs flipY="true" diffuse="Thumb_Mask.png">
-          </thumbs>
-          <showFrame>no</showFrame>
-          <showFolder>no</showFolder>
-          <showBackGround>no</showBackGround>
-          <showInfoImage>no</showInfoImage>
-          <spinPosX>565</spinPosX>
-          <spinPosY>685</spinPosY>
-          <spinAlign>center</spinAlign>
-          <spinColor>ff006698</spinColor>
-          <spinWidth>50</spinWidth>
-          <spinHeight>37</spinHeight>
-          <textureUp>arrow_round_right_nofocus.png</textureUp>
-          <textureDown>arrow_round_left_nofocus.png</textureDown>
-          <textureUpFocus>arrow_round_right_focus.png</textureUpFocus>
-          <textureDownFocus>arrow_round_left_focus.png</textureDownFocus>
-          <thumbAnimation effect="zoom" start="100,100" end="180,180" time="700" tween="circle" ease="inout">focus</thumbAnimation>
-          <thumbAnimation effect="zoom" start="170,170" end="100,100" time="900" tween="back" ease="inout">unfocus</thumbAnimation>
-        </control>
-
         <control>
+          <description>composite control consisting of a list control and a thumbnail panel</description>
+          <type>facadeview</type>
+          <id>50</id>
+	  <control>
+            <description>listcontrol</description>
+            <type>listcontrol</type>
             <id>50</id>
-            <description>Related Videos List</description>
-            <type>thumbnailpanel</type>
+            <scrollOffset>2</scrollOffset>
+          </control>
+	  <control>
+            <description>Cover Flow view</description>
+            <type>coverflow</type>
+            <colordiffuse>90ffffff</colordiffuse>
             <dimColor>90ffffff</dimColor>
-            <onleft>5555</onleft>
-            <onright>5555</onright>	    
-            <posX>60</posX>
-            <posY>533</posY>
-            <width>1190</width>
-            <height>217</height>
-            <scrollOffset>1</scrollOffset>
-            <renderFocusText>no</renderFocusText>
-            <renderUnfocusText>no</renderUnfocusText>
-            <itemWidth>170</itemWidth>
-            <itemHeight>180</itemHeight>
-            <textureWidth>157</textureWidth>
-            <textureHeight>120</textureHeight>
-            <thumbWidth>156</thumbWidth>
-            <thumbHeight>119</thumbHeight>
-            <thumbPosX>0</thumbPosX>
-            <thumbPosY>0</thumbPosY>
-            <itemWidthBig>235</itemWidthBig>
-            <itemHeightBig>240</itemHeightBig>
-            <thumbWidthBig>219</thumbWidthBig>
-            <thumbHeightBig>165</thumbHeightBig>            
-            <thumbPosXBig>0</thumbPosXBig>
-            <thumbPosYBig>0</thumbPosYBig>
-            <zoomXPixels>50</zoomXPixels>
-            <zoomYPixels>50</zoomYPixels>
-            <hideUnfocusTexture>yes</hideUnfocusTexture>          
-            <showFrame>true</showFrame>
-            <textureMask>Picturethumbmask.png</textureMask>
-            <frameNoFocus>Picturethumbframe.png</frameNoFocus>
-            <frameFocus>Picturethumbframe.png</frameFocus>
-            <imageFolder>-</imageFolder>
-            <imageFolderFocus>-</imageFolderFocus>
-            <keepaspectratio>yes</keepaspectratio> 
-            <spinCanFocus>no</spinCanFocus>
-            <spinPosX>1170</spinPosX>
-            <spinPoxY>670</spinPoxY>          
-            <dimColor>ffffffff</dimColor>                      
-            <enableFocusZoom>yes</enableFocusZoom>
-            <textureUp>page_up_nofocus.png</textureUp>
-            <textureDown>page_down_nofocus.png</textureDown>
-            <textureUpFocus>page_up_focus.png</textureUpFocus>
-            <textureDownFocus>page_down_focus.png</textureDownFocus>
-        </control>                
-      
-	  </control> 		
+            <id>50</id>
+            <posX>50</posX>
+            <posY>530</posY>
+            <width>1180</width>
+            <height>220</height>          
+            <onup>5555</onup>          
+            <selectedCard>0</selectedCard>
+            <cardWidth>230</cardWidth>
+            <cardHeight>150</cardHeight>
+            <thumbZoom>yes</thumbZoom>
+            <angle>45</angle>
+            <sideShift>200</sideShift>
+            <cardAlign>Center</cardAlign>
+            <cardVAlign>Top</cardVAlign>
+            <sideGap>80</sideGap>
+            <sideDepth>150</sideDepth>
+            <offsetY>0</offsetY>
+            <selectedOffsetY>0</selectedOffsetY>
+            <speed>8</speed>
+            <showBackground>no</showBackground>
+            <foreground>coverflow_foreground.png</foreground>
+            <showForeground>no</showForeground>
+            <showFrame>yes</showFrame>
+            <frame>Picture_cover2.png</frame>
+            <frameFocus>Picture_cover2.png</frameFocus>
+            <frameWidth>230</frameWidth>
+            <frameHeight>150</frameHeight>
+            <spinSpeed>8</spinSpeed>
+            <unfocusedAlpha>FF</unfocusedAlpha>
+            <folderPrefix>[</folderPrefix>
+            <folderSuffix>]</folderSuffix>
+            <shadowAngle>20</shadowAngle>
+            <shadowDistance>0</shadowDistance>
+            <shadowColor>FF000000</shadowColor>          
+            <pageSize>5</pageSize>
+            <cards flipY="yes" diffuse="Thumb_Mask.png" mask="Picturethumbmask.png">Picturethumbmask.png</cards>          
+            <subitems>
+              <subitem>
+                <![CDATA[                 <controls>            
+            </controls>]]></subitem>
+          </subitems>
+        </control>      
+      </control> 		
     </controls>
 </window>

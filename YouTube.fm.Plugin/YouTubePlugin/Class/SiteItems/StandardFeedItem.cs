@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using Google.GData.YouTube;
+using MediaPortal.GUI.Library;
 
 namespace YouTubePlugin.Class.SiteItems
 {
