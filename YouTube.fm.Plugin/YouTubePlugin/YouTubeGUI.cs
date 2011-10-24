@@ -138,6 +138,7 @@ namespace YouTubePlugin
         dlgProgress.SetPercentage(e.PercentDone);
         dlgProgress.Progress();
       }
+      GUIPropertyManager.SetProperty("#Youtube.fm.Download.Progress", e.PercentDone.ToString());
     }
 
     void VideoDownloader_DownloadComplete(object sender, EventArgs e)
@@ -158,14 +159,21 @@ namespace YouTubePlugin
       string imageFile = GetLocalImageFileName(GetBestUrl(VideoDownloader.Entry.Media.Thumbnails));
       try
       {
-          if (File.Exists(imageFile))
-          {
-              File.Copy(imageFile, Path.GetDirectoryName(VideoDownloader.DownloadingTo) + "\\" + Path.GetFileNameWithoutExtension(VideoDownloader.DownloadingTo) + ".png");
-          }
+        string video_file = VideoDownloader.DownloadingTo.Replace(".___", "");
+        File.Move(VideoDownloader.DownloadingTo, video_file);
+        if (File.Exists(imageFile))
+        {
+          File.Copy(imageFile,
+                    Path.GetDirectoryName(video_file) + "\\" + Path.GetFileNameWithoutExtension(video_file) + ".png");
+        }
       }
       catch
       {
       }
+      GUIPropertyManager.SetProperty("#Youtube.fm.IsDownloading", "false");
+      GUIPropertyManager.SetProperty("#Youtube.fm.Download.Progress", "0");
+      GUIPropertyManager.SetProperty("#Youtube.fm.Download.Item", " ");
+
       if (dlgProgress != null)
       {
         dlgProgress.SetPercentage(100);
@@ -313,6 +321,10 @@ namespace YouTubePlugin
         {
           ClearLabels("Curent");
           ClearLabels("NowPlaying");
+          GUIPropertyManager.SetProperty("#Youtube.fm.IsDownloading","false");
+          GUIPropertyManager.SetProperty("#Youtube.fm.Download.Progress", "0");
+          GUIPropertyManager.SetProperty("#Youtube.fm.Download.Item", " ");
+
           GUIPropertyManager.SetProperty("#header.title", " ");
           GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Home");
           StartUpHome();
@@ -902,7 +914,11 @@ namespace YouTubePlugin
                                           Youtube2MP._settings.DownloadFolder + "\\" +
                                           Utils.GetFilename(videoEntry.Title.Text + "{" +
                                                             Youtube2MP.GetVideoId(videoEntry) + "}") +
-                                          Path.GetExtension(streamurl));
+                                          Path.GetExtension(streamurl)+".___");
+            GUIPropertyManager.SetProperty("#Youtube.fm.IsDownloading", "true");
+            GUIPropertyManager.SetProperty("#Youtube.fm.Download.Progress", "0");
+            GUIPropertyManager.SetProperty("#Youtube.fm.Download.Item", videoEntry.Title.Text);
+
             VideoDownloader.Entry = videoEntry;
           }
         }
