@@ -183,8 +183,8 @@ namespace YouTubePlugin
         this.CacheDir = xmlreader.GetValueAsString("youtubevideos", "CacheDir", string.Empty);
         this.FanartDir = xmlreader.GetValueAsString("youtubevideos", "FanartFolder", string.Empty);
         this.DownloadFolder = xmlreader.GetValueAsString("youtubevideos", "DownloadFolder",
-                                                         Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                                                         "\\My Videos");
+                                                         Environment.GetFolderPath(Environment.SpecialFolder.Personal) +
+                                                         "\\Videos");
         this.OldStyleHome = xmlreader.GetValueAsBool("youtubevideos", "OldStyleHome", false);
         this.LastFmUser = xmlreader.GetValueAsString("youtubevideos", "LastFmUser", string.Empty);
         this.LastFmPass = xmlreader.GetValueAsString("youtubevideos", "LastFmPass", string.Empty);

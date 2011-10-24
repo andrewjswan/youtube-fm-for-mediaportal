@@ -143,23 +143,22 @@ namespace YouTubePlugin
 
     void VideoDownloader_DownloadComplete(object sender, EventArgs e)
     {
-
+      string video_file = VideoDownloader.DownloadingTo.Replace(".___", "");
       GUIDialogNotify dlg1 = (GUIDialogNotify)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_NOTIFY);
       if (dlg1 != null)
       {
         dlg1.Reset();
         dlg1.SetHeading("Download done");
-        dlg1.SetText(VideoDownloader.DownloadingTo);
+        dlg1.SetText(video_file);
         dlg1.Reset();
         dlg1.TimeOut = 5;
         dlg1.DoModal(GetID);
       }
-      Youtube2MP._settings.LocalFile.Items.Add(new LocalFileStruct(VideoDownloader.DownloadingTo,Youtube2MP.GetVideoId(VideoDownloader.Entry), VideoDownloader.Entry.Title.Text));
+      Youtube2MP._settings.LocalFile.Items.Add(new LocalFileStruct(video_file,Youtube2MP.GetVideoId(VideoDownloader.Entry), VideoDownloader.Entry.Title.Text));
       Youtube2MP._settings.LocalFile.Save();
       string imageFile = GetLocalImageFileName(GetBestUrl(VideoDownloader.Entry.Media.Thumbnails));
       try
       {
-        string video_file = VideoDownloader.DownloadingTo.Replace(".___", "");
         File.Move(VideoDownloader.DownloadingTo, video_file);
         if (File.Exists(imageFile))
         {
@@ -893,7 +892,7 @@ namespace YouTubePlugin
           if (VideoDownloader.IsBusy)
           {
             Err_message(Translation.AnotherDonwnloadProgress);
-            dlgProgress = (GUIDialogProgress) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_PROGRESS);
+            dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
             if (dlgProgress != null)
             {
               dlgProgress.Reset();
@@ -912,9 +911,9 @@ namespace YouTubePlugin
             string streamurl = Youtube2MP.StreamPlaybackUrl(videoEntry, inf);
             VideoDownloader.AsyncDownload(streamurl,
                                           Youtube2MP._settings.DownloadFolder + "\\" +
-                                          Utils.GetFilename(videoEntry.Title.Text + "{" +
-                                                            Youtube2MP.GetVideoId(videoEntry) + "}") +
-                                          Path.GetExtension(streamurl)+".___");
+                                          Utils.MakeFileName(Utils.GetFilename(videoEntry.Title.Text + "{" +
+                                                                               Youtube2MP.GetVideoId(videoEntry) + "}")) +
+                                          Path.GetExtension(streamurl) + ".___");
             GUIPropertyManager.SetProperty("#Youtube.fm.IsDownloading", "true");
             GUIPropertyManager.SetProperty("#Youtube.fm.Download.Progress", "0");
             GUIPropertyManager.SetProperty("#Youtube.fm.Download.Item", videoEntry.Title.Text);
@@ -930,7 +929,7 @@ namespace YouTubePlugin
       }
       else if (dlg.SelectedLabelText == Translation.Info)
       {
-        YoutubeGuiInfoEx scr = (YoutubeGuiInfoEx) GUIWindowManager.GetWindow(29053);
+        YoutubeGuiInfoEx scr = (YoutubeGuiInfoEx)GUIWindowManager.GetWindow(29053);
         scr.YouTubeEntry = videoEntry;
         //if (entry!=null)
         //{

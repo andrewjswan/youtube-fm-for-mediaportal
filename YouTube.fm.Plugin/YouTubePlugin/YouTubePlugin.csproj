@@ -186,6 +186,7 @@
       <DependentUpon>StandardFeedItemControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Class\SiteItems\Statistics.cs" />
+    <Compile Include="Class\SiteItems\UserDownloadedVideos.cs" />
     <Compile Include="Class\SiteItems\UserVideos.cs" />
     <Compile Include="Class\SiteItems\UserVideosControl.cs">
       <SubType>UserControl</SubType>

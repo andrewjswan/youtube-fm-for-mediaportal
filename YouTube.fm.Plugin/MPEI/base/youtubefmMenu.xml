@@ -214,4 +214,9 @@
 		<Title>Play Statistics</Title>
 		<Provider>Play Statistics</Provider>
 	</Items>
+	<Items>
+		<ConfigString>ParentFolder=|</ConfigString>
+		<Title>User Downloaded Videos</Title>
+		<Provider>UserDownloadedVideos</Provider>
+	</Items>
 </SiteItemEnumerator>

@@ -68,6 +68,7 @@ namespace YouTubePlugin
       AddSiteItem(new LastFmUser());
       AddSiteItem(new BillboardItem());
       AddSiteItem(new Statistics());
+      AddSiteItem(new UserDownloadedVideos());
     }
 
     public static Dictionary<string, ISiteItem> SiteItemProvider = new Dictionary<string, ISiteItem>();

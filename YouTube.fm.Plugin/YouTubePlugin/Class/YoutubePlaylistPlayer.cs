@@ -23,7 +23,7 @@
 
 #endregion
 using System;
-
+using System.IO;
 using MediaPortal.GUI.Library;
 using MediaPortal.Playlists;
 
@@ -530,7 +530,7 @@ namespace YouTubePlugin
             bool playResult = false;
             try
             {
-              playResult = g_Player.PlayVideoStream(item.FileName,item.Description);
+              playResult = File.Exists(item.FileName) ? g_Player.Play(item.FileName) : g_Player.PlayVideoStream(item.FileName, item.Description);
             }
             catch (Exception)
             {
