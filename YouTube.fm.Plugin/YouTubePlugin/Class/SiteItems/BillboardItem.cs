@@ -89,8 +89,8 @@ namespace YouTubePlugin.Class.SiteItems
                             IsFolder = false,
                             Title = newentry.Title,
                             Tag = newentry,
-                            LogoUrl = ArtistManager.Instance.GetArtistsImgUrl(GetArtistName(title[1]))
-                            
+                            LogoUrl = ArtistManager.Instance.GetArtistsImgUrl(GetArtistName(title[1])),
+                            DefaultImage = "defaultArtistBig.png"
                           });
         }
       }
