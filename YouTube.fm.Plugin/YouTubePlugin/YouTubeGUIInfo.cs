@@ -70,7 +70,8 @@ namespace YouTubePlugin
 
     void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
     {
-      if (Monitor.TryEnter(locker))
+      // try to wait 3 sec to lock the thread 
+      if (Monitor.TryEnter(locker,3000))
       {
         try
         {
@@ -230,24 +231,39 @@ namespace YouTubePlugin
               imgFanArt.Visible = true;
               imgFanArt.FileName = file;
               imgFanArt.DoUpdate();
-              return;
             }
-
-            if (Youtube2MP._settings.LoadOnlineFanart && !Client.IsBusy)
+            else
             {
-              HTBFanArt fanart = new HTBFanArt();
-              //file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
-              if (!File.Exists(file))
+              if (Youtube2MP._settings.LoadOnlineFanart && !Client.IsBusy)
               {
-                fanart.Search(Youtube2MP.NowPlayingSong.Artist);
-                Log.Debug("Youtube.Fm found {0} online fanarts for {1}", fanart.ImageUrls.Count,
-                          Youtube2MP.NowPlayingSong.Artist);
-                if (fanart.ImageUrls.Count > 0)
+                HTBFanArt fanart = new HTBFanArt();
+                //file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
+                if (!File.Exists(file))
                 {
-                  Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
-                  Client.DownloadFile(fanart.ImageUrls[0].Url, file);
+                  fanart.Search(Youtube2MP.NowPlayingSong.Artist);
+                  Log.Debug("Youtube.Fm found {0} online fanarts for {1}", fanart.ImageUrls.Count,
+                            Youtube2MP.NowPlayingSong.Artist);
+                  if (fanart.ImageUrls.Count > 0)
+                  {
+                    Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
+                    Client.DownloadFile(fanart.ImageUrls[0].Url, file);
+                    GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
+                    Log.Debug("Youtube.Fm fanart {0} loaded ", file);
+                    if (imgFanArt != null)
+                    {
+                      imgFanArt.Visible = true;
+                      imgFanArt.FileName = file;
+                      imgFanArt.DoUpdate();
+                    }
+                  }
+                  else
+                  {
+                    if (imgFanArt != null) imgFanArt.Visible = false;
+                  }
+                }
+                else
+                {
                   GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
-                  Log.Debug("Youtube.Fm fanart {0} loaded ", file);
                   if (imgFanArt != null)
                   {
                     imgFanArt.Visible = true;
@@ -255,26 +271,12 @@ namespace YouTubePlugin
                     imgFanArt.DoUpdate();
                   }
                 }
-                else
-                {
-                  if (imgFanArt != null) imgFanArt.Visible = false;
-                }
               }
               else
               {
-                GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
-                if (imgFanArt != null)
-                {
-                  imgFanArt.Visible = true;
-                  imgFanArt.FileName = file;
-                  imgFanArt.DoUpdate();
-                }
+                //Log.Error("Youtube.Fm fanart NowPlaying not defined");
+                if (imgFanArt != null) imgFanArt.Visible = false;
               }
-            }
-            else
-            {
-              //Log.Error("Youtube.Fm fanart NowPlaying not defined");
-              if (imgFanArt != null) imgFanArt.Visible = false;
             }
           }
         }
