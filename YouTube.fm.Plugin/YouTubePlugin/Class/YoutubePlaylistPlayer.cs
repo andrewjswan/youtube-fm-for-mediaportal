@@ -562,7 +562,7 @@ namespace YouTubePlugin
               skipmissing = false;
               if (MediaPortal.Util.Utils.IsVideo(item.FileName))
               {
-                if (g_Player.HasVideo)
+                if (g_Player.HasVideo && (GUIWindowManager.ActiveWindow != (int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO))
                 {
                   if (Youtube2MP._settings.ShowNowPlaying)
                   {

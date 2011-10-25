@@ -1084,6 +1084,11 @@ namespace YouTubePlugin
         }
         item.MusicTag = listItem.Tag;
         item.OnItemSelected += item_OnItemSelected;
+        //YouTubeEntry tubeEntry = listItem.Tag as YouTubeEntry;
+        //if (Youtube2MP.NowPlayingEntry != null && tubeEntry != null && Youtube2MP.GetVideoId(Youtube2MP.NowPlayingEntry) == Youtube2MP.GetVideoId(tubeEntry))
+        //{
+        //  item.Selected = true;
+        //}
         listControl.Add(item);
       }
 
