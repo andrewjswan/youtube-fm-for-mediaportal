@@ -29,7 +29,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
-      res.Title = "User Downloaded Videos";
+      res.Title = "Downloaded Videos";
       foreach (LocalFileStruct localFileStruct in Youtube2MP._settings.LocalFile.Items)
       {
         GenericListItem listItem = new GenericListItem()
@@ -38,7 +38,10 @@ namespace YouTubePlugin.Class.SiteItems
                                        IsFolder = false,
                                        LogoUrl = "",
                                        Tag = localFileStruct,
-                                       Title2 = "",
+                                       Title2 =
+                                         File.Exists(localFileStruct.LocalFile)
+                                           ? (new FileInfo(localFileStruct.LocalFile).Length/1024/1024).ToString("0")+" MB"
+                                           : "",
                                        DefaultImage =
                                          Path.GetDirectoryName(localFileStruct.LocalFile) + "\\" +
                                          Path.GetFileNameWithoutExtension(localFileStruct.LocalFile) + ".png"
