@@ -25,7 +25,6 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
-      res.Title = entry.Title;
       res.FolderType = 1;
       YouTubeQuery query =
         new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", entry.GetValue("id")));
@@ -36,6 +35,7 @@ namespace YouTubePlugin.Class.SiteItems
       do
       {
         YouTubeFeed videos = Youtube2MP.service.Query(query);
+        res.Title = videos.Title.Text;
         foreach (YouTubeEntry youTubeEntry in videos.Entries)
         {
           res.Items.Add(Youtube2MP.YouTubeEntry2ListItem(youTubeEntry));

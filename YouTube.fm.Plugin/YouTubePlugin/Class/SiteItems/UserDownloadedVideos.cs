@@ -29,6 +29,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
+      res.Title = "User Downloaded Videos";
       foreach (LocalFileStruct localFileStruct in Youtube2MP._settings.LocalFile.Items)
       {
         GenericListItem listItem = new GenericListItem()

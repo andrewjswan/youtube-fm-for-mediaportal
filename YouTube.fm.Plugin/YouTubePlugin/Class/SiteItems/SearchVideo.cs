@@ -26,7 +26,6 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
-      res.Title = entry.Title;
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
       query.Query = entry.GetValue("term");
       query.NumberToRetrieve = 50;
@@ -64,6 +63,7 @@ namespace YouTubePlugin.Class.SiteItems
         query.Time = YouTubeQuery.UploadTime.ThisMonth;
 
       YouTubeFeed videos = Youtube2MP.service.Query(query);
+      res.Title = Translation.Search + "/" + entry.GetValue("term");
       foreach (YouTubeEntry youTubeEntry in videos.Entries)
       {
         res.Items.Add(Youtube2MP.YouTubeEntry2ListItem(youTubeEntry));

@@ -31,6 +31,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
+      res.Title = entry.Title;
       if (string.IsNullOrEmpty(entry.GetValue("level")))
       {
         for (int i = 0; i < stats.Count; i++)
