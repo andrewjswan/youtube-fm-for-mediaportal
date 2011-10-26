@@ -149,6 +149,20 @@
               <ZipFileName>Installer{CopyFile}\{64420eb3-7809-4b05-859b-b9cf89534720}-Search History.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Search History.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\isupdate.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{dfd7e2bb-ed36-4ed5-9b42-15c49a185ed9}-isupdate.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\isupdate.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Search for _full HD.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{393540f6-1c73-4804-88f6-3f8700a5ced4}-Search for _full HD.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Search for _full HD.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -365,6 +379,20 @@
               <ZipFileName>Installer{GenericSkinFile}\{394bc163-a6e9-442c-ad2d-1e3745d81695}-Search History.png</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\Search History.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\isupdate.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{7c62c744-9c92-4396-8399-93ab70f650a6}-isupdate.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\isupdate.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Search for _full HD.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{db0f5b4c-21b0-4b79-a70e-3cf7103c8921}-Search for _full HD.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\Search for _full HD.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -530,6 +558,20 @@
               <ZipFileName>Installer{CopyFile}\{c3898ebc-c777-43bc-a0d5-7ebe1b90d70b}-Search History.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Search History.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\isupdate.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{34afe595-6ed1-4bfb-a8aa-8f0c408c4f1c}-isupdate.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\isupdate.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Search for _full HD.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{026c8913-1d0c-4277-aa20-6042822bf75e}-Search for _full HD.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Search for _full HD.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -678,15 +720,15 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://youtube-fm-for-mediaportal.googlecode.com/svn/trunk/YouTube.fm.Plugin/MPEI/update.xml</UpdateUrl>
     <Version>
       <Major>0</Major>
-      <Minor>7</Minor>
-      <Build>4</Build>
-      <Revision>188</Revision>
+      <Minor>8</Minor>
+      <Build>0</Build>
+      <Revision>199</Revision>
     </Version>
-    <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
+    <ExtensionDescription>YouTube.fm is a plugin to browse, play, download YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
-    <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.4.188.mpe1</OnlineLocation>
-    <ReleaseDate>2011-10-25T17:28:13</ReleaseDate>
+    <DevelopmentStatus>Stable</DevelopmentStatus>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.8.0.199.mpe1</OnlineLocation>
+    <ReleaseDate>2011-10-26T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -863,6 +905,20 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{64420eb3-7809-4b05-859b-b9cf89534720}-Search History.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Search History.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\isupdate.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{dfd7e2bb-ed36-4ed5-9b42-15c49a185ed9}-isupdate.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\isupdate.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Search for _full HD.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{393540f6-1c73-4804-88f6-3f8700a5ced4}-Search for _full HD.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Search for _full HD.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -930,7 +986,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{d2f1cb53-aa16-45a1-bb8b-4d66dccc390e}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{6e7a05ae-9b7f-408f-9087-119793a6a0ba}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
