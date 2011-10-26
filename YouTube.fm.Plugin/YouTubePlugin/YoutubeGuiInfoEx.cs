@@ -75,7 +75,7 @@ namespace YouTubePlugin
       if (string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name").Trim()))
         return;
 
-      string file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
+      string file = GetFanArtImage(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
 
       if (File.Exists(file) && imgFanArt != null)
       {
