@@ -407,6 +407,52 @@
 	    <seperator>-----------------------------------------------------------------------------------</seperator>
 	    <font>font11</font>
 	    <scrollStartDelaySec>10</scrollStartDelaySec>
-	</control>                     
+	</control>
+        <!-- Downloading Section [View Only if Downloading Now is In Process ] -->
+        <control>
+            <description>Downloading Notfication Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>75</posX>
+            <posY>679</posY>
+            <width>30</width>
+            <height>30</height>
+            <keepaspectratio>yes</keepaspectratio>            
+            <texture>isupdate.png</texture>	  
+            <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>
+        <control>
+            <description>Downloading Progress Bar</description>
+            <type>progress</type>
+            <id>118</id>
+            <posX>115</posX>
+            <posY>683</posY>
+            <width>226</width>
+            <height>20</height>            
+            <texturebg>osd_progress_background.png</texturebg>
+            <onlymidtexture>yes</onlymidtexture>
+            <midwidth>224</midwidth>
+            <midheight>16</midheight>
+            <midoffsetX>1</midoffsetX>
+            <midoffsetY>2</midoffsetY>
+            <midtexture>osd_progress_mid.png</midtexture>
+            <label>#Youtube.fm.Download.Progress</label>
+            <visible>string.equals(#Youtube.fm.IsDownloading, true)</visible>
+            <animation effect="fade" time="70" reversible="false">visible</animation>
+        </control>
+        <control>
+            <description>Downloading Video Title</description>
+            <type>fadelabel</type>
+            <id>0</id>
+            <posX>390</posX>
+            <posY>680</posY>
+            <width>500</width>
+            <font>font10</font>
+            <textcolor>ffa9d0f7</textcolor>           
+            <label>#Youtube.fm.Download.Item</label>	  
+            <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>         		                     
     </controls>
 </window>

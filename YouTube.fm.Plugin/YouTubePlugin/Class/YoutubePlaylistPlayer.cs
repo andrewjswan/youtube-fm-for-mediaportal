@@ -530,7 +530,7 @@ namespace YouTubePlugin
             bool playResult = false;
             try
             {
-              playResult = File.Exists(item.FileName) ? g_Player.Play(item.FileName) : g_Player.PlayVideoStream(item.FileName, item.Description);
+              playResult = g_Player.PlayVideoStream(item.FileName, item.Description);
             }
             catch (Exception)
             {

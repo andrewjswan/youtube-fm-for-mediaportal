@@ -64,7 +64,7 @@
                   <height>35</height>      
                   <align>right</align>            
                   <texture>overlaywatched.png</texture>	  
-                  <visible>[facadeview.coverflow|facadeview.filmstrip]|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]</visible>
+                  <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]</visible>
                   <animation effect="fade" time="70" reversible="false">visible</animation>	        
                 </control>
                 <control>
@@ -78,8 +78,41 @@
                   <keepaspectratio>yes</keepaspectratio>
                   <align>right</align>            
                   <texture>Logos\hd.png</texture>	  
-                  <visible>[facadeview.coverflow|facadeview.filmstrip]|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsHD, false )]</visible>
+                  <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsHD, false )]</visible>
                   <animation effect="fade" time="70" reversible="false">visible</animation>	        
-                </control>		
+                </control>
+                <!-- Downloading Section View Only if Downloading Now is In Process [List/Album/Smallicons/Largeicons/Coverflow/Filmstrip Views] -->
+                <control>
+                  <description>Downloading Notfication Logo</description>
+                  <type>image</type>
+                  <id>0</id>
+                  <posX>475</posX>
+                  <posY>676</posY>
+                  <width>30</width>
+                  <height>30</height>
+                  <keepaspectratio>yes</keepaspectratio>            
+                  <texture>isupdate.png</texture>	  
+                  <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
+                  <animation effect="fade" time="70" reversible="false">visible</animation>	        
+                </control>
+                <control>
+                  <description>Downloading Progress Bar</description>
+                  <type>progress</type>
+                  <id>118</id>
+                  <posX>515</posX>
+                  <posY>680</posY>
+                  <width>226</width>
+                  <height>20</height>            
+                  <texturebg>osd_progress_background.png</texturebg>
+                  <onlymidtexture>yes</onlymidtexture>
+                  <midwidth>224</midwidth>
+                  <midheight>16</midheight>
+                  <midoffsetX>1</midoffsetX>
+                  <midoffsetY>2</midoffsetY>
+                  <midtexture>osd_progress_mid.png</midtexture>
+                  <label>#Youtube.fm.Download.Progress</label>
+                  <visible>string.equals(#Youtube.fm.IsDownloading, true)</visible>
+                  <animation effect="fade" time="70" reversible="false">visible</animation>
+                </control>         		
 	</controls>
 </window>

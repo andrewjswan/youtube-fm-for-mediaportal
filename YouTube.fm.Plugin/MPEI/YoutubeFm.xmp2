@@ -72,6 +72,83 @@
               <ZipFileName>Installer{CopyFile}\{ee14b4d4-09f5-402f-aacd-54f9b8a0b9d4}-overlaywatched.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\overlaywatched.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Artists.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{fde28c50-87be-4220-84c1-772c80200348}-Artists.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Artists.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Billboard.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{ce39a593-6446-4c85-bff4-796e4931ed1a}-Billboard.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Billboard.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Last.Fm.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{7f09885c-9760-41d6-837b-a759edcb17b4}-Last.Fm.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Last.Fm.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Play Statistics.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{99fcab24-026a-43c3-8cf2-110d6c556c90}-Play Statistics.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Play Statistics.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\standard feeds.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{04f366d9-b4ec-4cb7-8591-59b8d9724ec8}-standard feeds.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\standard feeds.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User Downloaded Videos.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{821e49a1-d7f9-4d6e-aaf7-77dab73c7791}-User Downloaded Videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\User Downloaded Videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User favorites videos.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{91f052be-ebfa-4876-9a44-b0741ea2a394}-User favorites videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\User favorites videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User videos.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{3f7456a8-15ed-430d-956d-3c91530eddd0}-User videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\User videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Vevo Videos.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{0f792b9d-7d31-4b5e-bdcd-7833ed833ace}-Vevo Videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Vevo Videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\eurovision 2011.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{a4a58d5a-5849-49b3-9aaf-b21515c816d1}-eurovision 2011.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\eurovision 2011.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Search History.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{64420eb3-7809-4b05-859b-b9cf89534720}-Search History.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Search History.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -211,6 +288,83 @@
               <ZipFileName>Installer{GenericSkinFile}\{f4af7398-7b9b-4de3-b381-7c156620fed1}-overlaywatched.png</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\Media\overlaywatched.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Artists.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{e17cc6ab-3e86-4bd4-a7a1-276c980a8b8e}-Artists.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\Artists.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Billboard.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{47526388-8862-42b7-bf2f-34765c7e0ead}-Billboard.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\Billboard.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Last.Fm.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{15c242bc-093e-47a0-9987-6934b1bdd5df}-Last.Fm.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\Last.Fm.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Play Statistics.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{1fb8d6e9-c7d2-48d3-ac46-e04bdbaaffb4}-Play Statistics.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\Play Statistics.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\standard feeds.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{87268885-4f03-4c1e-b1be-d1f311554fb1}-standard feeds.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\standard feeds.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User Downloaded Videos.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{06cf0c27-d6d5-4d6a-92a9-2724be248b4e}-User Downloaded Videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\User Downloaded Videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User favorites videos.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{ed01ee2f-54dd-47a2-8d5a-3a969ef3999d}-User favorites videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\User favorites videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User videos.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{2f037859-369a-4d2a-a7da-717a78d414f6}-User videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\User videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Vevo Videos.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{8530c069-e60b-4480-9daa-e137a010cc0e}-Vevo Videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\Vevo Videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\eurovision 2011.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{376c366a-e446-4428-8112-bb33f20b9574}-eurovision 2011.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\eurovision 2011.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Search History.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{394bc163-a6e9-442c-ad2d-1e3745d81695}-Search History.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\Search History.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -298,6 +452,83 @@
               <LocalFileName>skin\DefaultWide\Media\overlaywatched.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{14cd38c0-4cfa-48ad-8b97-22581892c5d5}-overlaywatched.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\overlaywatched.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Artists.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{42f0106d-484e-4d4d-8dd4-81bec93dabf0}-Artists.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Artists.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Billboard.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{73d5577e-9c93-4e28-bbf5-3423ed9842c1}-Billboard.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Billboard.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Last.Fm.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{67346a2b-7f1d-4b65-b66b-9a72033f4bfd}-Last.Fm.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Last.Fm.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Play Statistics.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{433cb2ad-8bb4-4e4d-bdfa-c48b4e4b6e16}-Play Statistics.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Play Statistics.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\standard feeds.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{735b2ed3-df9e-4fcd-b59f-52b008ee100c}-standard feeds.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\standard feeds.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User Downloaded Videos.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{e52803a5-a68a-47cb-9137-f54d53e83c1a}-User Downloaded Videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\User Downloaded Videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User favorites videos.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{4cf54212-fb08-4bec-8e23-1f48c72369d1}-User favorites videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\User favorites videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User videos.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{3f60c34d-3506-4d07-8dac-068b5bf74e14}-User videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\User videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Vevo Videos.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{7de6bc9e-60ff-4526-8891-50a799b6ef4e}-Vevo Videos.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Vevo Videos.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\eurovision 2011.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{28f1cc53-a28c-4807-939b-d4f0419826b2}-eurovision 2011.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\eurovision 2011.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Search History.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{c3898ebc-c777-43bc-a0d5-7ebe1b90d70b}-Search History.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Search History.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -449,13 +680,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>7</Minor>
       <Build>4</Build>
-      <Revision>183</Revision>
+      <Revision>188</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.4.169.mpe1</OnlineLocation>
-    <ReleaseDate>2011-10-24T17:28:13</ReleaseDate>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.7.4.188.mpe1</OnlineLocation>
+    <ReleaseDate>2011-10-25T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -555,6 +786,83 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{ee14b4d4-09f5-402f-aacd-54f9b8a0b9d4}-overlaywatched.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\Media\overlaywatched.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Artists.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{fde28c50-87be-4220-84c1-772c80200348}-Artists.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Artists.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Billboard.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{ce39a593-6446-4c85-bff4-796e4931ed1a}-Billboard.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Billboard.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Last.Fm.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{7f09885c-9760-41d6-837b-a759edcb17b4}-Last.Fm.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Last.Fm.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Play Statistics.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{99fcab24-026a-43c3-8cf2-110d6c556c90}-Play Statistics.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Play Statistics.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\standard feeds.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{04f366d9-b4ec-4cb7-8591-59b8d9724ec8}-standard feeds.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\standard feeds.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User Downloaded Videos.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{821e49a1-d7f9-4d6e-aaf7-77dab73c7791}-User Downloaded Videos.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\User Downloaded Videos.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User favorites videos.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{91f052be-ebfa-4876-9a44-b0741ea2a394}-User favorites videos.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\User favorites videos.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\User videos.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{3f7456a8-15ed-430d-956d-3c91530eddd0}-User videos.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\User videos.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Vevo Videos.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{0f792b9d-7d31-4b5e-bdcd-7833ed833ace}-Vevo Videos.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Vevo Videos.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\eurovision 2011.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{a4a58d5a-5849-49b3-9aaf-b21515c816d1}-eurovision 2011.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\eurovision 2011.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\Search History.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{64420eb3-7809-4b05-859b-b9cf89534720}-Search History.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\Search History.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -622,7 +930,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{68d8fe12-278f-4eb4-9497-0dd516830305}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{d2f1cb53-aa16-45a1-bb8b-4d66dccc390e}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
