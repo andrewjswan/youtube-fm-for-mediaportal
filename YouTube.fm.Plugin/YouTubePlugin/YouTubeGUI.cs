@@ -1052,7 +1052,7 @@ namespace YouTubePlugin
         
         if (string.IsNullOrEmpty(listItem.DefaultImage))
         {
-          string file = GUIGraphicsContext.Skin + "\\Media\\Youtube.Fm\\" + listItem.Title + ".png";
+          string file = GUIGraphicsContext.Skin + "\\Media\\Youtube.Fm\\" + listItem.Title.Replace(":", "_") + ".png";
           if (File.Exists(file))
             listItem.DefaultImage = file;
         }
