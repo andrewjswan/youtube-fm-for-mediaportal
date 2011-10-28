@@ -29,6 +29,7 @@ namespace YouTubePlugin
     protected List<GUIListItem> similar = new List<GUIListItem>();
 
     protected static readonly object locker = new object();
+    protected static readonly object similarlocker = new object();
 
     protected void addVideos(YouTubeFeed videos, YouTubeQuery qu)
     {

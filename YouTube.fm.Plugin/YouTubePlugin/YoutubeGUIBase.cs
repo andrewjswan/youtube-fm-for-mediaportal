@@ -629,6 +629,8 @@ namespace YouTubePlugin
 
     public string DownloadImage(string Url, GUIListItem listitem)
     {
+      if (string.IsNullOrEmpty(Url))
+        return string.Empty;
       string localFile = GetLocalImageFileName(Url);
       if (!File.Exists(localFile) && !string.IsNullOrEmpty(Url))
       {

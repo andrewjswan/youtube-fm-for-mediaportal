@@ -71,7 +71,7 @@ namespace YouTubePlugin
     void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
     {
       // try to wait 3 sec to lock the thread 
-      if (Monitor.TryEnter(locker,3000))
+      if (Monitor.TryEnter(similarlocker,3000))
       {
         try
         {
@@ -80,7 +80,7 @@ namespace YouTubePlugin
         }
         finally
         {
-          Monitor.Exit(locker);
+          Monitor.Exit(similarlocker);
         }
       }
     }
@@ -163,7 +163,7 @@ namespace YouTubePlugin
 
     public override bool Init()
     {
-      infoTimer.Elapsed += new ElapsedEventHandler(updateStationLogoTimer_Elapsed);
+      infoTimer.Elapsed += updateStationLogoTimer_Elapsed;
       infoTimer.Enabled = false;
       infoTimer.Interval = 2 * 1000;
       _setting.Load();
@@ -183,13 +183,12 @@ namespace YouTubePlugin
 
     void updateStationLogoTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
+      backgroundWorker.RunWorkerAsync();
       try
       {
         infoTimer.Enabled = false;
         lock (locker)
         {
-          if (imgFanArt != null)
-            imgFanArt.Visible = false;
           if (Youtube2MP.NowPlayingSong != null)
           {
             Uri videoEntryUrl =
@@ -222,7 +221,6 @@ namespace YouTubePlugin
               //Log.Error(ex);
             }
 
-
             string file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
 
             if (File.Exists(file) && imgFanArt != null)
@@ -234,6 +232,9 @@ namespace YouTubePlugin
             }
             else
             {
+              if (imgFanArt != null)
+                imgFanArt.Visible = false;
+
               if (Youtube2MP._settings.LoadOnlineFanart && !Client.IsBusy)
               {
                 HTBFanArt fanart = new HTBFanArt();
@@ -280,7 +281,6 @@ namespace YouTubePlugin
             }
           }
         }
-        backgroundWorker.RunWorkerAsync();
       }
       catch (Exception exception)
       {
@@ -299,6 +299,15 @@ namespace YouTubePlugin
         {
           FillRelatedList();
           FillSimilarList();
+          string file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
+
+          if (File.Exists(file) && imgFanArt != null)
+          {
+            Log.Debug("Youtube.Fm local fanart {0} loaded ", file);
+            imgFanArt.Visible = true;
+            imgFanArt.FileName = file;
+            imgFanArt.DoUpdate();
+          }
         }
         finally
         {
