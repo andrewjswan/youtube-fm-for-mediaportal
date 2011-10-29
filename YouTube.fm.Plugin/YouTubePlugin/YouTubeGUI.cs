@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
+using MediaPortal.Player;
 using MediaPortal.Util;
 using MediaPortal.Playlists;
 using Google.GData.Client;
@@ -530,6 +531,12 @@ namespace YouTubePlugin
             {
               addVideos(genericListItem, true);
               UpdateGui();
+              if (entry.Provider == "Disco" & !g_Player.Playing)
+              {
+                listControl.SelectedListItemIndex = 1;
+                GUIWaitCursor.Show();
+                DoPlay(genericListItem.Items[0].Tag as YouTubeEntry, true, listControl.ListLayout);
+              }
             }
           }
 

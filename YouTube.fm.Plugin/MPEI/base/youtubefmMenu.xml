@@ -5,6 +5,11 @@
 		<Provider>Artists</Provider>
 	</Items>
 	<Items>
+		<ConfigString>ParentFolder=|region=|</ConfigString>
+		<Title>Disco</Title>
+		<Provider>Disco</Provider>
+	</Items>
+	<Items>
 		<ConfigString>ParentFolder=|title=Standard feeds|</ConfigString>
 		<Title>Standard feeds</Title>
 		<Provider>Folder</Provider>

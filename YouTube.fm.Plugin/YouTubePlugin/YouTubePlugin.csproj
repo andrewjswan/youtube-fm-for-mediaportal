@@ -135,6 +135,13 @@
     <Compile Include="Class\SiteItems\BillboardItemControl.Designer.cs">
       <DependentUpon>BillboardItemControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class\SiteItems\Disco.cs" />
+    <Compile Include="Class\SiteItems\DiscoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\DiscoControl.Designer.cs">
+      <DependentUpon>DiscoControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\SiteItems\FavoritesVideos.cs" />
     <Compile Include="Class\SiteItems\Folder.cs" />
     <Compile Include="Class\SiteItems\FolderControl.cs">
@@ -244,6 +251,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Class\SiteItems\BillboardItemControl.resx">
       <DependentUpon>BillboardItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class\SiteItems\DiscoControl.resx">
+      <DependentUpon>DiscoControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\FolderControl.resx">
       <DependentUpon>FolderControl.cs</DependentUpon>
