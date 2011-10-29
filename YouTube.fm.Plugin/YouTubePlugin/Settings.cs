@@ -106,8 +106,9 @@ namespace YouTubePlugin
     public bool MusicFilter { get; set; }
 
 
-    public int InitialCat { get; set; }
-
+    //public int InitialCat { get; set; }
+    
+    public int StartUpOpt { get; set; }
 
     public string InitialSearch { get; set; }
 
@@ -170,7 +171,7 @@ namespace YouTubePlugin
         this.InitialDisplay = xmlreader.GetValueAsInt("youtubevideos", "InitialDisplay", 3);
         this.User = xmlreader.GetValueAsString("youtubevideos", "user", string.Empty);
         this.Password = xmlreader.GetValueAsString("youtubevideos", "password", string.Empty);
-        this.InitialCat = xmlreader.GetValueAsInt("youtubevideos", "InitialCat", 1);
+        this.StartUpOpt = xmlreader.GetValueAsInt("youtubevideos", "StartUpOpt", 0);
         this.VideoQuality = xmlreader.GetValueAsInt("youtubevideos", "VideoQuality", 0);
         this.InitialSearch = xmlreader.GetValueAsString("youtubevideos", "InitialSearch", string.Empty);
         this.MusicFilter = xmlreader.GetValueAsBool("youtubevideos", "MusicFilter", true);
@@ -216,7 +217,7 @@ namespace YouTubePlugin
         xmlwriter.SetValue("youtubevideos", "InitialDisplay", this.InitialDisplay);
         xmlwriter.SetValue("youtubevideos", "user", User);
         xmlwriter.SetValue("youtubevideos", "password", Password);
-        xmlwriter.SetValue("youtubevideos", "InitialCat", this.InitialCat);
+        xmlwriter.SetValue("youtubevideos", "StartUpOpt", this.StartUpOpt);
         xmlwriter.SetValue("youtubevideos", "InitialSearch", this.InitialSearch);
         xmlwriter.SetValue("youtubevideos", "VideoQuality", this.VideoQuality);
         xmlwriter.SetValue("youtubevideos", "DownloadFolder", this.DownloadFolder);

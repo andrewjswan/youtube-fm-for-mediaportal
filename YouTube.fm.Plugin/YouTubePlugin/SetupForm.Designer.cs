@@ -63,10 +63,6 @@ namespace YouTubePlugin
       this.checkBox_filter = new System.Windows.Forms.CheckBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
       this.comboBox_startup = new System.Windows.Forms.ComboBox();
-      this.textBox_startup = new System.Windows.Forms.TextBox();
-      this.radioButton3 = new System.Windows.Forms.RadioButton();
-      this.radioButton2 = new System.Windows.Forms.RadioButton();
-      this.radioButton1 = new System.Windows.Forms.RadioButton();
       this.tabPage2 = new System.Windows.Forms.TabPage();
       this.button5 = new System.Windows.Forms.Button();
       this.button4 = new System.Windows.Forms.Button();
@@ -80,6 +76,11 @@ namespace YouTubePlugin
       this.button8 = new System.Windows.Forms.Button();
       this.lst_artists = new System.Windows.Forms.ListBox();
       this.tabPage4 = new System.Windows.Forms.TabPage();
+      this.groupBox8 = new System.Windows.Forms.GroupBox();
+      this.btn_empty_cache = new System.Windows.Forms.Button();
+      this.button10 = new System.Windows.Forms.Button();
+      this.label17 = new System.Windows.Forms.Label();
+      this.txt_cachedir = new System.Windows.Forms.TextBox();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
       this.checkBox1 = new System.Windows.Forms.CheckBox();
       this.label9 = new System.Windows.Forms.Label();
@@ -115,11 +116,7 @@ namespace YouTubePlugin
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-      this.groupBox8 = new System.Windows.Forms.GroupBox();
-      this.txt_cachedir = new System.Windows.Forms.TextBox();
-      this.label17 = new System.Windows.Forms.Label();
-      this.button10 = new System.Windows.Forms.Button();
-      this.btn_empty_cache = new System.Windows.Forms.Button();
+      this.linkLabel6 = new System.Windows.Forms.LinkLabel();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
@@ -129,6 +126,7 @@ namespace YouTubePlugin
       this.tabPage3.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.tabPage4.SuspendLayout();
+      this.groupBox8.SuspendLayout();
       this.groupBox3.SuspendLayout();
       this.tabPage7.SuspendLayout();
       this.groupBox4.SuspendLayout();
@@ -136,7 +134,6 @@ namespace YouTubePlugin
       this.groupBox7.SuspendLayout();
       this.groupBox6.SuspendLayout();
       this.groupBox5.SuspendLayout();
-      this.groupBox8.SuspendLayout();
       this.SuspendLayout();
       // 
       // button1
@@ -493,14 +490,9 @@ namespace YouTubePlugin
       // groupBox2
       // 
       this.groupBox2.Controls.Add(this.comboBox_startup);
-      this.groupBox2.Controls.Add(this.textBox_startup);
-      this.groupBox2.Controls.Add(this.radioButton3);
-      this.groupBox2.Controls.Add(this.radioButton2);
-      this.groupBox2.Controls.Add(this.radioButton1);
-      this.groupBox2.Enabled = false;
       this.groupBox2.Location = new System.Drawing.Point(9, 58);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(254, 159);
+      this.groupBox2.Size = new System.Drawing.Size(254, 59);
       this.groupBox2.TabIndex = 5;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Startup";
@@ -509,53 +501,15 @@ namespace YouTubePlugin
       // 
       this.comboBox_startup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.comboBox_startup.FormattingEnabled = true;
-      this.comboBox_startup.Location = new System.Drawing.Point(89, 19);
+      this.comboBox_startup.Items.AddRange(new object[] {
+            "Default Menu",
+            "Search",
+            "Disco"});
+      this.comboBox_startup.Location = new System.Drawing.Point(9, 19);
       this.comboBox_startup.Name = "comboBox_startup";
-      this.comboBox_startup.Size = new System.Drawing.Size(150, 21);
+      this.comboBox_startup.Size = new System.Drawing.Size(239, 21);
       this.comboBox_startup.TabIndex = 4;
-      // 
-      // textBox_startup
-      // 
-      this.textBox_startup.Location = new System.Drawing.Point(89, 74);
-      this.textBox_startup.Name = "textBox_startup";
-      this.textBox_startup.Size = new System.Drawing.Size(150, 20);
-      this.textBox_startup.TabIndex = 3;
-      // 
-      // radioButton3
-      // 
-      this.radioButton3.AutoSize = true;
-      this.radioButton3.Location = new System.Drawing.Point(9, 124);
-      this.radioButton3.Name = "radioButton3";
-      this.radioButton3.Size = new System.Drawing.Size(43, 17);
-      this.radioButton3.TabIndex = 2;
-      this.radioButton3.TabStop = true;
-      this.radioButton3.Text = "Ask";
-      this.radioButton3.UseVisualStyleBackColor = true;
-      this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-      // 
-      // radioButton2
-      // 
-      this.radioButton2.AutoSize = true;
-      this.radioButton2.Location = new System.Drawing.Point(9, 74);
-      this.radioButton2.Name = "radioButton2";
-      this.radioButton2.Size = new System.Drawing.Size(74, 17);
-      this.radioButton2.TabIndex = 1;
-      this.radioButton2.TabStop = true;
-      this.radioButton2.Text = "Search for";
-      this.radioButton2.UseVisualStyleBackColor = true;
-      this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-      // 
-      // radioButton1
-      // 
-      this.radioButton1.AutoSize = true;
-      this.radioButton1.Location = new System.Drawing.Point(9, 19);
-      this.radioButton1.Name = "radioButton1";
-      this.radioButton1.Size = new System.Drawing.Size(55, 17);
-      this.radioButton1.TabIndex = 0;
-      this.radioButton1.TabStop = true;
-      this.radioButton1.Text = "Show ";
-      this.radioButton1.UseVisualStyleBackColor = true;
-      this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+      this.comboBox_startup.SelectedIndexChanged += new System.EventHandler(this.comboBox_startup_SelectedIndexChanged);
       // 
       // tabPage2
       // 
@@ -694,6 +648,55 @@ namespace YouTubePlugin
       this.tabPage4.TabIndex = 3;
       this.tabPage4.Text = "Download & Fanart";
       this.tabPage4.UseVisualStyleBackColor = true;
+      // 
+      // groupBox8
+      // 
+      this.groupBox8.Controls.Add(this.btn_empty_cache);
+      this.groupBox8.Controls.Add(this.button10);
+      this.groupBox8.Controls.Add(this.label17);
+      this.groupBox8.Controls.Add(this.txt_cachedir);
+      this.groupBox8.Location = new System.Drawing.Point(10, 185);
+      this.groupBox8.Name = "groupBox8";
+      this.groupBox8.Size = new System.Drawing.Size(517, 100);
+      this.groupBox8.TabIndex = 5;
+      this.groupBox8.TabStop = false;
+      this.groupBox8.Text = "Local image cache";
+      // 
+      // btn_empty_cache
+      // 
+      this.btn_empty_cache.Location = new System.Drawing.Point(6, 67);
+      this.btn_empty_cache.Name = "btn_empty_cache";
+      this.btn_empty_cache.Size = new System.Drawing.Size(125, 23);
+      this.btn_empty_cache.TabIndex = 7;
+      this.btn_empty_cache.Text = "Empty cache";
+      this.btn_empty_cache.UseVisualStyleBackColor = true;
+      this.btn_empty_cache.Click += new System.EventHandler(this.btn_empty_cache_Click);
+      // 
+      // button10
+      // 
+      this.button10.Location = new System.Drawing.Point(478, 41);
+      this.button10.Name = "button10";
+      this.button10.Size = new System.Drawing.Size(30, 20);
+      this.button10.TabIndex = 6;
+      this.button10.Text = "...";
+      this.button10.UseVisualStyleBackColor = true;
+      this.button10.Click += new System.EventHandler(this.button10_Click);
+      // 
+      // label17
+      // 
+      this.label17.AutoSize = true;
+      this.label17.Location = new System.Drawing.Point(6, 25);
+      this.label17.Name = "label17";
+      this.label17.Size = new System.Drawing.Size(67, 13);
+      this.label17.TabIndex = 1;
+      this.label17.Text = "Cache folder";
+      // 
+      // txt_cachedir
+      // 
+      this.txt_cachedir.Location = new System.Drawing.Point(6, 41);
+      this.txt_cachedir.Name = "txt_cachedir";
+      this.txt_cachedir.Size = new System.Drawing.Size(462, 20);
+      this.txt_cachedir.TabIndex = 0;
       // 
       // groupBox3
       // 
@@ -886,6 +889,7 @@ namespace YouTubePlugin
       // 
       // groupBox7
       // 
+      this.groupBox7.Controls.Add(this.linkLabel6);
       this.groupBox7.Controls.Add(this.linkLabel5);
       this.groupBox7.Controls.Add(this.linkLabel4);
       this.groupBox7.Controls.Add(this.linkLabel3);
@@ -1032,54 +1036,16 @@ namespace YouTubePlugin
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
       // 
-      // groupBox8
+      // linkLabel6
       // 
-      this.groupBox8.Controls.Add(this.btn_empty_cache);
-      this.groupBox8.Controls.Add(this.button10);
-      this.groupBox8.Controls.Add(this.label17);
-      this.groupBox8.Controls.Add(this.txt_cachedir);
-      this.groupBox8.Location = new System.Drawing.Point(10, 185);
-      this.groupBox8.Name = "groupBox8";
-      this.groupBox8.Size = new System.Drawing.Size(517, 100);
-      this.groupBox8.TabIndex = 5;
-      this.groupBox8.TabStop = false;
-      this.groupBox8.Text = "Local image cache";
-      // 
-      // txt_cachedir
-      // 
-      this.txt_cachedir.Location = new System.Drawing.Point(6, 41);
-      this.txt_cachedir.Name = "txt_cachedir";
-      this.txt_cachedir.Size = new System.Drawing.Size(462, 20);
-      this.txt_cachedir.TabIndex = 0;
-      // 
-      // label17
-      // 
-      this.label17.AutoSize = true;
-      this.label17.Location = new System.Drawing.Point(6, 25);
-      this.label17.Name = "label17";
-      this.label17.Size = new System.Drawing.Size(67, 13);
-      this.label17.TabIndex = 1;
-      this.label17.Text = "Cache folder";
-      // 
-      // button10
-      // 
-      this.button10.Location = new System.Drawing.Point(478, 41);
-      this.button10.Name = "button10";
-      this.button10.Size = new System.Drawing.Size(30, 20);
-      this.button10.TabIndex = 6;
-      this.button10.Text = "...";
-      this.button10.UseVisualStyleBackColor = true;
-      this.button10.Click += new System.EventHandler(this.button10_Click);
-      // 
-      // btn_empty_cache
-      // 
-      this.btn_empty_cache.Location = new System.Drawing.Point(6, 67);
-      this.btn_empty_cache.Name = "btn_empty_cache";
-      this.btn_empty_cache.Size = new System.Drawing.Size(125, 23);
-      this.btn_empty_cache.TabIndex = 7;
-      this.btn_empty_cache.Text = "Empty cache";
-      this.btn_empty_cache.UseVisualStyleBackColor = true;
-      this.btn_empty_cache.Click += new System.EventHandler(this.btn_empty_cache_Click);
+      this.linkLabel6.AutoSize = true;
+      this.linkLabel6.Location = new System.Drawing.Point(167, 25);
+      this.linkLabel6.Name = "linkLabel6";
+      this.linkLabel6.Size = new System.Drawing.Size(89, 13);
+      this.linkLabel6.TabIndex = 3;
+      this.linkLabel6.TabStop = true;
+      this.linkLabel6.Text = "htbackdrops.com";
+      this.linkLabel6.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel6_LinkClicked);
       // 
       // SetupForm
       // 
@@ -1100,7 +1066,6 @@ namespace YouTubePlugin
       this.tabPage1.ResumeLayout(false);
       this.tabPage1.PerformLayout();
       this.groupBox2.ResumeLayout(false);
-      this.groupBox2.PerformLayout();
       this.tabPage2.ResumeLayout(false);
       this.tabPage2.PerformLayout();
       this.tabPage3.ResumeLayout(false);
@@ -1108,6 +1073,8 @@ namespace YouTubePlugin
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
       this.tabPage4.ResumeLayout(false);
       this.tabPage4.PerformLayout();
+      this.groupBox8.ResumeLayout(false);
+      this.groupBox8.PerformLayout();
       this.groupBox3.ResumeLayout(false);
       this.groupBox3.PerformLayout();
       this.tabPage7.ResumeLayout(false);
@@ -1121,8 +1088,6 @@ namespace YouTubePlugin
       this.groupBox6.PerformLayout();
       this.groupBox5.ResumeLayout(false);
       this.groupBox5.PerformLayout();
-      this.groupBox8.ResumeLayout(false);
-      this.groupBox8.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -1147,11 +1112,7 @@ namespace YouTubePlugin
     private System.Windows.Forms.Button button4;
     private System.Windows.Forms.TextBox textBox1;
     private System.Windows.Forms.GroupBox groupBox2;
-    private System.Windows.Forms.RadioButton radioButton3;
-    private System.Windows.Forms.RadioButton radioButton2;
-    private System.Windows.Forms.RadioButton radioButton1;
     private System.Windows.Forms.ComboBox comboBox_startup;
-    private System.Windows.Forms.TextBox textBox_startup;
     private System.Windows.Forms.CheckBox checkBox_filter;
     private System.Windows.Forms.CheckBox checkBox_time;
     private System.Windows.Forms.CheckBox checkBox_nowplaying;
@@ -1221,5 +1182,6 @@ namespace YouTubePlugin
     private System.Windows.Forms.Button button10;
     private System.Windows.Forms.Label label17;
     private System.Windows.Forms.TextBox txt_cachedir;
+    private System.Windows.Forms.LinkLabel linkLabel6;
   }
 }

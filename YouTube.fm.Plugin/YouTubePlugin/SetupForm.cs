@@ -41,8 +41,7 @@ namespace YouTubePlugin
       _settings.Password = textBox_passw.Text;
       _settings.PluginName = textBox_pluginname.Text;
       _settings.SearchHistory.Clear();
-      _settings.InitialSearch = textBox_startup.Text;
-      _settings.InitialCat = comboBox_startup.SelectedIndex;
+      _settings.StartUpOpt = comboBox_startup.SelectedIndex;
       _settings.MusicFilter = checkBox_filter.Checked;
       _settings.Time = checkBox_time.Checked;
       _settings.ShowNowPlaying = checkBox_nowplaying.Checked;
@@ -64,12 +63,6 @@ namespace YouTubePlugin
       {
         _settings.SearchHistory.Add(s);
       }
-      if (radioButton1.Checked)
-        _settings.InitialDisplay = 1;
-      if (radioButton2.Checked)
-        _settings.InitialDisplay = 2;
-      if (radioButton3.Checked)
-        _settings.InitialDisplay = 3;
 
       _settings.MainMenu.Items.Clear();
       foreach (ListViewItem item in list_startpage.Items)
@@ -107,29 +100,14 @@ namespace YouTubePlugin
       chk_lastfm_nowplay.Checked = _settings.LastFmNowPlay;
       chk_lastfm_submit.Checked = _settings.LastFmSubmit;
 
-      switch (_settings.InitialDisplay)
-      {
-        case 1:
-          radioButton1.Checked = true;
-          break;
-        case 2:
-          radioButton2.Checked = true;
-          break;
-        case 3:
-          radioButton3.Checked = true;
-          break;
-        default:
-          break;
-      }
       //foreach (KeyValuePair<string, string> valuePair in _settings.Regions)
       //{
       //  cmb_region.Items.Add(valuePair.Key);
       //}
       //cmb_region.Items.Add("Ask");
       //cmb_region.Text = _settings.Region;
-      comboBox_startup.Items.AddRange(_settings.OldCats.ToArray());
-      comboBox_startup.SelectedIndex = _settings.InitialCat;
-      textBox_startup.Text = _settings.InitialSearch;
+      //comboBox_startup.Items.AddRange(_settings.OldCats.ToArray());
+      comboBox_startup.SelectedIndex = _settings.StartUpOpt;
 
       foreach (KeyValuePair<string, ISiteItem> siteItem in Youtube2MP.SiteItemProvider)
       {
@@ -190,45 +168,7 @@ namespace YouTubePlugin
 
     }
 
-    private void radioButton1_CheckedChanged(object sender, EventArgs e)
-    {
-      if (radioButton1.Checked)
-      {
-        radioButton2.Checked = false;
-        comboBox_startup.Enabled = true;
-        textBox_startup.Enabled = false;
-        radioButton3.Checked = false;
-      }
-    }
-
-    private void radioButton2_CheckedChanged(object sender, EventArgs e)
-    {
-      if (radioButton2.Checked)
-      {
-        radioButton1.Checked = false;
-        radioButton3.Checked = false;
-        comboBox_startup.Enabled = false;
-        textBox_startup.Enabled = true;
-
-      }
-    }
-
-    private void radioButton3_CheckedChanged(object sender, EventArgs e)
-    {
-      if (radioButton3.Checked)
-      {
-        comboBox_startup.Enabled = false;
-        textBox_startup.Enabled = false;
-
-        radioButton1.Checked = false;
-        radioButton2.Checked = false;
-      }
-    }
-
-    private void tabPage3_Click(object sender, EventArgs e)
-    {
-
-    }
+ 
 
     private void checkBox_time_CheckedChanged(object sender, EventArgs e)
     {
@@ -531,6 +471,22 @@ namespace YouTubePlugin
         }
       }
       MessageBox.Show("Operation done !");
+    }
+
+    private void linkLabel6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      try
+      {
+        System.Diagnostics.Process.Start("http://www.htbackdrops.com");
+      }
+      catch (Exception)
+      {
+      }
+    }
+
+    private void comboBox_startup_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
     }
 
   }

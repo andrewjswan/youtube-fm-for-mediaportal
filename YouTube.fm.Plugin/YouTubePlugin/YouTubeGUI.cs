@@ -307,7 +307,7 @@ namespace YouTubePlugin
       if (MessageGUI.Item != null)
       {
         ArtistItem artistItem = MessageGUI.Item as ArtistItem;
-        SiteItemEntry entry=new SiteItemEntry();
+        SiteItemEntry entry = new SiteItemEntry();
         entry.Provider = "Artists";
         entry.SetValue("letter", "false");
         entry.SetValue("id", artistItem.Id);
@@ -321,7 +321,7 @@ namespace YouTubePlugin
         {
           ClearLabels("Curent");
           ClearLabels("NowPlaying");
-          GUIPropertyManager.SetProperty("#Youtube.fm.IsDownloading","false");
+          GUIPropertyManager.SetProperty("#Youtube.fm.IsDownloading", "false");
           GUIPropertyManager.SetProperty("#Youtube.fm.Download.Progress", "0");
           GUIPropertyManager.SetProperty("#Youtube.fm.Download.Item", " ");
 
@@ -329,9 +329,32 @@ namespace YouTubePlugin
           GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Home");
           StartUpHome();
           UpdateGui();
-          }
-          else
+          switch (_setting.StartUpOpt)
           {
+            case 1:
+              {
+                DoSearch();
+              }
+              break;
+            case 2:
+              {
+                for (int i = 0; i < listControl.Count; i++)
+                {
+                  SiteItemEntry item = listControl[i].MusicTag as SiteItemEntry;
+                  if (item != null && item.Provider == "Disco")
+                  {
+                    listControl.SelectedItem = i;
+                    listControl.SelectedListItemIndex = i;
+                    DoListSelection();
+                    break;
+                  }
+                }
+              }
+              break;
+          }
+        }
+        else
+        {
           DoBack();
           GUIControl.FocusControl(GetID, listControl.GetID);
         }
@@ -593,7 +616,7 @@ namespace YouTubePlugin
       if ("" != searchString)
       {
           SearchVideo(searchString);
-          NavigationStack.Clear();
+          //NavigationStack.Clear();
       }
     }
 
