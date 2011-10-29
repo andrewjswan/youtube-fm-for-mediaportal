@@ -123,6 +123,11 @@ namespace YouTubePlugin
       relatated.Clear();
       YouTubeQuery query = new YouTubeQuery(relatatedUrl);
       YouTubeFeed vidr = Youtube2MP.service.Query(query);
+      // time to time this query return nothing, maybe the quata limit ..
+      if (vidr.Entries.Count == 0)
+      {
+        vidr = Youtube2MP.service.Query(query);
+      }
       if (vidr.Entries.Count > 0)
       {
         addVideos(vidr, query);
