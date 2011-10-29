@@ -304,12 +304,16 @@ namespace YouTubePlugin
           FillSimilarList();
           string file = GetFanArtImage(Youtube2MP.NowPlayingSong.Artist);
 
-          if (File.Exists(file) && imgFanArt != null)
+          if (File.Exists(file))
           {
-            Log.Debug("Youtube.Fm local fanart {0} loaded ", file);
-            imgFanArt.Visible = true;
-            imgFanArt.FileName = file;
-            imgFanArt.DoUpdate();
+            GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
+            if (imgFanArt != null)
+            {
+              Log.Debug("Youtube.Fm local fanart {0} loaded ", file);
+              imgFanArt.Visible = true;
+              imgFanArt.FileName = file;
+              imgFanArt.DoUpdate();
+            }
           }
         }
         finally

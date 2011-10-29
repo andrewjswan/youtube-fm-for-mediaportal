@@ -12,6 +12,7 @@ namespace YouTubePlugin.Class.SiteItems
 {
   public class Disco : ISiteItem
   {
+    private static GenericListItemCollections items = new GenericListItemCollections();
     public Disco()
     {
       Name = "Disco";
@@ -28,6 +29,8 @@ namespace YouTubePlugin.Class.SiteItems
     public string Name { get; set; }
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
+      if (items.Items.Count > 0)
+        return items;
       Dictionary<string, GenericListItem> list1 = new Dictionary<string, GenericListItem>();
 
       GenericListItemCollections res = new GenericListItemCollections();
@@ -77,7 +80,7 @@ namespace YouTubePlugin.Class.SiteItems
           res.Items.Insert(random.Next(res.Items.Count - 1), genericListItem);
         }
       }
-
+      items = res;
       return res;
     }
 
