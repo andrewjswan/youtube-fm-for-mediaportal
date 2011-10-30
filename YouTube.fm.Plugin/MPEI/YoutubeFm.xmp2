@@ -177,6 +177,13 @@
               <ZipFileName>Installer{CopyFile}\{2dac2951-b1e6-45bf-a6d4-24bf09641c80}-defaultArtistBig.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\defaultArtistBig.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\disco.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{cd880da4-27df-470f-be1f-698e1d212621}-disco.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\disco.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -421,6 +428,13 @@
               <ZipFileName>Installer{GenericSkinFile}\{f6558dc5-2ab1-4790-8df6-47b3d677e3f5}-defaultArtistBig.png</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\Media\defaultArtistBig.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\disco.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{85e11b05-8cb4-44ba-8de3-3a2e100ed5b0}-disco.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\Youtube.fm\disco.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -614,6 +628,13 @@
               <ZipFileName>Installer{CopyFile}\{10f8ddbc-1ec8-44e3-9b85-9aefda42ebb6}-defaultArtistBig.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\defaultArtistBig.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\Youtube.fm\disco.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{a8202ff4-9229-4805-9cec-c0e6fa115d59}-disco.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\disco.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -764,13 +785,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>8</Minor>
       <Build>0</Build>
-      <Revision>203</Revision>
+      <Revision>206</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse, play, download YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.8.0.199.mpe1</OnlineLocation>
-    <ReleaseDate>2011-10-28T17:28:13</ReleaseDate>
+    <ReleaseDate>2011-10-30T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -975,6 +996,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{2dac2951-b1e6-45bf-a6d4-24bf09641c80}-defaultArtistBig.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\Media\defaultArtistBig.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\Youtube.fm\disco.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{cd880da4-27df-470f-be1f-698e1d212621}-disco.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\Youtube.fm\disco.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -1042,7 +1070,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{53ff2ff9-d2b5-4614-980a-f8cb53983ef3}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{f4087c2b-debc-43c7-b64c-c200b5d65af7}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

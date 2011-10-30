@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Youtube.FM translation file -->
+<!-- Dutch (NL) -->
+<!-- Note: English is the fallback for any strings not found in other languages -->
+<strings>
+
+    <!-- A  -->
+    <string Field="AddToFavorites">Add to favorites</string>
+
+    <!-- A -->
+    <string Field="AddAllPlaylist">Voeg allen toe aan afspeellijst</string>
+    <string Field="AddPlaylist">Voeg toe aan afspeellijst</string>
+    <string Field="AddFavorites">Voeg toe aan favorieten</string>
+    <string Field="AddWatchLater">Later bekijken</string>
+    <string Field="AllMusicVideosFrom">Alle muziek video's van {0}</string>
+    <string Field="AllVideosFromUser">Alle video's van deze gebruiker : {0}</string>
+    <string Field="ArtistInfo">Artiest info</string>
+    <string Field="AnotherDonwnloadProgress">Een andere donwnload is bezig</string>
+    <string Field="AutomaticallyFillPlaylist">Vul afspeellijst automatisch met</string>
+    <string Field="Autor">Auteur</string>
+
+    <!-- C -->
+    <string Field="ContextMenu">Context Menu</string>
+
+    <!-- D -->
+    <string Field="DidYouMean ">Bedoel je ?</string>
+    <string Field="DownloadProgress">Download vooruitgang</string>
+    <string Field="DownloadVideo">Download Video</string>
+    <string Field="Dislike">Niet leuk</string>
+    <string Field="Duration">Duur</string>
+
+    <!-- E -->
+
+    <!-- F -->
+    <string Field="Fullscreen">Volledig scherm</string>
+    <string Field="FavoriteCount">Favoriet</string>
+
+
+    <!-- G -->
+
+    <!-- H -->
+    <string Field="Home">Home</string>
+
+    <!-- I -->
+    <string Field="ItemAlreadyDownloaded ">Deze video is al gedownload !</string>
+    <string Field="Info">Info</string>
+
+    <!-- L -->
+    <string Field="Like">Leuk</string>
+
+    <!-- M -->
+    <string Field="Message">Bericht</string>
+
+
+
+    <!-- N -->
+    <string Field="NextPage">Nieuwe pagina</string>
+    <string Field="NewSearch">Nieuwe zoekopdracht</string>
+    <string Field="NoSearchHistory">Geen zoek historie gevonden</string>
+    <string Field="NoItemWasFound ">Geen items gevonden !</string>
+    <string Field="NoItemToDisplay">Geen items !</string>
+    <string Field="NowPlaying">Nu speelt</string>
+    <string Field="NoVideoResponse">Deze video reageert niet !</string>
+
+    <!-- O -->
+    <string Field="Options">Opties</string>
+
+    <!-- P -->
+    <string Field="Playlist">Afspeellijst</string>
+    <string Field="PlaylistSummary">Gemaakt of gewijzigd in MediaPortal</string>
+    <string Field="PlaylistSavingProgress">Bezig met opslaan van afspeellijst </string>
+    <string Field="PublishDate">Gepubliceerd</string>
+
+    <!-- R -->
+    <string Field="RelatedVideos">Gerelateerde video's</string>
+
+    <!-- S -->
+    <string Field="Search">Zoek</string>
+    <string Field="SearchHistory">Zoek historie</string>
+    <string Field="SimilarArtists">Soortgelijke artiesten</string>
+    <string Field="ScrobbleSimilarVideos">Youtube gerelateerde video's</string>
+    <string Field="ScrobbleNeighboursLike">Nummers die je buren leuk vinden</string>
+    <string Field="ScrobbleRecentlyPlayed">Nummers die je onlangs hebt afgespeeld</string>
+    <string Field="ShowPreviousWindow">Bekijk vorig scherm</string>
+    <string Field="ScrobbleMode">Scroble:</string>
+    <string Field="SomePlaylistItemNotSaved">Een of meerdere items uit afspeellijst zijn niet opgeslagen !</string>
+
+    <!-- T -->
+
+
+    <!-- U -->
+    
+    
+    <!-- V -->
+    <string Field="VideoResponses">Reacties op deze video</string>
+    <string Field="VideoInfo">Video Info</string>
+    <string Field="ViewCount">Aantal keer bekeken</string>
+
+    <!-- W -->
+    <string Field="WrongRequestWrongUser">Verkeerde verzoek of verkeerde identificatie van gebruiker </string>
+    <string Field="WrongUser">Verkeerde gebruikersnaam/wachtwoord, of je account is uitgeschakeld </string>
+    <string Field="WatchLater">Bekijk later</string>
+
+    <!-- Y -->
+
+
+</strings>

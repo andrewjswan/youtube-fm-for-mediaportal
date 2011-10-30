@@ -215,6 +215,7 @@ namespace YouTubePlugin
                 cm += c.Author + " : " + c.Content + "\n------------------------------------------\n";
               }
               GUIPropertyManager.SetProperty("#Play.Current.Plot", video.Description + cm);
+              GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.Comments", video.Description + cm);
             }
             catch (Exception ex)
             {
@@ -225,6 +226,7 @@ namespace YouTubePlugin
 
             if (File.Exists(file))
             {
+              GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
               if (imgFanArt != null)
               {
                 Log.Debug("Youtube.Fm local fanart {0} loaded ", file);
