@@ -96,6 +96,7 @@ namespace YouTubePlugin.Class.SiteItems
           }
         }
         res.FolderType = 1;
+        res.Title = "Artists/Letter/" + ArtistManager.Instance.GetArtistsById(entry.GetValue("id")).Name;
       }
       return res;
     }

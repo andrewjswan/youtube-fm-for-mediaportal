@@ -35,6 +35,7 @@ namespace YouTubePlugin.Class.SiteItems
       do
       {
         YouTubeFeed videos = Youtube2MP.service.Query(query);
+        
         res.Title = videos.Title.Text;
         foreach (YouTubeEntry youTubeEntry in videos.Entries)
         {

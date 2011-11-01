@@ -132,13 +132,20 @@ namespace YouTubePlugin
 
     void Worker_Fast_DoWork(object sender, DoWorkEventArgs e)
     {
-      ClearLists();
-      SetLabels(YouTubeEntry,"Info");
-      Worker_FanArt.RunWorkerAsync();
-      LoadRelatated(YouTubeEntry);
-      LoadSimilarArtists(YouTubeEntry);
-      Worker_Artist.RunWorkerAsync();
-      Worker_Youtube.RunWorkerAsync();
+      try
+      {
+        ClearLists();
+        SetLabels(YouTubeEntry, "Info");
+        Worker_FanArt.RunWorkerAsync();
+        LoadRelatated(YouTubeEntry);
+        LoadSimilarArtists(YouTubeEntry);
+        Worker_Artist.RunWorkerAsync();
+        Worker_Youtube.RunWorkerAsync();
+      }
+      catch (Exception exception)
+      {
+        Log.Error(exception);
+      }
     }
 
     protected override void OnPageDestroy(int new_windowId)
@@ -149,17 +156,25 @@ namespace YouTubePlugin
 
     void Worker_Youtube_DoWork(object sender, DoWorkEventArgs e)
     {
-      Uri videoEntryUrl =
-        new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(YouTubeEntry));
-      Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
-      Feed<Comment> comments = Youtube2MP.request.GetComments(video);
-      string cm = "\n------------------------------------------\n";
-      foreach (Comment c in comments.Entries)
+      try
       {
-        cm += c.Author + " : " + c.Content + "\n------------------------------------------\n";
+        Uri videoEntryUrl =
+          new Uri("http://gdata.youtube.com/feeds/api/videos/" + Youtube2MP.GetVideoId(YouTubeEntry));
+
+        Video video = Youtube2MP.request.Retrieve<Video>(videoEntryUrl);
+        Feed<Comment> comments = Youtube2MP.request.GetComments(video);
+        string cm = "\n------------------------------------------\n";
+        foreach (Comment c in comments.Entries)
+        {
+          cm += c.Author + " : " + c.Content + "------------------------------------------\n";
+        }
+        GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Comments", cm);
+        GUIWaitCursor.Hide();
       }
-      GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Comments", cm);
-      GUIWaitCursor.Hide();
+      catch (Exception exception)
+      {
+        Log.Error(exception);
+      }
     }
 
     void Worker_Artist_DoWork(object sender, DoWorkEventArgs e)
@@ -191,9 +206,17 @@ namespace YouTubePlugin
             }
           }
 
-          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio",
-                                         Regex.Replace(HttpUtility.HtmlDecode(track.Artist.Bio.getContent()), "<.*?>",
-                                                       string.Empty));
+          ArtistBio artistBio = track.Artist.Bio;
+          artistBio.Lang = GUILocalizeStrings.GetCultureName(GUILocalizeStrings.CurrentLanguage());
+          string contents = Regex.Replace(HttpUtility.HtmlDecode(artistBio.getContent()), "<.*?>",
+                                          string.Empty);
+          if(string.IsNullOrEmpty(contents))
+          {
+            artistBio.Lang = string.Empty;
+            contents = Regex.Replace(HttpUtility.HtmlDecode(artistBio.getContent()), "<.*?>",
+                                            string.Empty);
+          }
+          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio", contents);
           string tags = " ";
           TopTag[] topTags = track.Artist.GetTopTags();
           foreach (TopTag tag in topTags)

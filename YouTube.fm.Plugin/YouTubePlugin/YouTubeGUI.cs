@@ -674,6 +674,7 @@ namespace YouTubePlugin
         obj.SetItems(listControl);
         listControl.SelectedListItemIndex = obj.Position;
         GUIPropertyManager.SetProperty("#currentmodule", obj.Title);
+        GUIPropertyManager.SetProperty("#itemcount", listControl.Count.ToString());
         mapSettings.ViewAs = (int)obj.CurrentView;
         ShowPanel();
       }
