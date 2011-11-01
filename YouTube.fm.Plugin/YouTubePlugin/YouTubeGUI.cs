@@ -449,7 +449,7 @@ namespace YouTubePlugin
         dlg.DoModal(GetID);
         if (dlg.SelectedId == -1) return;
         SearchVideo(dlg.SelectedLabelText);
-        NavigationStack.Clear();
+        //NavigationStack.Clear();
       }
       else
       {
@@ -1126,6 +1126,7 @@ namespace YouTubePlugin
 
       listControl.SelectedListItemIndex = 0;
       GUIPropertyManager.SetProperty("#itemcount", (level ? listControl.Count - 1 : listControl.Count).ToString());
+      GUIPropertyManager.SetProperty("#itemtype", itemCollections.Title);
       UpdateGui();
       ShowPanel();
       OnDownloadTimedEvent(null, null);
@@ -1197,6 +1198,7 @@ namespace YouTubePlugin
         listControl.Add(item);
       }
       GUIPropertyManager.SetProperty("#itemcount", (level ? listControl.Count - 1 : listControl.Count).ToString());
+      GUIPropertyManager.SetProperty("#itemtype", videos.Title.Text);
       listControl.SelectedListItemIndex = 0;
       UpdateGui();
       ShowPanel();
