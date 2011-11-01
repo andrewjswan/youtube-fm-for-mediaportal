@@ -1124,7 +1124,7 @@ namespace YouTubePlugin
       }
 
       listControl.SelectedListItemIndex = 0;
-
+      GUIPropertyManager.SetProperty("#itemcount", (level ? listControl.Count - 1 : listControl.Count).ToString());
       UpdateGui();
       ShowPanel();
       OnDownloadTimedEvent(null, null);
@@ -1195,6 +1195,7 @@ namespace YouTubePlugin
         item.MusicTag = qu;
         listControl.Add(item);
       }
+      GUIPropertyManager.SetProperty("#itemcount", (level ? listControl.Count - 1 : listControl.Count).ToString());
       listControl.SelectedListItemIndex = 0;
       UpdateGui();
       ShowPanel();

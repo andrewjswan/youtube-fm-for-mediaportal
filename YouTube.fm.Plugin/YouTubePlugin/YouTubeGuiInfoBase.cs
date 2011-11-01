@@ -97,6 +97,7 @@ namespace YouTubePlugin
         listControl.Add(item);
       }
       listControl.SelectedListItemIndex = 0;
+      GUIPropertyManager.SetProperty("#itemcount", listControl.Count.ToString());
     }
 
     protected void FillSimilarList()
