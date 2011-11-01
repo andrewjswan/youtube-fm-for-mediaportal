@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Youtube.FM translation file -->
+<!-- Swedish -->
+<!-- Note: English is the fallback for any strings not found in other languages -->
+<strings>
+
+    <!-- A  -->
+    <string Field="AddToFavorites">Lägg till i favoriter</string>
+
+    <!-- A -->
+    <string Field="AddAllPlaylist">Lägg till samtliga i spellistan</string>
+    <string Field="AddPlaylist">Lägg till i spellistan</string>
+    <string Field="AddFavorites">Lägg till i favoriter</string>
+    <string Field="AddWatchLater">Spara till Titta Senare</string>
+    <string Field="AllMusicVideosFrom">Samtliga musikvideor av {0}</string>
+    <string Field="AllVideosFromUser">Alla videor uppladdade av : {0}</string>
+    <string Field="ArtistInfo">Artistinfo</string>
+    <string Field="AnotherDonwnloadProgress">En annan nerladdning pågår</string>
+    <string Field="AutomaticallyFillPlaylist">Fyll spellistan automatiskt med</string>
+    <string Field="Autor">Skapare</string>
+
+    <!-- C -->
+    <string Field="ContextMenu">Undermeny</string>
+
+    <!-- D -->
+    <string Field="DidYouMean ">Menade du ?</string>
+    <string Field="DownloadProgress">Pågående nerladdning</string>
+    <string Field="DownloadVideo">Ladda ner video</string>
+    <string Field="Dislike">Gillar inte</string>
+    <string Field="Duration">Längd</string>
+
+    <!-- E -->
+
+    <!-- F -->
+    <string Field="Fullscreen">Helskärm</string>
+    <string Field="FavoriteCount">Antal i favoriter</string>
+
+
+    <!-- G -->
+
+    <!-- H -->
+    <string Field="Home">Hem</string>
+
+    <!-- I -->
+    <string Field="ItemAlreadyDownloaded ">Klippet har redan hämtats !</string>
+    <string Field="Info">Info</string>
+
+    <!-- L -->
+    <string Field="Like">Gillar</string>
+
+    <!-- M -->
+    <string Field="Message">Meddelande</string>
+
+
+
+    <!-- N -->
+    <string Field="NextPage">Nästa sida</string>
+    <string Field="NewSearch">Ny sökning</string>
+    <string Field="NoSearchHistory">Ingen tidigare sökning funnen</string>
+    <string Field="NoItemWasFound ">Inget kunde hittas !</string>
+    <string Field="NoItemToDisplay">Inget att visa !</string>
+    <string Field="NowPlaying">Spelas nu</string>
+    <string Field="NoVideoResponse">Inga videosvar finns till detta klipp !</string>
+
+    <!-- O -->
+    <string Field="Options">Val</string>
+
+    <!-- P -->
+    <string Field="Playlist">Spellista</string>
+    <string Field="PlaylistSummary">Skapad eller ändrad i MediaPortal</string>
+    <string Field="PlaylistSavingProgress">Spellistan sparas </string>
+    <string Field="PublishDate">Publiceringsdatum</string>
+
+    <!-- R -->
+    <string Field="RelatedVideos">Närliggande videor</string>
+
+    <!-- S -->
+    <string Field="Search">Sök</string>
+    <string Field="SearchHistory">Sökhistorik</string>
+    <string Field="SimilarArtists">Liknande artister</string>
+    <string Field="ScrobbleSimilarVideos">Youtubes liknande artister</string>
+    <string Field="ScrobbleNeighboursLike">Spår dina grannar gillar</string>
+    <string Field="ScrobbleRecentlyPlayed">Soår du spelat nyligen</string>
+    <string Field="ShowPreviousWindow">Visa förgående fönster</string>
+    <string Field="ScrobbleMode">Scrobble:</string>
+    <string Field="SomePlaylistItemNotSaved">Vissa spår i listan har inte sparats !</string>
+
+    <!-- T -->
+
+
+    <!-- U -->
+    
+    
+    <!-- V -->
+    <string Field="VideoResponses">Videosvar för detta klipp</string>
+    <string Field="VideoInfo">Videoinfo</string>
+    <string Field="ViewCount">Visa räknare</string>
+
+    <!-- W -->
+    <string Field="WrongRequestWrongUser">Felaktig förfrågan eller kontouppgift </string>
+    <string Field="WrongUser">Felaktigt användarnamn, lösenord eller avstängt konto </string>
+    <string Field="WatchLater">Titta Senare</string>
+
+    <!-- Y -->
+
+
+</strings>

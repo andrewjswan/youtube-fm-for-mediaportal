@@ -70,20 +70,16 @@ namespace YouTubePlugin.Class.SiteItems
       if (entry.GetValue("letter") == "false")
       {
         //res = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
+        string user = ArtistManager.Instance.Grabber.GetArtistUser(entry.GetValue("id"));
         GenericListItemCollections resart = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
-        string search = "";
-        foreach (GenericListItem genericListItem in resart.Items)
+        YouTubeFeed videos = null;
+        if (!string.IsNullOrEmpty(user))
         {
-          YouTubeEntry tubeEntry = genericListItem.Tag as YouTubeEntry;
-          if (!Youtube2MP.GetVideoId(tubeEntry).Contains("-"))
-            search += Youtube2MP.GetVideoId(tubeEntry) + "|";
+          YouTubeQuery query =
+            new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", user));
+          query.NumberToRetrieve = 50;
+          videos = Youtube2MP.service.Query(query);
         }
-        res.Title = "Artists/" + entry.GetValue("name");
-        YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
-        query.Query = search;
-        query.NumberToRetrieve = 50;
-
-        YouTubeFeed videos = Youtube2MP.service.Query(query);
 
         foreach (GenericListItem genericListItem in resart.Items)
         {
@@ -120,6 +116,8 @@ namespace YouTubePlugin.Class.SiteItems
     
     YouTubeEntry GetVideFromFeed(string videoId,YouTubeFeed videos)
     {
+      if (videos == null)
+        return null;
       foreach (YouTubeEntry youTubeEntry in videos.Entries)
       {
         if (Youtube2MP.GetVideoId(youTubeEntry) == videoId)

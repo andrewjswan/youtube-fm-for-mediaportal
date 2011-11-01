@@ -88,6 +88,20 @@ namespace YouTubePlugin.Class.Artist
       return site;
     }
 
+    public string GetArtistUser(string artist_id)
+    {
+      try
+      {
+        string site = DownloadArtistInfo(artist_id);
+        Regex regexObj = new Regex("class=\"channel-details\">.*?<a href=\"/user/.*?\">(?<user>.*?)</a>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        return regexObj.Match(site).Groups["user"].Value;
+      }
+      catch (Exception)
+      {
+        return string.Empty;
+      }
+    }
+
     public GenericListItemCollections GetArtistVideosIds(string artist_id)
     {
       string site = DownloadArtistInfo(artist_id);
@@ -102,7 +116,8 @@ namespace YouTubePlugin.Class.Artist
         //artistItem.Img_url = img;
         //ArtistManager.Instance.Save(artistItem);
         //----------------------------
-        Regex regexObj = new Regex("album-row.*?data-video-ids=\"(?<vid_id>.*?)\".*?<span class=\"clip\"><img src=\"(?<thumb>.*?)\".*?album-track-name\">(?<title>.*?)</span>", RegexOptions.Singleline);
+        //Regex regexObj = new Regex("album-row.*?data-video-ids=\"(?<vid_id>.*?)\".*?<span class=\"clip\"><img src=\"(?<thumb>.*?)\".*?album-track-name\">(?<title>.*?)</span>", RegexOptions.Singleline);
+        Regex regexObj = new Regex("album-row.*?data-video-ids=\"(?<vid_id>.*?)\".*?<span class=\"clip\"><img src=\"(?<thumb>.*?)\".*?album-track-duration\">(?<duration>.*?)</span>.*?album-track-name\">(?<title>.*?)</span>", RegexOptions.Singleline);
         Match matchResult = regexObj.Match(site);
         while (matchResult.Success)
         {
@@ -120,6 +135,7 @@ namespace YouTubePlugin.Class.Artist
                                          IsFolder = false,
                                          LogoUrl = "http:" + matchResult.Groups["thumb"].Value.Replace("default.jpg", "hqdefault.jpg"),
                                          Tag = youTubeEntry,
+                                         Title2 = matchResult.Groups["duration"].Value,
                                          ParentTag = artistItem
                                        };
           res.Items.Add(listItem);
