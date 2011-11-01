@@ -83,6 +83,10 @@ namespace YouTubePlugin.Class.SiteItems
       YouTubeQuery tubeQuery = new YouTubeQuery(query);
       tubeQuery.NumberToRetrieve = 50;
       tubeQuery.SafeSearch = YouTubeQuery.SafeSearchValues.None;
+      if (!string.IsNullOrEmpty(entry.GetValue("hd")) && entry.GetValue("hd") == "true")
+      {
+        tubeQuery.ExtraParameters = "hd=true";
+      }
 
       if (usetime)
       {

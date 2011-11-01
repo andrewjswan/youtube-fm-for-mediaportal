@@ -135,6 +135,7 @@
     <Compile Include="Class\SiteItems\BillboardItemControl.Designer.cs">
       <DependentUpon>BillboardItemControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class\SiteItems\Browse.cs" />
     <Compile Include="Class\SiteItems\Disco.cs" />
     <Compile Include="Class\SiteItems\DiscoControl.cs">
       <SubType>UserControl</SubType>

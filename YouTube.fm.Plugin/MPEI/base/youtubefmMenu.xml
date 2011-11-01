@@ -10,6 +10,11 @@
 		<Provider>Disco</Provider>
 	</Items>
 	<Items>
+		<ConfigString>ParentFolder=|</ConfigString>
+		<Title>Browse</Title>
+		<Provider>Browse</Provider>
+	</Items>
+	<Items>
 		<ConfigString>ParentFolder=|title=Standard feeds|</ConfigString>
 		<Title>Standard feeds</Title>
 		<Provider>Folder</Provider>
@@ -110,12 +115,12 @@
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
-		<ConfigString>title=Search for :full HD|term=full HD|sortint=0|</ConfigString>
+		<ConfigString>title=Search for :full HD|term=full HD|sortint=0|ParentFolder=|</ConfigString>
 		<Title>Search for :full HD</Title>
 		<Provider>Search for videos</Provider>
 	</Items>
 	<Items>
-		<ConfigString>title=Search History|items=5|flat=false|</ConfigString>
+		<ConfigString>title=Search History|items=5|flat=false|ParentFolder=|</ConfigString>
 		<Title>Search History</Title>
 		<Provider>Search History</Provider>
 	</Items>
