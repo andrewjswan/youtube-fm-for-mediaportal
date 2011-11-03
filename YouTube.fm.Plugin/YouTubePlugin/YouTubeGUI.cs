@@ -261,7 +261,7 @@ namespace YouTubePlugin
           }
           catch (InvalidCredentialsException)
           {
-            Log.Error("Wrong username or password or account is disabled ");
+            Log.Warn("Wrong youtube username or password or account is disabled ");
             service.Credentials = null;
           }
         }
@@ -271,7 +271,7 @@ namespace YouTubePlugin
           service.Credentials = null;
         }
       }
-
+       
       if (Youtube2MP.LastFmProfile == null)
       {
         Youtube2MP.LastFmProfile = new LastProfile();
@@ -281,7 +281,7 @@ namespace YouTubePlugin
         }
         catch (Exception exception)
         {
-          Log.Error(exception);
+          Log.Warn("Wrong last.fm username or password or account is disabled ");
         }
       }
       
@@ -1059,7 +1059,8 @@ namespace YouTubePlugin
 
       SaveListState(true);
 
-      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/" + itemCollections.Title);
+      //GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/" + itemCollections.Title);
+      GUIPropertyManager.SetProperty("#currentmodule", itemCollections.Title);
       updateStationLogoTimer.Enabled = false;
       downloaQueue.Clear();
       if (level)
@@ -1143,7 +1144,8 @@ namespace YouTubePlugin
         Utils.SetDefaultIcons(item);
         listControl.Add(item);
       }
-      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/" + videos.Title.Text);
+      //GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/" + videos.Title.Text);
+      GUIPropertyManager.SetProperty("#currentmodule",  videos.Title.Text);
       updateStationLogoTimer.Enabled = false;
       downloaQueue.Clear();
       foreach (YouTubeEntry entry in videos.Entries)
