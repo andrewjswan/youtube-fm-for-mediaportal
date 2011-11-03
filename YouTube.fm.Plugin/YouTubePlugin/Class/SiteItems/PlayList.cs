@@ -41,6 +41,7 @@ namespace YouTubePlugin.Class.SiteItems
         if (videos.TotalResults < query.StartIndex + 50)
           break;
       } while (true);
+      res.ItemType = ItemType.Video;
       return res;
     }
 

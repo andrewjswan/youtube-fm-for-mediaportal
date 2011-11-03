@@ -203,6 +203,7 @@ namespace YouTubePlugin.Class
     public static string AddWatchLater = "Add to Watch Later";
     public static string AllMusicVideosFrom = "All music videos from {0}";
     public static string AllVideosFromUser = "All videos from this user : {0}";
+    public static string Artists = "Artists";
     public static string ArtistInfo = "Artist Info";
     public static string AnotherDonwnloadProgress = "Another donwnload is in progress";
     public static string AutomaticallyFillPlaylist = "Automatically fill playlist with";
@@ -233,6 +234,7 @@ namespace YouTubePlugin.Class
     // I
     public static string ItemAlreadyDownloaded  = "Item already downloaded !";
     public static string Info = "Info";
+    public static string Items = "Items";
 
     // L
     public static string Like = "Like";
@@ -285,6 +287,7 @@ namespace YouTubePlugin.Class
     public static string VideoResponses = "Video responses for this video";
     public static string VideoInfo = "Video Info";
     public static string ViewCount = "View Count";
+    public static string Videos = "Videos";
 
     // W
     public static string WrongRequestWrongUser = "Wrong request or wrong user identification ";

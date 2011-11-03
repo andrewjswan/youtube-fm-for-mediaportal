@@ -69,6 +69,7 @@ namespace YouTubePlugin.Class.SiteItems
         res.Items.Add(Youtube2MP.YouTubeEntry2ListItem(youTubeEntry));
       }
       res.FolderType = 1;
+      res.ItemType = ItemType.Video;
       return res;
     }
 

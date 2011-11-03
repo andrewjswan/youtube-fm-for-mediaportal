@@ -99,6 +99,7 @@
     <Compile Include="Class\Artist\ArtistManager.cs" />
     <Compile Include="Class\Database\DatabaseProvider.cs" />
     <Compile Include="Class\FileDownloader.cs" />
+    <Compile Include="Class\ItemType.cs" />
     <Compile Include="Class\LastProfile.cs" />
     <Compile Include="Class\GenericListItem.cs" />
     <Compile Include="Class\GenericListItemCollections.cs" />

@@ -73,6 +73,7 @@ namespace YouTubePlugin.Class.SiteItems
       else
       {
         string rssurl = Feeds[entry.GetValue("feed")];
+        res.ItemType = ItemType.Video;
         Uri uri = new Uri(rssurl);
         RssChannel myRssChannel = new RssChannel(uri);
         res.Title = myRssChannel.Title;

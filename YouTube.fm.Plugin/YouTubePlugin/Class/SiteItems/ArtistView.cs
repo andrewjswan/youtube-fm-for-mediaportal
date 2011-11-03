@@ -55,6 +55,7 @@ namespace YouTubePlugin.Class.SiteItems
           newentry.SetValue("letter", "false");
           newentry.SetValue("id", artistItem.Id);
           newentry.SetValue("name", artistItem.Name);
+          res.ItemType = ItemType.Artist;
           GenericListItem listItem = new GenericListItem()
                                        {
                                          Title = artistItem.Name,
@@ -70,6 +71,7 @@ namespace YouTubePlugin.Class.SiteItems
       if (entry.GetValue("letter") == "false")
       {
         //res = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
+        res.ItemType = ItemType.Video;
         string user = ArtistManager.Instance.Grabber.GetArtistUser(entry.GetValue("id"));
         GenericListItemCollections resart = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
         YouTubeFeed videos = null;

@@ -46,6 +46,7 @@ namespace YouTubePlugin.Class.SiteItems
           DefaultImage = "defaultArtistBig.png"
           }); 
       }
+      res.ItemType = ItemType.Video;
       return res;
     }
 

@@ -1128,7 +1128,7 @@ namespace YouTubePlugin
 
       listControl.SelectedListItemIndex = 0;
       GUIPropertyManager.SetProperty("#itemcount", (level ? listControl.Count - 1 : listControl.Count).ToString());
-      GUIPropertyManager.SetProperty("#itemtype", itemCollections.Title);
+      GUIPropertyManager.SetProperty("#itemtype", itemCollections.ItemTypeName);
       UpdateGui();
       ShowPanel();
       OnDownloadTimedEvent(null, null);
@@ -1201,7 +1201,7 @@ namespace YouTubePlugin
         listControl.Add(item);
       }
       GUIPropertyManager.SetProperty("#itemcount", (level ? listControl.Count - 1 : listControl.Count).ToString());
-      GUIPropertyManager.SetProperty("#itemtype", videos.Title.Text);
+      GUIPropertyManager.SetProperty("#itemtype", Translation.Videos);
       listControl.SelectedListItemIndex = 0;
       UpdateGui();
       ShowPanel();

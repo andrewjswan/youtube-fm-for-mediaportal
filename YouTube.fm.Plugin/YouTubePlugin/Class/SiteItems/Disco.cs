@@ -81,6 +81,7 @@ namespace YouTubePlugin.Class.SiteItems
         }
       }
       items = res;
+      res.ItemType = ItemType.Video;
       return res;
     }
 

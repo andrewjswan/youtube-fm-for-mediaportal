@@ -54,16 +54,19 @@ namespace YouTubePlugin.Class.SiteItems
       {
         res = DatabaseProvider.InstanInstance.GetRecentlyPlayed();
         res.Title = Name + "/" + stats[0];
+        res.ItemType = ItemType.Video;
       }
       if (entry.GetValue("level") == "1")//Recently played videos
       {
         res = DatabaseProvider.InstanInstance.GetTopPlayed();
         res.Title = Name + "/" + stats[1];
+        res.ItemType = ItemType.Video;
       }
       if (entry.GetValue("level") == "2")//Recently played videos
       {
         res =  DatabaseProvider.InstanInstance.GetRandom();
         res.Title = Name + "/" + stats[2];
+        res.ItemType = ItemType.Video;
       }
       return res;
     }

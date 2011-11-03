@@ -47,11 +47,11 @@ namespace YouTubePlugin.Class.SiteItems
       {
         {
           SiteItemEntry newentry = new SiteItemEntry();
-          newentry.Provider = this.Name;
+          newentry.Provider =this.Name;
           newentry.SetValue("region", entry.GetValue("region"));
           newentry.SetValue("level", "2");
           newentry.SetValue("hd", "false");
-          newentry.Title = "All";
+          newentry.Title = entry.Title + "/" + "All";
           GenericListItem listItem = new GenericListItem()
           {
             Title = "All",
@@ -66,7 +66,7 @@ namespace YouTubePlugin.Class.SiteItems
           newentry.SetValue("region", entry.GetValue("region"));
           newentry.SetValue("level", "2");
           newentry.SetValue("hd", "true");
-          newentry.Title = "HD";
+          newentry.Title = entry.Title + "/" + "HD";
           GenericListItem listItem = new GenericListItem()
           {
             Title = "HD",
@@ -87,7 +87,7 @@ namespace YouTubePlugin.Class.SiteItems
           newentry.SetValue("hd", entry.GetValue("hd"));
           newentry.SetValue("level", "3");
           newentry.SetValue("feedint", i.ToString());
-          newentry.Title = _settings.Cats[i];
+          newentry.Title = entry.Title + "/" + _settings.Cats[i];
           GenericListItem listItem = new GenericListItem()
           {
             Title = _settings.Cats[i],
@@ -108,7 +108,7 @@ namespace YouTubePlugin.Class.SiteItems
           newentry.SetValue("level", "4");
           newentry.SetValue("feedint", entry.GetValue("feedint"));
           newentry.SetValue("time", _settings.TimeList[i]);
-          newentry.Title = _settings.TimeList[i];
+          newentry.Title = entry.Title + "/" + _settings.TimeList[i];
           GenericListItem listItem = new GenericListItem()
           {
             Title = _settings.TimeList[i],
