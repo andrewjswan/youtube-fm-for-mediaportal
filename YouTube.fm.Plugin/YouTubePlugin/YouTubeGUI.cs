@@ -617,7 +617,6 @@ namespace YouTubePlugin
       if ("" != searchString)
       {
           SearchVideo(searchString);
-          //NavigationStack.Clear();
       }
     }
 
@@ -1212,7 +1211,7 @@ namespace YouTubePlugin
     {
       if (item == null || parent == null)
         return;
-      //YouTubeEntry vid = item.MusicTag as YouTubeEntry ;
+
       YouTubeEntry vid = listControl.SelectedListItem.MusicTag as YouTubeEntry;
       
       if (vid != null)

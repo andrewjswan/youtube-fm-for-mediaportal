@@ -60,7 +60,10 @@ namespace YouTubePlugin
           GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Duration",
                                          string.Format("{0}:{1:0#}", min, (sec - (min*60))));
         }
+        LocalFileStruct fileStruct = Youtube2MP._settings.LocalFile.Get(Youtube2MP.GetVideoId(vid));
 
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsDownloaded", fileStruct != null ? "true" : "false");
+        
         int watchcount = DatabaseProvider.InstanInstance.GetWatchCount(vid);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount",
                                        watchcount.ToString("0,0"));
