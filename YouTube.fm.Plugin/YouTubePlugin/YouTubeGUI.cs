@@ -114,6 +114,7 @@ namespace YouTubePlugin
     public YouTubeGUI()
     {
       _setting.Load();
+      _setting.CreateFolders();
       GetID = GetWindowId();
       Youtube2MP._settings = _setting;
       Youtube2MP.service = service;

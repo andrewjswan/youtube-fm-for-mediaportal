@@ -242,6 +242,14 @@ namespace YouTubePlugin
         }
         xmlwriter.SetValue("youtubevideos", "searchhistory", his);
       }
+      CreateFolders();
+      this.LocalFile.Save();
+      MainMenu.Save("youtubefmMenu.xml");
+      MediaPortal.Profile.Settings.SaveCache();
+    }
+
+    public void CreateFolders()
+    {
       try
       {
         if (!Directory.Exists(CacheDir))
@@ -257,9 +265,6 @@ namespace YouTubePlugin
       {
         Log.Error(ex);
       }
-      this.LocalFile.Save();
-      MainMenu.Save("youtubefmMenu.xml");
-      MediaPortal.Profile.Settings.SaveCache();
     }
 
     public Settings()
