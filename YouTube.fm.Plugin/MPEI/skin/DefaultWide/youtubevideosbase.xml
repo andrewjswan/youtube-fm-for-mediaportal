@@ -17,7 +17,7 @@
     <import>common.time.xml</import>    
     <import>common.music.fanart.xml</import>
     <control>
-      <description>Youtube.fm Hater Logo</description>      
+      <description>Youtube.fm Header Logo</description>      
       <type>image</type>
       <id>0</id>
       <posX>36</posX>
