@@ -13,9 +13,20 @@
       <width>720</width>
       <height>576</height>
     </control>
-    <import>common.window.xml</import>
+    <import>youtube.common.window.xml</import>
     <import>common.time.xml</import>    
     <import>common.music.fanart.xml</import>
+    <control>
+      <description>Youtube.fm Header Logo</description>      
+      <type>image</type>
+      <id>0</id>
+      <posX>18</posX>
+      <posY>18</posY>
+      <width>48</width>
+      <height>50</height>
+      <texture>hover_youtubefm.png</texture>
+      <animation effect="fade" time="150" reversible="false">visible</animation>      
+    </control> 
     <control>
       <type>actiongroup</type>
       <description>action menu</description>
@@ -138,7 +149,7 @@
       </control>
     </control>
     <import>youtube.facade.xml</import>
-    <import>youtube.common.logos.xml</import>
+    <import>youtube.mediainfo.xml</import>
     <control>
       <id>1</id>
       <type>image</type>

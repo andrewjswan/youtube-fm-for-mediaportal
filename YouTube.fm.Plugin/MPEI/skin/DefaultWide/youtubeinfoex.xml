@@ -58,7 +58,7 @@
             <posX>60</posX>
             <posY>27</posY>
             <label>#currentmodule</label>
-            <font>font16</font>
+            <font>font15</font>
             <align>left</align>
             <textcolor>White</textcolor>
         </control>        
@@ -125,9 +125,10 @@
             <type>image</type>
             <id>0</id>
             <posX>65</posX>
-            <posY>337</posY>
-            <width>28</width>
-            <height>28</height>                       
+            <posY>338</posY>
+            <width>30</width>
+            <height>30</height>
+            <keepaspectratio>yes</keepaspectratio>                       
             <texture>overlayunwatched.png</texture>            
             <animation effect="fade" time="70" reversible="false">visible</animation>	        
         </control>                 
@@ -136,9 +137,10 @@
             <type>image</type>
             <id>0</id>
             <posX>65</posX>
-            <posY>337</posY>
-            <width>28</width>
-            <height>28</height>                      
+            <posY>338</posY>
+            <width>30</width>
+            <height>30</height> 
+            <keepaspectratio>yes</keepaspectratio>         
             <texture>overlaywatched.png</texture>	  
             <visible>string.equals(#Youtube.fm.Info.Video.IsWatched, true)</visible>
             <animation effect="fade" time="70" reversible="false">visible</animation>	        
@@ -147,15 +149,41 @@
             <description>HD Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>110</posX>
+            <posX>104</posX>
             <posY>335</posY>
             <width>70</width>
-            <height>35</height>
+            <height>33</height>
             <keepaspectratio>yes</keepaspectratio>            
             <texture>Logos\hd.png</texture>	  
             <visible>string.equals(#Youtube.fm.Info.Video.IsHD, true)</visible>
             <animation effect="fade" time="70" reversible="false">visible</animation>	        
-        </control>         
+        </control>
+        <control>
+            <description>SD Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>104</posX>
+            <posY>335</posY>
+            <width>70</width>
+            <height>33</height>
+            <keepaspectratio>yes</keepaspectratio>            
+            <texture>Logos\sd.png</texture>	  
+            <visible>!string.equals(#Youtube.fm.Info.Video.IsHD, true)</visible>
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>
+        <control>
+            <description>IsDownloaded Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>169</posX>
+            <posY>337</posY>
+            <width>40</width>
+            <height>31</height>
+            <keepaspectratio>yes</keepaspectratio>                            
+            <texture>youtube.fm_isdownloaded.png</texture>
+            <visible>string.equals(#Youtube.fm.Info.Video.IsDownloaded, True)</visible>                                 
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>           			                          
         <control>
             <id>0</id>
             <description>Video Title Value</description>
@@ -415,8 +443,8 @@
             <id>0</id>
             <posX>75</posX>
             <posY>679</posY>
-            <width>30</width>
-            <height>30</height>
+            <width>31</width>
+            <height>31</height>
             <keepaspectratio>yes</keepaspectratio>            
             <texture>isupdate.png</texture>	  
             <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
@@ -447,7 +475,7 @@
             <id>0</id>
             <posX>390</posX>
             <posY>680</posY>
-            <width>500</width>
+            <width>600</width>
             <font>font10</font>
             <textcolor>ffa9d0f7</textcolor>           
             <label>#Youtube.fm.Download.Item</label>	  

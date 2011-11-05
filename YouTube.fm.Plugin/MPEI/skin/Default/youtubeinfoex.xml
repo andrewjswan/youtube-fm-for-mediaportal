@@ -129,7 +129,7 @@
             <width>22</width>
             <height>22</height>                       
             <texture>overlayunwatched.png</texture>            
-            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
         </control>                 
         <control>
             <description>Watched Logo</description>
@@ -141,21 +141,47 @@
             <height>22</height>                      
             <texture>overlaywatched.png</texture>	  
             <visible>string.equals(#Youtube.fm.Info.Video.IsWatched, true)</visible>
-            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
         </control>         
         <control>
             <description>HD Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>77</posX>
+            <posX>75</posX>
             <posY>260</posY>
             <width>50</width>
             <height>25</height>
             <keepaspectratio>yes</keepaspectratio>            
             <texture>Logos\hd.png</texture>	  
             <visible>string.equals(#Youtube.fm.Info.Video.IsHD, true)</visible>
-            <animation effect="fade" time="70" reversible="false">visible</animation>	        
-        </control>         
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
+        </control>
+        <control>
+            <description>SD Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>75</posX>
+            <posY>260</posY>
+            <width>50</width>
+            <height>25</height>
+            <keepaspectratio>yes</keepaspectratio>            
+            <texture>Logos\sd.png</texture>	  
+            <visible>!string.equals(#Youtube.fm.Info.Video.IsHD, true)</visible>
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
+        </control>
+        <control>
+            <description>IsDownloaded Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>118</posX>
+            <posY>260</posY>
+            <width>30</width>
+            <height>25</height>
+            <keepaspectratio>yes</keepaspectratio>                            
+            <texture>youtube.fm_isdownloaded.png</texture>
+            <visible>string.equals(#Youtube.fm.Info.Video.IsDownloaded, True)</visible>                                 
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
+        </control>           	                      
         <control>
             <id>0</id>
             <description>Video Title Value</description>
@@ -361,7 +387,7 @@
             <keepaspectratio>yes</keepaspectratio>
             <centered>yes</centered>
             <texture mask="Picturethumbmask.png">#Youtube.fm.Info.Artist.Image</texture>            
-            <animation effect="fade" time="70" reversible="false">visible</animation>
+            <animation effect="fade" time="150" reversible="false">visible</animation>
         </control>
         <control>
             <type>image</type>
@@ -371,7 +397,7 @@
             <width>180</width>
             <height>150</height>
             <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>            
-            <animation effect="fade" time="70" reversible="false">visible</animation>
+            <animation effect="fade" time="150" reversible="false">visible</animation>
         </control>        
         <control>
             <id>0</id>
@@ -420,7 +446,7 @@
             <keepaspectratio>yes</keepaspectratio>            
             <texture>isupdate.png</texture>	  
             <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
-            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
         </control>
         <control>
             <description>Downloading Progress Bar</description>
@@ -439,7 +465,7 @@
             <midtexture>osd_progress_mid.png</midtexture>
             <label>#Youtube.fm.Download.Progress</label>
             <visible>string.equals(#Youtube.fm.IsDownloading, true)</visible>
-            <animation effect="fade" time="70" reversible="false">visible</animation>
+            <animation effect="fade" time="150" reversible="false">visible</animation>
         </control>
         <control>
             <description>Downloading Video Title</description>
@@ -452,7 +478,7 @@
             <textcolor>ffa9d0f7</textcolor>           
             <label>#Youtube.fm.Download.Item</label>	  
             <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
-            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
         </control>         		                     
     </controls>
 </window>

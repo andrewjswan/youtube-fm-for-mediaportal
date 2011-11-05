@@ -674,6 +674,7 @@ namespace YouTubePlugin
         obj.SetItems(listControl);
         listControl.SelectedListItemIndex = obj.Position;
         GUIPropertyManager.SetProperty("#currentmodule", obj.Title);
+        GUIPropertyManager.SetProperty("#itemtype", obj.ItemType);
         GUIPropertyManager.SetProperty("#itemcount", listControl.Count.ToString());
         mapSettings.ViewAs = (int)obj.CurrentView;
         ShowPanel();
@@ -1228,7 +1229,7 @@ namespace YouTubePlugin
     {
       if (listControl.ListLayout.ListItems.Count > 0)
       {
-        NavigationStack.Push(new NavigationObject(listControl.ListLayout, GUIPropertyManager.GetProperty("#currentmodule"), listControl.SelectedListItemIndex, (View)mapSettings.ViewAs));
+        NavigationStack.Push(new NavigationObject(listControl.ListLayout, GUIPropertyManager.GetProperty("#currentmodule"), GUIPropertyManager.GetProperty("#itemtype"), listControl.SelectedListItemIndex, (View)mapSettings.ViewAs));
       }
       if (clear)
       {

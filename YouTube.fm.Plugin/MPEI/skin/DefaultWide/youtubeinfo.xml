@@ -59,11 +59,23 @@
             <posX>60</posX>
             <posY>27</posY>
             <label>#currentmodule</label>
-            <font>font16</font>
+            <font>font15</font>
             <align>left</align>
             <textcolor>White</textcolor>
         </control>
         <import>common.time.xml</import>
+        <control>
+            <description>Number of Files Label for Related Videos</description>
+            <type>label</type>
+            <id>1</id>
+            <posX>1244</posX>
+            <posY>680</posY>
+            <label>#selectedindex/#itemcount</label>
+            <align>right</align>
+            <textcolor>ffa9d0f7</textcolor>   
+            <font>font11</font>
+            <visible>string.equals(#selectedindex)+string.equals(#itemcount)</visible>      
+        </control> 		
         <control>         
             <id>101</id>
             <description>Selected Item Label / similar Artist/Related Videos</description>
@@ -138,10 +150,10 @@
             <description>Downloading Notification Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>1200</posX>
-            <posY>65</posY>
-            <width>30</width>
-            <height>30</height>
+            <posX>1098</posX>
+            <posY>66</posY>
+            <width>33</width>
+            <height>33</height>
             <keepaspectratio>yes</keepaspectratio>            
             <texture>isupdate.png</texture>	  
             <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
@@ -151,15 +163,41 @@
             <description>HD Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>590</posX>
-            <posY>450</posY>
+            <posX>1188</posX>
+            <posY>63</posY>
             <width>70</width>
-            <height>35</height>
+            <height>33</height>
             <keepaspectratio>yes</keepaspectratio>            
             <texture>Logos\hd.png</texture>	  
             <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>
             <animation effect="fade" time="70" reversible="false">visible</animation>	        
-        </control>                                            
+        </control>
+        <control>
+            <description>SD Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>1188</posX>
+            <posY>63</posY>
+            <width>70</width>
+            <height>33</height>
+            <keepaspectratio>yes</keepaspectratio>            
+            <texture>Logos\sd.png</texture>	  
+            <visible>!string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>
+        <control>
+            <description>IsDownloaded Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>1140</posX>
+            <posY>65</posY>
+            <width>40</width>
+            <height>31</height>
+            <keepaspectratio>yes</keepaspectratio>                            
+            <texture>youtube.fm_isdownloaded.png</texture>
+            <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsDownloaded, True)</visible>                                 
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>			                                                                               
         <control>
             <id>0</id>
             <description>Artist Name Value</description>
@@ -363,7 +401,7 @@
             <posX>0</posX>
             <posY>545</posY>
             <width>1280</width>
-            <height>300</height>
+            <height>200</height>
             <onup>96</onup>            
             <selectedCard>0</selectedCard>
             <cardWidth>230</cardWidth>
@@ -418,7 +456,7 @@
             <scrollbarBackground>bar_hor.png</scrollbarBackground>
             <scrollbarLeft>mouse_left_horizontal.png</scrollbarLeft>
             <scrollbarRight>mouse_right_horizontal.png</scrollbarRight>
-            <scrollbarYOff>455</scrollbarYOff>
+            <scrollbarYOff>955</scrollbarYOff>
             <showScrollbar>no</showScrollbar>
             <cards flipY="yes" diffuse="Thumb_Mask.png" mask="Picturethumbmask.png">Picturethumbmask.png</cards>	                     
             <subitems>
@@ -426,7 +464,7 @@
                 <![CDATA[                 <controls>            
             </controls>]]></subitem>
           </subitems>
-        </control>      
-      </control> 		
+        </control>
+      </control>        
     </controls>
 </window>

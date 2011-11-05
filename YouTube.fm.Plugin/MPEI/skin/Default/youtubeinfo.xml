@@ -64,6 +64,18 @@
             <textcolor>White</textcolor>
         </control>
         <import>common.time.xml</import>
+        <control>
+            <description>Number of Files Label for Related Videos</description>
+            <type>label</type>
+            <id>1</id>
+            <posX>699</posX>
+            <posY>535</posY>
+            <label>#selectedindex/#itemcount</label>
+            <align>right</align>
+            <textcolor>ffa9d0f7</textcolor>   
+            <font>font11</font>
+            <visible>string.equals(#selectedindex)+string.equals(#itemcount)</visible>      
+        </control> 		        
         <control>         
             <id>101</id>
             <description>Selected Item Label / similar Artist/Related Videos</description>
@@ -138,10 +150,10 @@
             <description>Downloading Notification Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>675</posX>
-            <posY>50</posY>
-            <width>23</width>
-            <height>23</height>
+            <posX>248</posX>
+            <posY>533</posY>
+            <width>24</width>
+            <height>24</height>
             <keepaspectratio>yes</keepaspectratio>            
             <texture>isupdate.png</texture>	  
             <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
@@ -159,7 +171,33 @@
             <texture>Logos\hd.png</texture>	  
             <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>
             <animation effect="fade" time="150" reversible="false">visible</animation>	        
-        </control>                                            
+        </control>
+        <control>
+            <description>SD Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>170</posX>
+            <posY>532</posY>
+            <width>50</width>
+            <height>25</height>
+            <keepaspectratio>yes</keepaspectratio>            
+            <texture>Logos\sd.png</texture>	  
+            <visible>!string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
+        </control>
+        <control>
+            <description>IsDownloaded Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>216</posX>
+            <posY>533</posY>
+            <width>30</width>
+            <height>24</height>
+            <keepaspectratio>yes</keepaspectratio>                            
+            <texture>youtube.fm_isdownloaded.png</texture>
+            <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsDownloaded, True)</visible>                                 
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
+        </control>		                                                                       
         <control>
             <id>0</id>
             <description>Artist Name Value</description>
@@ -330,6 +368,18 @@
             <textureFocus>list_sub_focus.png</textureFocus>
             <textureNoFocus>-</textureNoFocus>	    
         </control>
+        <control>
+            <description>Number of Files Label for Related Videos</description>
+            <type>label</type>
+            <id>1</id>
+            <posX>699</posX>
+            <posY>535</posY>
+            <label>#selectedindex/#itemcount</label>
+            <align>right</align>
+            <textcolor>ffa9d0f7</textcolor>   
+            <font>font11</font>
+            <visible>string.equals(#selectedindex)+string.equals(#itemcount)</visible>      
+        </control> 		
         <control>
             <id>0</id>
             <description>Related Videos Label</description>
