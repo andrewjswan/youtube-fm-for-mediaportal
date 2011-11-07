@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Youtube.FM translation file -->
+<!-- Italian (IT) -->
+<!-- Note: English is the fallback for any strings not found in other languages -->
+<strings>
+
+    <!-- A -->
+    <string Field="AddToFavorites">Aggiungi ai preferiti</string>
+    <string Field="AddAllPlaylist">Aggiungi tutto alla playlist</string>
+    <string Field="AddPlaylist">Aggiungi alla playlist</string>
+    <string Field="AddFavorites">Aggiungi ai preferiti</string>
+    <string Field="AddWatchLater">Guarda più tardi</string>
+    <string Field="AllMusicVideosFrom">Tutti i video musicali di {0}</string>
+    <string Field="AllVideosFromUser">Tutti i video di questo utente : {0}</string>
+    <string Field="ArtistInfo">Info Artista</string>
+    <string Field="AnotherDonwnloadProgress">Un altro donwnload è in esecuzione</string>
+    <string Field="AutomaticallyFillPlaylist">Riempi la playlist automaticamente con</string>
+    <string Field="Autor">Autore</string>
+
+    <!-- B -->
+
+    <!-- C -->
+    <string Field="ContextMenu">Menu Contenuti</string>
+
+    <!-- D -->
+    <string Field="DidYouMean ">Forse cercavi</string>
+    <string Field="DownloadProgress">Stato Download</string>
+    <string Field="DownloadVideo">Download Video</string>
+    <string Field="Dislike">Non mi piace</string>
+    <string Field="Duration">Durata</string>
+
+    <!-- E -->
+
+    <!-- F -->
+    <string Field="Fullscreen">Schermo intero</string>
+    <string Field="FavoriteCount">Contatore Favoriti</string>
+
+    <!-- G -->
+
+    <!-- H -->
+    <string Field="Home">Home</string>
+
+    <!-- I -->
+    <string Field="ItemAlreadyDownloaded ">Video già Scaricato !</string>
+    <string Field="Info">Info</string>
+
+    <!-- L -->
+    <string Field="Like">Mi Piace</string>
+
+    <!-- M -->
+    <string Field="Message">Messaggio</string>
+
+    <!-- N -->
+    <string Field="NextPage">Pagina successiva</string>
+    <string Field="NewSearch">Nuova Ricerca</string>
+    <string Field="NoSearchHistory">Non è stato trovato nessun storico ricerca</string>
+    <string Field="NoItemWasFound ">Nessun video è stato trovato !</string>
+    <string Field="NoItemToDisplay">Nessun video da mostrare !</string>
+    <string Field="NowPlaying">In riproduzione ora</string>
+    <string Field="NoVideoResponse">Questo video non ha video di risposta !</string>
+
+    <!-- O -->
+    <string Field="Options">Opzioni</string>
+
+    <!-- P -->
+    <string Field="Playlist">Playlist</string>
+    <string Field="PlaylistSummary">Crea o modifica in MediaPortal</string>
+    <string Field="PlaylistSavingProgress">Progressione salvataggio Playlist </string>
+    <string Field="PublishDate">Data Pubblicazione</string>
+
+    <!-- R -->
+    <string Field="RelatedVideos">Video Relativi</string>
+
+    <!-- S -->
+    <string Field="Search">Ricerca</string>
+    <string Field="SearchHistory">Storico Ricerca</string>
+    <string Field="SimilarArtists">Artisti Simili</string>
+    <string Field="ScrobbleSimilarVideos">Video relativi Youtube</string>
+    <string Field="ScrobbleNeighboursLike">Tracce che piacciono al tuo vicino</string>
+    <string Field="ScrobbleRecentlyPlayed">Tracce ascoltate di recente</string>
+    <string Field="ShowPreviousWindow">Mostra Finestra Precedente</string>
+    <string Field="ScrobbleMode">Casuale:</string>
+    <string Field="SomePlaylistItemNotSaved">Alcuni video della playlist non sono stati salvati !</string>
+
+    <!-- T -->
+
+    <!-- U -->
+      
+    <!-- V -->
+    <string Field="VideoResponses">Video di risposta a questo video</string>
+    <string Field="VideoInfo">Info Video</string>
+    <string Field="ViewCount">Vedi Contatore</string>
+
+    <!-- W -->
+    <string Field="WrongRequestWrongUser">Richiesta errata o identificazione utente errata </string>
+    <string Field="WrongUser">Nome utente or password errata o l'account è disabilitato </string>
+    <string Field="WatchLater">Guarda Dopo</string>
+
+    <!-- Y -->
+
+</strings>
