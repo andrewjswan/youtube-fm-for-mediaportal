@@ -56,10 +56,10 @@ namespace YouTubePlugin
       get
       {
         List<string> time = new List<string>();
+        time.Add("All Time");
         time.Add("Today");
         time.Add("This Week");
         time.Add("This Month");
-        time.Add("All Time");
         return time;
       }
     }

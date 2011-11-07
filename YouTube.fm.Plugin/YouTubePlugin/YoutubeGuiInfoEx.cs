@@ -180,7 +180,6 @@ namespace YouTubePlugin
           }
         }
         GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Image", vidfile);
-        GUIWaitCursor.Hide();
       }
       catch (Exception exception)
       {
@@ -241,11 +240,12 @@ namespace YouTubePlugin
       {
 
       }
+      GUIWaitCursor.Hide();
     }
 
     protected override void OnPageLoad()
     {
-      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Info");
+      GUIPropertyManager.SetProperty("#currentmodule", "Info");
       if (OldYouTubeEntry == null || (OldYouTubeEntry != null && Youtube2MP.GetVideoId(OldYouTubeEntry) != Youtube2MP.GetVideoId(YouTubeEntry)))
       {
         OldYouTubeEntry = YouTubeEntry;
@@ -259,7 +259,7 @@ namespace YouTubePlugin
         else
         {
           // not a really good method need some rework using Worker_Fast.CancelAsync();
-          System.Threading.Thread.Sleep(500);
+          System.Threading.Thread.Sleep(1000);
           Worker_Fast.RunWorkerAsync();
         }
       }
