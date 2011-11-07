@@ -1002,6 +1002,7 @@ namespace YouTubePlugin
                 DownloadImage(GetBestUrl(tag.Media.Thumbnails), item);
               }
             }
+            item.OnItemSelected+=item_OnItemSelected;
             facadeView.Add(item);
             //	synchronize playlist with current directory
             if (strFileName.Length > 0 && item.Path == strFileName)
@@ -1445,59 +1446,6 @@ namespace YouTubePlugin
       }
     }
 
-    private bool ScrobbleSimilarArtists(string Artist_)
-    {
-
-      //MusicDatabase dbs = MusicDatabase.Instance;
-      //PlayList list = playlistPlayer.GetPlaylist(_playlistType);
-      //List<Song> songList = new List<Song>();
-      //int songsAdded = 0;
-      //int j = 0;
-      //YouTubeFeed vidr = null;
-      //Youtube2MP.GetSongsByArtist(Artist_, ref songList, ref vidr);
-
-      ////      Log.Debug("GUIMusicPlaylist: ScrobbleSimilarArtists found {0} songs allowed to add", Convert.ToString(songList.Count));
-
-      //// exit if not enough songs were found
-      //if (songList.Count < _maxScrobbledSongsPerArtist)
-      //    return false;
-
-
-      //// check if there are still enough songs
-      //if (songList.Count < _maxScrobbledSongsPerArtist)
-      //    return false;
-
-      //PseudoRandomNumberGenerator rand = new PseudoRandomNumberGenerator();
-
-      //int randomPosition;
-
-      //while (songsAdded < _maxScrobbledSongsPerArtist)
-      //{
-      //    if (_preferCountForTracks == 3)
-      //        randomPosition = rand.Next(0, songList.Count / 2);
-      //    else
-      //        randomPosition = rand.Next(0, songList.Count - 1);
-
-      //    Song refSong = new Song();
-
-      //    refSong = songList[randomPosition];
-
-      //    //        Log.Debug("GUIMusicPlaylist: ScrobbleSimilarArtists tries to add this song - {0}", refSong.ToShortString());
-
-      //    if (AddRandomSongToPlaylist(ref refSong, ref vidr))
-      //    {
-      //        songsAdded++;
-      //        _totalScrobbledSongs++;
-      //    }
-
-      //    j++;
-
-      //    if (j > songList.Count * 5)
-      //        break;
-      //}
-      //// _maxScrobbledSongsPerArtist are inserted      
-      return true;
-    }
 
     protected virtual View CurrentView
     {
@@ -1527,5 +1475,21 @@ namespace YouTubePlugin
       }
     }
 
+    private void item_OnItemSelected(GUIListItem item, GUIControl parent)
+    {
+      if (item == null || parent == null)
+        return;
+
+      VideoInfo vid = facadeView.SelectedListItem.MusicTag as VideoInfo;
+
+      if (vid != null)
+      {
+        SetLabels(vid.Entry, "Curent");
+      }
+      else
+      {
+        ClearLabels("Curent"); ;
+      }
+    }
   }
 }
