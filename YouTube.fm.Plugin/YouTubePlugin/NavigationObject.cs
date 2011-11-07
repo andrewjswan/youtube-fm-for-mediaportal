@@ -31,6 +31,7 @@ namespace YouTubePlugin
       Title = tit;
       Position = pos;
       CurrentView = curview;
+      ItemType = itemtype;
       Items = control.ListItems.GetRange(0, control.ListItems.Count);
     }
 
