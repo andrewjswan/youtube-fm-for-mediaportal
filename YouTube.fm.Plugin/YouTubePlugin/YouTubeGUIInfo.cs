@@ -297,6 +297,8 @@ namespace YouTubePlugin
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
+      if (Youtube2MP.NowPlayingSong == null)
+        return;
       GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Now Playing");
       if (Monitor.TryEnter(locker))
       {

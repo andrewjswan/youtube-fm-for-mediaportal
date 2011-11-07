@@ -169,6 +169,17 @@ namespace YouTubePlugin
           cm += c.Author + " : " + c.Content + "------------------------------------------\n";
         }
         GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Comments", cm);
+        string vidimg = GetBestUrl(YouTubeEntry.Media.Thumbnails);
+        string vidfile = GetLocalImageFileName(vidimg);
+        if (!string.IsNullOrEmpty(vidimg))
+        {
+          if (!File.Exists(vidfile))
+          {
+            GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Image", " ");
+            DownloadFile(vidimg, vidfile);
+          }
+        }
+        GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Image", vidfile);
         GUIWaitCursor.Hide();
       }
       catch (Exception exception)

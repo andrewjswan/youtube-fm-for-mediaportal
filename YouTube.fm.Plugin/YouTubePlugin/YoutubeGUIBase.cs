@@ -45,7 +45,7 @@ namespace YouTubePlugin
     private static YouTubeEntry label_last_entry;
     private static string label_last_type;
 
-    static public void SetLabels(YouTubeEntry vid, string type)
+     public void SetLabels(YouTubeEntry vid, string type)
     {
       if (vid == label_last_entry && type == label_last_type)
         return;
@@ -140,9 +140,13 @@ namespace YouTubePlugin
         string imgurl =
           ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm." + type + ".Artist.Name"));
         string artistimg = GetLocalImageFileName(imgurl);
-        if (!string.IsNullOrEmpty(imgurl) && File.Exists(artistimg))
+        if (!string.IsNullOrEmpty(imgurl))
         {
-          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Image", artistimg);
+          DownloadFile(imgurl, artistimg);
+          if (File.Exists(artistimg))
+          {
+            GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Image", artistimg);
+          }
         }
       }
     }
@@ -606,8 +610,15 @@ namespace YouTubePlugin
 
     protected void DownloadFile(string url,string localFile)
     {
-      WebClient webClient = new WebClient();
-      webClient.DownloadFile(url, localFile);
+      try
+      {
+        WebClient webClient = new WebClient();
+        webClient.DownloadFile(url, localFile);
+      }
+      catch (Exception exception)
+      {
+        Log.Error(exception);
+      }
     }
 
 
