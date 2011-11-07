@@ -101,6 +101,7 @@ namespace YouTubePlugin
       this.label11 = new System.Windows.Forms.Label();
       this.tabPage5 = new System.Windows.Forms.TabPage();
       this.groupBox7 = new System.Windows.Forms.GroupBox();
+      this.linkLabel6 = new System.Windows.Forms.LinkLabel();
       this.linkLabel5 = new System.Windows.Forms.LinkLabel();
       this.linkLabel4 = new System.Windows.Forms.LinkLabel();
       this.linkLabel3 = new System.Windows.Forms.LinkLabel();
@@ -116,7 +117,6 @@ namespace YouTubePlugin
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-      this.linkLabel6 = new System.Windows.Forms.LinkLabel();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
@@ -504,7 +504,8 @@ namespace YouTubePlugin
       this.comboBox_startup.Items.AddRange(new object[] {
             "Default Menu",
             "Search",
-            "Disco"});
+            "Disco",
+            "Browse"});
       this.comboBox_startup.Location = new System.Drawing.Point(9, 19);
       this.comboBox_startup.Name = "comboBox_startup";
       this.comboBox_startup.Size = new System.Drawing.Size(239, 21);
@@ -900,6 +901,17 @@ namespace YouTubePlugin
       this.groupBox7.TabStop = false;
       this.groupBox7.Text = "Used web services";
       // 
+      // linkLabel6
+      // 
+      this.linkLabel6.AutoSize = true;
+      this.linkLabel6.Location = new System.Drawing.Point(167, 25);
+      this.linkLabel6.Name = "linkLabel6";
+      this.linkLabel6.Size = new System.Drawing.Size(89, 13);
+      this.linkLabel6.TabIndex = 3;
+      this.linkLabel6.TabStop = true;
+      this.linkLabel6.Text = "htbackdrops.com";
+      this.linkLabel6.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel6_LinkClicked);
+      // 
       // linkLabel5
       // 
       this.linkLabel5.AutoSize = true;
@@ -1035,17 +1047,6 @@ namespace YouTubePlugin
       // openFileDialog1
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
-      // 
-      // linkLabel6
-      // 
-      this.linkLabel6.AutoSize = true;
-      this.linkLabel6.Location = new System.Drawing.Point(167, 25);
-      this.linkLabel6.Name = "linkLabel6";
-      this.linkLabel6.Size = new System.Drawing.Size(89, 13);
-      this.linkLabel6.TabIndex = 3;
-      this.linkLabel6.TabStop = true;
-      this.linkLabel6.Text = "htbackdrops.com";
-      this.linkLabel6.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel6_LinkClicked);
       // 
       // SetupForm
       // 

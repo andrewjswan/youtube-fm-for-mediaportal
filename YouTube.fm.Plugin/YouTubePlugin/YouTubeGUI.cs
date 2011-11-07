@@ -352,6 +352,21 @@ namespace YouTubePlugin
                 }
               }
               break;
+            case 3:
+              {
+                for (int i = 0; i < listControl.Count; i++)
+                {
+                  SiteItemEntry item = listControl[i].MusicTag as SiteItemEntry;
+                  if (item != null && item.Provider == "Browse")
+                  {
+                    listControl.SelectedItem = i;
+                    listControl.SelectedListItemIndex = i;
+                    DoListSelection();
+                    break;
+                  }
+                }
+              }
+              break;
           }
         }
         else
