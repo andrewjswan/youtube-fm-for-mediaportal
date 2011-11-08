@@ -57,7 +57,6 @@ namespace YouTubePlugin
       this.label4 = new System.Windows.Forms.Label();
       this.comboBox_videoquality = new System.Windows.Forms.ComboBox();
       this.checkBox_extremfilter = new System.Windows.Forms.CheckBox();
-      this.checkBox_useplayer = new System.Windows.Forms.CheckBox();
       this.checkBox_nowplaying = new System.Windows.Forms.CheckBox();
       this.checkBox_filter = new System.Windows.Forms.CheckBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -370,7 +369,6 @@ namespace YouTubePlugin
       this.tabPage1.Controls.Add(this.label4);
       this.tabPage1.Controls.Add(this.comboBox_videoquality);
       this.tabPage1.Controls.Add(this.checkBox_extremfilter);
-      this.tabPage1.Controls.Add(this.checkBox_useplayer);
       this.tabPage1.Controls.Add(this.checkBox_nowplaying);
       this.tabPage1.Controls.Add(this.checkBox_filter);
       this.tabPage1.Controls.Add(this.groupBox2);
@@ -441,17 +439,6 @@ namespace YouTubePlugin
       this.checkBox_extremfilter.TabIndex = 10;
       this.checkBox_extremfilter.Text = "Use extrem filter music videos";
       this.checkBox_extremfilter.UseVisualStyleBackColor = true;
-      // 
-      // checkBox_useplayer
-      // 
-      this.checkBox_useplayer.AutoSize = true;
-      this.checkBox_useplayer.Enabled = false;
-      this.checkBox_useplayer.Location = new System.Drawing.Point(292, 100);
-      this.checkBox_useplayer.Name = "checkBox_useplayer";
-      this.checkBox_useplayer.Size = new System.Drawing.Size(191, 17);
-      this.checkBox_useplayer.TabIndex = 9;
-      this.checkBox_useplayer.Text = "Use \"Youtube Video Player\" plugin";
-      this.checkBox_useplayer.UseVisualStyleBackColor = true;
       // 
       // checkBox_nowplaying
       // 
@@ -1102,7 +1089,6 @@ namespace YouTubePlugin
     private System.Windows.Forms.ComboBox comboBox_startup;
     private System.Windows.Forms.CheckBox checkBox_filter;
     private System.Windows.Forms.CheckBox checkBox_nowplaying;
-    private System.Windows.Forms.CheckBox checkBox_useplayer;
     private System.Windows.Forms.CheckBox checkBox_extremfilter;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.ComboBox comboBox_videoquality;

@@ -130,11 +130,6 @@ namespace YouTubePlugin
 
     public bool ShowNowPlaying { get; set; }
 
-    public bool UseYouTubePlayer
-    {
-      get { return false; }
-    }
-
     public bool UseExtremFilter { get; set; }
 
     public int VideoQuality { get; set; }
@@ -142,8 +137,6 @@ namespace YouTubePlugin
     public bool UseSMSStyleKeyBoard { get; set; }
 
     public Action.ActionType InstantAction { get; set; }
-
-    //public int InstantChar { get; set; }
 
     public string DownloadFolder { get; set; }
 
@@ -224,7 +217,6 @@ namespace YouTubePlugin
         xmlwriter.SetValueAsBool("youtubevideos", "LastFmSubmit", this.LastFmSubmit);
         xmlwriter.SetValueAsBool("youtubevideos", "MusicFilter", this.MusicFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "ShowNowPlaying", this.ShowNowPlaying);
-        xmlwriter.SetValueAsBool("youtubevideos", "UseYouTubePlayer", this.UseYouTubePlayer);
         xmlwriter.SetValueAsBool("youtubevideos", "UseExtremFilter", this.UseExtremFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "UseSMSStyleKeyBoard", this.UseSMSStyleKeyBoard);
         xmlwriter.SetValueAsBool("youtubevideos", "LoadOnlineFanart", this.LoadOnlineFanart);

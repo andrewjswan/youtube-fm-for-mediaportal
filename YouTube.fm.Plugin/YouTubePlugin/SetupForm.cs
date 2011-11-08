@@ -84,7 +84,6 @@ namespace YouTubePlugin
       listBox_history.Items.AddRange(_settings.SearchHistory.ToArray());
       checkBox_filter.Checked = _settings.MusicFilter;
       checkBox_nowplaying.Checked = _settings.ShowNowPlaying;
-      checkBox_useplayer.Checked = _settings.UseYouTubePlayer;
       checkBox_extremfilter.Checked = _settings.UseExtremFilter;
       comboBox_videoquality.SelectedIndex = _settings.VideoQuality;
       checkBox_sms.Checked = _settings.UseSMSStyleKeyBoard;

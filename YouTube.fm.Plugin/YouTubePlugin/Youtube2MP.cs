@@ -135,22 +135,7 @@ namespace YouTubePlugin
     public static string PlaybackUrl(YouTubeEntry vid)
     {
       string PlayblackUrl = "";
-      if (_settings.UseYouTubePlayer)
-      {
-        if (vid.Media.Contents.Count > 0)
-        {
-          PlayblackUrl = string.Format("http://www.youtube.com/v/{0}", getIDSimple(vid.Id.AbsoluteUri));
-        }
-        else
-        {
-          PlayblackUrl = vid.Id.AbsoluteUri;
-        }
-      }
-      else
-      {
-        PlayblackUrl = vid.Id.AbsoluteUri;
-      }
-
+      PlayblackUrl = vid.Id.AbsoluteUri;
       return PlayblackUrl;
     }
 
