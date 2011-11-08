@@ -289,6 +289,7 @@ namespace YouTubePlugin
       return Load(GUIGraphicsContext.Skin + @"\youtubevideosbase.xml");
     }
 
+     
      //do the init before page load
     protected override void OnPageLoad()
     {
@@ -299,7 +300,6 @@ namespace YouTubePlugin
         SetProperty("#Youtube.fm.Translation." + name + ".Label", Translation.Strings[name]);
       }
 
-     
       UpdateGui();
       ShowPanel();
 
