@@ -59,7 +59,6 @@ namespace YouTubePlugin
       this.checkBox_extremfilter = new System.Windows.Forms.CheckBox();
       this.checkBox_useplayer = new System.Windows.Forms.CheckBox();
       this.checkBox_nowplaying = new System.Windows.Forms.CheckBox();
-      this.checkBox_time = new System.Windows.Forms.CheckBox();
       this.checkBox_filter = new System.Windows.Forms.CheckBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
       this.comboBox_startup = new System.Windows.Forms.ComboBox();
@@ -373,7 +372,6 @@ namespace YouTubePlugin
       this.tabPage1.Controls.Add(this.checkBox_extremfilter);
       this.tabPage1.Controls.Add(this.checkBox_useplayer);
       this.tabPage1.Controls.Add(this.checkBox_nowplaying);
-      this.tabPage1.Controls.Add(this.checkBox_time);
       this.tabPage1.Controls.Add(this.checkBox_filter);
       this.tabPage1.Controls.Add(this.groupBox2);
       this.tabPage1.Controls.Add(this.label3);
@@ -464,18 +462,6 @@ namespace YouTubePlugin
       this.checkBox_nowplaying.TabIndex = 8;
       this.checkBox_nowplaying.Text = "Show NowPlaying in place of Fullscreen";
       this.checkBox_nowplaying.UseVisualStyleBackColor = true;
-      // 
-      // checkBox_time
-      // 
-      this.checkBox_time.AutoSize = true;
-      this.checkBox_time.Enabled = false;
-      this.checkBox_time.Location = new System.Drawing.Point(292, 54);
-      this.checkBox_time.Name = "checkBox_time";
-      this.checkBox_time.Size = new System.Drawing.Size(113, 17);
-      this.checkBox_time.TabIndex = 7;
-      this.checkBox_time.Text = "Ask for time period";
-      this.checkBox_time.UseVisualStyleBackColor = true;
-      this.checkBox_time.CheckedChanged += new System.EventHandler(this.checkBox_time_CheckedChanged);
       // 
       // checkBox_filter
       // 
@@ -1115,7 +1101,6 @@ namespace YouTubePlugin
     private System.Windows.Forms.GroupBox groupBox2;
     private System.Windows.Forms.ComboBox comboBox_startup;
     private System.Windows.Forms.CheckBox checkBox_filter;
-    private System.Windows.Forms.CheckBox checkBox_time;
     private System.Windows.Forms.CheckBox checkBox_nowplaying;
     private System.Windows.Forms.CheckBox checkBox_useplayer;
     private System.Windows.Forms.CheckBox checkBox_extremfilter;

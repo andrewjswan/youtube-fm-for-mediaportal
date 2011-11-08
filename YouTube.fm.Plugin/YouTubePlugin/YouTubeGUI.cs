@@ -1036,7 +1036,6 @@ namespace YouTubePlugin
         dlg.Reset();
         dlg.SetHeading(498); // menu
         dlg.Add(string.Format("NowPlaying in place of Fullscreen: {0}", _setting.ShowNowPlaying));
-        dlg.Add(string.Format("Ask for time period: {0}", _setting.Time));
         dlg.Add(string.Format("Enable music videos filtering: {0}", _setting.MusicFilter));
         dlg.Add(string.Format("Use extrem filter music videos: {0}", _setting.UseExtremFilter));
         dlg.Add(string.Format("Use SMS style keyboard: {0}", _setting.UseSMSStyleKeyBoard));
@@ -1049,15 +1048,12 @@ namespace YouTubePlugin
             _setting.ShowNowPlaying = !_setting.ShowNowPlaying;
             break;
           case 1:
-            _setting.Time = !_setting.Time;
-            break;
-          case 2:
             _setting.MusicFilter = !_setting.MusicFilter;
             break;
-          case 3:
+          case 2:
             _setting.UseExtremFilter = !_setting.UseExtremFilter;
             break;
-          case 4:
+          case 3:
             _setting.UseSMSStyleKeyBoard = !_setting.UseSMSStyleKeyBoard;
             break;
         }

@@ -43,7 +43,6 @@ namespace YouTubePlugin
       _settings.SearchHistory.Clear();
       _settings.StartUpOpt = comboBox_startup.SelectedIndex;
       _settings.MusicFilter = checkBox_filter.Checked;
-      _settings.Time = checkBox_time.Checked;
       _settings.ShowNowPlaying = checkBox_nowplaying.Checked;
       _settings.UseExtremFilter = checkBox_extremfilter.Checked;
       _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
@@ -84,7 +83,6 @@ namespace YouTubePlugin
       textBox_pluginname.Text = _settings.PluginName;
       listBox_history.Items.AddRange(_settings.SearchHistory.ToArray());
       checkBox_filter.Checked = _settings.MusicFilter;
-      checkBox_time.Checked = _settings.Time;
       checkBox_nowplaying.Checked = _settings.ShowNowPlaying;
       checkBox_useplayer.Checked = _settings.UseYouTubePlayer;
       checkBox_extremfilter.Checked = _settings.UseExtremFilter;

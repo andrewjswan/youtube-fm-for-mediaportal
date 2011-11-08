@@ -128,11 +128,7 @@ namespace YouTubePlugin
 
     public bool LoadOnlineFanart { get; set; }
 
-
-    public bool Time { get; set; }
-
     public bool ShowNowPlaying { get; set; }
-
 
     public bool UseYouTubePlayer
     {
@@ -177,7 +173,6 @@ namespace YouTubePlugin
         this.MusicFilter = xmlreader.GetValueAsBool("youtubevideos", "MusicFilter", true);
         this.UseSMSStyleKeyBoard = xmlreader.GetValueAsBool("youtubevideos", "UseSMSStyleKeyBoard", true);
         string his = xmlreader.GetValueAsString("youtubevideos", "searchhistory", string.Empty);
-        this.Time = xmlreader.GetValueAsBool("youtubevideos", "time", false);
         this.ShowNowPlaying = xmlreader.GetValueAsBool("youtubevideos", "ShowNowPlaying", true);
         this.UseExtremFilter = xmlreader.GetValueAsBool("youtubevideos", "UseExtremFilter", false);
         this.LoadOnlineFanart = xmlreader.GetValueAsBool("youtubevideos", "LoadOnlineFanart", true);
@@ -228,7 +223,6 @@ namespace YouTubePlugin
         xmlwriter.SetValueAsBool("youtubevideos", "LastFmNowPlay", this.LastFmNowPlay);
         xmlwriter.SetValueAsBool("youtubevideos", "LastFmSubmit", this.LastFmSubmit);
         xmlwriter.SetValueAsBool("youtubevideos", "MusicFilter", this.MusicFilter);
-        xmlwriter.SetValueAsBool("youtubevideos", "time", this.Time);
         xmlwriter.SetValueAsBool("youtubevideos", "ShowNowPlaying", this.ShowNowPlaying);
         xmlwriter.SetValueAsBool("youtubevideos", "UseYouTubePlayer", this.UseYouTubePlayer);
         xmlwriter.SetValueAsBool("youtubevideos", "UseExtremFilter", this.UseExtremFilter);
