@@ -185,21 +185,21 @@ namespace YouTubePlugin
     {
       using (var xmlwriter = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
       {
-        xmlwriter.SetValue("youtubevideos", "PluginName", this.PluginName);
+        xmlwriter.SetValue("youtubevideos", "PluginName", PluginName);
         xmlwriter.SetValue("youtubevideos", "user", User);
         xmlwriter.SetValue("youtubevideos", "password", Password);
-        xmlwriter.SetValue("youtubevideos", "StartUpOpt", this.StartUpOpt);
-        xmlwriter.SetValue("youtubevideos", "VideoQuality", this.VideoQuality);
-        xmlwriter.SetValue("youtubevideos", "DownloadFolder", this.DownloadFolder);
-        xmlwriter.SetValue("youtubevideos", "FanartFolder", this.FanartDir);
-        xmlwriter.SetValue("youtubevideos", "CacheDir", this.CacheDir);
-        xmlwriter.SetValue("youtubevideos", "LastFmUser", this.LastFmUser);
-        xmlwriter.SetValue("youtubevideos", "LastFmPass", this.LastFmPass);
-        xmlwriter.SetValue("youtubevideos", "LayoutItem", this.LayoutItem);
-        xmlwriter.SetValue("youtubevideos", "LayoutArtist", this.LayoutArtist);
-        xmlwriter.SetValue("youtubevideos", "LayoutVideo", this.LayoutVideo);
-        xmlwriter.SetValueAsBool("youtubevideos", "LastFmNowPlay", this.LastFmNowPlay);
-        xmlwriter.SetValueAsBool("youtubevideos", "LastFmSubmit", this.LastFmSubmit);
+        xmlwriter.SetValue("youtubevideos", "StartUpOpt", StartUpOpt);
+        xmlwriter.SetValue("youtubevideos", "VideoQuality", VideoQuality);
+        xmlwriter.SetValue("youtubevideos", "DownloadFolder", DownloadFolder);
+        xmlwriter.SetValue("youtubevideos", "FanartFolder", FanartDir);
+        xmlwriter.SetValue("youtubevideos", "CacheDir", CacheDir);
+        xmlwriter.SetValue("youtubevideos", "LastFmUser", LastFmUser);
+        xmlwriter.SetValue("youtubevideos", "LastFmPass", LastFmPass);
+        xmlwriter.SetValue("youtubevideos", "LayoutItem", LayoutItem);
+        xmlwriter.SetValue("youtubevideos", "LayoutArtist", LayoutArtist);
+        xmlwriter.SetValue("youtubevideos", "LayoutVideo", LayoutVideo);
+        xmlwriter.SetValueAsBool("youtubevideos", "LastFmNowPlay", LastFmNowPlay);
+        xmlwriter.SetValueAsBool("youtubevideos", "LastFmSubmit", LastFmSubmit);
         xmlwriter.SetValueAsBool("youtubevideos", "MusicFilter", this.MusicFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "ShowNowPlaying", this.ShowNowPlaying);
         xmlwriter.SetValueAsBool("youtubevideos", "UseExtremFilter", this.UseExtremFilter);

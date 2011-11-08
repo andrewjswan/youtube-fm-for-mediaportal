@@ -392,27 +392,28 @@ namespace YouTubePlugin
     {
     if (control == btnSwitchView)
       {
-        switch ((View)mapSettings.ViewAs)
-        {
-          case View.List:
-            mapSettings.ViewAs = (int)View.Icons;
-            break;
-          case View.Icons:
-            mapSettings.ViewAs = (int)View.BigIcons;
-            break;
-          case View.BigIcons:
-            mapSettings.ViewAs = (int)View.Albums;
-            break;
-          case View.Albums:
-            mapSettings.ViewAs = (int)View.Filmstrip;
-            break;
-          case View.Filmstrip:
-            mapSettings.ViewAs = (int)View.CoverFlow;
-            break;
-          case View.CoverFlow:
-            mapSettings.ViewAs = (int)View.List;
-            break;
-        }
+        //switch ((View)mapSettings.ViewAs)
+        //{
+        //  case View.List:
+        //    mapSettings.ViewAs = (int)View.Icons;
+        //    break;
+        //  case View.Icons:
+        //    mapSettings.ViewAs = (int)View.BigIcons;
+        //    break;
+        //  case View.BigIcons:
+        //    mapSettings.ViewAs = (int)View.Albums;
+        //    break;
+        //  case View.Albums:
+        //    mapSettings.ViewAs = (int)View.Filmstrip;
+        //    break;
+        //  case View.Filmstrip:
+        //    mapSettings.ViewAs = (int)View.CoverFlow;
+        //    break;
+        //  case View.CoverFlow:
+        //    mapSettings.ViewAs = (int)View.List;
+        //    break;
+        //}
+        OnShowLayouts();
         GetLayout(_lastItemType);
         ShowPanel();
         GUIControl.FocusControl(GetID, control.GetID);
@@ -520,6 +521,61 @@ namespace YouTubePlugin
  
     #endregion
     #region helper func's
+
+    protected virtual GUIFacadeControl.Layout GetLayoutNumber(string s)
+    {
+      switch (s.Trim().ToLower())
+      {
+        case "list":
+          return GUIFacadeControl.Layout.List;
+        case "icons":
+        case "smallicons":
+          return GUIFacadeControl.Layout.SmallIcons;
+        case "big icons":
+        case "largeicons":
+          return GUIFacadeControl.Layout.LargeIcons;
+        case "albums":
+        case "albumview":
+          return GUIFacadeControl.Layout.AlbumView;
+        case "filmstrip":
+          return GUIFacadeControl.Layout.Filmstrip;
+        case "playlist":
+          return GUIFacadeControl.Layout.Playlist;
+        case "coverflow":
+        case "cover flow":
+          return GUIFacadeControl.Layout.CoverFlow;
+        default:
+          if (!string.IsNullOrEmpty(s))
+            Log.Error("{0}::GetLayoutNumber: Unknown String - {1}", new object[2]
+            {
+              (object) "WindowPluginBase",
+              (object) s
+            });
+          return GUIFacadeControl.Layout.List;
+      }
+    }
+
+    protected virtual void OnShowLayouts()
+    {
+      GUIDialogMenu guiDialogMenu1 = (GUIDialogMenu)GUIWindowManager.GetWindow(2012);
+      if (guiDialogMenu1 == null)
+        return;
+      guiDialogMenu1.Reset();
+      guiDialogMenu1.SetHeading(792);
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(101));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(100));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(417));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(529));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(101));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(733));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(791));
+
+      guiDialogMenu1.SelectedLabel = mapSettings.ViewAs;
+      guiDialogMenu1.DoModal(this.GetID);
+      if (guiDialogMenu1.SelectedId == -1)
+        return;
+      mapSettings.ViewAs = guiDialogMenu1.SelectedId - 1;
+    }
 
     private void DoListSelection()
     {
