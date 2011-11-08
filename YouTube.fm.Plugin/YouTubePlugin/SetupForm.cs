@@ -50,7 +50,6 @@ namespace YouTubePlugin
       _settings.DownloadFolder = textBox_downloaddir.Text;
       _settings.FanartDir = textBox_fanartdir.Text;
       _settings.LoadOnlineFanart = checkBox1.Checked;
-      _settings.OldStyleHome = chk_oldstyle.Checked;
       _settings.CacheDir = txt_cachedir.Text;
       _settings.LastFmUser = txt_lastfm_user.Text;
       _settings.LastFmPass = txt_lastfm_pass.Text;
@@ -90,7 +89,6 @@ namespace YouTubePlugin
       textBox_downloaddir.Text = _settings.DownloadFolder;
       textBox_fanartdir.Text = _settings.FanartDir;
       checkBox1.Checked = _settings.LoadOnlineFanart;
-      chk_oldstyle.Checked = _settings.OldStyleHome;
       txt_cachedir.Text = _settings.CacheDir;
       txt_lastfm_user.Text = _settings.LastFmUser;
       txt_lastfm_pass.Text = _settings.LastFmPass;

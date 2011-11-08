@@ -140,13 +140,6 @@ namespace YouTubePlugin
 
     public string DownloadFolder { get; set; }
 
-    private bool _oldStyleHome;
-    public bool OldStyleHome
-    {
-      get { return false; }
-      set { _oldStyleHome = value; }
-    }
-
     public string LastFmUser { get; set; }
     public string LastFmPass { get; set; }
     public bool LastFmNowPlay { get; set; }
@@ -174,7 +167,6 @@ namespace YouTubePlugin
         this.DownloadFolder = xmlreader.GetValueAsString("youtubevideos", "DownloadFolder",
                                                          Environment.GetFolderPath(Environment.SpecialFolder.Personal) +
                                                          "\\Videos");
-        this.OldStyleHome = xmlreader.GetValueAsBool("youtubevideos", "OldStyleHome", false);
         this.LastFmUser = xmlreader.GetValueAsString("youtubevideos", "LastFmUser", string.Empty);
         this.LastFmPass = xmlreader.GetValueAsString("youtubevideos", "LastFmPass", string.Empty);
         this.LastFmNowPlay = xmlreader.GetValueAsBool("youtubevideos", "LastFmNowPlay", false);
@@ -220,7 +212,6 @@ namespace YouTubePlugin
         xmlwriter.SetValueAsBool("youtubevideos", "UseExtremFilter", this.UseExtremFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "UseSMSStyleKeyBoard", this.UseSMSStyleKeyBoard);
         xmlwriter.SetValueAsBool("youtubevideos", "LoadOnlineFanart", this.LoadOnlineFanart);
-        xmlwriter.SetValueAsBool("youtubevideos", "OldStyleHome", this.OldStyleHome);
         string his = "";
         foreach (string s in SearchHistory)
         {
