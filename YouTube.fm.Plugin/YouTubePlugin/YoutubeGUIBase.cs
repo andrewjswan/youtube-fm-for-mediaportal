@@ -766,6 +766,28 @@ namespace YouTubePlugin
 
       return query;
     }
+
+    protected ArtistItem GetArtist(YouTubeEntry entry)
+    {
+      string vidId = Youtube2MP.GetVideoId(entry);
+      ArtistItem artistItem = ArtistManager.Instance.SitesCache.GetByVideoId(vidId) != null
+                                ? ArtistManager.Instance.Grabber.GetFromVideoSite(
+                                  ArtistManager.Instance.SitesCache.GetByVideoId(vidId).SIte)
+                                : ArtistManager.Instance.Grabber.GetFromVideoId(vidId);
+
+      if (string.IsNullOrEmpty(artistItem.Id) && entry.Title.Text.Contains("-"))
+      {
+        artistItem =
+          ArtistManager.Instance.GetArtistsByName(entry.Title.Text.Split('-')[0].TrimEnd());
+      }
+
+      if (!string.IsNullOrEmpty(artistItem.Id))
+      {
+        DatabaseProvider.InstanInstance.Save(entry, artistItem);
+      }
+      return artistItem;
+    }
+
     #endregion
   }
 }

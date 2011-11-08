@@ -65,10 +65,16 @@ namespace YouTubePlugin.Class.Artist
       if(string.IsNullOrEmpty(artistItem.Id))
         return;
 
-      string lsSQL = string.Format("select distinct ARTIST_ID from ARTISTS WHERE ARTIST_ID=\"{0}\"", artistItem.Id);
+      string lsSQL = string.Format("select distinct ARTIST_ID,ARTIST_IMG from ARTISTS WHERE ARTIST_ID=\"{0}\"", artistItem.Id);
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       if (loResultSet.Rows.Count > 0)
+      {
+        for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+        {
+          artistItem.Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
+        }
         return;
+      }
       lsSQL = string.Format("insert into ARTISTS (ARTIST_ID,ARTIST_NAME,ARTIST_IMG) VALUES (\"{0}\",\"{1}\",\"{2}\")",
                             artistItem.Id,
                             DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"', '`')), artistItem.Img_url);

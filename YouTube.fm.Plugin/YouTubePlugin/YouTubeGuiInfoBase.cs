@@ -144,52 +144,41 @@ namespace YouTubePlugin
     {
       //if (listsimilar != null)
       //{
-        similar.Clear();
-        string vidId = Youtube2MP.GetVideoId(entry);
-        ArtistItem artistItem = ArtistManager.Instance.SitesCache.GetByVideoId(vidId) != null
-                                  ? ArtistManager.Instance.Grabber.GetFromVideoSite(
-                                    ArtistManager.Instance.SitesCache.GetByVideoId(vidId).SIte)
-                                  : ArtistManager.Instance.Grabber.GetFromVideoId(vidId);
+      similar.Clear();
+      ArtistItem artistItem = GetArtist(entry);
 
-        if (string.IsNullOrEmpty(artistItem.Id) && entry.Title.Text.Contains("-"))
+      if (!string.IsNullOrEmpty(artistItem.Id))
+      {
+        List<ArtistItem> items = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
+        foreach (ArtistItem aitem in items)
         {
-          artistItem =
-            ArtistManager.Instance.GetArtistsByName(entry.Title.Text.Split('-')[0].TrimEnd());
-        }
+          GUIListItem item = new GUIListItem();
+          // and add station name & bitrate
+          item.Label = aitem.Name;
+          item.Label2 = "";
+          item.IsFolder = true;
 
-        if (!string.IsNullOrEmpty(artistItem.Id))
-        {
-          DatabaseProvider.InstanInstance.Save(entry, artistItem);
-          List<ArtistItem> items = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
-          foreach (ArtistItem aitem in items)
+          string imageFile = GetLocalImageFileName(aitem.Img_url);
+          if (File.Exists(imageFile))
           {
-            GUIListItem item = new GUIListItem();
-            // and add station name & bitrate
-            item.Label = aitem.Name;
-            item.Label2 = "";
-            item.IsFolder = true;
-
-            string imageFile = GetLocalImageFileName(aitem.Img_url);
-            if (File.Exists(imageFile))
-            {
-              item.ThumbnailImage = imageFile;
-              item.IconImage = imageFile;
-              item.IconImageBig = imageFile;
-            }
-            else
-            {
-              MediaPortal.Util.Utils.SetDefaultIcons(item);
-              DownloadImage(aitem.Img_url, item);
-            }
-            item.MusicTag = aitem;
-            similar.Add(item);
+            item.ThumbnailImage = imageFile;
+            item.IconImage = imageFile;
+            item.IconImageBig = imageFile;
           }
-          OnDownloadTimedEvent(null, null);
+          else
+          {
+            MediaPortal.Util.Utils.SetDefaultIcons(item);
+            DownloadImage(aitem.Img_url, item);
+          }
+          item.MusicTag = aitem;
+          similar.Add(item);
         }
-        if (listsimilar != null)
-        {
-          FillSimilarList();
-        }
+        OnDownloadTimedEvent(null, null);
+      }
+      if (listsimilar != null)
+      {
+        FillSimilarList();
+      }
       //}
       return artistItem;
     }

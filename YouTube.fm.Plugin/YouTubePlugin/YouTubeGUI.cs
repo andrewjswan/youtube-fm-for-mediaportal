@@ -778,6 +778,14 @@ namespace YouTubePlugin
       if (videoEntry.Title.Text.Contains("-"))
         artistName = videoEntry.Title.Text.Split('-')[0].Trim();
 
+      ArtistItem artistItem = GetArtist(videoEntry);
+      List<ArtistItem> similarartist = new List<ArtistItem>();
+
+      if (!string.IsNullOrEmpty(artistItem.Id))
+      {
+        similarartist = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
+      }
+
       GUIDialogMenu dlg = (GUIDialogMenu) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_MENU);
       if (dlg == null)
         return;
@@ -801,6 +809,8 @@ namespace YouTubePlugin
       if (!string.IsNullOrEmpty(artistName) &&
           !string.IsNullOrEmpty(ArtistManager.Instance.GetArtistsByName(artistName).Name))
         dlg.Add(string.Format(Translation.AllMusicVideosFrom, artistName));
+      if (similarartist.Count > 0)
+        dlg.Add(Translation.SimilarArtists);
 
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
@@ -940,7 +950,7 @@ namespace YouTubePlugin
           if (VideoDownloader.IsBusy)
           {
             Err_message(Translation.AnotherDonwnloadProgress);
-            dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
+            dlgProgress = (GUIDialogProgress) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_PROGRESS);
             if (dlgProgress != null)
             {
               dlgProgress.Reset();
@@ -972,12 +982,11 @@ namespace YouTubePlugin
       }
       else if (dlg.SelectedLabelText == string.Format(Translation.AllMusicVideosFrom, artistName))
       {
-        ArtistItem artistItem = ArtistManager.Instance.GetArtistsByName(artistName);
         addVideos(ArtistManager.Instance.Grabber.GetArtistVideosIds(artistItem.Id), true);
       }
       else if (dlg.SelectedLabelText == Translation.Info)
       {
-        YoutubeGuiInfoEx scr = (YoutubeGuiInfoEx)GUIWindowManager.GetWindow(29053);
+        YoutubeGuiInfoEx scr = (YoutubeGuiInfoEx) GUIWindowManager.GetWindow(29053);
         scr.YouTubeEntry = videoEntry;
         //if (entry!=null)
         //{
@@ -989,6 +998,31 @@ namespace YouTubePlugin
       {
         PlayNext(videoEntry);
       }
+      else if (dlg.SelectedLabelText == Translation.SimilarArtists)
+      {
+        GenericListItemCollections res = new GenericListItemCollections();
+        foreach (ArtistItem item in similarartist)
+        {
+          SiteItemEntry newentry = new SiteItemEntry();
+          newentry.Provider = "Artists";
+          newentry.SetValue("letter", "false");
+          newentry.SetValue("id", item.Id);
+          newentry.SetValue("name", item.Name);
+          res.ItemType = ItemType.Artist;
+          GenericListItem listItem = new GenericListItem()
+          {
+            Title = item.Name,
+            LogoUrl =
+              string.IsNullOrEmpty(item.Img_url.Trim()) ? "@" : item.Img_url,
+            IsFolder = true,
+            DefaultImage = "defaultArtistBig.png",
+            Tag = newentry
+          };
+          res.Items.Add(listItem);
+        }
+        addVideos(res, true);
+      }
+
     }
 
 
@@ -1027,7 +1061,6 @@ namespace YouTubePlugin
             _setting.UseSMSStyleKeyBoard = !_setting.UseSMSStyleKeyBoard;
             break;
         }
-
       } while (true);
     }
 

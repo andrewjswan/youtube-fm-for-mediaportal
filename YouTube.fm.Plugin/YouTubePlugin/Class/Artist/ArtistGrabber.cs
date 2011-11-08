@@ -168,8 +168,8 @@ namespace YouTubePlugin.Class.Artist
         while (matchResult.Success)
         {
           ArtistItem item = new ArtistItem() { Id = matchResult.Groups["id"].Value, Name = HttpUtility.HtmlDecode(matchResult.Groups["name"].Value) };
-          res.Add(item);
           ArtistManager.Instance.AddArtist(item);
+          res.Add(item);
           matchResult = matchResult.NextMatch();
         }
       }
