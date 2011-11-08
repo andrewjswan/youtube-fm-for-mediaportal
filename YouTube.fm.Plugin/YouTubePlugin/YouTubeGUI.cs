@@ -84,6 +84,7 @@ namespace YouTubePlugin
     private Stack NavigationStack = new Stack();
     MapSettings mapSettings = new MapSettings();
     static GUIDialogProgress dlgProgress;
+    private ItemType _lastItemType = ItemType.Item;
 
     YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal",  "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
 
@@ -412,6 +413,7 @@ namespace YouTubePlugin
             mapSettings.ViewAs = (int)View.List;
             break;
         }
+        GetLayout(_lastItemType);
         ShowPanel();
         GUIControl.FocusControl(GetID, control.GetID);
       }
@@ -678,6 +680,38 @@ namespace YouTubePlugin
         {
             Err_message(Translation.NoItemWasFound);
         }
+    }
+
+    private void SetLayout(ItemType itemType)
+    {
+      switch (itemType)
+      {
+        case ItemType.Item:
+          mapSettings.ViewAs = _setting.LayoutItem;
+          break;
+        case ItemType.Artist:
+          mapSettings.ViewAs = _setting.LayoutArtist;
+          break;
+        case ItemType.Video:
+          mapSettings.ViewAs = _setting.LayoutVideo;
+          break;
+      }
+    }
+
+    private void GetLayout(ItemType itemType)
+    {
+      switch (itemType)
+      {
+        case ItemType.Item:
+          _setting.LayoutItem = mapSettings.ViewAs;
+          break;
+        case ItemType.Artist:
+          _setting.LayoutArtist = mapSettings.ViewAs;
+          break;
+        case ItemType.Video:
+          _setting.LayoutVideo = mapSettings.ViewAs;
+          break;
+      }
     }
 
     private void DoBack()
@@ -1169,6 +1203,8 @@ namespace YouTubePlugin
       listControl.SelectedListItemIndex = 0;
       GUIPropertyManager.SetProperty("#itemcount", (level ? listControl.Count - 1 : listControl.Count).ToString());
       GUIPropertyManager.SetProperty("#itemtype", itemCollections.ItemTypeName);
+      SetLayout(itemCollections.ItemType);
+      _lastItemType = itemCollections.ItemType;
       UpdateGui();
       ShowPanel();
       OnDownloadTimedEvent(null, null);
@@ -1242,6 +1278,8 @@ namespace YouTubePlugin
       }
       GUIPropertyManager.SetProperty("#itemcount", (level ? listControl.Count - 1 : listControl.Count).ToString());
       GUIPropertyManager.SetProperty("#itemtype", Translation.Videos);
+      _lastItemType = ItemType.Video;
+      SetLayout(ItemType.Video);
       listControl.SelectedListItemIndex = 0;
       UpdateGui();
       ShowPanel();

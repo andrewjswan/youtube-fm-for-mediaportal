@@ -42,6 +42,9 @@ namespace YouTubePlugin
       _settings.PluginName = textBox_pluginname.Text;
       _settings.SearchHistory.Clear();
       _settings.StartUpOpt = comboBox_startup.SelectedIndex;
+      _settings.LayoutItem = cmb_view_item.SelectedIndex;
+      _settings.LayoutArtist = cmb_view_artist.SelectedIndex;
+      _settings.LayoutVideo = cmb_view_video.SelectedIndex;
       _settings.MusicFilter = checkBox_filter.Checked;
       _settings.ShowNowPlaying = checkBox_nowplaying.Checked;
       _settings.UseExtremFilter = checkBox_extremfilter.Checked;
@@ -84,6 +87,9 @@ namespace YouTubePlugin
       checkBox_nowplaying.Checked = _settings.ShowNowPlaying;
       checkBox_extremfilter.Checked = _settings.UseExtremFilter;
       comboBox_videoquality.SelectedIndex = _settings.VideoQuality;
+      cmb_view_item.SelectedIndex = _settings.LayoutItem;
+      cmb_view_artist.SelectedIndex = _settings.LayoutArtist;
+      cmb_view_video.SelectedIndex = _settings.LayoutVideo;
       textBox_downloaddir.Text = _settings.DownloadFolder;
       textBox_fanartdir.Text = _settings.FanartDir;
       checkBox1.Checked = _settings.LoadOnlineFanart;
@@ -477,10 +483,7 @@ namespace YouTubePlugin
       }
     }
 
-    private void comboBox_startup_SelectedIndexChanged(object sender, EventArgs e)
-    {
 
-    }
 
 
   }

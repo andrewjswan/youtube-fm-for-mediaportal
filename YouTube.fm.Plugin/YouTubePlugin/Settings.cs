@@ -105,19 +105,11 @@ namespace YouTubePlugin
 
     public bool MusicFilter { get; set; }
 
-
-    //public int InitialCat { get; set; }
-    
     public int StartUpOpt { get; set; }
-
-    public string InitialSearch { get; set; }
-
-
+    
     public string PluginName { get; set; }
 
     public List<string> SearchHistory { get; set; }
-
-    public int InitialDisplay { get; set; }
 
     public string User { get; set; }
 
@@ -134,8 +126,6 @@ namespace YouTubePlugin
 
     public int VideoQuality { get; set; }
 
-    public Action.ActionType InstantAction { get; set; }
-
     public string DownloadFolder { get; set; }
 
     public string LastFmUser { get; set; }
@@ -143,17 +133,22 @@ namespace YouTubePlugin
     public bool LastFmNowPlay { get; set; }
     public bool LastFmSubmit { get; set; }
 
+    public int LayoutItem { get; set; }
+    public int LayoutArtist { get; set; }
+    public int LayoutVideo { get; set; }
+
     public void Load()
     {
       using (var xmlreader = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
       {
         this.PluginName = xmlreader.GetValueAsString("youtubevideos", "PluginName", "YouTube.fm");
-        this.InitialDisplay = xmlreader.GetValueAsInt("youtubevideos", "InitialDisplay", 3);
         this.User = xmlreader.GetValueAsString("youtubevideos", "user", string.Empty);
         this.Password = xmlreader.GetValueAsString("youtubevideos", "password", string.Empty);
         this.StartUpOpt = xmlreader.GetValueAsInt("youtubevideos", "StartUpOpt", 0);
         this.VideoQuality = xmlreader.GetValueAsInt("youtubevideos", "VideoQuality", 0);
-        this.InitialSearch = xmlreader.GetValueAsString("youtubevideos", "InitialSearch", string.Empty);
+        this.LayoutItem = xmlreader.GetValueAsInt("youtubevideos", "LayoutItem", 0);
+        this.LayoutArtist = xmlreader.GetValueAsInt("youtubevideos", "LayoutArtist", 2);
+        this.LayoutVideo = xmlreader.GetValueAsInt("youtubevideos", "LayoutVideo", 6);
         this.MusicFilter = xmlreader.GetValueAsBool("youtubevideos", "MusicFilter", true);
         string his = xmlreader.GetValueAsString("youtubevideos", "searchhistory", string.Empty);
         this.ShowNowPlaying = xmlreader.GetValueAsBool("youtubevideos", "ShowNowPlaying", true);
@@ -191,17 +186,18 @@ namespace YouTubePlugin
       using (var xmlwriter = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
       {
         xmlwriter.SetValue("youtubevideos", "PluginName", this.PluginName);
-        xmlwriter.SetValue("youtubevideos", "InitialDisplay", this.InitialDisplay);
         xmlwriter.SetValue("youtubevideos", "user", User);
         xmlwriter.SetValue("youtubevideos", "password", Password);
         xmlwriter.SetValue("youtubevideos", "StartUpOpt", this.StartUpOpt);
-        xmlwriter.SetValue("youtubevideos", "InitialSearch", this.InitialSearch);
         xmlwriter.SetValue("youtubevideos", "VideoQuality", this.VideoQuality);
         xmlwriter.SetValue("youtubevideos", "DownloadFolder", this.DownloadFolder);
         xmlwriter.SetValue("youtubevideos", "FanartFolder", this.FanartDir);
         xmlwriter.SetValue("youtubevideos", "CacheDir", this.CacheDir);
         xmlwriter.SetValue("youtubevideos", "LastFmUser", this.LastFmUser);
         xmlwriter.SetValue("youtubevideos", "LastFmPass", this.LastFmPass);
+        xmlwriter.SetValue("youtubevideos", "LayoutItem", this.LayoutItem);
+        xmlwriter.SetValue("youtubevideos", "LayoutArtist", this.LayoutArtist);
+        xmlwriter.SetValue("youtubevideos", "LayoutVideo", this.LayoutVideo);
         xmlwriter.SetValueAsBool("youtubevideos", "LastFmNowPlay", this.LastFmNowPlay);
         xmlwriter.SetValueAsBool("youtubevideos", "LastFmSubmit", this.LastFmSubmit);
         xmlwriter.SetValueAsBool("youtubevideos", "MusicFilter", this.MusicFilter);

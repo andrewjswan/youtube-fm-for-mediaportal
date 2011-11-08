@@ -52,11 +52,16 @@ namespace YouTubePlugin
       this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.label6 = new System.Windows.Forms.Label();
       this.tabPage1 = new System.Windows.Forms.TabPage();
-      this.label4 = new System.Windows.Forms.Label();
-      this.comboBox_videoquality = new System.Windows.Forms.ComboBox();
-      this.checkBox_extremfilter = new System.Windows.Forms.CheckBox();
-      this.checkBox_nowplaying = new System.Windows.Forms.CheckBox();
+      this.groupBox11 = new System.Windows.Forms.GroupBox();
+      this.cmb_view_video = new System.Windows.Forms.ComboBox();
+      this.cmb_view_artist = new System.Windows.Forms.ComboBox();
+      this.cmb_view_item = new System.Windows.Forms.ComboBox();
+      this.groupBox10 = new System.Windows.Forms.GroupBox();
       this.checkBox_filter = new System.Windows.Forms.CheckBox();
+      this.checkBox_nowplaying = new System.Windows.Forms.CheckBox();
+      this.checkBox_extremfilter = new System.Windows.Forms.CheckBox();
+      this.groupBox9 = new System.Windows.Forms.GroupBox();
+      this.comboBox_videoquality = new System.Windows.Forms.ComboBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
       this.comboBox_startup = new System.Windows.Forms.ComboBox();
       this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -113,10 +118,16 @@ namespace YouTubePlugin
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+      this.label4 = new System.Windows.Forms.Label();
+      this.label18 = new System.Windows.Forms.Label();
+      this.label19 = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
       this.tabPage1.SuspendLayout();
+      this.groupBox11.SuspendLayout();
+      this.groupBox10.SuspendLayout();
+      this.groupBox9.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.tabPage2.SuspendLayout();
       this.tabPage3.SuspendLayout();
@@ -155,9 +166,9 @@ namespace YouTubePlugin
       // groupBox1
       // 
       this.groupBox1.Controls.Add(this.textBox_passw);
+      this.groupBox1.Controls.Add(this.textBox_user);
       this.groupBox1.Controls.Add(this.label2);
       this.groupBox1.Controls.Add(this.label1);
-      this.groupBox1.Controls.Add(this.textBox_user);
       this.groupBox1.Location = new System.Drawing.Point(9, 223);
       this.groupBox1.Name = "groupBox1";
       this.groupBox1.Size = new System.Drawing.Size(254, 101);
@@ -362,11 +373,9 @@ namespace YouTubePlugin
       // 
       // tabPage1
       // 
-      this.tabPage1.Controls.Add(this.label4);
-      this.tabPage1.Controls.Add(this.comboBox_videoquality);
-      this.tabPage1.Controls.Add(this.checkBox_extremfilter);
-      this.tabPage1.Controls.Add(this.checkBox_nowplaying);
-      this.tabPage1.Controls.Add(this.checkBox_filter);
+      this.tabPage1.Controls.Add(this.groupBox11);
+      this.tabPage1.Controls.Add(this.groupBox10);
+      this.tabPage1.Controls.Add(this.groupBox9);
       this.tabPage1.Controls.Add(this.groupBox2);
       this.tabPage1.Controls.Add(this.label3);
       this.tabPage1.Controls.Add(this.groupBox1);
@@ -376,17 +385,126 @@ namespace YouTubePlugin
       this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
       this.tabPage1.Size = new System.Drawing.Size(824, 353);
       this.tabPage1.TabIndex = 0;
-      this.tabPage1.Text = "Youtube";
+      this.tabPage1.Text = "Gui & Youtube";
       this.tabPage1.UseVisualStyleBackColor = true;
       // 
-      // label4
+      // groupBox11
       // 
-      this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(298, 278);
-      this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(67, 13);
-      this.label4.TabIndex = 12;
-      this.label4.Text = "Video quality";
+      this.groupBox11.Controls.Add(this.cmb_view_video);
+      this.groupBox11.Controls.Add(this.label19);
+      this.groupBox11.Controls.Add(this.cmb_view_artist);
+      this.groupBox11.Controls.Add(this.label18);
+      this.groupBox11.Controls.Add(this.label4);
+      this.groupBox11.Controls.Add(this.cmb_view_item);
+      this.groupBox11.Location = new System.Drawing.Point(269, 120);
+      this.groupBox11.Name = "groupBox11";
+      this.groupBox11.Size = new System.Drawing.Size(272, 204);
+      this.groupBox11.TabIndex = 15;
+      this.groupBox11.TabStop = false;
+      this.groupBox11.Text = "Default views";
+      // 
+      // cmb_view_video
+      // 
+      this.cmb_view_video.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cmb_view_video.FormattingEnabled = true;
+      this.cmb_view_video.Items.AddRange(new object[] {
+            "List",
+            "Icons",
+            "BigIcons",
+            "Albums",
+            "PlayList",
+            "Filmstrip",
+            "CoverFlow"});
+      this.cmb_view_video.Location = new System.Drawing.Point(15, 119);
+      this.cmb_view_video.Name = "cmb_view_video";
+      this.cmb_view_video.Size = new System.Drawing.Size(241, 21);
+      this.cmb_view_video.TabIndex = 2;
+      // 
+      // cmb_view_artist
+      // 
+      this.cmb_view_artist.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cmb_view_artist.FormattingEnabled = true;
+      this.cmb_view_artist.Items.AddRange(new object[] {
+            "List",
+            "Icons",
+            "BigIcons",
+            "Albums",
+            "PlayList",
+            "Filmstrip",
+            "CoverFlow"});
+      this.cmb_view_artist.Location = new System.Drawing.Point(15, 78);
+      this.cmb_view_artist.Name = "cmb_view_artist";
+      this.cmb_view_artist.Size = new System.Drawing.Size(241, 21);
+      this.cmb_view_artist.TabIndex = 1;
+      // 
+      // cmb_view_item
+      // 
+      this.cmb_view_item.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cmb_view_item.FormattingEnabled = true;
+      this.cmb_view_item.Items.AddRange(new object[] {
+            "List",
+            "Icons",
+            "BigIcons",
+            "Albums",
+            "PlayList",
+            "Filmstrip",
+            "CoverFlow"});
+      this.cmb_view_item.Location = new System.Drawing.Point(15, 36);
+      this.cmb_view_item.Name = "cmb_view_item";
+      this.cmb_view_item.Size = new System.Drawing.Size(241, 21);
+      this.cmb_view_item.TabIndex = 0;
+      // 
+      // groupBox10
+      // 
+      this.groupBox10.Controls.Add(this.checkBox_filter);
+      this.groupBox10.Controls.Add(this.checkBox_nowplaying);
+      this.groupBox10.Controls.Add(this.checkBox_extremfilter);
+      this.groupBox10.Location = new System.Drawing.Point(269, 15);
+      this.groupBox10.Name = "groupBox10";
+      this.groupBox10.Size = new System.Drawing.Size(272, 99);
+      this.groupBox10.TabIndex = 14;
+      this.groupBox10.TabStop = false;
+      this.groupBox10.Text = "Options";
+      // 
+      // checkBox_filter
+      // 
+      this.checkBox_filter.AutoSize = true;
+      this.checkBox_filter.Location = new System.Drawing.Point(6, 23);
+      this.checkBox_filter.Name = "checkBox_filter";
+      this.checkBox_filter.Size = new System.Drawing.Size(159, 17);
+      this.checkBox_filter.TabIndex = 6;
+      this.checkBox_filter.Text = "Enable music videos filtering";
+      this.checkBox_filter.UseVisualStyleBackColor = true;
+      // 
+      // checkBox_nowplaying
+      // 
+      this.checkBox_nowplaying.AutoSize = true;
+      this.checkBox_nowplaying.Location = new System.Drawing.Point(6, 46);
+      this.checkBox_nowplaying.Name = "checkBox_nowplaying";
+      this.checkBox_nowplaying.Size = new System.Drawing.Size(215, 17);
+      this.checkBox_nowplaying.TabIndex = 8;
+      this.checkBox_nowplaying.Text = "Show NowPlaying in place of Fullscreen";
+      this.checkBox_nowplaying.UseVisualStyleBackColor = true;
+      // 
+      // checkBox_extremfilter
+      // 
+      this.checkBox_extremfilter.AutoSize = true;
+      this.checkBox_extremfilter.Location = new System.Drawing.Point(6, 69);
+      this.checkBox_extremfilter.Name = "checkBox_extremfilter";
+      this.checkBox_extremfilter.Size = new System.Drawing.Size(165, 17);
+      this.checkBox_extremfilter.TabIndex = 10;
+      this.checkBox_extremfilter.Text = "Use extrem filter music videos";
+      this.checkBox_extremfilter.UseVisualStyleBackColor = true;
+      // 
+      // groupBox9
+      // 
+      this.groupBox9.Controls.Add(this.comboBox_videoquality);
+      this.groupBox9.Location = new System.Drawing.Point(10, 120);
+      this.groupBox9.Name = "groupBox9";
+      this.groupBox9.Size = new System.Drawing.Size(253, 57);
+      this.groupBox9.TabIndex = 13;
+      this.groupBox9.TabStop = false;
+      this.groupBox9.Text = "Video quality";
       // 
       // comboBox_videoquality
       // 
@@ -399,47 +517,17 @@ namespace YouTubePlugin
             "Full HD quality",
             "Based on Title",
             "Ask"});
-      this.comboBox_videoquality.Location = new System.Drawing.Point(298, 297);
+      this.comboBox_videoquality.Location = new System.Drawing.Point(8, 19);
       this.comboBox_videoquality.Name = "comboBox_videoquality";
-      this.comboBox_videoquality.Size = new System.Drawing.Size(209, 21);
+      this.comboBox_videoquality.Size = new System.Drawing.Size(239, 21);
       this.comboBox_videoquality.TabIndex = 11;
-      // 
-      // checkBox_extremfilter
-      // 
-      this.checkBox_extremfilter.AutoSize = true;
-      this.checkBox_extremfilter.Location = new System.Drawing.Point(292, 123);
-      this.checkBox_extremfilter.Name = "checkBox_extremfilter";
-      this.checkBox_extremfilter.Size = new System.Drawing.Size(165, 17);
-      this.checkBox_extremfilter.TabIndex = 10;
-      this.checkBox_extremfilter.Text = "Use extrem filter music videos";
-      this.checkBox_extremfilter.UseVisualStyleBackColor = true;
-      // 
-      // checkBox_nowplaying
-      // 
-      this.checkBox_nowplaying.AutoSize = true;
-      this.checkBox_nowplaying.Location = new System.Drawing.Point(292, 77);
-      this.checkBox_nowplaying.Name = "checkBox_nowplaying";
-      this.checkBox_nowplaying.Size = new System.Drawing.Size(215, 17);
-      this.checkBox_nowplaying.TabIndex = 8;
-      this.checkBox_nowplaying.Text = "Show NowPlaying in place of Fullscreen";
-      this.checkBox_nowplaying.UseVisualStyleBackColor = true;
-      // 
-      // checkBox_filter
-      // 
-      this.checkBox_filter.AutoSize = true;
-      this.checkBox_filter.Location = new System.Drawing.Point(292, 31);
-      this.checkBox_filter.Name = "checkBox_filter";
-      this.checkBox_filter.Size = new System.Drawing.Size(159, 17);
-      this.checkBox_filter.TabIndex = 6;
-      this.checkBox_filter.Text = "Enable music videos filtering";
-      this.checkBox_filter.UseVisualStyleBackColor = true;
       // 
       // groupBox2
       // 
       this.groupBox2.Controls.Add(this.comboBox_startup);
       this.groupBox2.Location = new System.Drawing.Point(9, 58);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(254, 59);
+      this.groupBox2.Size = new System.Drawing.Size(254, 56);
       this.groupBox2.TabIndex = 5;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Startup";
@@ -457,7 +545,6 @@ namespace YouTubePlugin
       this.comboBox_startup.Name = "comboBox_startup";
       this.comboBox_startup.Size = new System.Drawing.Size(239, 21);
       this.comboBox_startup.TabIndex = 4;
-      this.comboBox_startup.SelectedIndexChanged += new System.EventHandler(this.comboBox_startup_SelectedIndexChanged);
       // 
       // tabPage2
       // 
@@ -995,6 +1082,33 @@ namespace YouTubePlugin
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
       // 
+      // label4
+      // 
+      this.label4.AutoSize = true;
+      this.label4.Location = new System.Drawing.Point(12, 16);
+      this.label4.Name = "label4";
+      this.label4.Size = new System.Drawing.Size(32, 13);
+      this.label4.TabIndex = 3;
+      this.label4.Text = "Items";
+      // 
+      // label18
+      // 
+      this.label18.AutoSize = true;
+      this.label18.Location = new System.Drawing.Point(12, 62);
+      this.label18.Name = "label18";
+      this.label18.Size = new System.Drawing.Size(35, 13);
+      this.label18.TabIndex = 4;
+      this.label18.Text = "Artists";
+      // 
+      // label19
+      // 
+      this.label19.AutoSize = true;
+      this.label19.Location = new System.Drawing.Point(12, 103);
+      this.label19.Name = "label19";
+      this.label19.Size = new System.Drawing.Size(39, 13);
+      this.label19.TabIndex = 5;
+      this.label19.Text = "Videos";
+      // 
       // SetupForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1013,6 +1127,11 @@ namespace YouTubePlugin
       this.tabPage6.PerformLayout();
       this.tabPage1.ResumeLayout(false);
       this.tabPage1.PerformLayout();
+      this.groupBox11.ResumeLayout(false);
+      this.groupBox11.PerformLayout();
+      this.groupBox10.ResumeLayout(false);
+      this.groupBox10.PerformLayout();
+      this.groupBox9.ResumeLayout(false);
       this.groupBox2.ResumeLayout(false);
       this.tabPage2.ResumeLayout(false);
       this.tabPage2.PerformLayout();
@@ -1064,7 +1183,6 @@ namespace YouTubePlugin
     private System.Windows.Forms.CheckBox checkBox_filter;
     private System.Windows.Forms.CheckBox checkBox_nowplaying;
     private System.Windows.Forms.CheckBox checkBox_extremfilter;
-    private System.Windows.Forms.Label label4;
     private System.Windows.Forms.ComboBox comboBox_videoquality;
     private System.Windows.Forms.TabPage tabPage4;
     private System.Windows.Forms.Button button_getdir;
@@ -1127,5 +1245,14 @@ namespace YouTubePlugin
     private System.Windows.Forms.Label label17;
     private System.Windows.Forms.TextBox txt_cachedir;
     private System.Windows.Forms.LinkLabel linkLabel6;
+    private System.Windows.Forms.GroupBox groupBox10;
+    private System.Windows.Forms.GroupBox groupBox9;
+    private System.Windows.Forms.GroupBox groupBox11;
+    private System.Windows.Forms.ComboBox cmb_view_item;
+    private System.Windows.Forms.ComboBox cmb_view_video;
+    private System.Windows.Forms.ComboBox cmb_view_artist;
+    private System.Windows.Forms.Label label19;
+    private System.Windows.Forms.Label label18;
+    private System.Windows.Forms.Label label4;
   }
 }
