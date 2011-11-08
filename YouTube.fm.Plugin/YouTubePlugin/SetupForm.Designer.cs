@@ -52,8 +52,6 @@ namespace YouTubePlugin
       this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.label6 = new System.Windows.Forms.Label();
       this.tabPage1 = new System.Windows.Forms.TabPage();
-      this.chk_oldstyle = new System.Windows.Forms.CheckBox();
-      this.checkBox_sms = new System.Windows.Forms.CheckBox();
       this.label4 = new System.Windows.Forms.Label();
       this.comboBox_videoquality = new System.Windows.Forms.ComboBox();
       this.checkBox_extremfilter = new System.Windows.Forms.CheckBox();
@@ -364,8 +362,6 @@ namespace YouTubePlugin
       // 
       // tabPage1
       // 
-      this.tabPage1.Controls.Add(this.chk_oldstyle);
-      this.tabPage1.Controls.Add(this.checkBox_sms);
       this.tabPage1.Controls.Add(this.label4);
       this.tabPage1.Controls.Add(this.comboBox_videoquality);
       this.tabPage1.Controls.Add(this.checkBox_extremfilter);
@@ -382,28 +378,6 @@ namespace YouTubePlugin
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "Youtube";
       this.tabPage1.UseVisualStyleBackColor = true;
-      // 
-      // chk_oldstyle
-      // 
-      this.chk_oldstyle.AutoSize = true;
-      this.chk_oldstyle.Enabled = false;
-      this.chk_oldstyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.chk_oldstyle.Location = new System.Drawing.Point(292, 169);
-      this.chk_oldstyle.Name = "chk_oldstyle";
-      this.chk_oldstyle.Size = new System.Drawing.Size(136, 17);
-      this.chk_oldstyle.TabIndex = 14;
-      this.chk_oldstyle.Text = "Old style start page";
-      this.chk_oldstyle.UseVisualStyleBackColor = true;
-      // 
-      // checkBox_sms
-      // 
-      this.checkBox_sms.AutoSize = true;
-      this.checkBox_sms.Location = new System.Drawing.Point(292, 146);
-      this.checkBox_sms.Name = "checkBox_sms";
-      this.checkBox_sms.Size = new System.Drawing.Size(142, 17);
-      this.checkBox_sms.TabIndex = 13;
-      this.checkBox_sms.Text = "Use SMS style keyboard";
-      this.checkBox_sms.UseVisualStyleBackColor = true;
       // 
       // label4
       // 
@@ -1092,7 +1066,6 @@ namespace YouTubePlugin
     private System.Windows.Forms.CheckBox checkBox_extremfilter;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.ComboBox comboBox_videoquality;
-    private System.Windows.Forms.CheckBox checkBox_sms;
     private System.Windows.Forms.TabPage tabPage4;
     private System.Windows.Forms.Button button_getdir;
     private System.Windows.Forms.TextBox textBox_downloaddir;
@@ -1114,7 +1087,6 @@ namespace YouTubePlugin
     private System.Windows.Forms.Button btn_down;
     private System.Windows.Forms.Button btn_up;
     private System.Windows.Forms.Button button7;
-    private System.Windows.Forms.CheckBox chk_oldstyle;
     private System.Windows.Forms.TabPage tabPage3;
     private System.Windows.Forms.Button button8;
     private System.Windows.Forms.ListBox lst_artists;

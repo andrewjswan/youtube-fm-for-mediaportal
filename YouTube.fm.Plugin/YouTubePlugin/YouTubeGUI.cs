@@ -1038,7 +1038,6 @@ namespace YouTubePlugin
         dlg.Add(string.Format("NowPlaying in place of Fullscreen: {0}", _setting.ShowNowPlaying));
         dlg.Add(string.Format("Enable music videos filtering: {0}", _setting.MusicFilter));
         dlg.Add(string.Format("Use extrem filter music videos: {0}", _setting.UseExtremFilter));
-        dlg.Add(string.Format("Use SMS style keyboard: {0}", _setting.UseSMSStyleKeyBoard));
         dlg.DoModal(GetID);
         if (dlg.SelectedId == -1)
           return;
@@ -1052,9 +1051,6 @@ namespace YouTubePlugin
             break;
           case 2:
             _setting.UseExtremFilter = !_setting.UseExtremFilter;
-            break;
-          case 3:
-            _setting.UseSMSStyleKeyBoard = !_setting.UseSMSStyleKeyBoard;
             break;
         }
       } while (true);

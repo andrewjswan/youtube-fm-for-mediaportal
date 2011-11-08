@@ -46,7 +46,6 @@ namespace YouTubePlugin
       _settings.ShowNowPlaying = checkBox_nowplaying.Checked;
       _settings.UseExtremFilter = checkBox_extremfilter.Checked;
       _settings.VideoQuality = comboBox_videoquality.SelectedIndex;
-      _settings.UseSMSStyleKeyBoard = checkBox_sms.Checked;
       _settings.DownloadFolder = textBox_downloaddir.Text;
       _settings.FanartDir = textBox_fanartdir.Text;
       _settings.LoadOnlineFanart = checkBox1.Checked;
@@ -85,7 +84,6 @@ namespace YouTubePlugin
       checkBox_nowplaying.Checked = _settings.ShowNowPlaying;
       checkBox_extremfilter.Checked = _settings.UseExtremFilter;
       comboBox_videoquality.SelectedIndex = _settings.VideoQuality;
-      checkBox_sms.Checked = _settings.UseSMSStyleKeyBoard;
       textBox_downloaddir.Text = _settings.DownloadFolder;
       textBox_fanartdir.Text = _settings.FanartDir;
       checkBox1.Checked = _settings.LoadOnlineFanart;
@@ -483,6 +481,7 @@ namespace YouTubePlugin
     {
 
     }
+
 
   }
 

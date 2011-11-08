@@ -134,8 +134,6 @@ namespace YouTubePlugin
 
     public int VideoQuality { get; set; }
 
-    public bool UseSMSStyleKeyBoard { get; set; }
-
     public Action.ActionType InstantAction { get; set; }
 
     public string DownloadFolder { get; set; }
@@ -157,7 +155,6 @@ namespace YouTubePlugin
         this.VideoQuality = xmlreader.GetValueAsInt("youtubevideos", "VideoQuality", 0);
         this.InitialSearch = xmlreader.GetValueAsString("youtubevideos", "InitialSearch", string.Empty);
         this.MusicFilter = xmlreader.GetValueAsBool("youtubevideos", "MusicFilter", true);
-        this.UseSMSStyleKeyBoard = xmlreader.GetValueAsBool("youtubevideos", "UseSMSStyleKeyBoard", true);
         string his = xmlreader.GetValueAsString("youtubevideos", "searchhistory", string.Empty);
         this.ShowNowPlaying = xmlreader.GetValueAsBool("youtubevideos", "ShowNowPlaying", true);
         this.UseExtremFilter = xmlreader.GetValueAsBool("youtubevideos", "UseExtremFilter", false);
@@ -210,7 +207,6 @@ namespace YouTubePlugin
         xmlwriter.SetValueAsBool("youtubevideos", "MusicFilter", this.MusicFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "ShowNowPlaying", this.ShowNowPlaying);
         xmlwriter.SetValueAsBool("youtubevideos", "UseExtremFilter", this.UseExtremFilter);
-        xmlwriter.SetValueAsBool("youtubevideos", "UseSMSStyleKeyBoard", this.UseSMSStyleKeyBoard);
         xmlwriter.SetValueAsBool("youtubevideos", "LoadOnlineFanart", this.LoadOnlineFanart);
         string his = "";
         foreach (string s in SearchHistory)
