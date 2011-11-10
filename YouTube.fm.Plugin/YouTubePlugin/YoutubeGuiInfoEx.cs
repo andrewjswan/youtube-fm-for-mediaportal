@@ -245,7 +245,7 @@ namespace YouTubePlugin
 
     protected override void OnPageLoad()
     {
-      GUIPropertyManager.SetProperty("#currentmodule", "Info");
+      GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Info");
       if (OldYouTubeEntry == null || (OldYouTubeEntry != null && Youtube2MP.GetVideoId(OldYouTubeEntry) != Youtube2MP.GetVideoId(YouTubeEntry)))
       {
         OldYouTubeEntry = YouTubeEntry;
