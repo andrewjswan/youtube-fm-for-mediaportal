@@ -767,7 +767,7 @@ namespace YouTubePlugin
       return query;
     }
 
-    protected ArtistItem GetArtist(YouTubeEntry entry)
+    protected ArtistItem GetArtist(YouTubeEntry entry) 
     {
       ArtistItem artistItem = DatabaseProvider.InstanInstance.GetArtist(entry);
       if (artistItem != null)
