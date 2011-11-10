@@ -32,9 +32,9 @@ namespace YouTubePlugin
       this.button2 = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.textBox_passw = new System.Windows.Forms.TextBox();
+      this.textBox_user = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
       this.label1 = new System.Windows.Forms.Label();
-      this.textBox_user = new System.Windows.Forms.TextBox();
       this.textBox_pluginname = new System.Windows.Forms.TextBox();
       this.label3 = new System.Windows.Forms.Label();
       this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -54,7 +54,10 @@ namespace YouTubePlugin
       this.tabPage1 = new System.Windows.Forms.TabPage();
       this.groupBox11 = new System.Windows.Forms.GroupBox();
       this.cmb_view_video = new System.Windows.Forms.ComboBox();
+      this.label19 = new System.Windows.Forms.Label();
       this.cmb_view_artist = new System.Windows.Forms.ComboBox();
+      this.label18 = new System.Windows.Forms.Label();
+      this.label4 = new System.Windows.Forms.Label();
       this.cmb_view_item = new System.Windows.Forms.ComboBox();
       this.groupBox10 = new System.Windows.Forms.GroupBox();
       this.checkBox_filter = new System.Windows.Forms.CheckBox();
@@ -118,9 +121,6 @@ namespace YouTubePlugin
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-      this.label4 = new System.Windows.Forms.Label();
-      this.label18 = new System.Windows.Forms.Label();
-      this.label19 = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
@@ -184,6 +184,13 @@ namespace YouTubePlugin
       this.textBox_passw.Size = new System.Drawing.Size(242, 20);
       this.textBox_passw.TabIndex = 6;
       // 
+      // textBox_user
+      // 
+      this.textBox_user.Location = new System.Drawing.Point(6, 32);
+      this.textBox_user.Name = "textBox_user";
+      this.textBox_user.Size = new System.Drawing.Size(242, 20);
+      this.textBox_user.TabIndex = 3;
+      // 
       // label2
       // 
       this.label2.AutoSize = true;
@@ -201,13 +208,6 @@ namespace YouTubePlugin
       this.label1.Size = new System.Drawing.Size(58, 13);
       this.label1.TabIndex = 4;
       this.label1.Text = "User name";
-      // 
-      // textBox_user
-      // 
-      this.textBox_user.Location = new System.Drawing.Point(6, 32);
-      this.textBox_user.Name = "textBox_user";
-      this.textBox_user.Size = new System.Drawing.Size(242, 20);
-      this.textBox_user.TabIndex = 3;
       // 
       // textBox_pluginname
       // 
@@ -412,13 +412,21 @@ namespace YouTubePlugin
             "Icons",
             "BigIcons",
             "Albums",
-            "PlayList",
             "Filmstrip",
             "CoverFlow"});
       this.cmb_view_video.Location = new System.Drawing.Point(15, 119);
       this.cmb_view_video.Name = "cmb_view_video";
       this.cmb_view_video.Size = new System.Drawing.Size(241, 21);
       this.cmb_view_video.TabIndex = 2;
+      // 
+      // label19
+      // 
+      this.label19.AutoSize = true;
+      this.label19.Location = new System.Drawing.Point(12, 103);
+      this.label19.Name = "label19";
+      this.label19.Size = new System.Drawing.Size(39, 13);
+      this.label19.TabIndex = 5;
+      this.label19.Text = "Videos";
       // 
       // cmb_view_artist
       // 
@@ -429,13 +437,30 @@ namespace YouTubePlugin
             "Icons",
             "BigIcons",
             "Albums",
-            "PlayList",
             "Filmstrip",
             "CoverFlow"});
       this.cmb_view_artist.Location = new System.Drawing.Point(15, 78);
       this.cmb_view_artist.Name = "cmb_view_artist";
       this.cmb_view_artist.Size = new System.Drawing.Size(241, 21);
       this.cmb_view_artist.TabIndex = 1;
+      // 
+      // label18
+      // 
+      this.label18.AutoSize = true;
+      this.label18.Location = new System.Drawing.Point(12, 62);
+      this.label18.Name = "label18";
+      this.label18.Size = new System.Drawing.Size(35, 13);
+      this.label18.TabIndex = 4;
+      this.label18.Text = "Artists";
+      // 
+      // label4
+      // 
+      this.label4.AutoSize = true;
+      this.label4.Location = new System.Drawing.Point(12, 16);
+      this.label4.Name = "label4";
+      this.label4.Size = new System.Drawing.Size(32, 13);
+      this.label4.TabIndex = 3;
+      this.label4.Text = "Items";
       // 
       // cmb_view_item
       // 
@@ -446,7 +471,6 @@ namespace YouTubePlugin
             "Icons",
             "BigIcons",
             "Albums",
-            "PlayList",
             "Filmstrip",
             "CoverFlow"});
       this.cmb_view_item.Location = new System.Drawing.Point(15, 36);
@@ -1081,33 +1105,6 @@ namespace YouTubePlugin
       // openFileDialog1
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
-      // 
-      // label4
-      // 
-      this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(12, 16);
-      this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(32, 13);
-      this.label4.TabIndex = 3;
-      this.label4.Text = "Items";
-      // 
-      // label18
-      // 
-      this.label18.AutoSize = true;
-      this.label18.Location = new System.Drawing.Point(12, 62);
-      this.label18.Name = "label18";
-      this.label18.Size = new System.Drawing.Size(35, 13);
-      this.label18.TabIndex = 4;
-      this.label18.Text = "Artists";
-      // 
-      // label19
-      // 
-      this.label19.AutoSize = true;
-      this.label19.Location = new System.Drawing.Point(12, 103);
-      this.label19.Name = "label19";
-      this.label19.Size = new System.Drawing.Size(39, 13);
-      this.label19.TabIndex = 5;
-      this.label19.Text = "Videos";
       // 
       // SetupForm
       // 

@@ -26,9 +26,8 @@ namespace YouTubePlugin
     Icons = 1,
     BigIcons = 2,
     Albums = 3,
-    PlayList = 4,
-    Filmstrip = 5,
-    CoverFlow = 6
+    Filmstrip = 4,
+    CoverFlow = 5
   }
   [PluginIcons("YouTubePlugin.logo.png", "YouTubePlugin.logo_disabled.png")]
   public class YouTubeGUI : YoutubeGUIBase, ISetupForm 
@@ -566,7 +565,6 @@ namespace YouTubePlugin
       guiDialogMenu1.Add(GUILocalizeStrings.Get(100));
       guiDialogMenu1.Add(GUILocalizeStrings.Get(417));
       guiDialogMenu1.Add(GUILocalizeStrings.Get(529));
-      guiDialogMenu1.Add(GUILocalizeStrings.Get(101));
       guiDialogMenu1.Add(GUILocalizeStrings.Get(733));
       guiDialogMenu1.Add(GUILocalizeStrings.Get(791));
 
