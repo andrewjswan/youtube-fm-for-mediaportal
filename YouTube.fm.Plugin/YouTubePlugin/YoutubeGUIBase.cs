@@ -137,6 +137,7 @@ namespace YouTubePlugin
 
       if (type != "Curent")
       {
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", GetArtistName(vid));
         string imgurl =
           ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm." + type + ".Artist.Name"));
         string artistimg = GetLocalImageFileName(imgurl);
@@ -786,10 +787,24 @@ namespace YouTubePlugin
 
       if (!string.IsNullOrEmpty(artistItem.Id))
       {
+        ArtistManager.Instance.Save(artistItem);
         DatabaseProvider.InstanInstance.Save(entry, artistItem);
       }
       return artistItem;
     }
+
+    protected string GetArtistName(YouTubeEntry entry)
+    {
+      ArtistItem artistItem = GetArtist(entry);
+      if (!string.IsNullOrEmpty(artistItem.Name))
+        return artistItem.Name;
+      if (entry.Title.Text.Contains("-"))
+      {
+        return entry.Title.Text.Split('-')[0].TrimEnd();
+      }
+      return "";
+    }
+
 
     #endregion
   }

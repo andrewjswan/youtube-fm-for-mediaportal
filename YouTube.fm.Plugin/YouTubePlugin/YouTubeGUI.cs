@@ -866,8 +866,7 @@ namespace YouTubePlugin
       if (videoEntry == null)
         return;
 
-      if (videoEntry.Title.Text.Contains("-"))
-        artistName = videoEntry.Title.Text.Split('-')[0].Trim();
+      artistName = GetArtistName(videoEntry);
 
       ArtistItem artistItem = GetArtist(videoEntry);
 
@@ -1098,16 +1097,22 @@ namespace YouTubePlugin
           newentry.SetValue("id", item.Id);
           newentry.SetValue("name", item.Name);
           res.ItemType = ItemType.Artist;
-          GenericListItem listItem = new GenericListItem()
+          try
           {
-            Title = item.Name,
-            LogoUrl =
-              string.IsNullOrEmpty(item.Img_url.Trim()) ? "@" : item.Img_url,
-            IsFolder = true,
-            DefaultImage = "defaultArtistBig.png",
-            Tag = newentry
-          };
-          res.Items.Add(listItem);
+            GenericListItem listItem = new GenericListItem()
+            {
+              Title = item.Name,
+              LogoUrl =
+                string.IsNullOrEmpty(item.Img_url.Trim()) ? "@" : item.Img_url,
+              IsFolder = true,
+              DefaultImage = "defaultArtistBig.png",
+              Tag = newentry
+            };
+            res.Items.Add(listItem);
+          }
+          catch (Exception exception)
+          {
+          }
         }
         res.Title = "Artists/Similar/" + artistItem.Name;
         addVideos(res, true);

@@ -32,6 +32,7 @@ namespace YouTubePlugin.Class.Artist
           //res.Img_url = HttpUtility.HtmlDecode(matchResult.Groups["img_url"].Value);
           matchResult = matchResult.NextMatch();
         }
+        GetArtistUser(res.Id);
       }
       catch (ArgumentException ex)
       {
@@ -94,7 +95,11 @@ namespace YouTubePlugin.Class.Artist
       {
         string site = DownloadArtistInfo(artist_id);
         Regex regexObj = new Regex("class=\"channel-details\">.*?<a href=\"/user/.*?\">(?<user>.*?)</a>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        return regexObj.Match(site).Groups["user"].Value;
+        string user = regexObj.Match(site).Groups["user"].Value;
+        ArtistItem artistItem = ArtistManager.Instance.GetArtistsById(artist_id);
+        artistItem.User = user;
+        ArtistManager.Instance.Save(artistItem);
+        return user;
       }
       catch (Exception)
       {
