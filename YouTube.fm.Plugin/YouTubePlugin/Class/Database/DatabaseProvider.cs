@@ -263,7 +263,29 @@ namespace YouTubePlugin.Class.Database
       return res;
     }
 
-
+    public string GetPlayedArtistIds(int numPlay)
+    {
+      List<string> ids = new List<string>();
+      string lsSQL =
+        string.Format(
+          "select * from (SELECT VIDEOS.VIDEO_ID AS VIDEO_ID, ARTIST_ID, TITLE, IMG_URL, count(PLAY_HISTORY.VIDEO_ID) as num_play FROM VIDEOS, PLAY_HISTORY WHERE VIDEOS.VIDEO_ID=PLAY_HISTORY.VIDEO_ID group by VIDEOS.VIDEO_ID, ARTIST_ID, TITLE, IMG_URL order by count(PLAY_HISTORY.VIDEO_ID) desc)where num_play>" +
+          numPlay.ToString());
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        string id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID");
+        if (!string.IsNullOrEmpty(id) && !ids.Contains(id))
+          ids.Add(id);
+      }
+      string ret = "";
+      for (int i = 0; i < ids.Count; i++)
+      {
+        ret += "'"+ids[i]+"'";
+        if (i != ids.Count - 1)
+          ret += ",";
+      }
+      return ret;
+    }
 
     public GenericListItemCollections GetRecentlyPlayed()
     {

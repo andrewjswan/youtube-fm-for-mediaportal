@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using Google.GData.YouTube;
+using YouTubePlugin.Class.Artist;
 
 namespace YouTubePlugin.Class.SiteItems
 {
@@ -40,6 +41,8 @@ namespace YouTubePlugin.Class.SiteItems
           string title = youTubeEntry.Uploader.Value;
           if (youTubeEntry.Title.Text.Contains("-"))
             title = youTubeEntry.Title.Text.Split('-')[0];
+          //ArtistItem artistItem = ArtistManager.Instance.Grabber.GetFromVideoId(Youtube2MP.GetVideoId(youTubeEntry));
+          //ArtistManager.Instance.Grabber.GetArtistUser(artistItem.Id);
           GenericListItem listItem = new GenericListItem()
                                        {
                                          Title = title,

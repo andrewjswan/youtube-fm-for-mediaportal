@@ -54,11 +54,11 @@ namespace YouTubePlugin.Class.Artist
         try
         {
           site = client.DownloadString(url);
-          ArtistManager.Instance.SitesCache.Add(new SiteContent() { SIte = site, Url = url });
+          ArtistManager.Instance.SitesCache.Add(new SiteContent() {SIte = site, Url = url});
         }
-        finally
+        catch (Exception exception)
         {
-          
+          site = "";
         }
       }
       else

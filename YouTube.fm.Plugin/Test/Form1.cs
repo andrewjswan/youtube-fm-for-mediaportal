@@ -292,7 +292,7 @@ namespace Test
           end = true;
           if (!procesed.Contains(artistItem.Id))
           {
-            ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
+            //ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
             ArtistManager.Instance.Grabber.GetArtistUser(artistItem.Id);
             procesed.Add(artistItem.Id);
             end = false;

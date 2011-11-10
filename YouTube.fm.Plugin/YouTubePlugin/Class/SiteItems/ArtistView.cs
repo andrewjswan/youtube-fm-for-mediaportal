@@ -7,6 +7,7 @@ using Google.GData.Client;
 using Google.GData.YouTube;
 using Google.YouTube;
 using YouTubePlugin.Class.Artist;
+using YouTubePlugin.Class.Database;
 
 namespace YouTubePlugin.Class.SiteItems
 {
@@ -30,11 +31,25 @@ namespace YouTubePlugin.Class.SiteItems
       if (entry.GetValue("letter") == "")
       {
         res.Title = "Artists";
+        SiteItemEntry newentry1 = new SiteItemEntry();
+        newentry1.Provider = this.Name;
+        newentry1.SetValue("letter", "true");
+        newentry1.SetValue("special", "true");
+        newentry1.Title = Translation.PlayedArtists;
+        GenericListItem listItem1 = new GenericListItem()
+        {
+          Title = Translation.PlayedArtists,
+          IsFolder = true,
+          Tag = newentry1
+        };
+        res.Items.Add(listItem1);
+
         foreach (string letter in ArtistManager.Instance.GetArtistsLetters())
         {
           SiteItemEntry newentry = new SiteItemEntry();
           newentry.Provider = this.Name;
           newentry.SetValue("letter", "true");
+          newentry.SetValue("special", "false");
           newentry.Title = letter;
           GenericListItem listItem = new GenericListItem()
                                        {
@@ -45,10 +60,35 @@ namespace YouTubePlugin.Class.SiteItems
           res.Items.Add(listItem);
         }
       }
-      if (entry.GetValue("letter") == "true")
+      if (entry.GetValue("letter") == "true" && entry.GetValue("special") != "true")
       {
         res.Title = "Artists/Letter/" + entry.Title;
         foreach (ArtistItem artistItem in ArtistManager.Instance.GetArtists(entry.Title))
+        {
+          SiteItemEntry newentry = new SiteItemEntry();
+          newentry.Provider = this.Name;
+          newentry.SetValue("letter", "false");
+          newentry.SetValue("id", artistItem.Id);
+          newentry.SetValue("name", artistItem.Name);
+          res.ItemType = ItemType.Artist;
+          GenericListItem listItem = new GenericListItem()
+                                       {
+                                         Title = artistItem.Name,
+                                         LogoUrl =
+                                           string.IsNullOrEmpty(artistItem.Img_url.Trim()) ? "@" : artistItem.Img_url,
+                                         IsFolder = true,
+                                         DefaultImage = "defaultArtistBig.png",
+                                         Tag = newentry
+                                       };
+          res.Items.Add(listItem);
+        }
+      }
+      if (entry.GetValue("special") == "true")
+      {
+        res.Title = "Artists/" + Translation.PlayedArtists;
+        foreach (
+          ArtistItem artistItem in
+            ArtistManager.Instance.GetArtistsByIds(DatabaseProvider.InstanInstance.GetPlayedArtistIds(1)))
         {
           SiteItemEntry newentry = new SiteItemEntry();
           newentry.Provider = this.Name;

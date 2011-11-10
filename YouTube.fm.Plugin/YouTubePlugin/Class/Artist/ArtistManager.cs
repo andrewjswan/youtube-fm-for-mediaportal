@@ -131,6 +131,24 @@ namespace YouTubePlugin.Class.Artist
       return res;
     }
 
+    public List<ArtistItem> GetArtistsByIds(string letter)
+    {
+      List<ArtistItem> res = new List<ArtistItem>();
+      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_ID in ({0}) order by ARTIST_NAME", letter);
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        res.Add(new ArtistItem()
+        {
+          Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
+          Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'").Replace("`", "\""),
+          Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
+          User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER")
+        });
+      }
+      return res;
+    }
+
     public string GetArtistsImgUrl(string letter)
     {
       try
