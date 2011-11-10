@@ -293,12 +293,13 @@ namespace Test
           if (!procesed.Contains(artistItem.Id))
           {
             ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
+            ArtistManager.Instance.Grabber.GetArtistUser(artistItem.Id);
             procesed.Add(artistItem.Id);
             end = false;
             i++;
             label1.Text = i.ToString();
             Application.DoEvents();
-            Thread.Sleep(200);
+            //Thread.Sleep(200);
           }
         }
       } while (end);

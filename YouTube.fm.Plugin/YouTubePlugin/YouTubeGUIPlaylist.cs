@@ -367,7 +367,14 @@ namespace YouTubePlugin
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
-      GUIPropertyManager.SetProperty("#currentmodule", "Playlist/" + playlistname);
+      if (string.IsNullOrEmpty(playlistname))
+      {
+        GUIPropertyManager.SetProperty("#currentmodule", "Playlist");
+      }
+      else
+      {
+        GUIPropertyManager.SetProperty("#currentmodule", "Playlist/" + playlistname);        
+      }
       _playlistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
 
       currentView = View.PlayList;
@@ -417,66 +424,54 @@ namespace YouTubePlugin
       }
       base.OnPageDestroy(newWindowId);
     }
+    protected virtual void OnShowLayouts()
+    {
+      GUIDialogMenu guiDialogMenu1 = (GUIDialogMenu) GUIWindowManager.GetWindow(2012);
+      if (guiDialogMenu1 == null)
+        return;
+      guiDialogMenu1.Reset();
+      guiDialogMenu1.SetHeading(792);
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(101));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(100));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(417));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(529));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(733));
+      guiDialogMenu1.Add(GUILocalizeStrings.Get(791));
+
+      guiDialogMenu1.DoModal(this.GetID);
+      if (guiDialogMenu1.SelectedId == -1)
+        return;
+      if (guiDialogMenu1.SelectedLabelText==GUILocalizeStrings.Get(101))
+      {
+        facadeView.CurrentLayout = GUIFacadeControl.Layout.Playlist;
+      }
+      else if (guiDialogMenu1.SelectedLabelText == GUILocalizeStrings.Get(100))
+      {
+        facadeView.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
+      }
+      else if (guiDialogMenu1.SelectedLabelText == GUILocalizeStrings.Get(417))
+      {
+        facadeView.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
+      }
+      else if (guiDialogMenu1.SelectedLabelText == GUILocalizeStrings.Get(529))
+      {
+        facadeView.CurrentLayout = GUIFacadeControl.Layout.AlbumView;
+      }
+      else if (guiDialogMenu1.SelectedLabelText == GUILocalizeStrings.Get(733))
+      {
+        facadeView.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
+      }
+      else if (guiDialogMenu1.SelectedLabelText == GUILocalizeStrings.Get(791))
+      {
+        facadeView.CurrentLayout = GUIFacadeControl.Layout.CoverFlow;
+      }
+    }
 
     protected void OnClickedBase(int controlId, GUIControl control, Action.ActionType actionType)
     {
       if (control == btnViewAs)
       {
-        bool shouldContinue = false;
-        do
-        {
-          shouldContinue = false;
-          switch (CurrentView)
-          {
-            case View.List:
-              CurrentView = View.PlayList;
-              if (!AllowView(CurrentView) || facadeView.PlayListLayout == null)
-                shouldContinue = true;
-              else
-                facadeView.CurrentLayout = GUIFacadeControl.Layout.Playlist;
-              break;
-
-            case View.PlayList:
-              CurrentView = View.Icons;
-              if (!AllowView(CurrentView) || facadeView.ThumbnailLayout == null)
-                shouldContinue = true;
-              else
-                facadeView.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
-              break;
-
-            case View.Icons:
-              CurrentView = View.LargeIcons;
-              if (!AllowView(CurrentView) || facadeView.ThumbnailLayout == null)
-                shouldContinue = true;
-              else
-                facadeView.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
-              break;
-
-            case View.LargeIcons:
-              CurrentView = View.Albums;
-              if (!AllowView(CurrentView) || facadeView.AlbumListLayout == null)
-                shouldContinue = true;
-              else
-                facadeView.CurrentLayout = GUIFacadeControl.Layout.AlbumView;
-              break;
-
-            case View.Albums:
-              CurrentView = View.FilmStrip;
-              if (!AllowView(CurrentView) || facadeView.FilmstripLayout == null)
-                shouldContinue = true;
-              else
-                facadeView.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
-              break;
-
-            case View.FilmStrip:
-              CurrentView = View.List;
-              if (!AllowView(CurrentView) || facadeView.ListLayout == null)
-                shouldContinue = true;
-              else
-                facadeView.CurrentLayout = GUIFacadeControl.Layout.List;
-              break;
-          }
-        } while (shouldContinue);
+        OnShowLayouts();
 
         //SelectCurrentItem();
         GUIControl.FocusControl(GetID, controlId);
@@ -1037,6 +1032,8 @@ namespace YouTubePlugin
               break;
             }
           }
+          GUIPropertyManager.SetProperty("#itemcount", facadeView.Count.ToString());
+          GUIPropertyManager.SetProperty("#itemtype", Translation.Videos);
           UpdateButtonStates();
           GUIWaitCursor.Hide();
           OnDownloadTimedEvent(null, null);

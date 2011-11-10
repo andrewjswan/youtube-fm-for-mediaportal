@@ -807,10 +807,6 @@ namespace YouTubePlugin
       {
         listControl.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
       }
-      else if (mapSettings.ViewAs == (int)View.PlayList)
-      {
-        listControl.CurrentLayout = GUIFacadeControl.Layout.Playlist;
-      }
       else if (mapSettings.ViewAs == (int)View.CoverFlow)
       {
         listControl.CurrentLayout = GUIFacadeControl.Layout.CoverFlow;
@@ -1170,9 +1166,6 @@ namespace YouTubePlugin
           break;
         case View.Filmstrip:
           textLine = GUILocalizeStrings.Get(733);
-          break;
-        case View.PlayList:
-          textLine = GUILocalizeStrings.Get(101);
           break;
         case View.CoverFlow:
           textLine = GUILocalizeStrings.Get(791);

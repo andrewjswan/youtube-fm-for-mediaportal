@@ -148,7 +148,7 @@ namespace YouTubePlugin
         this.VideoQuality = xmlreader.GetValueAsInt("youtubevideos", "VideoQuality", 0);
         this.LayoutItem = xmlreader.GetValueAsInt("youtubevideos", "LayoutItem", 0);
         this.LayoutArtist = xmlreader.GetValueAsInt("youtubevideos", "LayoutArtist", 2);
-        this.LayoutVideo = xmlreader.GetValueAsInt("youtubevideos", "LayoutVideo", 6);
+        this.LayoutVideo = xmlreader.GetValueAsInt("youtubevideos", "LayoutVideo", 5);
         this.MusicFilter = xmlreader.GetValueAsBool("youtubevideos", "MusicFilter", true);
         string his = xmlreader.GetValueAsString("youtubevideos", "searchhistory", string.Empty);
         this.ShowNowPlaying = xmlreader.GetValueAsBool("youtubevideos", "ShowNowPlaying", true);
