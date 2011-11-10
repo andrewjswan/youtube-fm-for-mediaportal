@@ -101,6 +101,17 @@ namespace YouTubePlugin.Class.Database
       }
     }
 
+    public ArtistItem GetArtist(YouTubeEntry entry)
+    {
+      string lsSQL = string.Format("select distinct ARTIST_ID from VIDEOS WHERE VIDEO_ID=\"{0}\" ", Youtube2MP.GetVideoId(entry));
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        return ArtistManager.Instance.GetArtistsById(DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"));
+      }
+      return null;
+    }
+
     public void Save(YouTubeEntry entry, ArtistItem artistItem)
     {
       try

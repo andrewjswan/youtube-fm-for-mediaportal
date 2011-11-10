@@ -769,8 +769,11 @@ namespace YouTubePlugin
 
     protected ArtistItem GetArtist(YouTubeEntry entry)
     {
+      ArtistItem artistItem = DatabaseProvider.InstanInstance.GetArtist(entry);
+      if (artistItem != null)
+        return artistItem;
       string vidId = Youtube2MP.GetVideoId(entry);
-      ArtistItem artistItem = ArtistManager.Instance.SitesCache.GetByVideoId(vidId) != null
+      artistItem = ArtistManager.Instance.SitesCache.GetByVideoId(vidId) != null
                                 ? ArtistManager.Instance.Grabber.GetFromVideoSite(
                                   ArtistManager.Instance.SitesCache.GetByVideoId(vidId).SIte)
                                 : ArtistManager.Instance.Grabber.GetFromVideoId(vidId);

@@ -829,6 +829,7 @@ namespace YouTubePlugin
     /// </summary>
     protected override void OnShowContextMenu()
     {
+      DateTime star = DateTime.Now;
       GUIListItem selectedItem = listControl.SelectedListItem;
       string artistName = string.Empty;
 
@@ -869,12 +870,6 @@ namespace YouTubePlugin
         artistName = videoEntry.Title.Text.Split('-')[0].Trim();
 
       ArtistItem artistItem = GetArtist(videoEntry);
-      List<ArtistItem> similarartist = new List<ArtistItem>();
-
-      if (!string.IsNullOrEmpty(artistItem.Id))
-      {
-        similarartist = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
-      }
 
       GUIDialogMenu dlg = (GUIDialogMenu) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_MENU);
       if (dlg == null)
@@ -899,8 +894,10 @@ namespace YouTubePlugin
       if (!string.IsNullOrEmpty(artistName) &&
           !string.IsNullOrEmpty(ArtistManager.Instance.GetArtistsByName(artistName).Name))
         dlg.Add(string.Format(Translation.AllMusicVideosFrom, artistName));
-      if (similarartist.Count > 0)
+      if (!string.IsNullOrEmpty(artistItem.Id))
         dlg.Add(Translation.SimilarArtists);
+
+      Log.Error((DateTime.Now-star).ToString());
 
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
@@ -1090,6 +1087,8 @@ namespace YouTubePlugin
       }
       else if (dlg.SelectedLabelText == Translation.SimilarArtists)
       {
+        List<ArtistItem> similarartist = new List<ArtistItem>();
+        similarartist = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
         GenericListItemCollections res = new GenericListItemCollections();
         foreach (ArtistItem item in similarartist)
         {
@@ -1110,6 +1109,7 @@ namespace YouTubePlugin
           };
           res.Items.Add(listItem);
         }
+        res.Title = "Artists/Similar/" + artistItem.Name;
         addVideos(res, true);
       }
 
