@@ -2,7 +2,9 @@
 <!--version="1.0" encoding="utf-8" standalone="yes"-->
 <window>	
 	<controls>
-		<!-- Logos [ListView/AlbumView] -->
+                <!--     *******************************************************************************************  -->
+                <!--     *************************    Logos [List/Playlist/Album/ Views]   *************************  -->
+                <!--     *******************************************************************************************  -->		
                 <control>
                   <description>UnWatched BG Logo</description>
                   <type>image</type>
@@ -13,7 +15,7 @@
                   <height>28</height>
                   <keepaspectratio>yes</keepaspectratio>                  
                   <texture>overlayunwatched.png</texture>		  
-                  <visible>[facadeview.list|facadeview.album]+!string.equals(#Youtube.fm.Curent.Video.Title,)+Control.HasFocus(50)+!string.equals(#selecteditem,..)</visible>                  	        
+                  <visible>[facadeview.list|facadeview.album|facadeview.playlist]+!string.equals(#Youtube.fm.Curent.Video.Title,)+Control.HasFocus(50)+!string.equals(#selecteditem,..)</visible>                  	        
                 </control> 
                 <control>
                   <description>Watched Logo</description>
@@ -25,7 +27,7 @@
                   <height>29</height>
                   <keepaspectratio>yes</keepaspectratio>                  
                   <texture>overlaywatched.png</texture>	  
-                  <visible>[facadeview.list|facadeview.album]+!string.equals(#Youtube.fm.Curent.Video.Title,)+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]+!string.equals(#selecteditem,..)</visible>                  	        
+                  <visible>[facadeview.list|facadeview.album|facadeview.playlist]+!string.equals(#Youtube.fm.Curent.Video.Title,)+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]+!string.equals(#selecteditem,..)</visible>                  	        
                 </control>
                 <control>
                   <description>HD Logo</description>
@@ -37,7 +39,7 @@
                   <height>34</height>
                   <keepaspectratio>yes</keepaspectratio>                            
                   <texture>Logos\hd.png</texture>	  
-                  <visible>[facadeview.list|facadeview.album]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsHD, false )]</visible>                  	        
+                  <visible>[facadeview.list|facadeview.album|facadeview.playlist]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsHD, false )]</visible>                  	        
                 </control>
                 <control>
                   <description>SD Logo</description>
@@ -49,7 +51,7 @@
                   <height>34</height>
                   <keepaspectratio>yes</keepaspectratio>                            
                   <texture>Logos\sd.png</texture>	  
-                  <visible>[facadeview.list|facadeview.album]+[Control.HasFocus(50)+string.equals(#Youtube.fm.Curent.Video.IsHD, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
+                  <visible>[facadeview.list|facadeview.album|facadeview.playlist]+[Control.HasFocus(50)+string.equals(#Youtube.fm.Curent.Video.IsHD, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
                 </control>
                 <control>
                   <description>IsDownloaded Logo</description>
@@ -61,9 +63,11 @@
                   <height>33</height>
                   <keepaspectratio>yes</keepaspectratio>                            
                   <texture>youtube.fm_isdownloaded.png</texture>
-                  <visible>[facadeview.list|facadeview.album]+!string.equals(#Youtube.fm.Curent.Video.Title,)+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsDownloaded, false )]+!string.equals(#selecteditem,..)</visible>                  	        
-                </control>							
-		<!-- Logos [Smallicons/Largeicons/Coverflow/Filmstrip Views] -->
+                  <visible>[facadeview.list|facadeview.album|facadeview.playlist]+!string.equals(#Youtube.fm.Curent.Video.Title,)+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsDownloaded, false )]+!string.equals(#selecteditem,..)</visible>                  	        
+                </control>
+                <!--     *******************************************************************************************  -->
+                <!--     **************   Logos [Smallicons/Largeicons/Coverflow/Filmstrip/ Views]   ***************  -->
+                <!--     *******************************************************************************************  -->		
                 <control>
                   <description>UnWatched BG Logo</description>
                   <type>image</type>
@@ -74,7 +78,7 @@
                   <height>29</height>
                   <keepaspectratio>yes</keepaspectratio>                            
                   <texture>overlayunwatched.png</texture>	  
-                  <visible>[facadeview.coverflow|facadeview.filmstrip]|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
+                  <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
                 </control> 
                 <control>
                   <description>Watched Logo</description>
@@ -86,7 +90,7 @@
                   <height>29</height>
                   <keepaspectratio>yes</keepaspectratio>                             
                   <texture>overlaywatched.png</texture>	  
-                  <visible>[facadeview.coverflow|facadeview.filmstrip]|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]</visible>                  	        
+                  <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]</visible>                  	        
                 </control>
                 <control>
                   <description>HD Logo</description>
@@ -97,7 +101,7 @@
                   <width>70</width>
                   <height>35</height>                                             
                   <texture>Logos\hd.png</texture>	  
-                  <visible>[facadeview.coverflow|facadeview.filmstrip]|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsHD, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
+                  <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsHD, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
                 </control>
                 <control>
                   <description>SD Logo</description>
@@ -108,7 +112,7 @@
                   <width>70</width>
                   <height>35</height>                                             
                   <texture>Logos\sd.png</texture>
-                  <visible>[facadeview.coverflow|facadeview.filmstrip]|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+string.equals(#Youtube.fm.Curent.Video.IsHD, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
+                  <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+string.equals(#Youtube.fm.Curent.Video.IsHD, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
                 </control>
                 <control>
                   <description>IsDownloaded Logo</description>
@@ -119,10 +123,13 @@
                   <width>40</width>
                   <height>35</height>                                             
                   <texture>youtube.fm_isdownloaded.png</texture>
-                  <visible>[facadeview.coverflow|facadeview.filmstrip]|facadeview.smallicons|facadeview.largeicons]+!string.equals(#Youtube.fm.Curent.Video.Title,)+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsDownloaded, false )]+!string.equals(#selecteditem,..)</visible>                  
+                  <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+!string.equals(#Youtube.fm.Curent.Video.Title,)+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsDownloaded, false )]+!string.equals(#selecteditem,..)</visible>                  
                   <animation effect="fade" time="70" reversible="false">visible</animation>	        
                 </control>
-                <!-- Downloading Section View Only if Downloading Now is In Process [List/Album/Smallicons/Largeicons/Coverflow/Filmstrip Views] -->
+                <!--     *******************************************************************************************  -->
+                <!--     ***********   Downloading Section View Only if Downloading Now is In Process   ************  -->
+                <!--     ********   [List/Playlist/Album/Smallicons/Largeicons/Coverflow/Filmstrip Views]   ********  -->
+                <!--     *******************************************************************************************  -->                
                 <control>
                   <description>Downloading Notfication Logo</description>
                   <type>image</type>
