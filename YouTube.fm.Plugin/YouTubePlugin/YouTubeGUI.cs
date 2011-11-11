@@ -823,7 +823,6 @@ namespace YouTubePlugin
     /// </summary>
     protected override void OnShowContextMenu()
     {
-      DateTime star = DateTime.Now;
       GUIListItem selectedItem = listControl.SelectedListItem;
       string artistName = string.Empty;
 
@@ -889,8 +888,6 @@ namespace YouTubePlugin
         dlg.Add(string.Format(Translation.AllMusicVideosFrom, artistName));
       if (!string.IsNullOrEmpty(artistItem.Id))
         dlg.Add(Translation.SimilarArtists);
-
-      Log.Error((DateTime.Now-star).ToString());
 
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
