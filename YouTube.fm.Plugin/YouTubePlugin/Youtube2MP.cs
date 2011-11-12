@@ -139,71 +139,7 @@ namespace YouTubePlugin
       return PlayblackUrl;
     }
 
-    public static Song YoutubeEntry2Song(YouTubeEntry en)
-    {
-      Song song = new Song();
-      string title = en.Title.Text;
-      if (title.Contains("-"))
-      {
-        song.Artist = title.Split('-')[0].Trim();
-        song.Title = title.Split('-')[1].Trim();
-      }
-      else
-        song.Artist = title;
-      song.FileName = PlaybackUrl(en);
-      if (en.Media.Content != null)
-      {
-        song.Duration = Convert.ToInt32(en.Media.Content.Attributes["duration"].ToString(), 10);
-      }
-      return song;
-    }
-
-    public static bool YoutubeEntry2Song(string fileurl, ref Song song, ref YouTubeEntry en)
-    {
-      if (fileurl.Contains("youtube."))
-      {
-        String videoEntryUrl = "http://gdata.youtube.com/feeds/api/videos/" + getIDSimple(fileurl);
-        en = (YouTubeEntry)service.Get(videoEntryUrl);
-      }
-      if (en == null)
-        return false;
-
-      string title = en.Title.Text;
-      if (title.Contains("-"))
-      {
-        song.Artist = title.Split('-')[0].Trim();
-        song.Title = title.Split('-')[1].Trim();
-      }
-      else
-        song.Artist = title;
-
-      song.FileName = fileurl;
-      try
-      {
-        song.Duration = Convert.ToInt32(en.Duration.Seconds);
-      }
-      catch
-      {
-        song.Duration = 0;
-      }
-      song.Track = 0;
-      song.URL = fileurl;
-      song.TimesPlayed = 1;
-
-      return true;
-    }
-
-
     public static YouTubeEntry NowPlayingEntry { get; set; }
-
-    public static Song NowPlayingSong { get; set; }
-
-
-    public static bool YoutubeEntry2Song(string fileurl, ref Song song)
-    {
-      YouTubeEntry en = null;
-      return YoutubeEntry2Song(fileurl, ref song, ref en);
-    }
 
     static public string getIDSimple(string googleID)
     {
@@ -366,20 +302,6 @@ namespace YouTubePlugin
       if (youTubeEntry.Duration != null)
         item.Duration = Convert.ToInt32(youTubeEntry.Duration.Seconds, 10);
       item.Title2 = MediaPortal.Util.Utils.SecondsToHMSString(item.Duration);
-      //if (youTubeEntry.Statistics!=null)
-      //{
-      //  item.Title3 =
-      //    String.Format("By {0}|{1}|{2} views", youTubeEntry.Uploader.Value,
-      //                  youTubeEntry.Updated.ToShortDateString(),
-      //                  FormatNumber(youTubeEntry.Statistics.ViewCount));
-      //}
-      //else
-      //{
-      //  item.Title3 =
-      //    String.Format("By {0}|{1}", youTubeEntry.Uploader.Value,
-      //                  youTubeEntry.Updated.ToShortDateString());
-       
-      //}
       return item;
     }
 

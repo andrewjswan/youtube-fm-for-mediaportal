@@ -79,7 +79,7 @@ namespace YouTubePlugin
       if (File.Exists(imageFile))
       {
         item.ThumbnailImage = imageFile;
-        item.IconImage = "defaultVideoBig.png";
+        item.IconImage = imageFile;
         item.IconImageBig = imageFile;
       }
     }

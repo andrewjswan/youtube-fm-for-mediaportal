@@ -1287,7 +1287,7 @@ namespace YouTubePlugin
           {
             if (entry.Duration != null)
               item.Duration = Convert.ToInt32(entry.Duration.Seconds, 10);
-            item.Label2 = MediaPortal.Util.Utils.SecondsToHMSString(item.Duration);
+            item.Label2 = Utils.SecondsToHMSString(item.Duration);
             if (entry.Rating != null)
               item.Rating = (float) entry.Rating.Average*2;
           }
