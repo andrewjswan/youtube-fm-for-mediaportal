@@ -521,40 +521,7 @@ namespace YouTubePlugin
     #endregion
     #region helper func's
 
-    protected virtual GUIFacadeControl.Layout GetLayoutNumber(string s)
-    {
-      switch (s.Trim().ToLower())
-      {
-        case "list":
-          return GUIFacadeControl.Layout.List;
-        case "icons":
-        case "smallicons":
-          return GUIFacadeControl.Layout.SmallIcons;
-        case "big icons":
-        case "largeicons":
-          return GUIFacadeControl.Layout.LargeIcons;
-        case "albums":
-        case "albumview":
-          return GUIFacadeControl.Layout.AlbumView;
-        case "filmstrip":
-          return GUIFacadeControl.Layout.Filmstrip;
-        case "playlist":
-          return GUIFacadeControl.Layout.Playlist;
-        case "coverflow":
-        case "cover flow":
-          return GUIFacadeControl.Layout.CoverFlow;
-        default:
-          if (!string.IsNullOrEmpty(s))
-            Log.Error("{0}::GetLayoutNumber: Unknown String - {1}", new object[2]
-            {
-              (object) "WindowPluginBase",
-              (object) s
-            });
-          return GUIFacadeControl.Layout.List;
-      }
-    }
-
-    protected virtual void OnShowLayouts()
+  protected virtual void OnShowLayouts()
     {
       GUIDialogMenu guiDialogMenu1 = (GUIDialogMenu)GUIWindowManager.GetWindow(2012);
       if (guiDialogMenu1 == null)
@@ -1193,6 +1160,7 @@ namespace YouTubePlugin
         item.Label = "..";
         item.IsFolder = true;
         Utils.SetDefaultIcons(item);
+        item.OnItemSelected += item_OnItemSelected;
         listControl.Add(item);
       }
 
@@ -1337,10 +1305,13 @@ namespace YouTubePlugin
 
     private void item_OnItemSelected(GUIListItem item, GUIControl parent)
     {
-      if (item == null || parent == null)
+      if (item == null || parent == null || item.MusicTag == null)
+      {
+        ClearLabels("Curent");
         return;
+      }
 
-      YouTubeEntry vid = listControl.SelectedListItem.MusicTag as YouTubeEntry;
+      YouTubeEntry vid = item.MusicTag as YouTubeEntry;
       
       if (vid != null)
       {
@@ -1348,7 +1319,7 @@ namespace YouTubePlugin
       }
       else
       {
-        ClearLabels("Curent"); ;
+        ClearLabels("Curent"); 
       }
     }
 

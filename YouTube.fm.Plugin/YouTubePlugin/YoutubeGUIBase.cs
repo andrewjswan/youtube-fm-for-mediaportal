@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Net;
 using System.IO;
 using System.Collections;
@@ -45,12 +46,14 @@ namespace YouTubePlugin
     private static YouTubeEntry label_last_entry;
     private static string label_last_type;
 
-     public void SetLabels(YouTubeEntry vid, string type)
+    public void SetLabels(YouTubeEntry vid, string type)
     {
       if (vid == label_last_entry && type == label_last_type)
         return;
 
-      ClearLabels(type);
+      ClearLabels(type, false);
+      label_last_entry = vid;
+      label_last_type = type;
       try
       {
         if (vid.Duration != null && vid.Duration.Seconds != null)
@@ -62,8 +65,9 @@ namespace YouTubePlugin
         }
         LocalFileStruct fileStruct = Youtube2MP._settings.LocalFile.Get(Youtube2MP.GetVideoId(vid));
 
-        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsDownloaded", fileStruct != null ? "true" : "false");
-        
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsDownloaded",
+                                       fileStruct != null ? "true" : "false");
+
         int watchcount = DatabaseProvider.InstanInstance.GetWatchCount(vid);
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount",
                                        watchcount.ToString("0,0"));
@@ -104,14 +108,11 @@ namespace YouTubePlugin
             GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.PercentLike", proc.ToString());
           }
         }
-        foreach (IExtensionElementFactory extensionElementFactory in vid.ExtensionElements)
-        {
-          if (extensionElementFactory.XmlPrefix == "yt" && extensionElementFactory.XmlName == "hd")
-          {
-            GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsHD", "true");
-            break;
-          }
-        }
+        bool ishd =
+          vid.ExtensionElements.Any(
+            extensionElementFactory =>
+            extensionElementFactory.XmlPrefix == "yt" && extensionElementFactory.XmlName == "hd");
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsHD", ishd ? "true" : "false");
       }
       catch (Exception ex)
       {
@@ -179,8 +180,12 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty(property, value);
     }
 
-
     static public void ClearLabels(string type)
+    {
+      ClearLabels(type, true);
+    }
+
+    static public void ClearLabels(string type, bool all)
     {
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Title", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Duration", " ");
@@ -192,8 +197,6 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", "0");
-      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsHD", "false");
-      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsWatched", "false");
 
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumLike", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumDisLike", " ");
@@ -202,6 +205,11 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FanArt", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", " ");
+      if(all)
+      {
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsHD", "false");
+        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.IsWatched", "false");
+      }
     }
 
     public string FormatTitle(YouTubeEntry vid)
