@@ -28,7 +28,10 @@ namespace YouTubePlugin.Class.SiteItems
       GenericListItemCollections res = new GenericListItemCollections();
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
       query.Query = entry.GetValue("term");
-      query.NumberToRetrieve = 50;
+      query.NumberToRetrieve = Youtube2MP.ITEM_IN_LIST;
+      query.StartIndex = entry.StartItem;
+      if (entry.StartItem > 1)
+        res.Paged = true;
       query.OrderBy = "relevance";
       
       if (Youtube2MP._settings.MusicFilter)
@@ -70,6 +73,7 @@ namespace YouTubePlugin.Class.SiteItems
       }
       res.FolderType = 1;
       res.ItemType = ItemType.Video;
+      res.Add(Youtube2MP.GetPager(entry, videos));
       return res;
     }
 

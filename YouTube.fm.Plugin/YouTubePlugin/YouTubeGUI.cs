@@ -15,6 +15,7 @@ using Google.YouTube;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
 using YouTubePlugin.Class.Database;
+using YouTubePlugin.Class.SiteItems;
 using Action = MediaPortal.GUI.Library.Action;
 
 
@@ -660,47 +661,53 @@ namespace YouTubePlugin
 
     private void SearchVideo(string searchString)
     {
-        YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
-        query = SetParamToYouTubeQuery(query, false);
-        query.Query = searchString;
-        query.OrderBy = "relevance";
-        
-        YouTubeFeed vidr = service.Query(query);
+      YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
+      query = SetParamToYouTubeQuery(query, false);
+      query.Query = searchString;
+      query.OrderBy = "relevance";
+      query.NumberToRetrieve = 1;
 
-        foreach (AtomLink link in vidr.Links)
-        {
-            if (link.Rel == "http://schemas.google.com/g/2006#spellcorrection")
-            {
-                GUIDialogYesNo dlgYesNo = (GUIDialogYesNo) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_YES_NO);
-                if (null == dlgYesNo)
-                    return;
-                dlgYesNo.SetHeading(Translation.DidYouMean); //resume movie?
-                dlgYesNo.SetLine(1, link.Title);
-                dlgYesNo.SetDefaultToYes(true);
-                dlgYesNo.DoModal(GUIWindowManager.ActiveWindow);
-                if (dlgYesNo.IsConfirmed)
-                {
-                    SearchVideo(link.Title);
-                    return;
-                }
-            }
-        }
+      YouTubeFeed vidr = service.Query(query);
 
-        if (vidr.Entries.Count > 0)
+      foreach (AtomLink link in vidr.Links)
+      {
+        if (link.Rel == "http://schemas.google.com/g/2006#spellcorrection")
         {
-            SaveListState(true);
-          vidr.Title.Text = "Search/" + searchString;
-            addVideos(vidr, false, query);
-            UpdateGui();
-            if (_setting.SearchHistory.Contains(searchString.Trim()))
-                _setting.SearchHistory.Remove(searchString.Trim());
-            _setting.SearchHistory.Add(searchString.Trim());
-          _setting.Save();
+          GUIDialogYesNo dlgYesNo = (GUIDialogYesNo) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_YES_NO);
+          if (null == dlgYesNo)
+            return;
+          dlgYesNo.SetHeading(Translation.DidYouMean); //resume movie?
+          dlgYesNo.SetLine(1, link.Title);
+          dlgYesNo.SetDefaultToYes(true);
+          dlgYesNo.DoModal(GUIWindowManager.ActiveWindow);
+          if (dlgYesNo.IsConfirmed)
+          {
+            SearchVideo(link.Title);
+            return;
+          }
         }
-        else
-        {
-            Err_message(Translation.NoItemWasFound);
-        }
+      }
+
+      SiteItemEntry entry = new SiteItemEntry();
+      entry.SetValue("term", searchString);
+      entry.Provider = new SearchVideo().Name;
+      GenericListItemCollections genericListItemCollections = Youtube2MP.GetList(entry);
+      if (genericListItemCollections.Items.Count > 0)
+      {
+        addVideos(genericListItemCollections, false);
+        //  SaveListState(true);
+        //vidr.Title.Text = "Search/" + searchString;
+        //  addVideos(vidr, false, query);
+        UpdateGui();
+        if (_setting.SearchHistory.Contains(searchString.Trim()))
+          _setting.SearchHistory.Remove(searchString.Trim());
+        _setting.SearchHistory.Add(searchString.Trim());
+        _setting.Save();
+      }
+      else
+      {
+        Err_message(Translation.NoItemWasFound);
+      }
     }
 
     private void SetLayout(ItemType itemType)
