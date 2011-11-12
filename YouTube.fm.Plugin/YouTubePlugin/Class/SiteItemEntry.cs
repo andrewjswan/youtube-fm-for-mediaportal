@@ -13,8 +13,26 @@ namespace YouTubePlugin.Class
       ConfigString = "";
       Provider = "";
       Title = "";
+      StartItem = 1;
     }
 
+    public SiteItemEntry Copy()
+    {
+      SiteItemEntry newEntry=new SiteItemEntry();
+      foreach (KeyValuePair<string, string> keyValuePair in setting)
+      {
+        newEntry.SetValue(keyValuePair.Key, keyValuePair.Value);
+      }
+      newEntry.Parent = this.Parent;
+      newEntry.ParentFolder = this.ParentFolder;
+      newEntry.Provider = this.Provider;
+      newEntry.StartItem = this.StartItem;
+      newEntry.Title = this.Title;
+      newEntry.Url = this.Url;
+      return newEntry;
+    }
+
+    public int StartItem { get; set; }
     public string Url { get; set; }
     public string Provider { get; set; }
     public string Title { get; set; }

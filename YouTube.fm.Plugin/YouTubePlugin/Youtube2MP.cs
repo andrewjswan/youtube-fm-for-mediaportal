@@ -2,23 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text;
-using System.Web;
-using System.Xml;
-
-using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
-using MediaPortal.Util;
-using MediaPortal.Player;
-using MediaPortal.Playlists;
-using MediaPortal.TagReader;
-using MediaPortal.Music.Database;
-using MediaPortal.Dialogs;
-
-using Google.GData.Client;
-using Google.GData.Extensions;
 using Google.GData.YouTube;
-using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.SiteItems;
@@ -35,9 +20,10 @@ namespace YouTubePlugin
     FullHD = 3,
     Unknow = 4,
   }
-
   static public class Youtube2MP
   {
+    public const int ITEM_IN_LIST = 25;
+
     public static YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
 
     public static YoutubePlaylistPlayer player = new YoutubePlaylistPlayer();
@@ -289,6 +275,25 @@ namespace YouTubePlugin
       }
       return str;
     }
+
+    public static GenericListItem GetPager(SiteItemEntry entry, YouTubeFeed videos)
+    {
+      if (videos.TotalResults > videos.StartIndex + Youtube2MP.ITEM_IN_LIST)
+      {
+        SiteItemEntry newEntry = entry.Copy();
+        newEntry.StartItem += Youtube2MP.ITEM_IN_LIST;
+        GenericListItem listItem = new GenericListItem()
+                                     {
+                                       Title = Translation.NextPage,
+                                       IsFolder = true,
+                                       DefaultImage = "NextPage.png",
+                                       Tag = newEntry
+                                     };
+        return listItem;
+      }
+      return null;
+    }
+
 
     public static GenericListItem YouTubeEntry2ListItem(YouTubeEntry youTubeEntry)
     {

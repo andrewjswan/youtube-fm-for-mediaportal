@@ -10,6 +10,7 @@ namespace YouTubePlugin.Class
     public string Title { get; set; }
     public int FolderType { get; set; }
     public ItemType ItemType { get; set; }
+    public bool Paged { get; set; }
 
     public string ItemTypeName
     {
@@ -32,6 +33,7 @@ namespace YouTubePlugin.Class
     {
       Items = new List<GenericListItem>();
       ItemType = ItemType.Item;
+      Paged = false;
     }
 
     public void Add(GenericListItemCollections collections)
@@ -42,6 +44,12 @@ namespace YouTubePlugin.Class
       }
     }
 
+    public void Add(GenericListItem item)
+    {
+      if (item == null)
+        return;
+      Items.Add(item);
+    }
 
   }
 }

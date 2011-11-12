@@ -1140,21 +1140,36 @@ namespace YouTubePlugin
     }
     #endregion
 
+    
+
     void addVideos(GenericListItemCollections itemCollections, bool level)
     {
+      List<GUIListItem> guiListItems = new List<GUIListItem>();
+      int selectedidx = listControl.SelectedListItemIndex;
       if (itemCollections.Items.Count < 1)
       {
         Err_message(Translation.NoItemToDisplay);
         return;
       }
 
-      SaveListState(true);
+      if (!itemCollections.Paged)
+      {
+        SaveListState(true);
+        downloaQueue.Clear();
+      }
+      else
+      {
+        for (int i = 0; i < listControl.Count-1; i++)
+        {
+          guiListItems.Add(listControl[i]);
+        }
+        GUIControl.ClearControl(GetID, listControl.GetID);
+      }
 
       //GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/" + itemCollections.Title);
       GUIPropertyManager.SetProperty("#currentmodule", itemCollections.Title);
       updateStationLogoTimer.Enabled = false;
-      downloaQueue.Clear();
-      if (level)
+      if (level && !itemCollections.Paged)
       {
         GUIListItem item = new GUIListItem();
         item.Label = "..";
@@ -1164,6 +1179,10 @@ namespace YouTubePlugin
         listControl.Add(item);
       }
 
+      foreach (GUIListItem guiListItem in guiListItems)
+      {
+        listControl.Add(guiListItem);
+      }
 
       foreach (GenericListItem listItem in itemCollections.Items)
       {
@@ -1214,10 +1233,12 @@ namespace YouTubePlugin
         //{
         //  item.Selected = true;
         //}
-        listControl.Add(item);
+
+        listControl.Add(item); 
       }
 
-      listControl.SelectedListItemIndex = 0;
+      listControl.SelectedListItemIndex = !itemCollections.Paged ? 0 : selectedidx;
+
       GUIPropertyManager.SetProperty("#itemcount", (level ? listControl.Count - 1 : listControl.Count).ToString());
       GUIPropertyManager.SetProperty("#itemtype", itemCollections.ItemTypeName);
       SetLayout(itemCollections.ItemType);

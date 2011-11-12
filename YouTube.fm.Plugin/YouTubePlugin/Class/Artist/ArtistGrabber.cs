@@ -152,6 +152,7 @@ namespace YouTubePlugin.Class.Artist
       {
         // Syntax error in the regular expression
       }
+      res.ItemType = ItemType.Video;
       return res;
     }
 

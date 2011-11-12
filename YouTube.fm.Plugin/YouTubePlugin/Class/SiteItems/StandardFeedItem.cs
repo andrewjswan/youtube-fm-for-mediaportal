@@ -81,7 +81,8 @@ namespace YouTubePlugin.Class.SiteItems
         query += "_Music";
 
       YouTubeQuery tubeQuery = new YouTubeQuery(query);
-      tubeQuery.NumberToRetrieve = 50;
+      tubeQuery.NumberToRetrieve = Youtube2MP.ITEM_IN_LIST;
+      tubeQuery.StartIndex = entry.StartItem;
       tubeQuery.SafeSearch = YouTubeQuery.SafeSearchValues.None;
       if (!string.IsNullOrEmpty(entry.GetValue("hd")) && entry.GetValue("hd") == "true")
       {
@@ -97,12 +98,15 @@ namespace YouTubePlugin.Class.SiteItems
         if (entry.GetValue("time") == "This Month")
           tubeQuery.Time = YouTubeQuery.UploadTime.ThisMonth;
       }
-
+      if (entry.StartItem > 1)
+        res.Paged = true;
       YouTubeFeed videos = Youtube2MP.service.Query(tubeQuery);
       foreach (YouTubeEntry youTubeEntry in videos.Entries)
       {
         res.Items.Add(Youtube2MP.YouTubeEntry2ListItem(youTubeEntry));
       }
+
+      res.Add(Youtube2MP.GetPager(entry, videos));
       res.FolderType = 1;
       res.ItemType = ItemType.Video;
       return res;
@@ -122,6 +126,5 @@ namespace YouTubePlugin.Class.SiteItems
       res.Items.Add(listItem);
       return res;
     }
-
   }
 }
