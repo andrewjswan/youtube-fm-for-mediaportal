@@ -296,10 +296,13 @@ namespace YouTubePlugin.Class.Database
           string.Format(
             "SELECT VIDEOS.VIDEO_ID AS VIDEO_ID, ARTIST_ID, TITLE, IMG_URL FROM VIDEOS, PLAY_HISTORY WHERE VIDEOS.VIDEO_ID=PLAY_HISTORY.VIDEO_ID order by datePlayed DESC");
         SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+        string lastid = "";
         for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
         {
           YouTubeEntry youTubeEntry = new YouTubeEntry();
-
+          if (lastid == DatabaseUtility.Get(loResultSet, iRow, "VIDEO_ID"))
+            continue;
+          lastid = DatabaseUtility.Get(loResultSet, iRow, "VIDEO_ID");
           youTubeEntry.AlternateUri =
             new AtomUri("http://www.youtube.com/watch?v=" + DatabaseUtility.Get(loResultSet, iRow, "VIDEO_ID"));
           youTubeEntry.Title = new AtomTextConstruct();
