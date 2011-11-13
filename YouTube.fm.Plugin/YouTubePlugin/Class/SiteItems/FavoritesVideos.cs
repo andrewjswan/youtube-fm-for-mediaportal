@@ -28,19 +28,17 @@ namespace YouTubePlugin.Class.SiteItems
       res.FolderType = 1;
       YouTubeQuery query =
         new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/default/favorites"));
-      query.NumberToRetrieve = 50;
-      do
+      query.NumberToRetrieve = Youtube2MP.ITEM_IN_LIST;
+      query.StartIndex = entry.StartItem;
+      if (entry.StartItem > 1)
+        res.Paged = true;
+      YouTubeFeed videos = Youtube2MP.service.Query(query);
+      res.Title = videos.Title.Text;
+      foreach (YouTubeEntry youTubeEntry in videos.Entries)
       {
-        YouTubeFeed videos = Youtube2MP.service.Query(query);
-        res.Title = videos.Title.Text;
-        foreach (YouTubeEntry youTubeEntry in videos.Entries)
-        {
-          res.Items.Add(Youtube2MP.YouTubeEntry2ListItem(youTubeEntry));
-        }
-        query.StartIndex += 50;
-        if (videos.TotalResults < query.StartIndex + 50)
-          break;
-      } while (true);
+        res.Items.Add(Youtube2MP.YouTubeEntry2ListItem(youTubeEntry));
+      }
+      res.Add(Youtube2MP.GetPager(entry, videos));
       res.ItemType = ItemType.Video;
       return res;
     }
