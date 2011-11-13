@@ -26,8 +26,10 @@ namespace YouTubePlugin.Class.SiteItems
     {
       GenericListItemCollections res = new GenericListItemCollections();
       res.FolderType = 1;
+      string user = entry.GetValue("user");
+      user = string.IsNullOrEmpty(user) ? "default" : user;
       YouTubeQuery query =
-        new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/default/favorites"));
+        new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/favorites",user));
       query.NumberToRetrieve = Youtube2MP.ITEM_IN_LIST;
       query.StartIndex = entry.StartItem;
       if (entry.StartItem > 1)

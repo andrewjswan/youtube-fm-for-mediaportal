@@ -113,6 +113,7 @@ namespace YouTubePlugin.Class.Artist
       return res;
     }
 
+
     public List<ArtistItem> GetArtists(string letter)
     {
       List<ArtistItem> res=new List<ArtistItem>();
@@ -127,6 +128,24 @@ namespace YouTubePlugin.Class.Artist
                     Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
                     User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER")
                   });
+      }
+      return res;
+    }
+
+    public List<ArtistItem> GetVevoArtists()
+    {
+      List<ArtistItem> res = new List<ArtistItem>();
+      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_USER like '%VEVO%' order by ARTIST_NAME");
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        res.Add(new ArtistItem()
+        {
+          Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
+          Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'").Replace("`", "\""),
+          Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
+          User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER")
+        });
       }
       return res;
     }

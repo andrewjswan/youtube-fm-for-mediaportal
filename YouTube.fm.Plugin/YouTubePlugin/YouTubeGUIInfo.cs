@@ -272,7 +272,7 @@ namespace YouTubePlugin
       if (Youtube2MP.NowPlayingEntry == null)
         return;
       GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Now Playing");
-      if (Monitor.TryEnter(locker,2000))
+      if (Monitor.TryEnter(locker,5000))
       {
         try
         {

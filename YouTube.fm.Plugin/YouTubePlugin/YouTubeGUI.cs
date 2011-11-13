@@ -905,20 +905,9 @@ namespace YouTubePlugin
       }
       else if (dlg.SelectedLabelText == string.Format(Translation.AllVideosFromUser, videoEntry.Authors[0].Name))
       {
-        YouTubeQuery query =
-          new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads",
-                                         videoEntry.Authors[0].Name));
-        YouTubeFeed vidr = service.Query(query);
-        if (vidr.Entries.Count > 0)
-        {
-          SaveListState(true);
-          addVideos(vidr, false, query);
-          UpdateGui();
-        }
-        else
-        {
-          Err_message(Translation.NoItemWasFound);
-        }
+        SiteItemEntry newentry = new SiteItemEntry {Provider = new UserVideos().Name};
+        newentry.SetValue("id", videoEntry.Authors[0].Name);
+        addVideos(Youtube2MP.GetList(newentry), true);
       }
       else if (dlg.SelectedLabelText == Translation.AddPlaylist)
       {

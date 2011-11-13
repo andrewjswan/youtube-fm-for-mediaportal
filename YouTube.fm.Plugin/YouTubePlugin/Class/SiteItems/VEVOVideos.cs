@@ -23,47 +23,62 @@ namespace YouTubePlugin.Class.SiteItems
     public string Name { get; set; }
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
-      Dictionary<string, GenericListItem> artists = new Dictionary<string, GenericListItem>();
       GenericListItemCollections res = new GenericListItemCollections();
       res.Title = entry.Title;
-      YouTubeQuery query = new YouTubeQuery("http://gdata.youtube.com/feeds/api/users/vevo/favorites");
-      query.NumberToRetrieve = 50;
-      query.OrderBy = "viewCount";
-      do
+      res.Add(VevoFavorite());
+      res.Add(VevoUploads());
+      List<ArtistItem> artists = ArtistManager.Instance.GetVevoArtists();
+      foreach (ArtistItem artistItem in artists)
       {
-        YouTubeFeed videos = Youtube2MP.service.Query(query);
-        foreach (YouTubeEntry youTubeEntry in videos.Entries)
+        UserVideos userVideos = new UserVideos();
+        SiteItemEntry itemEntry = new SiteItemEntry();
+        itemEntry.Provider = userVideos.Name;
+        itemEntry.SetValue("id", artistItem.User);
+        string title = artistItem.Name;
+        GenericListItem listItem = new GenericListItem()
         {
-          UserVideos userVideos = new UserVideos();
-          SiteItemEntry itemEntry = new SiteItemEntry();
-          itemEntry.Provider = userVideos.Name;
-          itemEntry.SetValue("id", youTubeEntry.Uploader.Value);
-          string title = youTubeEntry.Uploader.Value;
-          if (youTubeEntry.Title.Text.Contains("-"))
-            title = youTubeEntry.Title.Text.Split('-')[0];
-          //ArtistItem artistItem = ArtistManager.Instance.Grabber.GetFromVideoId(Youtube2MP.GetVideoId(youTubeEntry));
-          //ArtistManager.Instance.Grabber.GetArtistUser(artistItem.Id);
-          GenericListItem listItem = new GenericListItem()
-                                       {
-                                         Title = title,
-                                         IsFolder = false,
-                                         LogoUrl = YoutubeGUIBase.GetBestUrl(youTubeEntry.Media.Thumbnails),
-                                         Tag = itemEntry
-                                       };
-          //  res.Items.Add(listItem);
-          if (!artists.ContainsKey(listItem.Title))
-            artists.Add(listItem.Title, listItem);
-
-        }
-        query.StartIndex += 50;
-        if(videos.TotalResults<query.StartIndex+50)
-          break;
-      } while (true);
-      foreach (KeyValuePair<string, GenericListItem> genericListItem in artists)
-      {
-        res.Items.Add(genericListItem.Value);
+          Title = title,
+          IsFolder = false,
+          LogoUrl = artistItem.Img_url,
+          DefaultImage = "defaultArtistBig.png",
+          Tag = itemEntry
+        };
+        res.Add(listItem);
       }
+      res.ItemType = ItemType.Artist;
       return res;
+    }
+
+    private GenericListItem VevoFavorite()
+    {
+      SiteItemEntry itemEntry = new SiteItemEntry();
+      itemEntry.Provider = new FavoritesVideos().Name;
+      itemEntry.SetValue("user", "vevo");
+      string title = "Vevo favorites";
+      GenericListItem listItem = new GenericListItem()
+      {
+        Title = title,
+        IsFolder = false,
+        DefaultImage = "defaultArtistBig.png",
+        Tag = itemEntry
+      };
+      return listItem;
+    }
+
+    private GenericListItem VevoUploads()
+    {
+      SiteItemEntry itemEntry = new SiteItemEntry();
+      itemEntry.Provider = new UserVideos().Name;
+      itemEntry.SetValue("id", "vevo");
+      string title = "Vevo uploads";
+      GenericListItem listItem = new GenericListItem()
+      {
+        Title = title,
+        IsFolder = false,
+        DefaultImage = "defaultArtistBig.png",
+        Tag = itemEntry
+      };
+      return listItem;
     }
 
     public GenericListItemCollections HomeGetList(SiteItemEntry itemEntry)
