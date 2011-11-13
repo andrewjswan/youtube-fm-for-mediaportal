@@ -85,6 +85,7 @@ namespace YouTubePlugin
     MapSettings mapSettings = new MapSettings();
     static GUIDialogProgress dlgProgress;
     private ItemType _lastItemType = ItemType.Item;
+    private int _backPos = 0; 
 
     YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal",  "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
 
@@ -290,11 +291,52 @@ namespace YouTubePlugin
       return Load(GUIGraphicsContext.Skin + @"\youtubevideosbase.xml");
     }
 
-     
-     //do the init before page load
+    private void ExecuteParams()
+    {
+      if (_loadParameter == null)
+        return;
+      if (!_loadParameter.Contains(":"))
+        return;
+      string command = _loadParameter.Split(':')[0].Trim().ToUpper();
+      string param = _loadParameter.Split(':')[1].Trim();
+      if (command == "ARTISTVIDEOS")
+      {
+        if (string.IsNullOrEmpty(param))
+          return;
+        ArtistItem artistItem = ArtistManager.Instance.GetArtistsByName(param);
+        if (!string.IsNullOrEmpty(artistItem.Id))
+        {
+          SiteItemEntry newentry = new SiteItemEntry();
+          newentry.Provider = new ArtistView().Name;
+          newentry.SetValue("letter", "false");
+          newentry.SetValue("id", artistItem.Id);
+          newentry.SetValue("name", artistItem.Name);
+          addVideos(Youtube2MP.GetList(newentry), false);
+        }
+        else
+        {
+          SiteItemEntry entry = new SiteItemEntry();
+          entry.SetValue("term", param);
+          entry.Provider = new SearchVideo().Name;
+          addVideos(Youtube2MP.GetList(entry), false);
+        }
+        _backPos = NavigationStack.Count;
+      }
+      else if (command == "SEARCH")
+      {
+        SiteItemEntry entry = new SiteItemEntry();
+        entry.SetValue("term", param);
+        entry.Provider = new SearchVideo().Name;
+        addVideos(Youtube2MP.GetList(entry), false);
+        _backPos = NavigationStack.Count;
+      }
+    }
+
+    //do the init before page load
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
+      _backPos = 0;
 
       foreach (string name in Translation.Strings.Keys)
       {
@@ -331,43 +373,46 @@ namespace YouTubePlugin
           GUIPropertyManager.SetProperty("#currentmodule", "Youtube.Fm/Home");
           StartUpHome();
           UpdateGui();
-          switch (_setting.StartUpOpt)
+          if (_loadParameter == null)
           {
-            case 1:
-              {
-                DoSearch();
-              }
-              break;
-            case 2:
-              {
-                for (int i = 0; i < listControl.Count; i++)
+            switch (_setting.StartUpOpt)
+            {
+              case 1:
                 {
-                  SiteItemEntry item = listControl[i].MusicTag as SiteItemEntry;
-                  if (item != null && item.Provider == "Disco")
+                  DoSearch();
+                }
+                break;
+              case 2:
+                {
+                  for (int i = 0; i < listControl.Count; i++)
                   {
-                    listControl.SelectedItem = i;
-                    listControl.SelectedListItemIndex = i;
-                    DoListSelection();
-                    break;
+                    SiteItemEntry item = listControl[i].MusicTag as SiteItemEntry;
+                    if (item != null && item.Provider == "Disco")
+                    {
+                      listControl.SelectedItem = i;
+                      listControl.SelectedListItemIndex = i;
+                      DoListSelection();
+                      break;
+                    }
                   }
                 }
-              }
-              break;
-            case 3:
-              {
-                for (int i = 0; i < listControl.Count; i++)
+                break;
+              case 3:
                 {
-                  SiteItemEntry item = listControl[i].MusicTag as SiteItemEntry;
-                  if (item != null && item.Provider == "Browse")
+                  for (int i = 0; i < listControl.Count; i++)
                   {
-                    listControl.SelectedItem = i;
-                    listControl.SelectedListItemIndex = i;
-                    DoListSelection();
-                    break;
+                    SiteItemEntry item = listControl[i].MusicTag as SiteItemEntry;
+                    if (item != null && item.Provider == "Browse")
+                    {
+                      listControl.SelectedItem = i;
+                      listControl.SelectedListItemIndex = i;
+                      DoListSelection();
+                      break;
+                    }
                   }
                 }
-              }
-              break;
+                break;
+            }
           }
         }
         else
@@ -375,6 +420,8 @@ namespace YouTubePlugin
           DoBack();
           GUIControl.FocusControl(GetID, listControl.GetID);
         }
+        if (_loadParameter != null)
+          ExecuteParams();
       }
       GUIControl.FocusControl(GetID, listControl.GetID);
       OnDownloadTimedEvent(null, null);
@@ -489,7 +536,7 @@ namespace YouTubePlugin
       {
         if (listControl.Focus)
         {
-          if (NavigationStack.Count > 0)
+          if (NavigationStack.Count > _backPos)
           {
             DoBack();
             return;
