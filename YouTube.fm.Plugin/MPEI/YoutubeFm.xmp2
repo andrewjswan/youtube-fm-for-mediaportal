@@ -272,6 +272,13 @@
               <ZipFileName>Installer{GenericSkinFile}\{41eb3537-6956-44d0-92bb-d4f0aea8a5be}-youtube.fm_isdownloaded.png</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\Media\youtube.fm_isdownloaded.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\NextPage.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{3767ac8c-87eb-4c3e-85ed-740998bbaf16}-NextPage.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\NextPage.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -315,6 +322,13 @@
               <LocalFileName>language\YouTube.Fm\sv.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{2b81e0d7-19ea-4c3d-a169-667f42d5ebca}-sv.xml</ZipFileName>
               <DestinationFilename>%Language%\YouTube.Fm\sv.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>language\YouTube.Fm\it.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{4ef6463e-1053-4373-a031-80dccf5c31a9}-it.xml</ZipFileName>
+              <DestinationFilename>%Language%\YouTube.Fm\it.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -522,6 +536,13 @@
               <ZipFileName>Installer{CopyFile}\{40bf0193-c51b-4e5c-8051-a7991c14f922}-youtube.fm_isdownloaded.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\youtube.fm_isdownloaded.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\Media\NextPage.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{2894cf92-55dc-4af0-b5e9-5e0bbe2d7f90}-NextPage.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\NextPage.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -727,6 +748,13 @@
               <ZipFileName>Installer{CopyFile}\{0425e54d-d145-4c63-ba50-741be3bd3431}-youtube.fm_isdownloaded.png</ZipFileName>
               <DestinationFilename>%Skin%\Default\Media\youtube.fm_isdownloaded.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\Default\Media\NextPage.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{b1ef937a-b2a8-4eb9-9988-eafb34e66912}-NextPage.png</ZipFileName>
+              <DestinationFilename>%Skin%\Default\Media\NextPage.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -876,14 +904,14 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>0</Major>
       <Minor>8</Minor>
-      <Build>1</Build>
-      <Revision>222</Revision>
+      <Build>2</Build>
+      <Revision>258</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse, play, download YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.8.1.222.mpe1</OnlineLocation>
-    <ReleaseDate>2011-11-05T17:28:13</ReleaseDate>
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.8.2.258.mpe1</OnlineLocation>
+    <ReleaseDate>2011-11-14T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -1172,6 +1200,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{GenericSkinFile}\{41eb3537-6956-44d0-92bb-d4f0aea8a5be}-youtube.fm_isdownloaded.png</ZipFileName>
         <DestinationFilename>%Skin%\[DEFAULT]\Media\youtube.fm_isdownloaded.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1>DefaultWide</Param1>
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>skin\DefaultWide\Media\NextPage.png</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{3767ac8c-87eb-4c3e-85ed-740998bbaf16}-NextPage.png</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\Media\NextPage.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -1206,6 +1241,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <LocalFileName>language\YouTube.Fm\sv.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{2b81e0d7-19ea-4c3d-a169-667f42d5ebca}-sv.xml</ZipFileName>
         <DestinationFilename>%Language%\YouTube.Fm\sv.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>language\YouTube.Fm\it.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{4ef6463e-1053-4373-a031-80dccf5c31a9}-it.xml</ZipFileName>
+        <DestinationFilename>%Language%\YouTube.Fm\it.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -1403,11 +1445,18 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{0425e54d-d145-4c63-ba50-741be3bd3431}-youtube.fm_isdownloaded.png</ZipFileName>
         <DestinationFilename>%Skin%\Default\Media\youtube.fm_isdownloaded.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>skin\Default\Media\NextPage.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{b1ef937a-b2a8-4eb9-9988-eafb34e66912}-NextPage.png</ZipFileName>
+        <DestinationFilename>%Skin%\Default\Media\NextPage.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{673098bb-ac3d-4198-a9c0-4858a7600467}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{fa8d955e-6e4a-47f6-8a54-c89ada823d3b}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
