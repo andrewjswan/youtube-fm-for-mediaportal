@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Net;
@@ -12,6 +13,7 @@ using System.Windows.Forms;
 using Lastfm;
 using Lastfm.Services;
 using Lastfm.Scrobbling;
+using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
 using YouTubePlugin.DataProvider;
 
@@ -281,6 +283,7 @@ namespace Test
     {
       List<string> procesed = new List<string>();
       ArtistManager.Instance.InitDatabase();
+      Youtube2MP.LastFmProfile = new LastProfile();
       int i = 0;
       //List<ArtistItem> w =ArtistManager.Instance.Grabber.GetSimilarArtists("GxdCwVVULXeOFBsgIY4hGPQ3BZFFiu1e");
       bool end = false;
@@ -292,15 +295,34 @@ namespace Test
           end = true;
           if (!procesed.Contains(artistItem.Id))
           {
-            //ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
-            if (string.IsNullOrEmpty(artistItem.User))
-              ArtistManager.Instance.Grabber.GetArtistUser(artistItem.Id);
-            procesed.Add(artistItem.Id);
-            end = false;
-            i++;
-            label1.Text = i.ToString();
-            Application.DoEvents();
-            //Thread.Sleep(200);
+            try
+            {
+              //ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
+              //if (string.IsNullOrEmpty(artistItem.User))
+              //  ArtistManager.Instance.Grabber.GetArtistUser(artistItem.Id);
+              if (string.IsNullOrEmpty(artistItem.Tags))
+              {
+                Artist artist = new Artist(artistItem.Name, Youtube2MP.LastFmProfile.Session);
+                TopTag[] Tag = artist.GetTopTags();
+                string result = "";
+                foreach (TopTag tag in Tag)
+                {
+                  result = result + (tag.Item + "|");
+                  ArtistManager.Instance.SaveTag(artistItem, tag.Item.Name);
+                }
+                artistItem.Tags = result;
+                ArtistManager.Instance.Save(artistItem);
+              }
+              procesed.Add(artistItem.Id);
+              end = false;
+              i++;
+              label1.Text = i.ToString();
+              Application.DoEvents();
+              //Thread.Sleep(200);
+            }
+            catch (Exception)
+            {
+            }
           }
         }
       } while (end);

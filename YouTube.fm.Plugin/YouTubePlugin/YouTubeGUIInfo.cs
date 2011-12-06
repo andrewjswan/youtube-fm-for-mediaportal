@@ -294,6 +294,7 @@ namespace YouTubePlugin
           Monitor.Exit(locker);
         }
       }
+      OnDownloadTimedEvent(null, null);
     }
 
   }

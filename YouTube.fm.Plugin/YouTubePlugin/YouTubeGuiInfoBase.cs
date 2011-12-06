@@ -33,6 +33,7 @@ namespace YouTubePlugin
 
     protected void addVideos(YouTubeFeed videos, YouTubeQuery qu)
     {
+      downloaQueue.Clear();
       foreach (YouTubeEntry entry in videos.Entries)
       {
         GUIListItem item = new GUIListItem();
@@ -97,6 +98,7 @@ namespace YouTubePlugin
         listControl.Add(item);
       }
       listControl.SelectedListItemIndex = 0;
+      OnDownloadTimedEvent(null, null);
       GUIPropertyManager.SetProperty("#itemcount", listControl.Count.ToString());
     }
 

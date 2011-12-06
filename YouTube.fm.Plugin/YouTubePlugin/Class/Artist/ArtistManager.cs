@@ -47,7 +47,8 @@ namespace YouTubePlugin.Class.Artist
 
         if (!dbExists)
         {
-          m_db.Execute("CREATE TABLE ARTISTS(ID integer primary key autoincrement,ARTIST_ID text,ARTIST_NAME text,ARTIST_IMG text, ARTIST_BIO text,ARTIST_USER text)\n");
+          m_db.Execute("CREATE TABLE ARTISTS(ID integer primary key autoincrement,ARTIST_ID text,ARTIST_NAME text,ARTIST_IMG text, ARTIST_BIO text, ARTIST_USER text, ARTIST_TAG text)\n");
+          m_db.Execute("CREATE TABLE TAGS(ID integer primary key autoincrement,ARTIST_ID text, ARTIST_TAG text)\n");
         }
       }
       catch (SQLiteException ex)
@@ -60,8 +61,28 @@ namespace YouTubePlugin.Class.Artist
 
     public  ArtistGrabber Grabber = new ArtistGrabber();
 
+    public void SaveTag(ArtistItem artistItem, string tag)
+    {
+      try
+      {
+        if (string.IsNullOrEmpty(artistItem.Id) || string.IsNullOrEmpty(tag))
+          return;
+        string lsSQL =
+          string.Format(
+            "insert into TAGS (ARTIST_ID, ARTIST_TAG) VALUES (\"{0}\",\"{1}\")",
+            artistItem.Id, tag);
+        m_db.Execute(lsSQL);
+
+      }
+      catch (Exception exception)
+      {
+      }
+    }
+
     public  void AddArtist(ArtistItem artistItem)
     {
+      try
+      {
       if(string.IsNullOrEmpty(artistItem.Id))
         return;
 
@@ -72,16 +93,22 @@ namespace YouTubePlugin.Class.Artist
         for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
         {
           artistItem.Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
+          artistItem.Tags = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_TAG");
         }
         return;
       }
       lsSQL =
         string.Format(
-          "insert into ARTISTS (ARTIST_ID,ARTIST_NAME,ARTIST_IMG, ARTIST_USER) VALUES (\"{0}\",\"{1}\",\"{2}\",\"{3}\")",
+          "insert into ARTISTS (ARTIST_ID,ARTIST_NAME,ARTIST_IMG, ARTIST_USER, ARTIST_TAG) VALUES (\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\")",
           artistItem.Id,
-          DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"', '`')), artistItem.Img_url, artistItem.User);
+          DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"', '`')), artistItem.Img_url, artistItem.User,
+          artistItem.Tags);
       m_db.Execute(lsSQL);
       artistItem.Db_id = m_db.LastInsertID();
+      }
+      catch (Exception)
+      {
+      }
     }
 
     public List<string> GetArtistsLetters()
@@ -109,6 +136,7 @@ namespace YouTubePlugin.Class.Artist
         res.Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'");
         res.Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
         res.User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER");
+        res.Tags = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_TAG");
       }
       return res;
     }
@@ -126,7 +154,8 @@ namespace YouTubePlugin.Class.Artist
                     Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
                     Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'").Replace("`", "\""),
                     Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
-                    User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER")
+                    User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER"),
+                    Tags = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_TAG")
                   });
       }
       return res;
@@ -139,12 +168,13 @@ namespace YouTubePlugin.Class.Artist
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
       {
-        res.Add(new ArtistItem()
-        {
+        res.Add(new ArtistItem
+                  {
           Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
           Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'").Replace("`", "\""),
           Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
-          User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER")
+          User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER"),
+          Tags = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_TAG")
         });
       }
       return res;
@@ -157,12 +187,13 @@ namespace YouTubePlugin.Class.Artist
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
       {
-        res.Add(new ArtistItem()
+        res.Add(new ArtistItem
         {
           Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
           Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'").Replace("`", "\""),
           Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
-          User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER")
+          User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER"),
+          Tags = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_TAG")
         });
       }
       return res;
@@ -200,7 +231,8 @@ namespace YouTubePlugin.Class.Artist
                     Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
                     Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME"),
                     Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
-                    User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER")
+                    User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER"),
+                    Tags = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_TAG")
                   });
       }
       return res;
@@ -217,6 +249,7 @@ namespace YouTubePlugin.Class.Artist
         res.Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME");
         res.Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
         res.User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER");
+        res.Tags = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_TAG");
       };
      
       return res;
@@ -233,9 +266,9 @@ namespace YouTubePlugin.Class.Artist
       //}
       string lsSQL =
         string.Format(
-          "UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\", ARTIST_USER=\"{3}\" WHERE ARTIST_ID=\"{0}\" ",
+          "UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\", ARTIST_USER=\"{3}\", ARTIST_TAG=\"{4}\"  WHERE ARTIST_ID=\"{0}\" ",
           artistItem.Id, DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"', '`')),
-          artistItem.Img_url, artistItem.User);
+          artistItem.Img_url, artistItem.User, artistItem.Tags);
       m_db.Execute(lsSQL);
     }
 

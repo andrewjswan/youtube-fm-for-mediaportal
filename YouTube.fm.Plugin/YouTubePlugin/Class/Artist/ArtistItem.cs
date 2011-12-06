@@ -12,7 +12,8 @@ namespace YouTubePlugin.Class.Artist
     public string Img_url { get; set; }
     public string User { get; set; }
     public int Db_id { get; set; }
-
+    public string Tags { get; set; }
+    
     public ArtistItem()
     {
       Db_id = -1;
