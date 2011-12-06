@@ -70,7 +70,7 @@ namespace YouTubePlugin
         item.MusicTag = entry;
         relatated.Add(item);
       }
-      OnDownloadTimedEvent(null, null);
+      //OnDownloadTimedEvent(null, null);
     }
 
     void item_OnRetrieveArt(GUIListItem item)
