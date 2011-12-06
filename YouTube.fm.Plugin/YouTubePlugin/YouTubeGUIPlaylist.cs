@@ -75,7 +75,8 @@ namespace YouTubePlugin
       LargeIcons = 2,
       Albums = 3,
       FilmStrip = 4,
-      PlayList = 5
+      PlayList = 5,
+      Cower = 6
     }
 
 
@@ -424,6 +425,7 @@ namespace YouTubePlugin
       }
       base.OnPageDestroy(newWindowId);
     }
+
     protected virtual void OnShowLayouts()
     {
       GUIDialogMenu guiDialogMenu1 = (GUIDialogMenu) GUIWindowManager.GetWindow(2012);
@@ -434,7 +436,7 @@ namespace YouTubePlugin
       guiDialogMenu1.Add(GUILocalizeStrings.Get(101));
       guiDialogMenu1.Add(GUILocalizeStrings.Get(100));
       guiDialogMenu1.Add(GUILocalizeStrings.Get(417));
-      guiDialogMenu1.Add(GUILocalizeStrings.Get(529));
+      //guiDialogMenu1.Add(GUILocalizeStrings.Get(529));
       guiDialogMenu1.Add(GUILocalizeStrings.Get(733));
       guiDialogMenu1.Add(GUILocalizeStrings.Get(791));
 
@@ -444,27 +446,34 @@ namespace YouTubePlugin
       if (guiDialogMenu1.SelectedLabelText==GUILocalizeStrings.Get(101))
       {
         facadeView.CurrentLayout = GUIFacadeControl.Layout.Playlist;
+        CurrentView = View.List;
       }
       else if (guiDialogMenu1.SelectedLabelText == GUILocalizeStrings.Get(100))
       {
         facadeView.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
+        CurrentView = View.Icons;
       }
       else if (guiDialogMenu1.SelectedLabelText == GUILocalizeStrings.Get(417))
       {
         facadeView.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
+        CurrentView = View.LargeIcons;
       }
       else if (guiDialogMenu1.SelectedLabelText == GUILocalizeStrings.Get(529))
       {
         facadeView.CurrentLayout = GUIFacadeControl.Layout.AlbumView;
+        CurrentView = View.Albums;
       }
       else if (guiDialogMenu1.SelectedLabelText == GUILocalizeStrings.Get(733))
       {
         facadeView.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
+        CurrentView = View.FilmStrip;
       }
       else if (guiDialogMenu1.SelectedLabelText == GUILocalizeStrings.Get(791))
       {
         facadeView.CurrentLayout = GUIFacadeControl.Layout.CoverFlow;
+        CurrentView = View.Cower;
       }
+      UpdateButtonStates();
     }
 
     protected void OnClickedBase(int controlId, GUIControl control, Action.ActionType actionType)
@@ -586,10 +595,10 @@ namespace YouTubePlugin
     {
       switch (currentScrobbleMode)
       {
-          case ScrobbleMode.Youtube:
+        case ScrobbleMode.Youtube:
           btnScrobbleMode.Label = Translation.ScrobbleMode + Translation.ScrobbleSimilarVideos;
           break;
-          case ScrobbleMode.Neighbours:
+        case ScrobbleMode.Neighbours:
           btnScrobbleMode.Label = Translation.ScrobbleMode + Translation.ScrobbleNeighboursLike;
           break;
         case ScrobbleMode.Recent:
@@ -810,6 +819,9 @@ namespace YouTubePlugin
           break;
         case View.PlayList:
           strLine = GUILocalizeStrings.Get(101);
+          break;
+        case View.Cower:
+          strLine = GUILocalizeStrings.Get(791);
           break;
       }
       btnViewAs.Label = strLine;
