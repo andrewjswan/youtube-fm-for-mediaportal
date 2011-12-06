@@ -30,19 +30,37 @@ namespace YouTubePlugin.Class.SiteItems
       GenericListItemCollections res = new GenericListItemCollections();
       if (entry.GetValue("letter") == "")
       {
-        res.Title = "Artists";
-        SiteItemEntry newentry1 = new SiteItemEntry();
-        newentry1.Provider = this.Name;
-        newentry1.SetValue("letter", "true");
-        newentry1.SetValue("special", "true");
-        newentry1.Title = Translation.PlayedArtists;
-        GenericListItem listItem1 = new GenericListItem()
         {
-          Title = Translation.PlayedArtists,
-          IsFolder = true,
-          Tag = newentry1
-        };
-        res.Items.Add(listItem1);
+          res.Title = "Artists";
+          SiteItemEntry newentry1 = new SiteItemEntry();
+          newentry1.Provider = this.Name;
+          newentry1.SetValue("letter", "true");
+          newentry1.SetValue("special", "1");
+          newentry1.Title = Translation.PlayedArtists;
+          GenericListItem listItem1 = new GenericListItem()
+                                        {
+                                          Title = Translation.PlayedArtists,
+                                          IsFolder = true,
+                                          Tag = newentry1
+                                        };
+          res.Items.Add(listItem1);
+        }
+
+        {
+          res.Title = "Artists";
+          SiteItemEntry newentry1 = new SiteItemEntry();
+          newentry1.Provider = this.Name;
+          newentry1.SetValue("letter", "true");
+          newentry1.SetValue("special", "2");
+          newentry1.Title = Translation.ByTags;
+          GenericListItem listItem1 = new GenericListItem()
+          {
+            Title = Translation.ByTags,
+            IsFolder = true,
+            Tag = newentry1
+          };
+          res.Items.Add(listItem1);
+        }
 
         foreach (string letter in ArtistManager.Instance.GetArtistsLetters())
         {
@@ -60,7 +78,7 @@ namespace YouTubePlugin.Class.SiteItems
           res.Items.Add(listItem);
         }
       }
-      if (entry.GetValue("letter") == "true" && entry.GetValue("special") != "true")
+      if (entry.GetValue("letter") == "true" && entry.GetValue("special") == "false")
       {
         res.Title = "Artists/Letter/" + entry.Title;
         foreach (ArtistItem artistItem in ArtistManager.Instance.GetArtists(entry.Title))
@@ -83,7 +101,7 @@ namespace YouTubePlugin.Class.SiteItems
           res.Items.Add(listItem);
         }
       }
-      if (entry.GetValue("special") == "true")
+      if (entry.GetValue("special") == "1")
       {
         res.Title = "Artists/" + Translation.PlayedArtists;
         foreach (
@@ -108,6 +126,54 @@ namespace YouTubePlugin.Class.SiteItems
           res.Items.Add(listItem);
         }
       }
+
+      if (entry.GetValue("special") == "2")
+      {
+        res.Title = "Artists/" + Translation.ByTags;
+        foreach (string[] strings in ArtistManager.Instance.GetTags())
+        {
+          SiteItemEntry newentry = new SiteItemEntry();
+          newentry.Provider = this.Name;
+          newentry.SetValue("letter", "true");
+          newentry.SetValue("special", "3");
+          newentry.SetValue("tag",strings[0]);
+          res.ItemType = ItemType.Item;
+          GenericListItem listItem = new GenericListItem()
+          {
+            Title = strings[0],
+            IsFolder = true,
+            Title2 = strings[1],
+            Tag = newentry
+          };
+          res.Items.Add(listItem);
+        }
+      }
+
+      if (entry.GetValue("special") == "3")
+      {
+        res.Title = "Artists/" + Translation.ByTags + "/" + entry.Title;
+        foreach (ArtistItem artistItem in ArtistManager.Instance.GetArtistsByTag(entry.GetValue("tag")))
+        {
+          SiteItemEntry newentry = new SiteItemEntry();
+          newentry.Provider = this.Name;
+          newentry.SetValue("letter", "false");
+          newentry.SetValue("id", artistItem.Id);
+          newentry.SetValue("name", artistItem.Name);
+          res.ItemType = ItemType.Artist;
+          GenericListItem listItem = new GenericListItem()
+          {
+            Title = artistItem.Name,
+            LogoUrl =
+              string.IsNullOrEmpty(artistItem.Img_url.Trim()) ? "@" : artistItem.Img_url,
+            IsFolder = true,
+            DefaultImage = "defaultArtistBig.png",
+            Tag = newentry
+          };
+          res.Items.Add(listItem);
+        }
+      }
+
+
       if (entry.GetValue("letter") == "false")
       {
         //res = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));

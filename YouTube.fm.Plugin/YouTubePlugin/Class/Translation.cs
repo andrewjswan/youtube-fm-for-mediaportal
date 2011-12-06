@@ -209,6 +209,9 @@ namespace YouTubePlugin.Class
     public static string AutomaticallyFillPlaylist = "Automatically fill playlist with";
     public static string Autor = "Autor";
 
+    // B
+    public static string ByTags = "By Tags";
+
     // C
     public static string ContextMenu = "Context Menu";
 

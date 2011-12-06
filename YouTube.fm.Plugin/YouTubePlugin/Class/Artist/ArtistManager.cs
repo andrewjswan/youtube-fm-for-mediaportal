@@ -61,6 +61,23 @@ namespace YouTubePlugin.Class.Artist
 
     public  ArtistGrabber Grabber = new ArtistGrabber();
 
+    public List<string[]> GetTags()
+    {
+      List<string[]> res = new List<string[]>();
+      string lsSQL = string.Format(" select * from (" +
+                                   "select  lower(artist_tag) as tag, count(ARTIST_TAG) as cnt from TAGS group by ARTIST_TAG order by count(ARTIST_TAG) desc" +
+                                   ") where cnt>50 order by tag");
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        res.Add(new string[]
+                  {
+                    DatabaseUtility.Get(loResultSet, iRow, "tag"), DatabaseUtility.Get(loResultSet, iRow, "cnt")
+                  });
+      }
+      return res;
+    }
+
     public void SaveTag(ArtistItem artistItem, string tag)
     {
       try
@@ -141,6 +158,27 @@ namespace YouTubePlugin.Class.Artist
       return res;
     }
 
+    public List<ArtistItem> GetArtistsByTag(string tag)
+    {
+      List<ArtistItem> res = new List<ArtistItem>();
+      string lsSQL =
+        string.Format(
+          "select distinct * from ARTISTS,TAGS where ARTISTS.ARTIST_ID=TAGS.ARTIST_ID and TAGS.ARTIST_TAG like '{0}' order by ARTIST_NAME",
+          tag);
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        res.Add(new ArtistItem()
+        {
+          Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"),
+          Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'").Replace("`", "\""),
+          Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG"),
+          User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER"),
+          Tags = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_TAG")
+        });
+      }
+      return res;
+    }
 
     public List<ArtistItem> GetArtists(string letter)
     {

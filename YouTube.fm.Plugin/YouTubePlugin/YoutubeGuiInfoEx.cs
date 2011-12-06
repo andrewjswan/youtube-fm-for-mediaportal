@@ -191,6 +191,12 @@ namespace YouTubePlugin
     {
       try
       {
+        ArtistItem = GetArtist(YouTubeEntry);
+        if(!string.IsNullOrEmpty(ArtistItem.Id))
+        {
+          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Name", ArtistItem.Name);
+        }
+
         if (!string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name").Trim()))
         {
           Track track = new Track(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"),
@@ -228,17 +234,32 @@ namespace YouTubePlugin
           }
           GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio", contents);
           string tags = " ";
-          TopTag[] topTags = track.Artist.GetTopTags();
-          foreach (TopTag tag in topTags)
+          if (!string.IsNullOrEmpty(ArtistItem.Id))
           {
-            tags += tag.Item.Name + "|";
+            if (string.IsNullOrEmpty(ArtistItem.Tags))
+            {
+              int i = 0;
+              TopTag[] topTags = track.Artist.GetTopTags();
+              foreach (TopTag tag in topTags)
+              {
+                tags += tag.Item.Name + "|";
+                if (i < 5)
+                {
+                  ArtistManager.Instance.SaveTag(ArtistItem, tag.Item.Name);
+                }
+                i++;
+              }
+            }
+            else
+            {
+              tags = ArtistItem.Tags;
+            }
           }
           GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Tags", tags);
         }
       }
       catch (Exception ex)
       {
-
       }
       GUIWaitCursor.Hide();
     }

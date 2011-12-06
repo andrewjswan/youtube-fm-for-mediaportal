@@ -305,13 +305,31 @@ namespace Test
                 Artist artist = new Artist(artistItem.Name, Youtube2MP.LastFmProfile.Session);
                 TopTag[] Tag = artist.GetTopTags();
                 string result = "";
+                int ii = 0;
                 foreach (TopTag tag in Tag)
                 {
                   result = result + (tag.Item + "|");
-                  ArtistManager.Instance.SaveTag(artistItem, tag.Item.Name);
+                  if (ii < 5)
+                  {
+                    ArtistManager.Instance.SaveTag(artistItem, tag.Item.Name);
+                  }
+                  ii++;
                 }
                 artistItem.Tags = result;
                 ArtistManager.Instance.Save(artistItem);
+              }
+              else
+              {
+                int ii = 0;
+                string[] ss = artistItem.Tags.Split('|');
+                foreach (string s in ss)
+                {
+                  if (ii < 5)
+                  {
+                    ArtistManager.Instance.SaveTag(artistItem, s);
+                  }
+                  ii++;
+                }
               }
               procesed.Add(artistItem.Id);
               end = false;
