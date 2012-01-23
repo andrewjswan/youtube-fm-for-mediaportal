@@ -121,6 +121,10 @@ namespace YouTubePlugin
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+      this.groupBox12 = new System.Windows.Forms.GroupBox();
+      this.chk_server = new System.Windows.Forms.CheckBox();
+      this.txt_port = new System.Windows.Forms.TextBox();
+      this.label20 = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
@@ -141,6 +145,7 @@ namespace YouTubePlugin
       this.groupBox7.SuspendLayout();
       this.groupBox6.SuspendLayout();
       this.groupBox5.SuspendLayout();
+      this.groupBox12.SuspendLayout();
       this.SuspendLayout();
       // 
       // button1
@@ -373,6 +378,7 @@ namespace YouTubePlugin
       // 
       // tabPage1
       // 
+      this.tabPage1.Controls.Add(this.groupBox12);
       this.tabPage1.Controls.Add(this.groupBox11);
       this.tabPage1.Controls.Add(this.groupBox10);
       this.tabPage1.Controls.Add(this.groupBox9);
@@ -1096,7 +1102,7 @@ namespace YouTubePlugin
       this.label10.Size = new System.Drawing.Size(491, 13);
       this.label10.TabIndex = 0;
       this.label10.Text = "Youtube.Fm is a plugin for browsing Youtube music videos and generate dinamyc pla" +
-          "ylist using Last.Fm\r\n";
+    "ylist using Last.Fm\r\n";
       // 
       // saveFileDialog1
       // 
@@ -1105,6 +1111,44 @@ namespace YouTubePlugin
       // openFileDialog1
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
+      // 
+      // groupBox12
+      // 
+      this.groupBox12.Controls.Add(this.label20);
+      this.groupBox12.Controls.Add(this.txt_port);
+      this.groupBox12.Controls.Add(this.chk_server);
+      this.groupBox12.Location = new System.Drawing.Point(547, 15);
+      this.groupBox12.Name = "groupBox12";
+      this.groupBox12.Size = new System.Drawing.Size(271, 99);
+      this.groupBox12.TabIndex = 16;
+      this.groupBox12.TabStop = false;
+      this.groupBox12.Text = "Server";
+      // 
+      // chk_server
+      // 
+      this.chk_server.AutoSize = true;
+      this.chk_server.Location = new System.Drawing.Point(6, 23);
+      this.chk_server.Name = "chk_server";
+      this.chk_server.Size = new System.Drawing.Size(57, 17);
+      this.chk_server.TabIndex = 0;
+      this.chk_server.Text = "Server";
+      this.chk_server.UseVisualStyleBackColor = true;
+      // 
+      // txt_port
+      // 
+      this.txt_port.Location = new System.Drawing.Point(79, 46);
+      this.txt_port.Name = "txt_port";
+      this.txt_port.Size = new System.Drawing.Size(88, 20);
+      this.txt_port.TabIndex = 1;
+      // 
+      // label20
+      // 
+      this.label20.AutoSize = true;
+      this.label20.Location = new System.Drawing.Point(8, 49);
+      this.label20.Name = "label20";
+      this.label20.Size = new System.Drawing.Size(65, 13);
+      this.label20.TabIndex = 2;
+      this.label20.Text = "Listener port";
       // 
       // SetupForm
       // 
@@ -1152,6 +1196,8 @@ namespace YouTubePlugin
       this.groupBox6.PerformLayout();
       this.groupBox5.ResumeLayout(false);
       this.groupBox5.PerformLayout();
+      this.groupBox12.ResumeLayout(false);
+      this.groupBox12.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -1251,5 +1297,9 @@ namespace YouTubePlugin
     private System.Windows.Forms.Label label19;
     private System.Windows.Forms.Label label18;
     private System.Windows.Forms.Label label4;
+    private System.Windows.Forms.GroupBox groupBox12;
+    private System.Windows.Forms.Label label20;
+    private System.Windows.Forms.TextBox txt_port;
+    private System.Windows.Forms.CheckBox chk_server;
   }
 }

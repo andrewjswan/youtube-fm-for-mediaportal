@@ -96,6 +96,7 @@ namespace YouTubePlugin
       foreach (GUIListItem item in relatated)
       {
         listControl.Add(item);
+        item.RefreshCoverArt();
       }
       listControl.SelectedListItemIndex = 0;
       OnDownloadTimedEvent(null, null);

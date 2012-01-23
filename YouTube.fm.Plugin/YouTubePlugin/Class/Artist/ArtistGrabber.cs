@@ -122,7 +122,7 @@ namespace YouTubePlugin.Class.Artist
         //ArtistManager.Instance.Save(artistItem);
         //----------------------------
         //Regex regexObj = new Regex("album-row.*?data-video-ids=\"(?<vid_id>.*?)\".*?<span class=\"clip\"><img src=\"(?<thumb>.*?)\".*?album-track-name\">(?<title>.*?)</span>", RegexOptions.Singleline);
-        Regex regexObj = new Regex("album-row.*?data-video-ids=\"(?<vid_id>.*?)\".*?<span class=\"clip\"><img src=\"(?<thumb>.*?)\".*?album-track-duration\">(?<duration>.*?)</span>.*?album-track-name\">(?<title>.*?)</span>", RegexOptions.Singleline);
+        Regex regexObj = new Regex("album-row.*?data-video-ids=\"(?<vid_id>.*?)\".*?<span class=\"clip\"><span class=\"clip-inner\"><img src=\"(?<thumb>.*?)\".*?album-track-duration\">(?<duration>.*?)</span>.*?album-track-name\">(?<title>.*?)</span>", RegexOptions.Singleline);
         Match matchResult = regexObj.Match(site);
         while (matchResult.Success)
         {

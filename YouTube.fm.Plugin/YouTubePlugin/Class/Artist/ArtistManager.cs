@@ -154,6 +154,7 @@ namespace YouTubePlugin.Class.Artist
         res.Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
         res.User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER");
         res.Tags = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_TAG");
+        break;
       }
       return res;
     }

@@ -99,6 +99,12 @@ namespace YouTubePlugin
       }
     }
 
+    //----------------
+
+    public bool UseAsServer { get; set; }
+    public int PortNumber { get; set; }
+    //----------------
+
     public LocalFileEnumerator LocalFile { get; set; }
 
     public SiteItemEnumerator MainMenu { get; set; }
@@ -163,6 +169,10 @@ namespace YouTubePlugin
         this.LastFmPass = xmlreader.GetValueAsString("youtubevideos", "LastFmPass", string.Empty);
         this.LastFmNowPlay = xmlreader.GetValueAsBool("youtubevideos", "LastFmNowPlay", false);
         this.LastFmSubmit = xmlreader.GetValueAsBool("youtubevideos", "LastFmSubmit", false);
+
+        this.UseAsServer = xmlreader.GetValueAsBool("youtubevideos", "UseAsServer", false);
+        this.PortNumber = xmlreader.GetValueAsInt("youtubevideos", "PortNumber", 18944);
+
         foreach (string s in his.Split('|'))
         {
           if (!string.IsNullOrEmpty(s.Trim()))
@@ -204,6 +214,9 @@ namespace YouTubePlugin
         xmlwriter.SetValueAsBool("youtubevideos", "ShowNowPlaying", this.ShowNowPlaying);
         xmlwriter.SetValueAsBool("youtubevideos", "UseExtremFilter", this.UseExtremFilter);
         xmlwriter.SetValueAsBool("youtubevideos", "LoadOnlineFanart", this.LoadOnlineFanart);
+
+        xmlwriter.SetValue("youtubevideos", "PortNumber", PortNumber);
+        xmlwriter.SetValueAsBool("youtubevideos", "UseAsServer", this.UseAsServer);
         string his = "";
         foreach (string s in SearchHistory)
         {

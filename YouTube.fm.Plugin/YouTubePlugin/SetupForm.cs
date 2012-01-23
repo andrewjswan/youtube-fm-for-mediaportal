@@ -37,6 +37,20 @@ namespace YouTubePlugin
 
     private void button1_Click(object sender, EventArgs e)
     {
+      try
+      {
+        if (Convert.ToInt32(txt_port.Text) == 0)
+        {
+          MessageBox.Show("Wrong port settings");
+          return;
+        }
+
+      }
+      catch (Exception)
+      {
+        MessageBox.Show("Wrong port settings");
+        return;
+      }
       _settings.User = textBox_user.Text;
       _settings.Password = textBox_passw.Text;
       _settings.PluginName = textBox_pluginname.Text;
@@ -57,7 +71,8 @@ namespace YouTubePlugin
       _settings.LastFmPass = txt_lastfm_pass.Text;
       _settings.LastFmNowPlay = chk_lastfm_nowplay.Checked;
       _settings.LastFmSubmit = chk_lastfm_submit.Checked;
-
+      _settings.UseAsServer = chk_server.Checked;
+      _settings.PortNumber = Convert.ToInt32(txt_port.Text);
 
       foreach (string s in listBox_history.Items)
       {
@@ -98,7 +113,8 @@ namespace YouTubePlugin
       txt_lastfm_pass.Text = _settings.LastFmPass;
       chk_lastfm_nowplay.Checked = _settings.LastFmNowPlay;
       chk_lastfm_submit.Checked = _settings.LastFmSubmit;
-
+      chk_server.Checked = _settings.UseAsServer;
+      txt_port.Text = _settings.PortNumber.ToString();
       //foreach (KeyValuePair<string, string> valuePair in _settings.Regions)
       //{
       //  cmb_region.Items.Add(valuePair.Key);

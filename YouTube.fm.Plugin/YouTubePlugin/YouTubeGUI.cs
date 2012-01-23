@@ -1,4 +1,7 @@
 using System;
+using System.ComponentModel;
+using System.Net;
+using System.Net.Sockets;
 using System.Xml.Serialization;
 using System.IO;
 using System.Collections;
@@ -80,6 +83,7 @@ namespace YouTubePlugin
 
     #region locale vars
 
+    private TcpListener tcpListener = null;
 
     private Stack NavigationStack = new Stack();
     MapSettings mapSettings = new MapSettings();
@@ -288,7 +292,72 @@ namespace YouTubePlugin
         }
       }
       
+      if(_setting.UseAsServer)
+      {
+        try
+        {
+          tcpListener = new TcpListener(Dns.GetHostAddresses("localhost")[0], _setting.PortNumber);
+          tcpListener.Start();
+          BackgroundWorker listenerWorker = new BackgroundWorker();
+          listenerWorker.DoWork += new DoWorkEventHandler(listenerWorker_DoWork);
+          listenerWorker.RunWorkerAsync();
+        }
+        catch (Exception exception)
+        {
+          Log.Error("Unable to start listen server");
+          Log.Error(exception);
+        }
+      }
       return Load(GUIGraphicsContext.Skin + @"\youtubevideosbase.xml");
+    }
+
+    void listenerWorker_DoWork(object sender, DoWorkEventArgs e)
+    {
+      while (true)
+      {
+        try
+        {
+          Socket socketForClient = tcpListener.AcceptSocket();
+          if (socketForClient.Connected)
+          {
+            //Write("Client connected");
+            NetworkStream networkStream = new NetworkStream(socketForClient);
+            System.IO.StreamWriter streamWriter =
+              new System.IO.StreamWriter(networkStream);
+            System.IO.StreamReader streamReader =
+              new System.IO.StreamReader(networkStream);
+            string theString = "Sending";
+            streamWriter.WriteLine(theString);
+            //Write(theString);
+            streamWriter.Flush();
+            theString = streamReader.ReadLine();
+            Log.Debug("Message received : {0}", theString);
+            if (GUIWindowManager.ActiveWindow != GetID)
+            {
+              GUIWindowManager.ActivateWindow(GetID, theString);
+            }
+            else
+            {
+              _loadParameter = theString;
+              ExecuteParams();
+            }
+            //Write(theString);
+            streamReader.Close();
+            networkStream.Close();
+            streamWriter.Close();
+          }
+          else
+          {
+            //Write("Exiting...");
+            break;
+          }
+          socketForClient.Close();
+        }
+        catch (Exception exception)
+        {
+          Log.Error(exception);
+        }
+      }
     }
 
     private void ExecuteParams()
@@ -298,7 +367,15 @@ namespace YouTubePlugin
       if (!_loadParameter.Contains(":"))
         return;
       string command = _loadParameter.Split(':')[0].Trim().ToUpper();
-      string param = _loadParameter.Split(':')[1].Trim();
+      string[] s = _loadParameter.Split(':');
+      string param = "";
+      for (int i = 1; i < s.Length; i++)
+      {
+        param += s[i];
+        if (i < s.Length)
+          param += ":";
+      }
+      param = param.Trim();
       if (command == "ARTISTVIDEOS")
       {
         if (string.IsNullOrEmpty(param))
@@ -329,6 +406,21 @@ namespace YouTubePlugin
         entry.Provider = new SearchVideo().Name;
         addVideos(Youtube2MP.GetList(entry), false);
         _backPos = NavigationStack.Count;
+      }
+      else if (command == "PLAY")
+      {
+        try
+        {
+          Video video =
+            Youtube2MP.request.Retrieve<Video>(
+              new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", Youtube2MP.getIDSimple(param))));
+          DoPlay(video.YouTubeEntry, true, null);
+        }
+        catch (Exception exception)
+        {
+          Log.Error("Error playback ");
+          Log.Error(exception);
+        }
       }
     }
 
@@ -539,6 +631,7 @@ namespace YouTubePlugin
           if (NavigationStack.Count > _backPos)
           {
             DoBack();
+            //UpdateGui();
             return;
           }
         }
@@ -551,17 +644,17 @@ namespace YouTubePlugin
         if ((item != null) && item.IsFolder && (item.Label == ".."))
         {
           DoBack();
+          //UpdateGui();
           return;
         }
       }
-      UpdateGui();
       base.OnAction(action);
     }
     // do regulary updates
     public override void Process()
     {
       // update the gui
-      UpdateGui();
+      //UpdateGui();
       base.Process();
     }
 
