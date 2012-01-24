@@ -296,7 +296,9 @@ namespace YouTubePlugin
       {
         try
         {
-          tcpListener = new TcpListener(Dns.GetHostAddresses("localhost")[0], _setting.PortNumber);
+          //IPAddress[] adrs = Dns.GetHostAddresses("localhost");
+          //tcpListener = new TcpListener(Dns.GetHostAddresses("localhost")[0], _setting.PortNumber);
+          tcpListener = new TcpListener(_setting.PortNumber);
           tcpListener.Start();
           BackgroundWorker listenerWorker = new BackgroundWorker();
           listenerWorker.DoWork += new DoWorkEventHandler(listenerWorker_DoWork);
@@ -369,11 +371,18 @@ namespace YouTubePlugin
       string command = _loadParameter.Split(':')[0].Trim().ToUpper();
       string[] s = _loadParameter.Split(':');
       string param = "";
-      for (int i = 1; i < s.Length; i++)
+      if (s.Length > 2)
       {
-        param += s[i];
-        if (i < s.Length)
-          param += ":";
+        for (int i = 1; i < s.Length; i++)
+        {
+          param += s[i];
+          if (i < s.Length)
+            param += ":";
+        }
+      }
+      else
+      {
+        param = s[1];
       }
       param = param.Trim();
       if (command == "ARTISTVIDEOS")
@@ -411,9 +420,12 @@ namespace YouTubePlugin
       {
         try
         {
+          string id = Youtube2MP.getIDSimple(param);
+          if (string.IsNullOrEmpty(id))
+            id = param;
           Video video =
             Youtube2MP.request.Retrieve<Video>(
-              new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", Youtube2MP.getIDSimple(param))));
+              new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", id)));
           DoPlay(video.YouTubeEntry, true, null);
         }
         catch (Exception exception)
