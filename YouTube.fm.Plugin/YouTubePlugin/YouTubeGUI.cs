@@ -1133,7 +1133,8 @@ namespace YouTubePlugin
       }
       else if (dlg.SelectedLabelText == Translation.DownloadVideo)
       {
-        if (Youtube2MP._settings.LocalFile.Get(Youtube2MP.GetVideoId(videoEntry)) != null)
+        LocalFileStruct fil = Youtube2MP._settings.LocalFile.Get(Youtube2MP.GetVideoId(videoEntry));
+        if (fil != null && File.Exists(fil.LocalFile))
         {
           Err_message(Translation.ItemAlreadyDownloaded);
         }
@@ -1142,7 +1143,7 @@ namespace YouTubePlugin
           if (VideoDownloader.IsBusy)
           {
             Err_message(Translation.AnotherDonwnloadProgress);
-            dlgProgress = (GUIDialogProgress) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_PROGRESS);
+            dlgProgress = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
             if (dlgProgress != null)
             {
               dlgProgress.Reset();
@@ -1167,7 +1168,7 @@ namespace YouTubePlugin
             GUIPropertyManager.SetProperty("#Youtube.fm.IsDownloading", "true");
             GUIPropertyManager.SetProperty("#Youtube.fm.Download.Progress", "0");
             GUIPropertyManager.SetProperty("#Youtube.fm.Download.Item", videoEntry.Title.Text);
-
+            DatabaseProvider.InstanInstance.Save(videoEntry);
             VideoDownloader.Entry = videoEntry;
           }
         }
@@ -1481,14 +1482,37 @@ namespace YouTubePlugin
       }
 
       YouTubeEntry vid = item.MusicTag as YouTubeEntry;
-      
+      LocalFileStruct file = item.MusicTag as LocalFileStruct;
       if (vid != null)
       {
         SetLabels(vid, "Curent");
       }
       else
       {
-        ClearLabels("Curent"); 
+        if (file != null)
+        {
+          GUIPropertyManager.SetProperty("#Youtube.fm.Curent.Video.IsDownloaded", "true");
+          int watchcount = DatabaseProvider.InstanInstance.GetWatchCount(file.VideoId);
+          GUIPropertyManager.SetProperty("#Youtube.fm.Curent.Video.WatchCount",watchcount.ToString("0,0"));
+          GUIPropertyManager.SetProperty("#Youtube.fm.Curent.Video.IsWatched", watchcount > 0 ? "true" : "false");
+          GUIPropertyManager.SetProperty("#Youtube.fm.Curent.Video.IsHD", DatabaseProvider.InstanInstance.IsHd(file.VideoId) ? "true" : "false");
+          if (file.Title.Contains("-"))
+          {
+            GUIPropertyManager.SetProperty("#Youtube.fm.Curent.Video.Title", file.Title.Split('-')[1].Trim());
+            GUIPropertyManager.SetProperty("#Youtube.fm.Curent.Artist.Name", file.Title.Split('-')[0].Trim());
+            GUIPropertyManager.SetProperty("#Youtube.fm.Curent.Video.FanArt",
+                                           GetFanArtImage(file.Title.Split('-')[0]).Trim());
+          }
+          else
+          {
+            GUIPropertyManager.SetProperty("#Youtube.fm.Curent.Video.Title", file.Title);
+            GUIPropertyManager.SetProperty("#Youtube.fm.Curent.Artist.Name", " ");
+          }
+        }
+        else
+        {
+          ClearLabels("Curent");
+        }
       }
     }
 

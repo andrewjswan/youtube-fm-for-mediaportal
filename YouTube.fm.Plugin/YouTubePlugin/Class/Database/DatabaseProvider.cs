@@ -44,13 +44,20 @@ namespace YouTubePlugin.Class.Database
         if (!dbExists)
         {
           m_db.Execute(
-            "CREATE TABLE VIDEOS(ID integer primary key autoincrement,VIDEO_ID text, ARTIST_ID text, TITLE text, IMG_URL text, LENGTH integer,STATE integer, rating integer)\n");
+            "CREATE TABLE VIDEOS(ID integer primary key autoincrement,VIDEO_ID text, ARTIST_ID text, TITLE text, IMG_URL text, LENGTH integer,STATE integer, rating integer, hd integer)\n");
           m_db.Execute(
             "CREATE TABLE PLAY_HISTORY(ID integer primary key autoincrement,VIDEO_ID text, datePlayed timestamp, loved integer)\n");
           DatabaseUtility.AddIndex(m_db, "idx_video_id", "CREATE INDEX idx_video_id ON VIDEOS(VIDEO_ID)");
           DatabaseUtility.AddIndex(m_db, "idx_ARTIST_ID", "CREATE INDEX idx_ARTIST_ID ON VIDEOS(ARTIST_ID)");
           DatabaseUtility.AddIndex(m_db, "idx_his_video_id", "CREATE INDEX idx_his_video_id ON PLAY_HISTORY(VIDEO_ID)");
           DatabaseUtility.AddIndex(m_db, "idx_his_date", "CREATE INDEX idx_his_date ON PLAY_HISTORY(datePlayed DESC)");
+        }
+        else
+        {
+          if(!DatabaseUtility.TableColumnExists(m_db,"VIDEOS","hd"))
+          {
+            m_db.Execute("ALTER TABLE VIDEOS ADD hd integer");
+          }
         }
       }
       catch (SQLiteException ex)
@@ -86,12 +93,19 @@ namespace YouTubePlugin.Class.Database
           int duration = 0;
           if (entry.Duration != null && entry.Duration.Seconds != null)
             duration = Convert.ToInt32(entry.Duration.Seconds);
+          bool ishd =
+            entry.ExtensionElements.Any(
+              extensionElementFactory =>
+              extensionElementFactory.XmlPrefix == "yt" && extensionElementFactory.XmlName == "hd");
+
           lsSQL =
-            string.Format("insert into VIDEOS (VIDEO_ID,TITLE ,LENGTH,IMG_URL ) VALUES (\"{0}\",\"{1}\",{2},\"{3}\")",
-                          Youtube2MP.GetVideoId(entry),
-                          DatabaseUtility.RemoveInvalidChars(entry.Title.Text.Replace('"', '`')),
-                          duration,
-                          YoutubeGUIBase.GetBestUrl(entry.Media.Thumbnails));
+            string.Format(
+              "insert into VIDEOS (VIDEO_ID,TITLE ,LENGTH,IMG_URL, hd ) VALUES (\"{0}\",\"{1}\",{2},\"{3}\",{4})",
+              Youtube2MP.GetVideoId(entry),
+              DatabaseUtility.RemoveInvalidChars(entry.Title.Text.Replace('"', '`')),
+              duration,
+              YoutubeGUIBase.GetBestUrl(entry.Media.Thumbnails),
+              ishd ? 1 : 0);
           m_db.Execute(lsSQL);
         }
       }
@@ -144,6 +158,42 @@ namespace YouTubePlugin.Class.Database
         Log.Error(exception);
       }
       return 0;
+    }
+
+    public int GetWatchCount(string id)
+    {
+      try
+      {
+        string lsSQL = string.Format("select count(*) AS CNT from PLAY_HISTORY WHERE VIDEO_ID=\"{0}\"", id);
+        SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+        if (loResultSet.Rows.Count > 0)
+        {
+          return DatabaseUtility.GetAsInt(loResultSet, 0, "CNT");
+        }
+      }
+      catch (Exception exception)
+      {
+        Log.Error(exception);
+      }
+      return 0;
+    }
+
+    public bool IsHd(string id)
+    {
+      try
+      {
+        string lsSQL = string.Format("select hd from VIDEOS WHERE VIDEO_ID=\"{0}\"", id);
+        SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+        if (loResultSet.Rows.Count > 0)
+        {
+          return DatabaseUtility.GetAsInt(loResultSet, 0, "hd") == 1;
+        }
+      }
+      catch (Exception exception)
+      {
+        Log.Error(exception);
+      }
+      return false;
     }
 
     public GenericListItemCollections GetTopPlayed()

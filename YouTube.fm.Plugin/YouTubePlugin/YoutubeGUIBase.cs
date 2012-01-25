@@ -82,8 +82,6 @@ namespace YouTubePlugin
           if (vid.Statistics.ViewCount != null)
             GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.ViewCount",
                                            Youtube2MP.FormatNumber(vid.Statistics.ViewCount));
-          if (vid.Statistics.WatchCount != null)
-            GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.WatchCount", vid.Statistics.WatchCount);
           if (vid.Statistics.FavoriteCount != null)
             GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount",
                                            Youtube2MP.FormatNumber(vid.Statistics.FavoriteCount));
