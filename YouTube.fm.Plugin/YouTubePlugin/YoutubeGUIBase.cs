@@ -365,7 +365,8 @@ namespace YouTubePlugin
         {
           if (_setting.ShowNowPlaying)
           {
-            GUIWindowManager.ActivateWindow(29052);
+            if (GUIWindowManager.ActiveWindow != 29052)
+              GUIWindowManager.ActivateWindow(29052);
           }
           else
           {
@@ -491,8 +492,8 @@ namespace YouTubePlugin
         g_Player.PlayBackEnded -= g_Player_PlayBackEnded;
         Youtube2MP.player.DoOnStop();
         ClearLabels("NowPlaying");
-        if (GUIWindowManager.ActiveWindow == 29052)
-          GUIWindowManager.ShowPreviousWindow();
+        //if (GUIWindowManager.ActiveWindow == 29052)
+        //  GUIWindowManager.ShowPreviousWindow();
       }
       catch
       {
