@@ -92,6 +92,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\mp\mediaportal\MediaPortal.Application\bin\Debug\Utils.dll</HintPath>
     </Reference>
+    <Reference Include="WindowPlugins, Version=1.2.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\mp\mediaportal\MediaPortal.Application\bin\Debug\plugins\Windows\WindowPlugins.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Artist\ArtistGrabber.cs" />
@@ -226,6 +230,8 @@
       <DependentUpon>FormItemList.cs</DependentUpon>
     </Compile>
     <Compile Include="MessageGUI.cs" />
+    <Compile Include="YouTubeGUIOSD.cs" />
+    <Compile Include="YouTubeGUIVideoFullscreen.cs" />
     <None Include="Class\Rss\atom.xsd">
       <SubType>Designer</SubType>
     </None>

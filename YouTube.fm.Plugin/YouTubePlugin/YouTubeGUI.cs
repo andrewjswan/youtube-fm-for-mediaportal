@@ -310,7 +310,21 @@ namespace YouTubePlugin
           Log.Error(exception);
         }
       }
+      g_Player.ShowFullScreenWindowVideo = ShowFullScreenWindowHandler;
       return Load(GUIGraphicsContext.Skin + @"\youtubevideosbase.xml");
+    }
+
+    private static bool ShowFullScreenWindowHandler()
+    {
+      if (g_Player.HasVideo )
+      {
+        if (GUIWindowManager.ActiveWindow == 29054) return true;
+
+        GUIWindowManager.ActivateWindow(29054);
+        GUIGraphicsContext.IsFullScreenVideo = true;
+        return true;
+      }
+      return g_Player.ShowFullScreenWindowVideoDefault();
     }
 
     void listenerWorker_DoWork(object sender, DoWorkEventArgs e)

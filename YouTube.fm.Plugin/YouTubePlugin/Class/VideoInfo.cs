@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using Google.GData.YouTube;
@@ -166,8 +164,7 @@ namespace YouTubePlugin
               Regex rx = new Regex(@"\\[uU]([0-9A-F]{4})");
               result = rx.Replace(result, match => ((char)Int32.Parse(match.Value.Substring(2), NumberStyles.HexNumber)).ToString());
 
-              NameValueCollection qscoll =
-                System.Web.HttpUtility.ParseQueryString(System.Web.HttpUtility.HtmlDecode(result));
+              NameValueCollection qscoll = HttpUtility.ParseQueryString(HttpUtility.HtmlDecode(result));
               foreach (string s in qscoll.AllKeys)
               {
                 Items.Add(s, qscoll[s]);
@@ -187,8 +184,7 @@ namespace YouTubePlugin
 
 
           ArtistItem artistItem = ArtistManager.Instance.Grabber.GetFromVideoSite(site);
-          ArtistManager.Instance.SitesCache.Add(new SiteContent()
-                                                  {SIte = site, ArtistId = artistItem.Id, VideoId = videoId});
+          ArtistManager.Instance.SitesCache.Add(new SiteContent {SIte = site, ArtistId = artistItem.Id, VideoId = videoId});
           ArtistManager.Instance.AddArtist(artistItem);
 
           Regex regexObj = new Regex(", \"t\": \"(?<token>.*?)\"", RegexOptions.Singleline);

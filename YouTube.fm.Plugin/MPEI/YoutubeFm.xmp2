@@ -905,7 +905,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>8</Minor>
       <Build>2</Build>
-      <Revision>271</Revision>
+      <Revision>274</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse, play, download YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
@@ -1456,7 +1456,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{deb3b867-bc58-4462-aa35-4ba02242a86d}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{4fc8ae45-e819-428b-87f6-b693d727e2dc}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
