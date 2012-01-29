@@ -124,6 +124,8 @@ namespace YouTubePlugin
       GetID = GetWindowId();
       Youtube2MP._settings = _setting;
       Youtube2MP.service = service;
+      Youtube2MP.VideoDownloader = VideoDownloader;
+
       updateStationLogoTimer.AutoReset = true;
       updateStationLogoTimer.Enabled = false;
       updateStationLogoTimer.Elapsed += OnDownloadTimedEvent;
@@ -316,9 +318,13 @@ namespace YouTubePlugin
 
     private static bool ShowFullScreenWindowHandler()
     {
-      if (g_Player.HasVideo )
+      if (g_Player.HasVideo && Youtube2MP.YouTubePlaying)
       {
-        if (GUIWindowManager.ActiveWindow == 29054) return true;
+        if (GUIWindowManager.ActiveWindow == 29054)
+        {
+          GUIGraphicsContext.IsFullScreenVideo = true;
+          return true;
+        }
 
         GUIWindowManager.ActivateWindow(29054);
         GUIGraphicsContext.IsFullScreenVideo = true;

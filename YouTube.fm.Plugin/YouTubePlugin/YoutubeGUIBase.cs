@@ -36,7 +36,7 @@ namespace YouTubePlugin
   {
     public Settings _setting = new Settings();
     protected YoutubePlaylistPlayer playlistPlayer;
-    public Timer updateStationLogoTimer = new System.Timers.Timer(0.3 * 1000);
+    public Timer updateStationLogoTimer = new Timer(0.3 * 1000);
     public WebClient Client = new WebClient();
     public Queue downloaQueue = new Queue();
     private DownloadFileObject curentDownlodingFile;
@@ -273,14 +273,7 @@ namespace YouTubePlugin
 
     public void Err_message(string message)
     {
-      GUIDialogOK dlgOK = (GUIDialogOK)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_OK);
-      if (dlgOK != null)
-      {
-        dlgOK.SetHeading(25660);
-        dlgOK.SetLine(1, message);
-        dlgOK.SetLine(2, "");
-        dlgOK.DoModal(GetID);
-      }
+      Youtube2MP.Err_message(message);
     }
 
 
@@ -319,8 +312,10 @@ namespace YouTubePlugin
         GUIWaitCursor.Hide();
         VideoInfo qa = SelectQuality(vid);
         if (qa.Quality == VideoQuality.Unknow)
+        {
+          Youtube2MP.PlayBegin = false;
           return;
-
+        }
         GUIWaitCursor.Show();
         Youtube2MP.temp_player.Reset();
         Youtube2MP.temp_player.RepeatPlaylist = true;
@@ -377,97 +372,42 @@ namespace YouTubePlugin
           Err_message("Unable to playback the item ! ");
         }
       }      
+      GUIWaitCursor.Hide();
+      Youtube2MP.PlayBegin = false;
     }
 
     public void DoPlay(YouTubeEntry vid, bool fullscr, GUIListControl facade)
     {
+      if (Youtube2MP.PlayBegin)
+        return;
+
+      Youtube2MP.PlayBegin = true;
       PlayParams playParams = new PlayParams() {facade = facade, fullscr = fullscr, vid = vid};
 
+      BackgroundWorker playbackgroundWorker = new BackgroundWorker();
+      playbackgroundWorker.DoWork += new DoWorkEventHandler(playbackgroundWorker_DoWork);
+      GUIWaitCursor.Init();
+      GUIWaitCursor.Show();
+      playbackgroundWorker.RunWorkerAsync(playParams);
       //Thread _thread = new Thread(new ParameterizedThreadStart(BackGroundDoPlay));
       //_thread.Start(playParams);
-      BackGroundDoPlay(playParams);
+    }
+
+    void playbackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+    {
+      BackGroundDoPlay(e.Argument);      
     }
 
     public VideoInfo SelectQuality(YouTubeEntry vid)
     {
-      VideoInfo info = new VideoInfo();
-      info.Get(Youtube2MP.GetVideoId(vid));
-      if (!string.IsNullOrEmpty(info.Reason))
-      {
-        Err_message(info.Reason);
-        info.Quality = VideoQuality.Unknow;
-        return info;
-      }
-
-      switch (Youtube2MP._settings.VideoQuality)
-      {
-        case 0:
-          info.Quality = VideoQuality.Normal;
-          break;
-        case 1:
-          info.Quality = VideoQuality.High;
-          break;
-        case 2:
-          info.Quality = VideoQuality.HD;
-          break;
-        case 3:
-          info.Quality = VideoQuality.FullHD;
-          break;
-        case 4:
-          {
-            string title = vid.Title.Text;
-            if (info.FmtMap.Contains("18"))
-              info.Quality = VideoQuality.High;
-            if (info.FmtMap.Contains("22"))
-              info.Quality = VideoQuality.HD;
-            if (info.FmtMap.Contains("37"))
-              info.Quality = VideoQuality.FullHD;
-            break;
-          }
-        case 5:
-          {
-
-            GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_MENU);
-            if (dlg == null) info.Quality = VideoQuality.Normal;
-            dlg.Reset();
-            dlg.SetHeading("Select video quality");
-            dlg.Add("Normal quality");
-            dlg.Add("High quality");
-            if (info.FmtMap.Contains("22"))
-            {
-              dlg.Add("HD quality");
-            }
-            if (info.FmtMap.Contains("37"))
-            {
-              dlg.Add("Full HD quality");
-            }
-            dlg.DoModal(GetID);
-            if (dlg.SelectedId == -1) info.Quality = VideoQuality.Unknow;
-            switch (dlg.SelectedLabel)
-            {
-              case 0:
-                info.Quality = VideoQuality.Normal;
-                break;
-              case 1:
-                info.Quality = VideoQuality.High;
-                break;
-              case 2:
-                info.Quality = VideoQuality.HD;
-                break;
-              case 3:
-                info.Quality = VideoQuality.FullHD;
-                break;
-            }
-          }
-          break;
-      }
-      return info;
+      return Youtube2MP.SelectQuality(vid);
     }
 
     void g_Player_PlayBackEnded(g_Player.MediaType type, string filename)
     {
       try
       {
+        Youtube2MP.YouTubePlaying = false;
         g_Player.Release();
         g_Player.PlayBackStopped -= g_Player_PlayBackStopped;
         g_Player.PlayBackEnded -= g_Player_PlayBackEnded;
@@ -485,6 +425,7 @@ namespace YouTubePlugin
     {
       try
       {
+        Youtube2MP.YouTubePlaying = false;
         g_Player.Release();
         g_Player.PlayBackStopped -= g_Player_PlayBackStopped;
         g_Player.PlayBackEnded -= g_Player_PlayBackEnded;

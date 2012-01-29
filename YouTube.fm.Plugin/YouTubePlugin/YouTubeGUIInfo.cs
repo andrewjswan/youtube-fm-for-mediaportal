@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Collections.Generic;
+using System.Net;
 using System.Timers;
 using System.Threading;
 using Google.GData.Client;
@@ -29,6 +30,7 @@ namespace YouTubePlugin
     #region variabiles
     public System.Timers.Timer infoTimer = new System.Timers.Timer(2 * 1000);
     private System.Timers.Timer _lastFmTimer = new System.Timers.Timer(60 * 1000);
+    private System.Timers.Timer _labelTimer = new System.Timers.Timer(10 * 1000);
     BackgroundWorker backgroundWorker = new BackgroundWorker();
 
     #endregion
@@ -66,6 +68,13 @@ namespace YouTubePlugin
       Youtube2MP.temp_player.Init();
       backgroundWorker.DoWork += backgroundWorker_DoWork;
       _lastFmTimer.Elapsed += _lastFmTimer_Elapsed;
+      _labelTimer.Elapsed += _labelTimer_Elapsed;
+    }
+
+    void _labelTimer_Elapsed(object sender, ElapsedEventArgs e)
+    {
+      GUIPropertyManager.SetProperty("#Youtube.fm.FullScreen.ShowTitle", "false");
+      _labelTimer.Stop();
     }
 
     void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -130,10 +139,13 @@ namespace YouTubePlugin
 
         item.FileName = Youtube2MP.StreamPlaybackUrl(en, info);
         Youtube2MP.NowPlayingEntry = en;
-
+       
         BackgroundWorker playBeginWorker = new BackgroundWorker();
         playBeginWorker.DoWork += playBeginWorker_DoWork;
         playBeginWorker.RunWorkerAsync();
+        Youtube2MP.YouTubePlaying = true;
+        GUIPropertyManager.SetProperty("#Youtube.fm.FullScreen.ShowTitle", "true");
+        _labelTimer.Start();
       }
       catch (Exception exception)
       {
@@ -202,6 +214,7 @@ namespace YouTubePlugin
     void updateStationLogoTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
       backgroundWorker.RunWorkerAsync();
+      WebClient fanartclient = new WebClient();
       try
       {
         infoTimer.Enabled = false;
@@ -215,7 +228,7 @@ namespace YouTubePlugin
           }
           else
           {
-            if (Youtube2MP._settings.LoadOnlineFanart && !Client.IsBusy)
+            if (Youtube2MP._settings.LoadOnlineFanart)
             {
               HTBFanArt fanart = new HTBFanArt();
               if (!File.Exists(file))
@@ -224,7 +237,7 @@ namespace YouTubePlugin
                 if (fanart.ImageUrls.Count > 0)
                 {
                   Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
-                  Client.DownloadFile(fanart.ImageUrls[0].Url, file);
+                  fanartclient.DownloadFile(fanart.ImageUrls[0].Url, file);
                   GUIPropertyManager.SetProperty("#Youtube.fm.NowPlaying.Video.FanArt", file);
                 }
               }

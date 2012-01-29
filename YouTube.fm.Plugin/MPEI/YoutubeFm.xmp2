@@ -279,6 +279,20 @@
               <ZipFileName>Installer{GenericSkinFile}\{3767ac8c-87eb-4c3e-85ed-740998bbaf16}-NextPage.png</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\Media\NextPage.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeFullScreen.xml</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{f842177e-bd5d-4093-bd50-98a38e68919e}-youtubeFullScreen.xml</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\youtubeFullScreen.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeOSD.xml</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{2e2f21b3-d2e4-4cc8-a6bf-817e38428a44}-youtubeOSD.xml</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\youtubeOSD.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -542,6 +556,20 @@
               <LocalFileName>skin\DefaultWide\Media\NextPage.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{2894cf92-55dc-4af0-b5e9-5e0bbe2d7f90}-NextPage.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\NextPage.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeFullScreen.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{24775459-6e3b-4a3a-b931-2e9334601e6f}-youtubeFullScreen.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeFullScreen.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeOSD.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{fbe185ec-96b1-4d99-99c8-6f20ea54b067}-youtubeOSD.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeOSD.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -873,26 +901,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
     </Items>
   </Dependencies>
   <PluginDependencies>
-    <Items>
-      <PluginDependencyItem AssemblyName="YouTubePlugin.dll">
-        <CompatibleVersion>
-          <Items>
-            <CompatibleVersionItem>
-              <MinRequiredVersion>1.1.7.0</MinRequiredVersion>
-              <DesignedForVersion>1.1.7.0</DesignedForVersion>
-            </CompatibleVersionItem>
-          </Items>
-        </CompatibleVersion>
-        <SubSystemsUsed>
-          <Items>
-            <SubSystemItem Name="MP.SkinEngine" />
-            <SubSystemItem Name="MP.Config" />
-            <SubSystemItem Name="MP.Players.Video" />
-            <SubSystemItem Name="MP.Players.Music" />
-          </Items>
-        </SubSystemsUsed>
-      </PluginDependencyItem>
-    </Items>
+    <Items />
   </PluginDependencies>
   <GeneralInfo>
     <Name>YouTube.Fm</Name>
@@ -905,13 +914,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>8</Minor>
       <Build>2</Build>
-      <Revision>274</Revision>
+      <Revision>275</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse, play, download YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.8.2.268.mpe1</OnlineLocation>
-    <ReleaseDate>2012-01-26T17:28:13</ReleaseDate>
+    <ReleaseDate>2012-01-28T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -1207,6 +1216,20 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{GenericSkinFile}\{3767ac8c-87eb-4c3e-85ed-740998bbaf16}-NextPage.png</ZipFileName>
         <DestinationFilename>%Skin%\[DEFAULT]\Media\NextPage.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1>DefaultWide</Param1>
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>skin\DefaultWide\youtubeFullScreen.xml</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{f842177e-bd5d-4093-bd50-98a38e68919e}-youtubeFullScreen.xml</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\youtubeFullScreen.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1>DefaultWide</Param1>
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>skin\DefaultWide\youtubeOSD.xml</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{2e2f21b3-d2e4-4cc8-a6bf-817e38428a44}-youtubeOSD.xml</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\youtubeOSD.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -1456,7 +1479,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{4fc8ae45-e819-428b-87f6-b693d727e2dc}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{12a98c75-fc70-49dd-b17f-4a74b2ec15e0}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

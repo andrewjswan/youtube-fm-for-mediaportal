@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
 using Google.GData.YouTube;
 using Google.YouTube;
@@ -23,6 +24,9 @@ namespace YouTubePlugin
   static public class Youtube2MP
   {
     public const int ITEM_IN_LIST = 25;
+    public static bool PlayBegin { get; set; }
+    public static bool YouTubePlaying { get; set; }
+    public static FileDownloader VideoDownloader { get; set; }
 
     public static YouTubeService service = new YouTubeService("My YouTube Videos For MediaPortal", "AI39si621gfdjmMcOzulF3QlYFX_vWCqdXFn_Y5LzIgHolPoSetAUHxDPx8u4YXZVkU7CmeiObnzavrsjL5GswY_GGEmen9kdg");
 
@@ -40,6 +44,8 @@ namespace YouTubePlugin
 
     static Youtube2MP()
     {
+      PlayBegin = false;
+      YouTubePlaying = false;
       AddSiteItem(new StandardFeedItem());
       AddSiteItem(new SearchVideo());
       AddSiteItem(new SearchHistory());
@@ -319,6 +325,93 @@ namespace YouTubePlugin
       return " ";
     }
 
+    public static void Err_message(string message)
+    {
+      GUIDialogOK dlgOK = (GUIDialogOK)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_OK);
+      if (dlgOK != null)
+      {
+        dlgOK.SetHeading(25660);
+        dlgOK.SetLine(1, message);
+        dlgOK.SetLine(2, "");
+        dlgOK.DoModal(GUIWindowManager.ActiveWindow);
+      }
+    }
+
+    public static VideoInfo SelectQuality(YouTubeEntry vid)
+    {
+      VideoInfo info = new VideoInfo();
+      info.Get(Youtube2MP.GetVideoId(vid));
+      if (!string.IsNullOrEmpty(info.Reason))
+      {
+        Err_message(info.Reason);
+        info.Quality = VideoQuality.Unknow;
+        return info;
+      }
+
+      switch (Youtube2MP._settings.VideoQuality)
+      {
+        case 0:
+          info.Quality = VideoQuality.Normal;
+          break;
+        case 1:
+          info.Quality = VideoQuality.High;
+          break;
+        case 2:
+          info.Quality = VideoQuality.HD;
+          break;
+        case 3:
+          info.Quality = VideoQuality.FullHD;
+          break;
+        case 4:
+          {
+            string title = vid.Title.Text;
+            if (info.FmtMap.Contains("18"))
+              info.Quality = VideoQuality.High;
+            if (info.FmtMap.Contains("22"))
+              info.Quality = VideoQuality.HD;
+            if (info.FmtMap.Contains("37"))
+              info.Quality = VideoQuality.FullHD;
+            break;
+          }
+        case 5:
+          {
+
+            GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+            if (dlg == null) info.Quality = VideoQuality.Normal;
+            dlg.Reset();
+            dlg.SetHeading("Select video quality");
+            dlg.Add("Normal quality");
+            dlg.Add("High quality");
+            if (info.FmtMap.Contains("22"))
+            {
+              dlg.Add("HD quality");
+            }
+            if (info.FmtMap.Contains("37"))
+            {
+              dlg.Add("Full HD quality");
+            }
+            dlg.DoModal(GUIWindowManager.ActiveWindow);
+            if (dlg.SelectedId == -1) info.Quality = VideoQuality.Unknow;
+            switch (dlg.SelectedLabel)
+            {
+              case 0:
+                info.Quality = VideoQuality.Normal;
+                break;
+              case 1:
+                info.Quality = VideoQuality.High;
+                break;
+              case 2:
+                info.Quality = VideoQuality.HD;
+                break;
+              case 3:
+                info.Quality = VideoQuality.FullHD;
+                break;
+            }
+          }
+          break;
+      }
+      return info;
+    }
 
   }
 }
