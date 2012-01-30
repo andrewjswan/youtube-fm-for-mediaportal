@@ -52,6 +52,7 @@ namespace YouTubePlugin
         {
           if (translatedAction.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_SHOW_OSD)
           {
+            GUIPropertyManager.SetProperty("#Youtube.fm.FullScreen.ShowTitle", "false");
             base.OnAction(translatedAction);
             if (GUIWindowManager.VisibleOsd == GUIWindow.Window.WINDOW_OSD)
             {
@@ -66,6 +67,33 @@ namespace YouTubePlugin
           }
         }
       }
+      if (action.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM || action.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_CHAPTER)
+      {
+        if (Youtube2MP.player.CurrentSong > -1)
+        {
+          Youtube2MP.player.PlayNext();
+          return;
+        }
+        if (Youtube2MP.temp_player.CurrentSong > -1)
+        {
+          Youtube2MP.temp_player.PlayNext();
+          return;
+        }
+      }
+
+      if (action.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM || action.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_CHAPTER)
+      {
+        if (Youtube2MP.player.CurrentSong > -1)
+        {
+          Youtube2MP.player.PlayPrevious();
+          return;
+        }
+        if (Youtube2MP.temp_player.CurrentSong > -1)
+        {
+          Youtube2MP.temp_player.PlayPrevious();
+          return;
+        }
+      }
       base.OnAction(action);
     }
 
@@ -75,7 +103,7 @@ namespace YouTubePlugin
 
       if (message.Message == GUIMessage.MessageType.GUI_MSG_WINDOW_INIT)
       {
-        GUIVideoOSD osd = (GUIVideoOSD)GUIWindowManager.GetWindow(29055);
+        YouTubeGUIOSD osd = (YouTubeGUIOSD)GUIWindowManager.GetWindow(29055);
         typeof(GUIVideoFullscreen).InvokeMember("_osdWindow", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.SetField, null, this, new object[] { osd });
       }
 

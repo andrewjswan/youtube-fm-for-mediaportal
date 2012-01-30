@@ -322,6 +322,10 @@ namespace YouTubePlugin
         Youtube2MP.temp_player.CurrentPlaylistType = PlayListType.PLAYLIST_MUSIC_VIDEO;
         PlayList playlist = Youtube2MP.temp_player.GetPlaylist(PlayListType.PLAYLIST_MUSIC_VIDEO);
         playlist.Clear();
+
+        g_Player.PlayBackStopped -= g_Player_PlayBackStopped;
+        g_Player.PlayBackEnded -= g_Player_PlayBackEnded;
+
         g_Player.PlayBackStopped += g_Player_PlayBackStopped;
         g_Player.PlayBackEnded += g_Player_PlayBackEnded;
 
@@ -376,6 +380,11 @@ namespace YouTubePlugin
       Youtube2MP.PlayBegin = false;
     }
 
+    void g_Player_PlayBackChanged(g_Player.MediaType type, int stoptime, string filename)
+    {
+      Youtube2MP.YouTubePlaying = false;
+    }
+
     public void DoPlay(YouTubeEntry vid, bool fullscr, GUIListControl facade)
     {
       if (Youtube2MP.PlayBegin)
@@ -407,7 +416,6 @@ namespace YouTubePlugin
     {
       try
       {
-        Youtube2MP.YouTubePlaying = false;
         g_Player.Release();
         g_Player.PlayBackStopped -= g_Player_PlayBackStopped;
         g_Player.PlayBackEnded -= g_Player_PlayBackEnded;
@@ -425,7 +433,6 @@ namespace YouTubePlugin
     {
       try
       {
-        Youtube2MP.YouTubePlaying = false;
         g_Player.Release();
         g_Player.PlayBackStopped -= g_Player_PlayBackStopped;
         g_Player.PlayBackEnded -= g_Player_PlayBackEnded;

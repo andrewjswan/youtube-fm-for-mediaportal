@@ -30,25 +30,25 @@
       <colordiffuse>eeffffff</colordiffuse>
       <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
     </control>
-	        <control>
-            <id>0</id>
+	<control>
+            <id>118</id>
             <description>Video Title Value</description>
             <type>fadelabel</type>
             <posX>20</posX>
             <posY>540</posY>
-            <width>600</width>
+            <width>1200</width>
             <font>font14</font>
             <textcolor>ffffffff</textcolor>            
             <label>#Youtube.fm.NowPlaying.Video.Title</label>
 			<visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
     </control>
 	<control>
-            <id>0</id>
+            <id>119</id>
             <description>Video Title Value</description>
             <type>fadelabel</type>
             <posX>20</posX>
             <posY>570</posY>
-            <width>600</width>
+            <width>1200</width>
             <font>font14</font>
             <textcolor>ffffffff</textcolor>            
             <label>#Youtube.fm.NowPlaying.Artist.Name</label>

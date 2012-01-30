@@ -312,13 +312,13 @@ namespace YouTubePlugin
           Log.Error(exception);
         }
       }
-      g_Player.ShowFullScreenWindowVideo = ShowFullScreenWindowHandler;
       return Load(GUIGraphicsContext.Skin + @"\youtubevideosbase.xml");
     }
 
     private static bool ShowFullScreenWindowHandler()
     {
-      if (g_Player.HasVideo && Youtube2MP.YouTubePlaying)
+      if (g_Player.HasVideo && Youtube2MP.NowPlayingEntry != null &&
+          Youtube2MP.NowPlayingEntry.Title.Text == g_Player.CurrentFile)
       {
         if (GUIWindowManager.ActiveWindow == 29054)
         {
@@ -461,7 +461,7 @@ namespace YouTubePlugin
     {
       base.OnPageLoad();
       _backPos = 0;
-
+      g_Player.ShowFullScreenWindowVideo = ShowFullScreenWindowHandler;
       foreach (string name in Translation.Strings.Keys)
       {
         SetProperty("#Youtube.fm.Translation." + name + ".Label", Translation.Strings[name]);
@@ -668,6 +668,35 @@ namespace YouTubePlugin
           }
         }
       }
+
+      if (action.wID == Action.ActionType.ACTION_NEXT_ITEM || action.wID == Action.ActionType.ACTION_NEXT_CHAPTER)
+      {
+        if (Youtube2MP.player.CurrentSong > -1)
+        {
+          Youtube2MP.player.PlayNext();
+          return;
+        }
+        if (Youtube2MP.temp_player.CurrentSong > -1)
+        {
+          Youtube2MP.temp_player.PlayNext();
+          return;
+        }
+      }
+
+      if (action.wID == Action.ActionType.ACTION_PREV_ITEM || action.wID == Action.ActionType.ACTION_PREV_CHAPTER)
+      {
+        if (Youtube2MP.player.CurrentSong > -1)
+        {
+          Youtube2MP.player.PlayPrevious();
+          return;
+        }
+        if (Youtube2MP.temp_player.CurrentSong > -1)
+        {
+          Youtube2MP.temp_player.PlayPrevious();
+          return;
+        }
+      }
+
 
       if (action.wID == Action.ActionType.ACTION_PARENT_DIR)
       {

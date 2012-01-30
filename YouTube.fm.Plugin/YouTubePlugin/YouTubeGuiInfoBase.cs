@@ -386,5 +386,38 @@ namespace YouTubePlugin
       base.OnClicked(controlId, control, actionType);
     }
 
+    public override void OnAction(Action action)
+    {
+      if (action.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM || action.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_CHAPTER)
+      {
+        if (Youtube2MP.player.CurrentSong > -1)
+        {
+          Youtube2MP.player.PlayNext();
+          return;
+        }
+        if (Youtube2MP.temp_player.CurrentSong > -1)
+        {
+          Youtube2MP.temp_player.PlayNext();
+          return;
+        }
+      }
+
+      if (action.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM || action.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_CHAPTER)
+      {
+        if (Youtube2MP.player.CurrentSong > -1)
+        {
+          Youtube2MP.player.PlayPrevious();
+          return;
+        }
+        if (Youtube2MP.temp_player.CurrentSong > -1)
+        {
+          Youtube2MP.temp_player.PlayPrevious();
+          return;
+        }
+      }
+      base.OnAction(action);
+    }
+
+
   }
 }

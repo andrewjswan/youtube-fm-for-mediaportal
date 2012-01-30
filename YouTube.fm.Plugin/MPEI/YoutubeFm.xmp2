@@ -914,13 +914,13 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>8</Minor>
       <Build>2</Build>
-      <Revision>275</Revision>
+      <Revision>276</Revision>
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse, play, download YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.8.2.268.mpe1</OnlineLocation>
-    <ReleaseDate>2012-01-28T17:28:13</ReleaseDate>
+    <ReleaseDate>2012-01-29T17:28:13</ReleaseDate>
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -1479,7 +1479,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{12a98c75-fc70-49dd-b17f-4a74b2ec15e0}-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{bf127173-b9a5-41a7-bbbe-679907c99339}-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

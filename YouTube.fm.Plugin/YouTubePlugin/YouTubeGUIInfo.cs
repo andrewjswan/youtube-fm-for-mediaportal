@@ -30,7 +30,7 @@ namespace YouTubePlugin
     #region variabiles
     public System.Timers.Timer infoTimer = new System.Timers.Timer(2 * 1000);
     private System.Timers.Timer _lastFmTimer = new System.Timers.Timer(60 * 1000);
-    private System.Timers.Timer _labelTimer = new System.Timers.Timer(10 * 1000);
+    private System.Timers.Timer _labelTimer = new System.Timers.Timer(15 * 1000);
     BackgroundWorker backgroundWorker = new BackgroundWorker();
 
     #endregion
