@@ -37,7 +37,7 @@ namespace YouTubePlugin
 {
     public class YoutubePlaylistPlayer
     {
-        public delegate void EventHandler(PlayListItem en);
+        public delegate void EventHandler(YoutubePlaylistPlayer sender, PlayListItem en);
         public event EventHandler PlayBegin;
         public delegate void StopEventHandler();
         public event StopEventHandler PlayStop;
@@ -515,7 +515,7 @@ namespace YouTubePlugin
             PlayListItem item = playlist[_currentItem];
             if (PlayBegin != null)
             {
-              PlayBegin(item);
+              PlayBegin(this,item);
             }
 
             //GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, _currentItem, 0, null);

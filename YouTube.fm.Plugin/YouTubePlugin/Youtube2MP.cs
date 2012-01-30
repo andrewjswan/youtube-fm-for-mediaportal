@@ -132,6 +132,8 @@ namespace YouTubePlugin
     }
 
     public static YouTubeEntry NowPlayingEntry { get; set; }
+    public static YouTubeEntry NextPlayingEntry { get; set; }
+
 
     static public string getIDSimple(string googleID)
     {

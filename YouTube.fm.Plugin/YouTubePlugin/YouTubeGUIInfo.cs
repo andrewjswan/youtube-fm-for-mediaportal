@@ -111,7 +111,7 @@ namespace YouTubePlugin
     }
 
 
-    void player_PlayBegin(PlayListItem item)
+    void player_PlayBegin(YoutubePlaylistPlayer playlit, PlayListItem item)
     {
       try
       {
@@ -139,7 +139,13 @@ namespace YouTubePlugin
 
         item.FileName = Youtube2MP.StreamPlaybackUrl(en, info);
         Youtube2MP.NowPlayingEntry = en;
-       
+        Youtube2MP.NextPlayingEntry = null;
+        if (playlit.GetNextItem() != null)
+        {
+          VideoInfo nextinfo = playlit.GetNextItem().MusicTag as VideoInfo;
+          if (nextinfo != null)
+            Youtube2MP.NextPlayingEntry = nextinfo.Entry;
+        }
         BackgroundWorker playBeginWorker = new BackgroundWorker();
         playBeginWorker.DoWork += playBeginWorker_DoWork;
         playBeginWorker.RunWorkerAsync();
@@ -157,21 +163,22 @@ namespace YouTubePlugin
     void playBeginWorker_DoWork(object sender, DoWorkEventArgs e)
     {
       SetLabels(Youtube2MP.NowPlayingEntry, "NowPlaying");
-
-      GUIPropertyManager.SetProperty("#Play.Current.Title", GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Artist.Name"));
-      GUIPropertyManager.SetProperty("#Play.Current.Artist", GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Video.Title"));
+      GUIPropertyManager.SetProperty("#Play.Current.Title",
+                                     GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Artist.Name"));
+      GUIPropertyManager.SetProperty("#Play.Current.Artist",
+                                     GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Video.Title"));
 
       GUIPropertyManager.SetProperty("#Play.Current.Thumb", GetLocalImageFileName(
         GetBestUrl(Youtube2MP.NowPlayingEntry.Media.Thumbnails)));
 
       if (Youtube2MP.NowPlayingEntry.Rating != null)
         GUIPropertyManager.SetProperty("#Play.Current.Rating",
-                                       (Youtube2MP.NowPlayingEntry.Rating.Average * 2).ToString());
+                                       (Youtube2MP.NowPlayingEntry.Rating.Average*2).ToString());
 
       DatabaseProvider.InstanInstance.SavePlayData(Youtube2MP.NowPlayingEntry, DateTime.Now);
       relatated.Clear();
       similar.Clear();
-      if (GUIWindowManager.ActiveWindow == (int)GetID)
+      if (GUIWindowManager.ActiveWindow == (int) GetID)
       {
         if (listControl != null)
         {
@@ -188,7 +195,16 @@ namespace YouTubePlugin
       }
       infoTimer.Enabled = true;
       _lastFmTimer.Start();
-     
+
+
+      if (Youtube2MP.NextPlayingEntry != null)
+      {
+        SetLabels(Youtube2MP.NextPlayingEntry, "Next");
+      }
+      else
+      {
+        ClearLabels("Next");
+      }
     }
 
     public override bool Init()

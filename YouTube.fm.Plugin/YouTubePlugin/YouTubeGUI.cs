@@ -119,6 +119,7 @@ namespace YouTubePlugin
 
     public YouTubeGUI()
     {
+      VideoDownloader = new FileDownloader();
       _setting.Load();
       _setting.CreateFolders();
       GetID = GetWindowId();
