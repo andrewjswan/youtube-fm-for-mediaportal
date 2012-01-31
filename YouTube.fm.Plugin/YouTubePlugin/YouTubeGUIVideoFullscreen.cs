@@ -126,6 +126,7 @@ namespace YouTubePlugin
       dlg.Reset();
       dlg.SetHeading(Translation.ContextMenu); // menu
       dlg.AddLocalizedString(941);
+      dlg.AddLocalizedString(970);
       dlg.Add(Translation.Info);
       if (Youtube2MP.service.Credentials != null)
       {
@@ -187,6 +188,12 @@ namespace YouTubePlugin
       if (dlg.SelectedId == 941)
       {
         ShowAspectRatioMenu();
+      }
+      if (dlg.SelectedId == 970)
+      {
+        GUIWindowManager.IsOsdVisible = false;
+        GUIGraphicsContext.IsFullScreenVideo = false;
+        GUIWindowManager.ShowPreviousWindow();
       }
     }
 
