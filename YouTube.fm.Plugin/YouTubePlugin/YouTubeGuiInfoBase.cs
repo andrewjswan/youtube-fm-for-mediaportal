@@ -209,6 +209,8 @@ namespace YouTubePlugin
 
     protected override void OnShowContextMenu()
     {
+      if (listControl == null || listControl.SelectedListItem == null)
+        return;
       GUIListItem selectedItem = listControl.SelectedListItem;
       YouTubeEntry videoEntry = selectedItem.MusicTag as YouTubeEntry;
       GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);

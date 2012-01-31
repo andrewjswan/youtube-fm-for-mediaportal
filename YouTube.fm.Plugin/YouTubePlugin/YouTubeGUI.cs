@@ -472,7 +472,7 @@ namespace YouTubePlugin
       ShowPanel();
 
       GUIControl.FocusControl(GetID, listControl.GetID);
-      GUIPropertyManager.SetProperty("#nowplaying", " ");
+
       if (MessageGUI.Item != null)
       {
         ArtistItem artistItem = MessageGUI.Item as ArtistItem;
@@ -490,6 +490,8 @@ namespace YouTubePlugin
         {
           ClearLabels("Curent");
           ClearLabels("NowPlaying");
+          ClearLabels("Next");
+          GUIPropertyManager.SetProperty("#nowplaying", " ");
           GUIPropertyManager.SetProperty("#Youtube.fm.IsDownloading", "false");
           GUIPropertyManager.SetProperty("#Youtube.fm.Download.Progress", "0");
           GUIPropertyManager.SetProperty("#Youtube.fm.Download.Item", " ");
@@ -809,6 +811,7 @@ namespace YouTubePlugin
           {
             GUIWaitCursor.Init();
             GUIWaitCursor.Show();
+            selectedItem.MusicTag = vide;
             DoPlay(vide, true, listControl.ListLayout);
           }
         }

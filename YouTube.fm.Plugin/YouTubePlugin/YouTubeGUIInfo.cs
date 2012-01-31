@@ -137,6 +137,7 @@ namespace YouTubePlugin
           }
         }
 
+        en.Title.Text = item.Description;
         item.FileName = Youtube2MP.StreamPlaybackUrl(en, info);
         Youtube2MP.NowPlayingEntry = en;
         Youtube2MP.NextPlayingEntry = null;
@@ -151,6 +152,7 @@ namespace YouTubePlugin
         playBeginWorker.RunWorkerAsync();
         Youtube2MP.YouTubePlaying = true;
         GUIPropertyManager.SetProperty("#Youtube.fm.FullScreen.ShowTitle", "true");
+        _labelTimer.Stop();
         _labelTimer.Start();
       }
       catch (Exception exception)
@@ -162,7 +164,6 @@ namespace YouTubePlugin
 
     void playBeginWorker_DoWork(object sender, DoWorkEventArgs e)
     {
-      SetLabels(Youtube2MP.NowPlayingEntry, "NowPlaying");
       GUIPropertyManager.SetProperty("#Play.Current.Title",
                                      GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Artist.Name"));
       GUIPropertyManager.SetProperty("#Play.Current.Artist",
@@ -175,6 +176,7 @@ namespace YouTubePlugin
         GUIPropertyManager.SetProperty("#Play.Current.Rating",
                                        (Youtube2MP.NowPlayingEntry.Rating.Average*2).ToString());
 
+      SetLabels(Youtube2MP.NowPlayingEntry, "NowPlaying");
       DatabaseProvider.InstanInstance.SavePlayData(Youtube2MP.NowPlayingEntry, DateTime.Now);
       relatated.Clear();
       similar.Clear();

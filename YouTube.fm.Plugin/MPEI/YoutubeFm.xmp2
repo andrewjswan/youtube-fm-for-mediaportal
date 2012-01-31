@@ -279,6 +279,22 @@
               <ZipFileName>Installer{GenericSkinFile}\{3767ac8c-87eb-4c3e-85ed-740998bbaf16}-NextPage.png</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\Media\NextPage.png</DestinationFilename>
             </FileItem>
+<<<<<<< .mine
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeFullScreen.xml</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{6977bb20-1a53-49fb-9702-8c2ede1e4432}-youtubeFullScreen.xml</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\youtubeFullScreen.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1>DefaultWide</Param1>
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeOSD.xml</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{4853c70b-a5d4-4edc-8b8f-5e5bba97146a}-youtubeOSD.xml</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\youtubeOSD.xml</DestinationFilename>
+            </FileItem>
+=======
             <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
               <Param1>DefaultWide</Param1>
               <UpdateOption>NeverOverwrite</UpdateOption>
@@ -293,6 +309,7 @@
               <ZipFileName>Installer{GenericSkinFile}\{2e2f21b3-d2e4-4cc8-a6bf-817e38428a44}-youtubeOSD.xml</ZipFileName>
               <DestinationFilename>%Skin%\[DEFAULT]\youtubeOSD.xml</DestinationFilename>
             </FileItem>
+>>>>>>> .r278
           </Items>
         </Files>
       </GroupItem>
@@ -557,6 +574,22 @@
               <ZipFileName>Installer{CopyFile}\{2894cf92-55dc-4af0-b5e9-5e0bbe2d7f90}-NextPage.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\Media\NextPage.png</DestinationFilename>
             </FileItem>
+<<<<<<< .mine
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeFullScreen.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{adb194b1-9571-4d24-98ca-56e81789300e}-youtubeFullScreen.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeFullScreen.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>skin\DefaultWide\youtubeOSD.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{4f215aae-5c07-47b1-bba8-a113bff76c06}-youtubeOSD.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\youtubeOSD.xml</DestinationFilename>
+            </FileItem>
+=======
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -571,6 +604,7 @@
               <ZipFileName>Installer{CopyFile}\{fbe185ec-96b1-4d99-99c8-6f20ea54b067}-youtubeOSD.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\youtubeOSD.xml</DestinationFilename>
             </FileItem>
+>>>>>>> .r278
           </Items>
         </Files>
       </GroupItem>
@@ -914,13 +948,22 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>8</Minor>
       <Build>2</Build>
+<<<<<<< .mine
+      <Revision>279</Revision>
+=======
       <Revision>276</Revision>
+>>>>>>> .r278
     </Version>
     <ExtensionDescription>YouTube.fm is a plugin to browse, play, download YouTube music videos and make dynamic playlist using last.fm</ExtensionDescription>
     <VersionDescription />
     <DevelopmentStatus>Beta</DevelopmentStatus>
+<<<<<<< .mine
+    <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.8.2.258.mpe1</OnlineLocation>
+    <ReleaseDate>2012-01-31T17:28:13</ReleaseDate>
+=======
     <OnlineLocation>http://youtube-fm-for-mediaportal.googlecode.com/files/youtubefm.0.8.2.268.mpe1</OnlineLocation>
     <ReleaseDate>2012-01-29T17:28:13</ReleaseDate>
+>>>>>>> .r278
     <Tags>video, youtube, music video</Tags>
     <Location>d:\devel\vs2005\YouTube.fm.Plugin\MPEI\youtubefm.[Version].mpe1</Location>
     <Params>
@@ -1216,6 +1259,22 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{GenericSkinFile}\{3767ac8c-87eb-4c3e-85ed-740998bbaf16}-NextPage.png</ZipFileName>
         <DestinationFilename>%Skin%\[DEFAULT]\Media\NextPage.png</DestinationFilename>
       </FileItem>
+<<<<<<< .mine
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1>DefaultWide</Param1>
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>skin\DefaultWide\youtubeFullScreen.xml</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{6977bb20-1a53-49fb-9702-8c2ede1e4432}-youtubeFullScreen.xml</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\youtubeFullScreen.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1>DefaultWide</Param1>
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>skin\DefaultWide\youtubeOSD.xml</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{4853c70b-a5d4-4edc-8b8f-5e5bba97146a}-youtubeOSD.xml</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\youtubeOSD.xml</DestinationFilename>
+      </FileItem>
+=======
       <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
         <Param1>DefaultWide</Param1>
         <UpdateOption>NeverOverwrite</UpdateOption>
@@ -1230,6 +1289,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{GenericSkinFile}\{2e2f21b3-d2e4-4cc8-a6bf-817e38428a44}-youtubeOSD.xml</ZipFileName>
         <DestinationFilename>%Skin%\[DEFAULT]\youtubeOSD.xml</DestinationFilename>
       </FileItem>
+>>>>>>> .r278
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -1479,7 +1539,11 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>logo.png</LocalFileName>
+<<<<<<< .mine
+        <ZipFileName>Installer{CopyFile}\{29032035-60fd-4fcd-b503-da7c7a1e41cf}-logo.png</ZipFileName>
+=======
         <ZipFileName>Installer{CopyFile}\{bf127173-b9a5-41a7-bbbe-679907c99339}-logo.png</ZipFileName>
+>>>>>>> .r278
         <DestinationFilename />
       </FileItem>
     </Items>

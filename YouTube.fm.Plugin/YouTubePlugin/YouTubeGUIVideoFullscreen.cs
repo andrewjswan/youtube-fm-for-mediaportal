@@ -125,6 +125,7 @@ namespace YouTubePlugin
       }
       dlg.Reset();
       dlg.SetHeading(Translation.ContextMenu); // menu
+      dlg.AddLocalizedString(941);
       dlg.Add(Translation.Info);
       if (Youtube2MP.service.Credentials != null)
       {
@@ -181,9 +182,53 @@ namespace YouTubePlugin
             Youtube2MP.VideoDownloader.Entry = videoEntry;
           }
         }
-      
       }
 
+      if (dlg.SelectedId == 941)
+      {
+        ShowAspectRatioMenu();
+      }
+    }
+
+    private void ShowAspectRatioMenu()
+    {
+      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_MENU);
+      if (dlg == null)
+      {
+        return;
+      }
+      dlg.Reset();
+      dlg.SetHeading(941); // Change aspect ratio
+      dlg.AddLocalizedString(942); // Stretch
+      dlg.AddLocalizedString(943); // Normal
+      dlg.AddLocalizedString(944); // Original
+      dlg.AddLocalizedString(945); // Letterbox
+      dlg.AddLocalizedString(946); // Smart stretch
+      dlg.AddLocalizedString(947); // Zoom
+      dlg.AddLocalizedString(1190); //14:9
+
+      // set the focus to currently used mode
+      dlg.SelectedLabel = dlg.IndexOfItem(MediaPortal.Util.Utils.GetAspectRatioLocalizedString(GUIGraphicsContext.ARType));
+      // show dialog and wait for result
+//      _IsDialogVisible = true;
+      dlg.DoModal(GetID);
+//      _IsDialogVisible = false;
+
+      if (dlg.SelectedId == -1)
+      {
+        return;
+      }
+      //_timeStatusShowTime = (DateTime.Now.Ticks / 10000);
+
+      //string strStatus = "";
+
+      GUIGraphicsContext.ARType = MediaPortal.Util.Utils.GetAspectRatioByLangID(dlg.SelectedId);
+      //strStatus = GUILocalizeStrings.Get(dlg.SelectedId);
+
+      //GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_LABEL_SET, GetID, 0, (int)Control.LABEL_ROW1, 0, 0,
+      //                                null);
+      //msg.Label = strStatus;
+      //OnMessage(msg);
     }
   }
 }

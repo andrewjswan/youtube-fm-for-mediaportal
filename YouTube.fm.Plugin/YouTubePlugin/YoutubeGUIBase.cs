@@ -358,18 +358,18 @@ namespace YouTubePlugin
         Youtube2MP.temp_player.Play(0);
         GUIWaitCursor.Hide();
 
-        if (g_Player.Playing && fullscr)
-        {
-          if (_setting.ShowNowPlaying)
-          {
-            if (GUIWindowManager.ActiveWindow != 29052)
-              GUIWindowManager.ActivateWindow(29052);
-          }
-          else
-          {
-            g_Player.ShowFullScreenWindow();
-          }
-        }
+        //if (g_Player.Playing && fullscr)
+        //{
+        //  if (_setting.ShowNowPlaying)
+        //  {
+        //    if (GUIWindowManager.ActiveWindow != 29052)
+        //      GUIWindowManager.ActivateWindow(29052);
+        //  }
+        //  else
+        //  {
+        //    g_Player.ShowFullScreenWindow();
+        //  }
+        //}
 
         if (!g_Player.Playing)
         {
@@ -393,13 +393,14 @@ namespace YouTubePlugin
       Youtube2MP.PlayBegin = true;
       PlayParams playParams = new PlayParams() {facade = facade, fullscr = fullscr, vid = vid};
 
-      BackgroundWorker playbackgroundWorker = new BackgroundWorker();
-      playbackgroundWorker.DoWork += new DoWorkEventHandler(playbackgroundWorker_DoWork);
-      GUIWaitCursor.Init();
-      GUIWaitCursor.Show();
-      playbackgroundWorker.RunWorkerAsync(playParams);
-      //Thread _thread = new Thread(new ParameterizedThreadStart(BackGroundDoPlay));
-      //_thread.Start(playParams);
+      BackGroundDoPlay(playParams);      
+
+      //BackgroundWorker playbackgroundWorker = new BackgroundWorker();
+      //playbackgroundWorker.DoWork += new DoWorkEventHandler(playbackgroundWorker_DoWork);
+      //GUIWaitCursor.Init();
+      //GUIWaitCursor.Show();
+      //playbackgroundWorker.RunWorkerAsync(playParams);
+
     }
 
     void playbackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
