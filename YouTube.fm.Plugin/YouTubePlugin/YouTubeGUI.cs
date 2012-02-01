@@ -318,20 +318,26 @@ namespace YouTubePlugin
 
     private static bool ShowFullScreenWindowHandler()
     {
+      Log.Debug("[YoutuBe.FM] ShowFullScreenWindowHandler started");
+      GUIGraphicsContext.IsFullScreenVideo = true;
       if (g_Player.HasVideo && Youtube2MP.NowPlayingEntry != null &&
           Youtube2MP.NowPlayingEntry.Title.Text == g_Player.CurrentFile)
       {
+        Log.Debug("[YoutuBe.FM] ShowFullScreenWindowHandler handled");
         if (GUIWindowManager.ActiveWindow == 29054)
         {
           GUIGraphicsContext.IsFullScreenVideo = true;
           return true;
         }
 
+        GUIGraphicsContext.IsFullScreenVideo = true;
         GUIWindowManager.ActivateWindow(29054);
         GUIGraphicsContext.IsFullScreenVideo = true;
         return true;
       }
-      return g_Player.ShowFullScreenWindowVideoDefault();
+      bool res = g_Player.ShowFullScreenWindowVideoDefault();
+      Log.Debug("[YoutuBe.FM] ShowFullScreenWindowHandler skiped Title:{0}, Currentfile:{1}, res:{2}, full:{3}", Youtube2MP.NowPlayingEntry.Title.Text, g_Player.CurrentFile, res, GUIGraphicsContext.IsFullScreenVideo);
+      return res;
     }
 
     void listenerWorker_DoWork(object sender, DoWorkEventArgs e)

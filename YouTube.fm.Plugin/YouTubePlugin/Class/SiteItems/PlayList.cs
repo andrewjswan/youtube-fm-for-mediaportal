@@ -26,8 +26,10 @@ namespace YouTubePlugin.Class.SiteItems
     {
       GenericListItemCollections res = new GenericListItemCollections();
       res.FolderType = 1;
-      YouTubeQuery query =
-        new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/playlists/{0}", entry.GetValue("id")));
+      string url = string.Format("http://gdata.youtube.com/feeds/api/playlists/{0}", entry.GetValue("id"));
+      if (!string.IsNullOrEmpty(entry.GetValue("url")))
+        url = entry.GetValue("url");
+      YouTubeQuery query = new YouTubeQuery(url);
       query.NumberToRetrieve = 50;
       do
       {

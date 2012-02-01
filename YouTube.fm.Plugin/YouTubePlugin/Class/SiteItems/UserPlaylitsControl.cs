@@ -9,13 +9,12 @@ using System.Windows.Forms;
 
 namespace YouTubePlugin.Class.SiteItems
 {
-  public partial class PlayListControl : UserControl
+  public partial class UserPlaylitsControl : UserControl
   {
     private bool loading = false;
     private SiteItemEntry _entry = new SiteItemEntry();
 
-
-    public PlayListControl()
+    public UserPlaylitsControl()
     {
       InitializeComponent();
     }
@@ -26,7 +25,7 @@ namespace YouTubePlugin.Class.SiteItems
       _entry = entry;
 
       txt_title.Text = _entry.GetValue("title");
-      txt_id.Text = _entry.GetValue("id");
+      txt_user.Text = _entry.GetValue("id");
       loading = false;
     }
 
@@ -35,16 +34,11 @@ namespace YouTubePlugin.Class.SiteItems
       if (!loading)
       {
         _entry.SetValue("title", txt_title.Text);
-        _entry.SetValue("id", txt_id.Text);
+        _entry.SetValue("id", txt_user.Text);
 
         _entry.Title = _entry.GetValue("title");
         _entry.ConfigString = _entry.GetConfigString();
       }
-    }
-
-    private void label2_Click(object sender, EventArgs e)
-    {
-
     }
 
   }

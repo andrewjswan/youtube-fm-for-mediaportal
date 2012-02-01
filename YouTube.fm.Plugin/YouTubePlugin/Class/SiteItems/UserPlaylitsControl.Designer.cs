@@ -1,6 +1,6 @@
 ﻿namespace YouTubePlugin.Class.SiteItems
 {
-  partial class PlayListControl
+  partial class UserPlaylitsControl
   {
     /// <summary> 
     /// Required designer variable.
@@ -28,56 +28,55 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.txt_user = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
-      this.txt_id = new System.Windows.Forms.TextBox();
       this.txt_title = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
       this.SuspendLayout();
       // 
+      // txt_user
+      // 
+      this.txt_user.Location = new System.Drawing.Point(3, 70);
+      this.txt_user.Name = "txt_user";
+      this.txt_user.Size = new System.Drawing.Size(281, 20);
+      this.txt_user.TabIndex = 0;
+      this.txt_user.TextChanged += new System.EventHandler(this.txt_title_TextChanged);
+      // 
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(3, 42);
+      this.label1.Location = new System.Drawing.Point(5, 54);
       this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(51, 13);
-      this.label1.TabIndex = 15;
-      this.label1.Text = "Playlist Id";
-      // 
-      // txt_id
-      // 
-      this.txt_id.Location = new System.Drawing.Point(1, 58);
-      this.txt_id.Name = "txt_id";
-      this.txt_id.Size = new System.Drawing.Size(281, 20);
-      this.txt_id.TabIndex = 14;
-      this.txt_id.TextChanged += new System.EventHandler(this.txt_title_TextChanged);
+      this.label1.Size = new System.Drawing.Size(41, 13);
+      this.label1.TabIndex = 1;
+      this.label1.Text = "User Id";
       // 
       // txt_title
       // 
-      this.txt_title.Location = new System.Drawing.Point(1, 16);
+      this.txt_title.Location = new System.Drawing.Point(3, 18);
       this.txt_title.Name = "txt_title";
       this.txt_title.Size = new System.Drawing.Size(281, 20);
-      this.txt_title.TabIndex = 13;
+      this.txt_title.TabIndex = 15;
       this.txt_title.TextChanged += new System.EventHandler(this.txt_title_TextChanged);
       // 
       // label2
       // 
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(3, 0);
+      this.label2.Location = new System.Drawing.Point(5, 2);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(27, 13);
-      this.label2.TabIndex = 12;
+      this.label2.TabIndex = 14;
       this.label2.Text = "Title";
-      this.label2.Click += new System.EventHandler(this.label2_Click);
       // 
-      // PlayListControl
+      // UserPlaylitsControl
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.Controls.Add(this.txt_id);
       this.Controls.Add(this.txt_title);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.label1);
-      this.Name = "PlayListControl";
+      this.Controls.Add(this.txt_user);
+      this.Name = "UserPlaylitsControl";
       this.Size = new System.Drawing.Size(287, 219);
       this.ResumeLayout(false);
       this.PerformLayout();
@@ -86,8 +85,8 @@
 
     #endregion
 
+    private System.Windows.Forms.TextBox txt_user;
     private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.TextBox txt_id;
     private System.Windows.Forms.TextBox txt_title;
     private System.Windows.Forms.Label label2;
   }

@@ -571,6 +571,7 @@ namespace YouTubePlugin
                   else
                   {
                     g_Player.ShowFullScreenWindow();
+                    GUIGraphicsContext.IsFullScreenVideo = true;
                   }
                 }
               }

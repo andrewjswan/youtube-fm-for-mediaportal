@@ -200,6 +200,13 @@
     </Compile>
     <Compile Include="Class\SiteItems\Statistics.cs" />
     <Compile Include="Class\SiteItems\UserDownloadedVideos.cs" />
+    <Compile Include="Class\SiteItems\UserPlaylists.cs" />
+    <Compile Include="Class\SiteItems\UserPlaylitsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\SiteItems\UserPlaylitsControl.Designer.cs">
+      <DependentUpon>UserPlaylitsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\SiteItems\UserVideos.cs" />
     <Compile Include="Class\SiteItems\UserVideosControl.cs">
       <SubType>UserControl</SubType>
@@ -283,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\StandardFeedItemControl.resx">
       <DependentUpon>StandardFeedItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class\SiteItems\UserPlaylitsControl.resx">
+      <DependentUpon>UserPlaylitsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Class\SiteItems\UserVideosControl.resx">
       <DependentUpon>UserVideosControl.cs</DependentUpon>

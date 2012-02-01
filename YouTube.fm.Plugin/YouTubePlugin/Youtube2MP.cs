@@ -63,6 +63,7 @@ namespace YouTubePlugin
       AddSiteItem(new UserDownloadedVideos());
       AddSiteItem(new Disco());
       AddSiteItem(new Browse());
+      AddSiteItem(new UserPlaylists());
     }
 
     public static Dictionary<string, ISiteItem> SiteItemProvider = new Dictionary<string, ISiteItem>();

@@ -4,9 +4,8 @@
   <defaultcontrol>213</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <controls>
-    <!-- ########### import ######################################## -->
-	
-    <!--#################   THIS IS THE EXPANDING OSD BACKGROUND     ##################-->
+    	
+    <!-- ***************  THIS IS THE EXPANDING OSD BACKGROUND  **************** -->
     <control>
       <description>background top</description>
       <type>image</type>
@@ -20,7 +19,7 @@
       <colordiffuse>eeffffff</colordiffuse>
       <!--animation effect="slide" start="0,-500" end="0,0" time="50" reversible="false">visible</animation-->
     </control>
-    <!--###################     HERE ARE THE DISPLAYED OSD DATA    ###################################-->
+    <!-- ***************   HERE ARE THE DISPLAYED EXPANDING OSD DATA   *************** -->
     <control>
       <description>Current Time Info</description>
       <type>label</type>
@@ -52,7 +51,7 @@
       <posY>380</posY>
       <width>585</width>
       <height>20</height>
-      <toptexture>osd_progress_indicator.png</toptexture>
+      <toptexture>-</toptexture>
       <TextureOffsetY>22</TextureOffsetY>
       <bottomtexture>-</bottomtexture>
       <texturetick>-</texturetick>
@@ -93,30 +92,30 @@
       <posX>70</posX>
       <posY>420</posY>
       <height>1</height>
-      <width>1170</width>
+      <width>1175</width>
       <texture>hbar1white.png</texture>
       <colordiffuse>ffffffff</colordiffuse>
       <visible>control.hasfocus(1237)</visible>
     </control>
     <control>
-      <description>Plot</description>
+      <description>Video Summary</description>
       <type>textboxscrollup</type>
       <id>1</id>
       <posX>70</posX>
-      <posY>435</posY>
-      <width>950</width>
+      <posY>445</posY>
+      <width>940</width>
       <height>200</height>
       <align>left</align>
       <label>#Play.Current.Plot</label>
       <seperator>&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;	&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;	&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;</seperator>
       <font>font11</font>
-      <textcolor>white</textcolor>
-      <visible>control.hasfocus(1237)</visible>
+      <textcolor>white</textcolor>      
       <shadowAngle>0</shadowAngle>
-      <shadowDistance>0</shadowDistance>
+      <shadowDistance>0</shadowDistance>      
+      <visible>control.hasfocus(1237)</visible>
     </control>
     <control>
-      <description>Movie Name</description>
+      <description>Artist / Video Title</description>
       <id>1</id>
       <type>fadelabel</type>
       <width>770</width>
@@ -130,17 +129,28 @@
       <visible>control.hasfocus(1237)</visible>
     </control>
     <control>
-      <description>Movie thumb</description>
+      <description>Artist Image</description>
       <type>image</type>
-      <id>102</id>
-      <posX>1080</posX>
-      <posY>435</posY>
-      <texture>#Play.Current.Thumb</texture>
-      <height>240</height>
-      <width>160</width>
+      <id>1</id>
+      <posX>1025</posX>
+      <posY>445</posY>
+      <width>220</width>      
+      <height>140</height>      
       <keepaspectratio>yes</keepaspectratio>
+      <centered>yes</centered>
+      <texture mask="Picturethumbmask.png">#Youtube.fm.Info.Artist.Image</texture>
       <visible>control.hasfocus(1237)</visible>
     </control>
+    <control>
+      <type>image</type>
+      <id>1</id>
+      <posX>1025</posX>
+      <posY>445</posY>
+      <width>220</width>
+      <height>140</height>
+      <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>
+      <visible>control.hasfocus(1237)</visible>      
+    </control>        
     <control>
       <description>vertical divider</description>
       <type>image</type>
@@ -164,20 +174,8 @@
       <font>font14</font>
       <textcolor>ivory</textcolor>
       <visible>control.hasfocus(1237)</visible>
-    </control>
-    <control>
-      <description>site Icon</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>955</posX>
-      <posY>325</posY>
-      <height>80</height>
-      <width>80</width>
-      <texture>#Play.Current.OnlineVideos.SiteIcon</texture>
-      <visible>control.hasfocus(1237)</visible>
-    </control>   
-	
-    <!--#################   THIS IS THE EXPANDING OSD BACKGROUND     ##################-->
+    </control>	
+    <!-- ***************   THIS IS THE OSD BACKGROUND   *************** -->
     <control>
       <description>background top</description>
       <type>image</type>
@@ -190,7 +188,7 @@
       <colordiffuse>eeffffff</colordiffuse>
       <visible>!Control.HasFocus(1237)</visible>
     </control>
-    <!--###################     HERE ARE THE DISPLAYED OSD DATA    ###################################-->
+    <!-- ***************   HERE ARE THE DISPLAYED OSD DATA   *************** -->
     <control>
       <description>vertical divider</description>
       <type>image</type>
@@ -234,7 +232,7 @@
       <posY>576</posY>
       <width>585</width>
       <height>20</height>
-      <toptexture>osd_progress_indicator.png</toptexture>
+      <toptexture>-</toptexture>
       <TextureOffsetY>22</TextureOffsetY>
       <bottomtexture>-</bottomtexture>
       <texturetick>-</texturetick>
@@ -281,7 +279,7 @@
       <visible>!control.hasfocus(1237)</visible>
     </control>
     <control>
-      <description>Movie Name</description>
+      <description>Artist / Video Title</description>
       <id>36</id>
       <type>fadelabel</type>
       <posX>70</posX>
@@ -307,32 +305,61 @@
       <colordiffuse>ffffffff</colordiffuse>
       <visible>!control.hasfocus(1237)</visible>
     </control>
+    <!-- ***************   Logo / Media Info   *************** -->    
     <control>
-      <description>Plot</description>
-      <id>1</id>
-      <type>textboxscrollup</type>
-      <posX>70</posX>
-      <posY>625</posY>
-      <width>840</width>
-      <height>75</height>
-      <align>left</align>
-      <font>font12</font>
-      <label>#Play.Current.Plot</label>
-      <seperator>&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;	&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;	&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;</seperator>
-      <textcolor>ivory</textcolor>
-      <visible>!control.hasfocus(1237)</visible>
-    </control>
-    <control>
-      <description>site Icon</description>
+      <description>Youtube.fm Logo</description>
       <type>image</type>
       <id>1</id>
-      <posX>1195</posX>
-      <posY>635</posY>
-      <height>80</height>
+      <posX>1178</posX>
+      <posY>645</posY>
+      <height>67</height>
       <width>80</width>
-      <texture>#Play.Current.OnlineVideos.SiteIcon</texture>
-      <visible>!control.hasfocus(1237)</visible>
+      <texture>hover_youtubefm.png</texture>      
     </control>
+    <control>
+      <description>HD Logo</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>70</posX>
+      <posY>663</posY>
+      <width>70</width>
+      <height>42</height>                  
+      <texture>Logos\hd.png</texture>	  
+      <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>      	        
+    </control>
+    <control>
+      <description>SD Logo</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>70</posX>
+      <posY>663</posY>
+      <width>70</width>
+      <height>42</height>                 
+      <texture>Logos\sd.png</texture>	  
+      <visible>!string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>      	        
+    </control>
+    <control>
+      <description>IsDownloaded Logo</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>150</posX>
+      <posY>663</posY>
+      <width>60</width>
+      <height>42</height>                                 
+      <texture>youtube.fm_isdownloaded.png</texture>
+      <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsDownloaded, True)</visible>      	        
+    </control>
+    <control>
+      <description>Downloading Notification Logo</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>218</posX>
+      <posY>665</posY>
+      <width>40</width>
+      <height>40</height>                       
+      <texture>isupdate.png</texture>	  
+      <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>              
+    </control>                  
     <import>common.osd.buttons.xml</import>    
   </controls>
 </window>
