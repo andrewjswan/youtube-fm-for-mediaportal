@@ -73,6 +73,7 @@ namespace YouTubePlugin
       _settings.LastFmSubmit = chk_lastfm_submit.Checked;
       _settings.UseAsServer = chk_server.Checked;
       _settings.PortNumber = Convert.ToInt32(txt_port.Text);
+      _settings.UseDefaultOSD = chk_defaultOSD.Checked;
 
       foreach (string s in listBox_history.Items)
       {
@@ -115,6 +116,7 @@ namespace YouTubePlugin
       chk_lastfm_submit.Checked = _settings.LastFmSubmit;
       chk_server.Checked = _settings.UseAsServer;
       txt_port.Text = _settings.PortNumber.ToString();
+      chk_defaultOSD.Checked = _settings.UseDefaultOSD;
       //foreach (KeyValuePair<string, string> valuePair in _settings.Regions)
       //{
       //  cmb_region.Items.Add(valuePair.Key);

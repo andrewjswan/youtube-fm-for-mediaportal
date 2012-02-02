@@ -94,6 +94,7 @@ namespace YouTubePlugin
           return;
         }
       }
+
       base.OnAction(action);
     }
 
@@ -107,6 +108,10 @@ namespace YouTubePlugin
         typeof(GUIVideoFullscreen).InvokeMember("_osdWindow", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.SetField, null, this, new object[] { osd });
       }
 
+      if (message.Message == GUIMessage.MessageType.GUI_MSG_PLAYBACK_STARTED && GUIWindowManager.ActiveWindow == GetID)
+      {
+        GUIGraphicsContext.IsFullScreenVideo = true;
+      }
       return result;
     }
 

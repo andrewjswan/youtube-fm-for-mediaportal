@@ -468,7 +468,8 @@ namespace YouTubePlugin
     {
       base.OnPageLoad();
       _backPos = 0;
-      g_Player.ShowFullScreenWindowVideo = ShowFullScreenWindowHandler;
+      if (!_setting.UseDefaultOSD)
+        g_Player.ShowFullScreenWindowVideo = ShowFullScreenWindowHandler;
       foreach (string name in Translation.Strings.Keys)
       {
         SetProperty("#Youtube.fm.Translation." + name + ".Label", Translation.Strings[name]);

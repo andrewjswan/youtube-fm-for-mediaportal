@@ -560,21 +560,21 @@ namespace YouTubePlugin
             {
               item.Played = true;
               skipmissing = false;
-              if (MediaPortal.Util.Utils.IsVideo(item.FileName))
-              {
-                if (g_Player.HasVideo && (GUIWindowManager.ActiveWindow != (int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO))
-                {
-                  if (Youtube2MP._settings.ShowNowPlaying)
-                  {
-                    GUIWindowManager.ActivateWindow(29052);
-                  }
-                  else
-                  {
-                    g_Player.ShowFullScreenWindow();
-                    GUIGraphicsContext.IsFullScreenVideo = true;
-                  }
-                }
-              }
+              //if (MediaPortal.Util.Utils.IsVideo(item.FileName))
+              //{
+              //  if (g_Player.HasVideo && (GUIWindowManager.ActiveWindow != (int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO))
+              //  {
+              //    if (Youtube2MP._settings.ShowNowPlaying)
+              //    {
+              //      GUIWindowManager.ActivateWindow(29052);
+              //    }
+              //    else
+              //    {
+              //      g_Player.ShowFullScreenWindow();
+              //      GUIGraphicsContext.IsFullScreenVideo = true;
+              //    }
+              //  }
+              //}
             }
           } while (skipmissing);
           return g_Player.Playing;

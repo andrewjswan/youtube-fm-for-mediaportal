@@ -104,6 +104,7 @@ namespace YouTubePlugin
     public bool UseAsServer { get; set; }
     public int PortNumber { get; set; }
     //----------------
+    public bool UseDefaultOSD { get; set; }
 
     public LocalFileEnumerator LocalFile { get; set; }
 
@@ -173,6 +174,8 @@ namespace YouTubePlugin
         this.UseAsServer = xmlreader.GetValueAsBool("youtubevideos", "UseAsServer", false);
         this.PortNumber = xmlreader.GetValueAsInt("youtubevideos", "PortNumber", 18944);
 
+        this.UseDefaultOSD = xmlreader.GetValueAsBool("youtubevideos", "UseDefaultOSD", false);
+
         foreach (string s in his.Split('|'))
         {
           if (!string.IsNullOrEmpty(s.Trim()))
@@ -217,6 +220,8 @@ namespace YouTubePlugin
 
         xmlwriter.SetValue("youtubevideos", "PortNumber", PortNumber);
         xmlwriter.SetValueAsBool("youtubevideos", "UseAsServer", this.UseAsServer);
+
+        xmlwriter.SetValueAsBool("youtubevideos", "UseDefaultOSD", this.UseDefaultOSD);
         string his = "";
         foreach (string s in SearchHistory)
         {

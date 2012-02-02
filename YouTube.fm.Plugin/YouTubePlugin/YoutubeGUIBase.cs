@@ -358,18 +358,18 @@ namespace YouTubePlugin
         Youtube2MP.temp_player.Play(0);
         GUIWaitCursor.Hide();
 
-        //if (g_Player.Playing && fullscr)
-        //{
-        //  if (_setting.ShowNowPlaying)
-        //  {
-        //    if (GUIWindowManager.ActiveWindow != 29052)
-        //      GUIWindowManager.ActivateWindow(29052);
-        //  }
-        //  else
-        //  {
-        //    g_Player.ShowFullScreenWindow();
-        //  }
-        //}
+        if (g_Player.Playing && fullscr)
+        {
+          if (_setting.ShowNowPlaying)
+          {
+            if (GUIWindowManager.ActiveWindow != 29052)
+              GUIWindowManager.ActivateWindow(29052);
+          }
+          else
+          {
+            g_Player.ShowFullScreenWindow();
+          }
+        }
 
         if (!g_Player.Playing)
         {

@@ -52,6 +52,10 @@ namespace YouTubePlugin
       this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.label6 = new System.Windows.Forms.Label();
       this.tabPage1 = new System.Windows.Forms.TabPage();
+      this.groupBox12 = new System.Windows.Forms.GroupBox();
+      this.label20 = new System.Windows.Forms.Label();
+      this.txt_port = new System.Windows.Forms.TextBox();
+      this.chk_server = new System.Windows.Forms.CheckBox();
       this.groupBox11 = new System.Windows.Forms.GroupBox();
       this.cmb_view_video = new System.Windows.Forms.ComboBox();
       this.label19 = new System.Windows.Forms.Label();
@@ -121,14 +125,12 @@ namespace YouTubePlugin
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-      this.groupBox12 = new System.Windows.Forms.GroupBox();
-      this.chk_server = new System.Windows.Forms.CheckBox();
-      this.txt_port = new System.Windows.Forms.TextBox();
-      this.label20 = new System.Windows.Forms.Label();
+      this.chk_defaultOSD = new System.Windows.Forms.CheckBox();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
       this.tabPage1.SuspendLayout();
+      this.groupBox12.SuspendLayout();
       this.groupBox11.SuspendLayout();
       this.groupBox10.SuspendLayout();
       this.groupBox9.SuspendLayout();
@@ -145,7 +147,6 @@ namespace YouTubePlugin
       this.groupBox7.SuspendLayout();
       this.groupBox6.SuspendLayout();
       this.groupBox5.SuspendLayout();
-      this.groupBox12.SuspendLayout();
       this.SuspendLayout();
       // 
       // button1
@@ -378,6 +379,7 @@ namespace YouTubePlugin
       // 
       // tabPage1
       // 
+      this.tabPage1.Controls.Add(this.chk_defaultOSD);
       this.tabPage1.Controls.Add(this.groupBox12);
       this.tabPage1.Controls.Add(this.groupBox11);
       this.tabPage1.Controls.Add(this.groupBox10);
@@ -393,6 +395,44 @@ namespace YouTubePlugin
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "Gui & Youtube";
       this.tabPage1.UseVisualStyleBackColor = true;
+      // 
+      // groupBox12
+      // 
+      this.groupBox12.Controls.Add(this.label20);
+      this.groupBox12.Controls.Add(this.txt_port);
+      this.groupBox12.Controls.Add(this.chk_server);
+      this.groupBox12.Location = new System.Drawing.Point(547, 15);
+      this.groupBox12.Name = "groupBox12";
+      this.groupBox12.Size = new System.Drawing.Size(271, 99);
+      this.groupBox12.TabIndex = 16;
+      this.groupBox12.TabStop = false;
+      this.groupBox12.Text = "Server";
+      // 
+      // label20
+      // 
+      this.label20.AutoSize = true;
+      this.label20.Location = new System.Drawing.Point(8, 49);
+      this.label20.Name = "label20";
+      this.label20.Size = new System.Drawing.Size(65, 13);
+      this.label20.TabIndex = 2;
+      this.label20.Text = "Listener port";
+      // 
+      // txt_port
+      // 
+      this.txt_port.Location = new System.Drawing.Point(79, 46);
+      this.txt_port.Name = "txt_port";
+      this.txt_port.Size = new System.Drawing.Size(88, 20);
+      this.txt_port.TabIndex = 1;
+      // 
+      // chk_server
+      // 
+      this.chk_server.AutoSize = true;
+      this.chk_server.Location = new System.Drawing.Point(6, 23);
+      this.chk_server.Name = "chk_server";
+      this.chk_server.Size = new System.Drawing.Size(57, 17);
+      this.chk_server.TabIndex = 0;
+      this.chk_server.Text = "Server";
+      this.chk_server.UseVisualStyleBackColor = true;
       // 
       // groupBox11
       // 
@@ -1112,43 +1152,15 @@ namespace YouTubePlugin
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
       // 
-      // groupBox12
+      // chk_defaultOSD
       // 
-      this.groupBox12.Controls.Add(this.label20);
-      this.groupBox12.Controls.Add(this.txt_port);
-      this.groupBox12.Controls.Add(this.chk_server);
-      this.groupBox12.Location = new System.Drawing.Point(547, 15);
-      this.groupBox12.Name = "groupBox12";
-      this.groupBox12.Size = new System.Drawing.Size(271, 99);
-      this.groupBox12.TabIndex = 16;
-      this.groupBox12.TabStop = false;
-      this.groupBox12.Text = "Server";
-      // 
-      // chk_server
-      // 
-      this.chk_server.AutoSize = true;
-      this.chk_server.Location = new System.Drawing.Point(6, 23);
-      this.chk_server.Name = "chk_server";
-      this.chk_server.Size = new System.Drawing.Size(57, 17);
-      this.chk_server.TabIndex = 0;
-      this.chk_server.Text = "Server";
-      this.chk_server.UseVisualStyleBackColor = true;
-      // 
-      // txt_port
-      // 
-      this.txt_port.Location = new System.Drawing.Point(79, 46);
-      this.txt_port.Name = "txt_port";
-      this.txt_port.Size = new System.Drawing.Size(88, 20);
-      this.txt_port.TabIndex = 1;
-      // 
-      // label20
-      // 
-      this.label20.AutoSize = true;
-      this.label20.Location = new System.Drawing.Point(8, 49);
-      this.label20.Name = "label20";
-      this.label20.Size = new System.Drawing.Size(65, 13);
-      this.label20.TabIndex = 2;
-      this.label20.Text = "Listener port";
+      this.chk_defaultOSD.AutoSize = true;
+      this.chk_defaultOSD.Location = new System.Drawing.Point(10, 183);
+      this.chk_defaultOSD.Name = "chk_defaultOSD";
+      this.chk_defaultOSD.Size = new System.Drawing.Size(106, 17);
+      this.chk_defaultOSD.TabIndex = 17;
+      this.chk_defaultOSD.Text = "Use dafault OSD";
+      this.chk_defaultOSD.UseVisualStyleBackColor = true;
       // 
       // SetupForm
       // 
@@ -1168,6 +1180,8 @@ namespace YouTubePlugin
       this.tabPage6.PerformLayout();
       this.tabPage1.ResumeLayout(false);
       this.tabPage1.PerformLayout();
+      this.groupBox12.ResumeLayout(false);
+      this.groupBox12.PerformLayout();
       this.groupBox11.ResumeLayout(false);
       this.groupBox11.PerformLayout();
       this.groupBox10.ResumeLayout(false);
@@ -1196,8 +1210,6 @@ namespace YouTubePlugin
       this.groupBox6.PerformLayout();
       this.groupBox5.ResumeLayout(false);
       this.groupBox5.PerformLayout();
-      this.groupBox12.ResumeLayout(false);
-      this.groupBox12.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -1301,5 +1313,6 @@ namespace YouTubePlugin
     private System.Windows.Forms.Label label20;
     private System.Windows.Forms.TextBox txt_port;
     private System.Windows.Forms.CheckBox chk_server;
+    private System.Windows.Forms.CheckBox chk_defaultOSD;
   }
 }
