@@ -68,7 +68,7 @@
       <fillheight>20</fillheight>
       <label>#percentage</label><!-- #TV.Record.percent1 -->
       <label1>#percentage</label1><!-- #TV.Record.percent2 -->
-      <label2>#TV.Record.percent3</label2>
+<!--       <label2>#TV.Record.percent3</label2> -->
       <font>font13</font>
       <textcolor>FF000000</textcolor>
       <visible>control.hasfocus(1237)</visible>
@@ -138,7 +138,7 @@
       <height>140</height>      
       <keepaspectratio>yes</keepaspectratio>
       <centered>yes</centered>
-      <texture mask="Picturethumbmask.png">#Youtube.fm.Info.Artist.Image</texture>
+      <texture mask="Picturethumbmask.png">#Youtube.fm.NowPlaying.Artist.Image</texture>
       <visible>control.hasfocus(1237)</visible>
     </control>
     <control>
@@ -249,7 +249,7 @@
       <fillheight>20</fillheight>
       <label>#percentage</label><!-- #TV.Record.percent1 -->
       <label1>#percentage</label1><!-- #TV.Record.percent2 -->
-      <label2>#TV.Record.percent3</label2>
+      <!-- <label2>#TV.Record.percent3</label2> -->
       <font>font13</font>
       <textcolor>FF000000</textcolor>
       <visible>!control.hasfocus(1237)</visible>
