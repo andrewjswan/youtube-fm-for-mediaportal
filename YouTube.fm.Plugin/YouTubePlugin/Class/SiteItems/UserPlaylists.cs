@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Google.GData.Client;
+using Google.GData.Extensions;
+using Google.GData.Extensions.MediaRss;
 using Google.GData.YouTube;
+using MediaGroup = Google.GData.YouTube.MediaGroup;
 
 namespace YouTubePlugin.Class.SiteItems
 {
@@ -33,7 +37,10 @@ namespace YouTubePlugin.Class.SiteItems
       PlaylistsFeed userPlaylists = Youtube2MP.service.GetPlaylists(query);
       foreach (PlaylistsEntry playlistsEntry in userPlaylists.Entries)
       {
+        string img = GetBestUrl((playlistsEntry.FindExtension("group", "") as MediaGroup).Thumbnails);
+
         PlayList playList = new PlayList();
+       
         SiteItemEntry itemEntry = new SiteItemEntry();
         itemEntry.Provider = playList.Name;
         itemEntry.SetValue("url", playlistsEntry.Content.AbsoluteUri);
@@ -67,6 +74,27 @@ namespace YouTubePlugin.Class.SiteItems
       return res;
     }
 
+
+    static public string GetBestUrl(ExtensionCollection<MediaThumbnail> th)
+    {
+      if (th != null && th.Count > 0)
+      {
+        int with = 0;
+        string url = string.Empty;
+        foreach (MediaThumbnail mediaThumbnail in th)
+        {
+          int w = 0;
+          int.TryParse(mediaThumbnail.Width, out w);
+          if (w > with)
+          {
+            url = mediaThumbnail.Url;
+            with = w;
+          }
+        }
+        return url;
+      }
+      return "http://i2.ytimg.com/vi/hqdefault.jpg";
+    }
     #endregion
   }
 }
