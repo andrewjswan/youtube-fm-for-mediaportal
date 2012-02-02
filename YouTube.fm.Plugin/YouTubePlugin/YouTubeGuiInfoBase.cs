@@ -120,27 +120,34 @@ namespace YouTubePlugin
 
     protected void LoadRelatated(YouTubeEntry entry)
     {
-      //Youtube2MP.getIDSimple(Youtube2MP.NowPlayingEntry.Id.AbsoluteUri));
-      //GUIControl.ClearControl(GetID, listControl.GetID);
-      string relatatedUrl = string.Format("http://gdata.youtube.com/feeds/api/videos/{0}/related",
-                                         Youtube2MP.GetVideoId(entry));
-      relatated.Clear();
-      YouTubeQuery query = new YouTubeQuery(relatatedUrl);
-      YouTubeFeed vidr = Youtube2MP.service.Query(query);
-      // time to time this query return nothing, maybe the quata limit ..
-      if (vidr.Entries.Count == 0)
+      try
       {
-        vidr = Youtube2MP.service.Query(query);
+        //Youtube2MP.getIDSimple(Youtube2MP.NowPlayingEntry.Id.AbsoluteUri));
+        //GUIControl.ClearControl(GetID, listControl.GetID);
+        string relatatedUrl = string.Format("http://gdata.youtube.com/feeds/api/videos/{0}/related",
+                                           Youtube2MP.GetVideoId(entry));
+        relatated.Clear();
+        YouTubeQuery query = new YouTubeQuery(relatatedUrl);
+        YouTubeFeed vidr = Youtube2MP.service.Query(query);
+        // time to time this query return nothing, maybe the quata limit ..
+        if (vidr.Entries.Count == 0)
+        {
+          vidr = Youtube2MP.service.Query(query);
+        }
+        if (vidr.Entries.Count > 0)
+        {
+          addVideos(vidr, query);
+        }
+        if (listControl != null)
+        {
+          FillRelatedList();
+        }
       }
-      if (vidr.Entries.Count > 0)
+      catch (Exception exception)
       {
-        addVideos(vidr, query);
+        Log.Debug("[YouTube.Fm]Error {0}\n{1}", exception.Message, exception.StackTrace);
       }
-      if (listControl != null)
-      {
-        FillRelatedList();
-      }
-    }
+   }
 
 
     protected ArtistItem LoadSimilarArtists(YouTubeEntry entry)

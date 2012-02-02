@@ -64,6 +64,7 @@ namespace YouTubePlugin
       this.label4 = new System.Windows.Forms.Label();
       this.cmb_view_item = new System.Windows.Forms.ComboBox();
       this.groupBox10 = new System.Windows.Forms.GroupBox();
+      this.chk_defaultOSD = new System.Windows.Forms.CheckBox();
       this.checkBox_filter = new System.Windows.Forms.CheckBox();
       this.checkBox_nowplaying = new System.Windows.Forms.CheckBox();
       this.checkBox_extremfilter = new System.Windows.Forms.CheckBox();
@@ -125,7 +126,6 @@ namespace YouTubePlugin
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-      this.chk_defaultOSD = new System.Windows.Forms.CheckBox();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
       this.tabPage6.SuspendLayout();
@@ -233,8 +233,8 @@ namespace YouTubePlugin
       // 
       // tabControl1
       // 
-      this.tabControl1.Controls.Add(this.tabPage6);
       this.tabControl1.Controls.Add(this.tabPage1);
+      this.tabControl1.Controls.Add(this.tabPage6);
       this.tabControl1.Controls.Add(this.tabPage2);
       this.tabControl1.Controls.Add(this.tabPage3);
       this.tabControl1.Controls.Add(this.tabPage4);
@@ -379,7 +379,6 @@ namespace YouTubePlugin
       // 
       // tabPage1
       // 
-      this.tabPage1.Controls.Add(this.chk_defaultOSD);
       this.tabPage1.Controls.Add(this.groupBox12);
       this.tabPage1.Controls.Add(this.groupBox11);
       this.tabPage1.Controls.Add(this.groupBox10);
@@ -442,9 +441,9 @@ namespace YouTubePlugin
       this.groupBox11.Controls.Add(this.label18);
       this.groupBox11.Controls.Add(this.label4);
       this.groupBox11.Controls.Add(this.cmb_view_item);
-      this.groupBox11.Location = new System.Drawing.Point(269, 120);
+      this.groupBox11.Location = new System.Drawing.Point(269, 160);
       this.groupBox11.Name = "groupBox11";
-      this.groupBox11.Size = new System.Drawing.Size(272, 204);
+      this.groupBox11.Size = new System.Drawing.Size(272, 164);
       this.groupBox11.TabIndex = 15;
       this.groupBox11.TabStop = false;
       this.groupBox11.Text = "Default views";
@@ -526,15 +525,26 @@ namespace YouTubePlugin
       // 
       // groupBox10
       // 
+      this.groupBox10.Controls.Add(this.chk_defaultOSD);
       this.groupBox10.Controls.Add(this.checkBox_filter);
       this.groupBox10.Controls.Add(this.checkBox_nowplaying);
       this.groupBox10.Controls.Add(this.checkBox_extremfilter);
       this.groupBox10.Location = new System.Drawing.Point(269, 15);
       this.groupBox10.Name = "groupBox10";
-      this.groupBox10.Size = new System.Drawing.Size(272, 99);
+      this.groupBox10.Size = new System.Drawing.Size(272, 139);
       this.groupBox10.TabIndex = 14;
       this.groupBox10.TabStop = false;
       this.groupBox10.Text = "Options";
+      // 
+      // chk_defaultOSD
+      // 
+      this.chk_defaultOSD.AutoSize = true;
+      this.chk_defaultOSD.Location = new System.Drawing.Point(6, 92);
+      this.chk_defaultOSD.Name = "chk_defaultOSD";
+      this.chk_defaultOSD.Size = new System.Drawing.Size(106, 17);
+      this.chk_defaultOSD.TabIndex = 17;
+      this.chk_defaultOSD.Text = "Use default OSD";
+      this.chk_defaultOSD.UseVisualStyleBackColor = true;
       // 
       // checkBox_filter
       // 
@@ -569,7 +579,7 @@ namespace YouTubePlugin
       // groupBox9
       // 
       this.groupBox9.Controls.Add(this.comboBox_videoquality);
-      this.groupBox9.Location = new System.Drawing.Point(10, 120);
+      this.groupBox9.Location = new System.Drawing.Point(9, 160);
       this.groupBox9.Name = "groupBox9";
       this.groupBox9.Size = new System.Drawing.Size(253, 57);
       this.groupBox9.TabIndex = 13;
@@ -1151,16 +1161,6 @@ namespace YouTubePlugin
       // openFileDialog1
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
-      // 
-      // chk_defaultOSD
-      // 
-      this.chk_defaultOSD.AutoSize = true;
-      this.chk_defaultOSD.Location = new System.Drawing.Point(10, 183);
-      this.chk_defaultOSD.Name = "chk_defaultOSD";
-      this.chk_defaultOSD.Size = new System.Drawing.Size(106, 17);
-      this.chk_defaultOSD.TabIndex = 17;
-      this.chk_defaultOSD.Text = "Use dafault OSD";
-      this.chk_defaultOSD.UseVisualStyleBackColor = true;
       // 
       // SetupForm
       // 

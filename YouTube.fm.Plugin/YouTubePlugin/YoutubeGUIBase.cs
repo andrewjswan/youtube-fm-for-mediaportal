@@ -329,13 +329,15 @@ namespace YouTubePlugin
         g_Player.PlayBackStopped += g_Player_PlayBackStopped;
         g_Player.PlayBackEnded += g_Player_PlayBackEnded;
 
-        AddItemToPlayList(vid, ref playlist, qa, -1);
-
+        int selected = 0;
         if (facade != null)
         {
+          int dif = 0;
           qa.Items = new Dictionary<string, string>();
-          int selected = facade.SelectedListItemIndex;
-          for (int i = selected + 1; i < facade.ListItems.Count; i++)
+          if (facade.ListItems[0].IsFolder)
+            dif++;
+          selected = facade.SelectedListItemIndex-dif;
+          for (int i = 0; i < facade.ListItems.Count; i++)
           {
             try
             {
@@ -349,13 +351,14 @@ namespace YouTubePlugin
         }
         else
         {
+          AddItemToPlayList(vid, ref playlist, qa, -1);
           Youtube2MP.temp_player.RepeatPlaylist = false;
         }
 
         PlayListPlayer.SingletonPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
         Youtube2MP.player.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
         g_Player.Stop();
-        Youtube2MP.temp_player.Play(0);
+        Youtube2MP.temp_player.Play(selected);
         GUIWaitCursor.Hide();
 
         if (g_Player.Playing && fullscr)
