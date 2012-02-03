@@ -149,6 +149,7 @@
       <DependentUpon>DiscoControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Class\SiteItems\FavoritesVideos.cs" />
+    <Compile Include="Class\SiteItems\Featured.cs" />
     <Compile Include="Class\SiteItems\Folder.cs" />
     <Compile Include="Class\SiteItems\FolderControl.cs">
       <SubType>UserControl</SubType>

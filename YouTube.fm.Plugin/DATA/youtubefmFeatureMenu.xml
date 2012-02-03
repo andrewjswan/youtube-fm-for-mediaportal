@@ -1,0 +1,32 @@
+﻿<SiteItemEnumerator>
+	<Items>
+		<ConfigString>ParentFolder=|title=Eurovision Song Contest|id=eurovision|</ConfigString>
+		<Title>Eurovision Song Contest</Title>
+		<Provider>UserChannel</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=|title=Kotor.TV|id=kontor|</ConfigString>
+		<Title>Kotor.TV</Title>
+		<Provider>UserChannel</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=|title=MusicROTON|id=musicroton|</ConfigString>
+		<Title>MusicROTON</Title>
+		<Provider>UserChannel</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=|title=ArmadaMusic.TV|id=armadamusic|</ConfigString>
+		<Title>ArmadaMusic.TV</Title>
+		<Provider>UserChannel</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=|title=The XFactor UK|id=TheXFactorUK|</ConfigString>
+		<Title>The XFactor UK</Title>
+		<Provider>UserChannel</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=|title=Official Queen Channel|id=queenofficial|</ConfigString>
+		<Title>Official Queen Channel</Title>
+		<Provider>UserChannel</Provider>
+	</Items>
+</SiteItemEnumerator>

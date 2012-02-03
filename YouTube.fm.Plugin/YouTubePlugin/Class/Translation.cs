@@ -249,6 +249,7 @@ namespace YouTubePlugin.Class
 
     // N
     public static string NextPage = "Next page";
+    public static string PlayingNext = "Playing Next";
     public static string NewSearch = "New Search";
     public static string NoSearchHistory = "No search history was found";
     public static string NoItemWasFound  = "No item was found !";
