@@ -31,7 +31,7 @@
       <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
     </control>
     <control>
-      <id>0</id>
+      <id>171</id>
       <description>Now Playing Label</description>
       <type>fadelabel</type>
       <posX>20</posX>
@@ -48,7 +48,7 @@
       <type>fadelabel</type>
       <posX>20</posX>
       <posY>520</posY>
-      <width>580</width>
+      <width>560</width>
       <font>font14</font>
       <textcolor>ffffffff</textcolor>            
       <label>#Youtube.fm.NowPlaying.Video.Title</label>
@@ -60,14 +60,14 @@
       <type>fadelabel</type>
       <posX>20</posX>
       <posY>553</posY>
-      <width>580</width>
+      <width>560</width>
       <font>font14</font>
       <textcolor>ffffffff</textcolor>            
       <label>#Youtube.fm.NowPlaying.Artist.Name</label>
       <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
     </control>
     <control>
-      <id>0</id>
+      <id>172</id>
       <description>Playing Next Label</description>
       <type>fadelabel</type>
       <posX>1255</posX>
@@ -81,7 +81,7 @@
     </control>
     <control>
       <id>118</id>
-      <description>Video Title Value</description>
+      <description>Next Video Title Value</description>
       <type>fadelabel</type>
       <posX>1255</posX>
       <posY>520</posY>
@@ -94,7 +94,7 @@
     </control>
     <control>
       <id>119</id>
-      <description>Artist Title Value</description>
+      <description>Next Artist Title Value</description>
       <type>fadelabel</type>
       <posX>1255</posX>
       <posY>553</posY>

@@ -68,7 +68,7 @@
       <fillheight>20</fillheight>
       <label>#percentage</label><!-- #TV.Record.percent1 -->
       <label1>#percentage</label1><!-- #TV.Record.percent2 -->
-<!--       <label2>#TV.Record.percent3</label2> -->
+      <!-- <label2>#TV.Record.percent3</label2> -->
       <font>font13</font>
       <textcolor>FF000000</textcolor>
       <visible>control.hasfocus(1237)</visible>
@@ -102,9 +102,9 @@
       <type>textboxscrollup</type>
       <id>1</id>
       <posX>70</posX>
-      <posY>445</posY>
-      <width>940</width>
-      <height>200</height>
+      <posY>442</posY>
+      <width>930</width>
+      <height>203</height>
       <align>left</align>
       <label>#Play.Current.Plot</label>
       <seperator>&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;	&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;	&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;</seperator>
@@ -132,22 +132,22 @@
       <description>Artist Image</description>
       <type>image</type>
       <id>1</id>
-      <posX>1025</posX>
+      <posX>1038</posX>
       <posY>445</posY>
-      <width>220</width>      
-      <height>140</height>      
+      <width>210</width>      
+      <height>150</height>
       <keepaspectratio>yes</keepaspectratio>
-      <centered>yes</centered>
+      <centered>yes</centered>         
       <texture mask="Picturethumbmask.png">#Youtube.fm.NowPlaying.Artist.Image</texture>
       <visible>control.hasfocus(1237)</visible>
     </control>
     <control>
       <type>image</type>
       <id>1</id>
-      <posX>1025</posX>
+      <posX>1038</posX>
       <posY>445</posY>
-      <width>220</width>
-      <height>140</height>
+      <width>210</width>
+      <height>150</height>
       <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>
       <visible>control.hasfocus(1237)</visible>      
     </control>        
@@ -316,6 +316,25 @@
       <width>80</width>
       <texture>hover_youtubefm.png</texture>      
     </control>
+    <control>
+      <id>1</id>
+      <description>Star Rating Value</description>
+      <type>imagelist</type>
+      <posX>1045</posX>
+      <posY>686</posY>
+      <width>140</width>
+      <height>36</height>
+      <textureHeight>22</textureHeight>
+      <textureWidth>22</textureWidth>
+      <percentage>#Youtube.fm.NowPlaying.Video.Rating</percentage>
+      <imagesToDraw>5</imagesToDraw>
+      <orientation>HORIZONTAL</orientation>
+      <align>left</align>
+      <subitems>
+          <subitem>greystar.png</subitem>
+          <subitem>starbest.png</subitem>
+      </subitems>            
+    </control>        
     <control>
       <description>HD Logo</description>
       <type>image</type>

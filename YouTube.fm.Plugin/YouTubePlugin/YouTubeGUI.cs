@@ -809,7 +809,7 @@ namespace YouTubePlugin
               {
                 listControl.SelectedListItemIndex = 1;
                 GUIWaitCursor.Show();
-                DoPlay(genericListItem.Items[0].Tag as YouTubeEntry, true, listControl.ListLayout);
+                DoPlay(genericListItem.Items[0].Tag as YouTubeEntry, true, listControl);
               }
             }
           }
@@ -819,7 +819,7 @@ namespace YouTubePlugin
             GUIWaitCursor.Init();
             GUIWaitCursor.Show();
             selectedItem.MusicTag = vide;
-            DoPlay(vide, true, listControl.ListLayout);
+            DoPlay(vide, true, listControl);
           }
         }
         else

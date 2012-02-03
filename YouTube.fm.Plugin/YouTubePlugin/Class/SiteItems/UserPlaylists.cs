@@ -37,7 +37,19 @@ namespace YouTubePlugin.Class.SiteItems
       PlaylistsFeed userPlaylists = Youtube2MP.service.GetPlaylists(query);
       foreach (PlaylistsEntry playlistsEntry in userPlaylists.Entries)
       {
-        string img = GetBestUrl((playlistsEntry.FindExtension("group", "") as MediaGroup).Thumbnails);
+        Google.GData.Extensions.XmlExtension e = playlistsEntry.FindExtension("group", "http://search.yahoo.com/mrss/") as Google.GData.Extensions.XmlExtension;
+
+        string img = "http://i2.ytimg.com/vi/hqdefault.jpg";
+        try
+        {
+          img = e.Node.FirstChild.Attributes["url"].Value;
+        }
+        catch 
+        {
+          
+          
+        }
+        
 
         PlayList playList = new PlayList();
        
@@ -49,7 +61,7 @@ namespace YouTubePlugin.Class.SiteItems
         {
           Title = title,
           IsFolder = false,
-          //LogoUrl = artistItem.Img_url,
+          LogoUrl = img,
           //DefaultImage = "defaultArtistBig.png",
           Tag = itemEntry
         };

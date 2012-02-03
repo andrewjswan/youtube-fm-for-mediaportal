@@ -29,7 +29,7 @@ namespace YouTubePlugin
   {
     public YouTubeEntry vid;
     public bool fullscr;
-    public GUIListControl facade;
+    public GUIFacadeControl facade;
   }
 
   public class YoutubeGUIBase : GUIWindow
@@ -306,7 +306,7 @@ namespace YouTubePlugin
       PlayParams param = (PlayParams) param_;
       YouTubeEntry vid=param.vid;
       bool fullscr=param.fullscr;
-      GUIListControl facade = param.facade;
+      GUIFacadeControl facade = param.facade;
       if (vid != null)
       {
         GUIWaitCursor.Hide();
@@ -334,14 +334,14 @@ namespace YouTubePlugin
         {
           int dif = 0;
           qa.Items = new Dictionary<string, string>();
-          if (facade.ListItems[0].IsFolder)
+          if (facade[0].IsFolder)
             dif++;
           selected = facade.SelectedListItemIndex-dif;
-          for (int i = 0; i < facade.ListItems.Count; i++)
+          for (int i = 0; i < facade.Count; i++)
           {
             try
             {
-              AddItemToPlayList(facade.ListItems[i], ref playlist, new VideoInfo(qa), false);
+              AddItemToPlayList(facade[i], ref playlist, new VideoInfo(qa), false);
             }
             catch (Exception ex)
             {
@@ -388,7 +388,7 @@ namespace YouTubePlugin
       Youtube2MP.YouTubePlaying = false;
     }
 
-    public void DoPlay(YouTubeEntry vid, bool fullscr, GUIListControl facade)
+    public void DoPlay(YouTubeEntry vid, bool fullscr, GUIFacadeControl facade)
     {
       if (Youtube2MP.PlayBegin)
         return;
