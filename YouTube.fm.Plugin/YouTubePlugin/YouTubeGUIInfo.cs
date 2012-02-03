@@ -74,6 +74,7 @@ namespace YouTubePlugin
     void _labelTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
       GUIPropertyManager.SetProperty("#Youtube.fm.FullScreen.ShowTitle", "false");
+      GUIPropertyManager.SetProperty("#Youtube.fm.FullScreen.ShowNextTitle", "false");
       _labelTimer.Stop();
     }
 
@@ -152,6 +153,8 @@ namespace YouTubePlugin
         playBeginWorker.RunWorkerAsync();
         Youtube2MP.YouTubePlaying = true;
         GUIPropertyManager.SetProperty("#Youtube.fm.FullScreen.ShowTitle", "true");
+        GUIPropertyManager.SetProperty("#Youtube.fm.FullScreen.ShowNextTitle",
+                                       Youtube2MP.NextPlayingEntry != null ? "true" : "false");
         _labelTimer.Stop();
         _labelTimer.Start();
       }
