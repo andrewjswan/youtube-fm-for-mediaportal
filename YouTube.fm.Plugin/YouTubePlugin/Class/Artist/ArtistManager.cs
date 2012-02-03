@@ -305,9 +305,9 @@ namespace YouTubePlugin.Class.Artist
       //}
       string lsSQL =
         string.Format(
-          "UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\", ARTIST_USER=\"{3}\", ARTIST_TAG=\"{4}\"  WHERE ARTIST_ID=\"{0}\" ",
+          "UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\", ARTIST_USER=\"{3}\", ARTIST_TAG=\"{4}\", ARTIST_BIO=\"{5}\"  WHERE ARTIST_ID=\"{0}\" ",
           artistItem.Id, DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"', '`')),
-          artistItem.Img_url, artistItem.User, artistItem.Tags);
+          artistItem.Img_url, artistItem.User, artistItem.Tags, artistItem.Bio);
       m_db.Execute(lsSQL);
     }
 

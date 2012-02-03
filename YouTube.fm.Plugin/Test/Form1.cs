@@ -345,6 +345,14 @@ namespace Test
         }
       } while (end);
     }
+
+    private void button6_Click(object sender, EventArgs e)
+    {
+      AllMusic allMusic=new AllMusic();
+      string html = "";
+      string url = "";
+      bool res = allMusic.GetDetails(new ArtistItem() { Name = "britney spears" });
+    }
   }
 
 }

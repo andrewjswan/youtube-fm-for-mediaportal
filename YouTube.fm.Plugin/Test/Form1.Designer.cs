@@ -43,6 +43,7 @@ namespace Test
       this.textBox3 = new System.Windows.Forms.TextBox();
       this.tabPage3 = new System.Windows.Forms.TabPage();
       this.button4 = new System.Windows.Forms.Button();
+      this.button6 = new System.Windows.Forms.Button();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.tabPage2.SuspendLayout();
@@ -99,6 +100,7 @@ namespace Test
       // 
       // tabPage1
       // 
+      this.tabPage1.Controls.Add(this.button6);
       this.tabPage1.Controls.Add(this.label1);
       this.tabPage1.Controls.Add(this.button5);
       this.tabPage1.Controls.Add(this.textBox2);
@@ -200,6 +202,16 @@ namespace Test
       this.button4.UseVisualStyleBackColor = true;
       this.button4.Click += new System.EventHandler(this.button4_Click);
       // 
+      // button6
+      // 
+      this.button6.Location = new System.Drawing.Point(458, 181);
+      this.button6.Name = "button6";
+      this.button6.Size = new System.Drawing.Size(114, 34);
+      this.button6.TabIndex = 6;
+      this.button6.Text = "AllMusic";
+      this.button6.UseVisualStyleBackColor = true;
+      this.button6.Click += new System.EventHandler(this.button6_Click);
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -236,6 +248,7 @@ namespace Test
     private System.Windows.Forms.Button button4;
     private System.Windows.Forms.Button button5;
     private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.Button button6;
   }
 }
 

@@ -229,6 +229,7 @@
     <Compile Include="Class\Translation.cs" />
     <Compile Include="Class\VideoInfo.cs" />
     <Compile Include="Class\YoutubePlaylistPlayer.cs" />
+    <Compile Include="DataProvider\AllMusic.cs" />
     <Compile Include="DataProvider\FanArtItem.cs" />
     <Compile Include="DataProvider\HTBFanArt.cs" />
     <Compile Include="DownloadFileObject.cs" />
