@@ -996,7 +996,7 @@ namespace YouTubePlugin
             if (videoInfo != null)
             {
               YouTubeEntry tag = videoInfo.Entry;
-              string imageFile = GetLocalImageFileName(GetBestUrl(tag.Media.Thumbnails));
+              string imageFile = Youtube2MP.GetLocalImageFileName(GetBestUrl(tag.Media.Thumbnails));
               if (File.Exists(imageFile))
               {
                 item.ThumbnailImage = imageFile;

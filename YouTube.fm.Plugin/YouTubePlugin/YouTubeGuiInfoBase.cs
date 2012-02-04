@@ -53,7 +53,7 @@ namespace YouTubePlugin
 
         }
 
-        string imageFile = GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
+        string imageFile = Youtube2MP.GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
         if (File.Exists(imageFile))
         {
           item.ThumbnailImage = imageFile;
@@ -76,7 +76,7 @@ namespace YouTubePlugin
     void item_OnRetrieveArt(GUIListItem item)
     {
       YouTubeEntry entry = item.MusicTag as YouTubeEntry;
-      string imageFile = GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
+      string imageFile = Youtube2MP.GetLocalImageFileName(GetBestUrl(entry.Media.Thumbnails));
       if (File.Exists(imageFile))
       {
         item.ThumbnailImage = imageFile;
@@ -168,7 +168,7 @@ namespace YouTubePlugin
           item.Label2 = "";
           item.IsFolder = true;
 
-          string imageFile = GetLocalImageFileName(aitem.Img_url);
+          string imageFile = Youtube2MP.GetLocalImageFileName(aitem.Img_url);
           if (File.Exists(imageFile))
           {
             item.ThumbnailImage = imageFile;

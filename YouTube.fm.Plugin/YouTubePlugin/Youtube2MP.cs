@@ -6,6 +6,7 @@ using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
 using Google.GData.YouTube;
 using Google.YouTube;
+using MediaPortal.Util;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.SiteItems;
 using PlayList = YouTubePlugin.Class.SiteItems.PlayList;
@@ -87,7 +88,7 @@ namespace YouTubePlugin
       res.Title = "Home";
       foreach (SiteItemEntry itemEntry in _settings.MainMenu.Items)
       {
-        if (string.IsNullOrEmpty(itemEntry.ParentFolder))
+        if (String.IsNullOrEmpty(itemEntry.ParentFolder))
           res.Add(SiteItemProvider[itemEntry.Provider].HomeGetList(itemEntry));
       }
       foreach (GenericListItem genericListItem in res.Items)
@@ -101,9 +102,9 @@ namespace YouTubePlugin
 
     public static string GetVideoId(YouTubeEntry vid)
     {
-      if (!string.IsNullOrEmpty(vid.VideoId))
+      if (!String.IsNullOrEmpty(vid.VideoId))
         return vid.VideoId;
-      return Youtube2MP.getIDSimple(vid.Id.AbsoluteUri);
+      return getIDSimple(vid.Id.AbsoluteUri);
     }
 
 
@@ -191,12 +192,12 @@ namespace YouTubePlugin
       int i = 0;
       int i1 = 0;
       string str1 = "/watch_fullscreen?";
-      i = str.IndexOf(str1, System.StringComparison.CurrentCultureIgnoreCase);
-      i1 = str.IndexOf(";", i, System.StringComparison.CurrentCultureIgnoreCase);
+      i = str.IndexOf(str1, StringComparison.CurrentCultureIgnoreCase);
+      i1 = str.IndexOf(";", i, StringComparison.CurrentCultureIgnoreCase);
       string str3 = str.Substring(i + str1.Length, i1 - (i + str1.Length));
       string str7 = str3.Substring(str3.IndexOf("&title=") + 7);
       str7 = str7.Substring(0, str7.Length - 1);
-      return string.Concat("http://youtube.com/get_video?", str3.Substring(str3.IndexOf("video_id"), str3.IndexOf("&", str3.IndexOf("video_id")) - str3.IndexOf("video_id")), str3.Substring(str3.IndexOf("&l"), str3.IndexOf("&", str3.IndexOf("&l") + 1) - str3.IndexOf("&l")), str3.Substring(str3.IndexOf("&t"), str3.IndexOf("&", str3.IndexOf("&t") + 1) - str3.IndexOf("&t")));//+ "&fmt=18"
+      return String.Concat("http://youtube.com/get_video?", str3.Substring(str3.IndexOf("video_id"), str3.IndexOf("&", str3.IndexOf("video_id")) - str3.IndexOf("video_id")), str3.Substring(str3.IndexOf("&l"), str3.IndexOf("&", str3.IndexOf("&l") + 1) - str3.IndexOf("&l")), str3.Substring(str3.IndexOf("&t"), str3.IndexOf("&", str3.IndexOf("&t") + 1) - str3.IndexOf("&t")));//+ "&fmt=18"
       //return string.Concat("http://www.youtube.com/v/", str3.Substring(str3.IndexOf("video_id"), str3.IndexOf("&", str3.IndexOf("video_id")) - str3.IndexOf("video_id")),"?",str3.Substring(str3.IndexOf("&l"), str3.IndexOf("&", str3.IndexOf("&l") + 1) - str3.IndexOf("&l")), str3.Substring(str3.IndexOf("&t"), str3.IndexOf("&", str3.IndexOf("&t") + 1) - str3.IndexOf("&t")));
    
     }
@@ -208,7 +209,7 @@ namespace YouTubePlugin
       {
         return _settings.LocalFile.Get(getIDSimple(url)).LocalFile;
       }
-      if (string.IsNullOrEmpty(qa.Token) || !qa.IsInited)
+      if (String.IsNullOrEmpty(qa.Token) || !qa.IsInited)
       {
         qa.Get(getIDSimple(url));
       }
@@ -233,7 +234,7 @@ namespace YouTubePlugin
 
     static private Stream RetrieveData(string sUrl)
     {
-      if (string.IsNullOrEmpty(sUrl) || sUrl[0] == '/')
+      if (String.IsNullOrEmpty(sUrl) || sUrl[0] == '/')
       {
         return null;
       }
@@ -268,20 +269,20 @@ namespace YouTubePlugin
       try
       {
         string str1 = "where=46038";
-        System.Net.HttpWebRequest httpWebRequest = System.Net.WebRequest.Create(url) as System.Net.HttpWebRequest;
+        HttpWebRequest httpWebRequest = WebRequest.Create(url) as HttpWebRequest;
         httpWebRequest.Method = "POST";
         httpWebRequest.ContentLength = (long)str1.Length;
         httpWebRequest.ContentType = "application/x-www-form-urlencoded";
-        System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(httpWebRequest.GetRequestStream());
+        StreamWriter streamWriter = new StreamWriter(httpWebRequest.GetRequestStream());
         streamWriter.Write(str1);
         streamWriter.Close();
-        System.IO.StreamReader streamReader = new System.IO.StreamReader((httpWebRequest.GetResponse() as System.Net.HttpWebResponse).GetResponseStream());
+        StreamReader streamReader = new StreamReader((httpWebRequest.GetResponse() as HttpWebResponse).GetResponseStream());
         str = streamReader.ReadToEnd();
         streamReader.Close();
       }
-      catch (System.Exception exception1)
+      catch (Exception exception1)
       {
-        str = string.Concat("Error: ", exception1.Message.ToString());
+        str = String.Concat("Error: ", exception1.Message.ToString());
         Log.Error(exception1);
       }
       return str;
@@ -289,10 +290,10 @@ namespace YouTubePlugin
 
     public static GenericListItem GetPager(SiteItemEntry entry, YouTubeFeed videos)
     {
-      if (videos.TotalResults > videos.StartIndex + Youtube2MP.ITEM_IN_LIST)
+      if (videos.TotalResults > videos.StartIndex + ITEM_IN_LIST)
       {
         SiteItemEntry newEntry = entry.Copy();
-        newEntry.StartItem += Youtube2MP.ITEM_IN_LIST;
+        newEntry.StartItem += ITEM_IN_LIST;
         GenericListItem listItem = new GenericListItem()
                                      {
                                        Title = Translation.NextPage,
@@ -317,13 +318,13 @@ namespace YouTubePlugin
                                };
       if (youTubeEntry.Duration != null)
         item.Duration = Convert.ToInt32(youTubeEntry.Duration.Seconds, 10);
-      item.Title2 = MediaPortal.Util.Utils.SecondsToHMSString(item.Duration);
+      item.Title2 = Utils.SecondsToHMSString(item.Duration);
       return item;
     }
 
     public static string FormatNumber(string numeber)
     {
-      if (string.IsNullOrEmpty(numeber))
+      if (String.IsNullOrEmpty(numeber))
         return " ";
       int i = Convert.ToInt32(numeber);
       return i.ToString("0,0");
@@ -345,15 +346,15 @@ namespace YouTubePlugin
     public static VideoInfo SelectQuality(YouTubeEntry vid)
     {
       VideoInfo info = new VideoInfo();
-      info.Get(Youtube2MP.GetVideoId(vid));
-      if (!string.IsNullOrEmpty(info.Reason))
+      info.Get(GetVideoId(vid));
+      if (!String.IsNullOrEmpty(info.Reason))
       {
         Err_message(info.Reason);
         info.Quality = VideoQuality.Unknow;
         return info;
       }
 
-      switch (Youtube2MP._settings.VideoQuality)
+      switch (_settings.VideoQuality)
       {
         case 0:
           info.Quality = VideoQuality.Normal;
@@ -416,6 +417,29 @@ namespace YouTubePlugin
           break;
       }
       return info;
+    }
+
+    static public string GetLocalImageFileName(string strURL)
+    {
+      if (strURL == "")
+        return String.Empty;
+      if (strURL == "@")
+        return String.Empty;
+      string url = String.Format("youtubevideos-{0}.jpg", Utils.EncryptLine(strURL));
+      return Path.Combine(_settings.CacheDir, url); ;
+    }
+
+    static public void DownloadFile(string url, string localFile)
+    {
+      try
+      {
+        WebClient webClient = new WebClient();
+        webClient.DownloadFile(url, localFile);
+      }
+      catch (Exception exception)
+      {
+        Log.Error(exception);
+      }
     }
 
   }

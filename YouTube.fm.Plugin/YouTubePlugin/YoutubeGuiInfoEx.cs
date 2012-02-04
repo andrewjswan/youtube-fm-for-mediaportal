@@ -12,6 +12,7 @@ using Google.YouTube;
 using Lastfm.Services;
 using MediaPortal.GUI.Library;
 using YouTubePlugin.Class.Artist;
+using YouTubePlugin.Class.Database;
 using YouTubePlugin.DataProvider;
 using Action = MediaPortal.GUI.Library.Action;
 
@@ -98,7 +99,7 @@ namespace YouTubePlugin
           if (fanart.ImageUrls.Count > 0)
           {
             Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
-            DownloadFile(fanart.ImageUrls[0].Url, file);
+            Youtube2MP.DownloadFile(fanart.ImageUrls[0].Url, file);
             GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.FanArt", file);
             Log.Debug("Youtube.Fm fanart {0} loaded ", file);
             if (imgFanArt != null)
@@ -170,13 +171,13 @@ namespace YouTubePlugin
         }
         GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Comments", cm);
         string vidimg = GetBestUrl(YouTubeEntry.Media.Thumbnails);
-        string vidfile = GetLocalImageFileName(vidimg);
+        string vidfile = Youtube2MP.GetLocalImageFileName(vidimg);
         if (!string.IsNullOrEmpty(vidimg))
         {
           if (!File.Exists(vidfile))
           {
             GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Image", " ");
-            DownloadFile(vidimg, vidfile);
+            Youtube2MP.DownloadFile(vidimg, vidfile);
           }
         }
         GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.Image", vidfile);
@@ -191,72 +192,74 @@ namespace YouTubePlugin
     {
       try
       {
-        ArtistItem = GetArtist(YouTubeEntry);
-        if(!string.IsNullOrEmpty(ArtistItem.Id))
-        {
-          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Name", ArtistItem.Name);
-        }
+        ArtistManager.Instance.SetSkinProperties(YouTubeEntry, "Info", true, true);
 
-        if (!string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name").Trim()))
-        {
-          Track track = new Track(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"),
-                                  GUIPropertyManager.GetProperty("#Youtube.fm.Info.Video.Title"),
-                                  Youtube2MP.LastFmProfile.Session);
+        //ArtistItem = GetArtist(YouTubeEntry);
+        //if(!string.IsNullOrEmpty(ArtistItem.Id))
+        //{
+        //  GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Name", ArtistItem.Name);
+        //}
 
-          if (string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Image").Trim()))
-          {
-            string imgurl =
-              ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
-            if (string.IsNullOrEmpty(imgurl))
-            {
-              imgurl = track.Artist.GetImageURL(ImageSize.Huge);
-            }
-            if (!string.IsNullOrEmpty(imgurl))
-            {
-              string artistimg = GetLocalImageFileName(imgurl);
-              if (!File.Exists(artistimg))
-              {
-                DownloadFile(imgurl, artistimg);
-              }
-              GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image", artistimg);
-            }
-          }
+        //if (!string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name").Trim()))
+        //{
+        //  Track track = new Track(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"),
+        //                          GUIPropertyManager.GetProperty("#Youtube.fm.Info.Video.Title"),
+        //                          Youtube2MP.LastFmProfile.Session);
 
-          ArtistBio artistBio = track.Artist.Bio;
-          artistBio.Lang = GUILocalizeStrings.GetCultureName(GUILocalizeStrings.CurrentLanguage());
-          string contents = Regex.Replace(HttpUtility.HtmlDecode(artistBio.getContent()), "<.*?>",
-                                          string.Empty);
-          if(string.IsNullOrEmpty(contents))
-          {
-            artistBio.Lang = string.Empty;
-            contents = Regex.Replace(HttpUtility.HtmlDecode(artistBio.getContent()), "<.*?>",
-                                            string.Empty);
-          }
-          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio", contents);
-          string tags = " ";
-          if (!string.IsNullOrEmpty(ArtistItem.Id))
-          {
-            if (string.IsNullOrEmpty(ArtistItem.Tags))
-            {
-              int i = 0;
-              TopTag[] topTags = track.Artist.GetTopTags();
-              foreach (TopTag tag in topTags)
-              {
-                tags += tag.Item.Name + "|";
-                if (i < 5)
-                {
-                  ArtistManager.Instance.SaveTag(ArtistItem, tag.Item.Name);
-                }
-                i++;
-              }
-            }
-            else
-            {
-              tags = ArtistItem.Tags;
-            }
-          }
-          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Tags", tags);
-        }
+        //  if (string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Image").Trim()))
+        //  {
+        //    string imgurl =
+        //      ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+        //    if (string.IsNullOrEmpty(imgurl))
+        //    {
+        //      imgurl = track.Artist.GetImageURL(ImageSize.Huge);
+        //    }
+        //    if (!string.IsNullOrEmpty(imgurl))
+        //    {
+        //      string artistimg = Youtube2MP.GetLocalImageFileName(imgurl);
+        //      if (!File.Exists(artistimg))
+        //      {
+        //        DownloadFile(imgurl, artistimg);
+        //      }
+        //      GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image", artistimg);
+        //    }
+        //  }
+
+        //  ArtistBio artistBio = track.Artist.Bio;
+        //  artistBio.Lang = GUILocalizeStrings.GetCultureName(GUILocalizeStrings.CurrentLanguage());
+        //  string contents = Regex.Replace(HttpUtility.HtmlDecode(artistBio.getContent()), "<.*?>",
+        //                                  string.Empty);
+        //  if(string.IsNullOrEmpty(contents))
+        //  {
+        //    artistBio.Lang = string.Empty;
+        //    contents = Regex.Replace(HttpUtility.HtmlDecode(artistBio.getContent()), "<.*?>",
+        //                                    string.Empty);
+        //  }
+        //  GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Bio", contents);
+        //  string tags = " ";
+        //  if (!string.IsNullOrEmpty(ArtistItem.Id))
+        //  {
+        //    if (string.IsNullOrEmpty(ArtistItem.Tags))
+        //    {
+        //      int i = 0;
+        //      TopTag[] topTags = track.Artist.GetTopTags();
+        //      foreach (TopTag tag in topTags)
+        //      {
+        //        tags += tag.Item.Name + "|";
+        //        if (i < 5)
+        //        {
+        //          ArtistManager.Instance.SaveTag(ArtistItem, tag.Item.Name);
+        //        }
+        //        i++;
+        //      }
+        //    }
+        //    else
+        //    {
+        //      tags = ArtistItem.Tags;
+        //    }
+        //  }
+        //  GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Tags", tags);
+        //}
       }
       catch (Exception ex)
       {

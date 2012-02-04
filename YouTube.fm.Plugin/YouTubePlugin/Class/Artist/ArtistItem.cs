@@ -16,6 +16,11 @@ namespace YouTubePlugin.Class.Artist
     public string Bio { get; set; }
     public string AMImg_url { get; set; }
 
+    public string LocalImage
+    {
+      get { return Youtube2MP.GetLocalImageFileName(Img_url); }
+    }
+
     public ArtistItem()
     {
       Db_id = -1;

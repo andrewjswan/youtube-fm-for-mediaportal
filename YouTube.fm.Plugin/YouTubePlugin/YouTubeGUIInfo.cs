@@ -172,7 +172,7 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty("#Play.Current.Artist",
                                      GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Video.Title"));
 
-      GUIPropertyManager.SetProperty("#Play.Current.Thumb", GetLocalImageFileName(
+      GUIPropertyManager.SetProperty("#Play.Current.Thumb", Youtube2MP.GetLocalImageFileName(
         GetBestUrl(Youtube2MP.NowPlayingEntry.Media.Thumbnails)));
 
       if (Youtube2MP.NowPlayingEntry.Rating != null)

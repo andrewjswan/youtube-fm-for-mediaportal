@@ -47,6 +47,9 @@ namespace YouTubePlugin.Class.Database
             "CREATE TABLE VIDEOS(ID integer primary key autoincrement,VIDEO_ID text, ARTIST_ID text, TITLE text, IMG_URL text, LENGTH integer,STATE integer, rating integer, hd integer)\n");
           m_db.Execute(
             "CREATE TABLE PLAY_HISTORY(ID integer primary key autoincrement,VIDEO_ID text, datePlayed timestamp, loved integer)\n");
+
+          CreateArtistTable(m_db);
+
           DatabaseUtility.AddIndex(m_db, "idx_video_id", "CREATE INDEX idx_video_id ON VIDEOS(VIDEO_ID)");
           DatabaseUtility.AddIndex(m_db, "idx_ARTIST_ID", "CREATE INDEX idx_ARTIST_ID ON VIDEOS(ARTIST_ID)");
           DatabaseUtility.AddIndex(m_db, "idx_his_video_id", "CREATE INDEX idx_his_video_id ON PLAY_HISTORY(VIDEO_ID)");
@@ -58,12 +61,23 @@ namespace YouTubePlugin.Class.Database
           {
             m_db.Execute("ALTER TABLE VIDEOS ADD hd integer");
           }
+          if (!DatabaseUtility.TableExists(m_db, "ARTISTS"))
+          {
+            CreateArtistTable(m_db);
+          }
         }
       }
       catch (SQLiteException ex)
       {
         Log.Error("database exception err:{0} stack:{1}", ex.Message, ex.StackTrace);
       }
+    }
+
+    private void CreateArtistTable(SQLiteClient db)
+    {
+      db.Execute("CREATE TABLE ARTISTS(ID integer primary key autoincrement,ARTIST_ID text, ARTIST_NAME text, ARTIST_IMG text, ARTIST_BIO text, ARTIST_USER text, ARTIST_TAG text, ARTIST_GENRE text, ARTIST_IMG_URL text, ARTIST_PLAYED integer)\n");
+      DatabaseUtility.AddIndex(m_db, "idx_artists_name", "CREATE INDEX idx_artists_name ON ARTISTS(ARTIST_NAME)");
+      DatabaseUtility.AddIndex(m_db, "idx_artists_ARTIST_ID", "CREATE INDEX idx_ARTIST_ID ON ARTISTS(ARTIST_ID)");
     }
 
     public void SavePlayData(YouTubeEntry entry, DateTime dateTime)
@@ -138,6 +152,51 @@ namespace YouTubePlugin.Class.Database
       catch (Exception exception)
       {
         Log.Error(exception);
+      }
+    }
+
+    public void Save(ArtistItem artistItem)
+    {
+      if (string.IsNullOrEmpty(artistItem.Id))
+        return;
+      //if (Youtube2MP.LastFmProfile.Session != null)
+      //{
+      //  Lastfm.Services.Artist artist = new Lastfm.Services.Artist(artistItem.Name, Youtube2MP.LastFmProfile.Session);
+      //  artistItem.Img_url = artist.GetImageURL(ImageSize.Large);
+      //}
+      string lsSQL =
+        string.Format(
+          "UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\", ARTIST_USER=\"{3}\", ARTIST_TAG=\"{4}\", ARTIST_BIO=\"{5}\"  WHERE ARTIST_ID=\"{0}\" ",
+          artistItem.Id, DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"', '`')),
+          artistItem.Img_url, artistItem.User, artistItem.Tags, artistItem.Bio);
+      m_db.Execute(lsSQL);
+    }
+
+    public void AddArtist(ArtistItem artistItem)
+    {
+      try
+      {
+        if (string.IsNullOrEmpty(artistItem.Id))
+          return;
+
+        string lsSQL = string.Format("select distinct ARTIST_ID,ARTIST_IMG from ARTISTS WHERE ARTIST_ID=\"{0}\"", artistItem.Id);
+        SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+        if (loResultSet.Rows.Count > 0)
+        {
+          Save(artistItem);
+          return;
+        }
+        lsSQL =
+          string.Format(
+            "insert into ARTISTS (ARTIST_ID,ARTIST_NAME,ARTIST_IMG, ARTIST_USER, ARTIST_TAG, ARTIST_BIO) VALUES (\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\")",
+            artistItem.Id,
+            DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"', '`')), artistItem.Img_url, artistItem.User,
+            artistItem.Tags, artistItem.Bio);
+        m_db.Execute(lsSQL);
+        artistItem.Db_id = m_db.LastInsertID();
+      }
+      catch (Exception)
+      {
       }
     }
 

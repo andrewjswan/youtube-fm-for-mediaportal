@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using Google.GData.YouTube;
 using MediaPortal.Configuration;
 using MediaPortal.Database;
 using MediaPortal.GUI.Library;
 using SQLite.NET;
 using Lastfm.Services;
+using YouTubePlugin.Class.Database;
 
 namespace YouTubePlugin.Class.Artist
 {
@@ -311,6 +314,40 @@ namespace YouTubePlugin.Class.Artist
       m_db.Execute(lsSQL);
     }
 
+    public bool SetSkinProperties(YouTubeEntry youTubeEntry, string prefix, bool grab, bool download)
+    {
+      string videoId = Youtube2MP.GetVideoId(youTubeEntry);
+      ArtistItem artistItem = DatabaseProvider.InstanInstance.GetArtist(youTubeEntry);
+      if (artistItem == null)
+      {
 
+      }
+      if (artistItem != null)
+      {
+        if (download && !File.Exists(artistItem.LocalImage))
+        {
+          Youtube2MP.DownloadFile(artistItem.Img_url, artistItem.LocalImage);
+        }
+        SetSkinProperties(artistItem, prefix);
+      }
+      return false;
+    }
+
+    public void SetSkinProperties(ArtistItem artistItem,string prefix)
+    {
+      GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + prefix + ".Artist.Name", Property(artistItem.Name));
+      GUIPropertyManager.SetProperty("#Youtube.fm." + prefix + ".Artist.Bio", Property(artistItem.Bio));
+      GUIPropertyManager.SetProperty("#Youtube.fm." + prefix + ".Artist.Tags", Property(artistItem.Tags));
+      GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image",
+                                     Property(artistItem.LocalImage));
+    }
+
+    private string Property(string s)
+    {
+      if (string.IsNullOrEmpty(s))
+        return " ";
+      return s;
+    }
   }
 }

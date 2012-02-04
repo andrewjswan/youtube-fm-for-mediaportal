@@ -87,7 +87,7 @@ namespace YouTubePlugin
                                            Youtube2MP.FormatNumber(vid.Statistics.FavoriteCount));
         }
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Image",
-                                       GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
+                                       Youtube2MP.GetLocalImageFileName(GetBestUrl(vid.Media.Thumbnails)));
 
         if (vid.Media.Description != null)
           GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Summary", vid.Media.Description.Value);
@@ -134,20 +134,21 @@ namespace YouTubePlugin
         GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", " ");
       }
 
-      if (type != "Curent")
+      if (type != "Curent" || type != "Current")
       {
-        GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", GetArtistName(vid));
-        string imgurl =
-          ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm." + type + ".Artist.Name"));
-        string artistimg = GetLocalImageFileName(imgurl);
-        if (!string.IsNullOrEmpty(imgurl))
-        {
-          DownloadFile(imgurl, artistimg);
-          if (File.Exists(artistimg))
-          {
-            GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Image", artistimg);
-          }
-        }
+        ArtistManager.Instance.SetSkinProperties(vid, "Info", false, false);
+        //GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", GetArtistName(vid));
+        //string imgurl =
+        //  ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm." + type + ".Artist.Name"));
+        //string artistimg = Youtube2MP.GetLocalImageFileName(imgurl);
+        //if (!string.IsNullOrEmpty(imgurl))
+        //{
+        //  DownloadFile(imgurl, artistimg);
+        //  if (File.Exists(artistimg))
+        //  {
+        //    GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Image", artistimg);
+        //  }
+        //}
       }
     }
 
@@ -218,10 +219,10 @@ namespace YouTubePlugin
   
     static public string GetBestUrl(ExtensionCollection<MediaThumbnail> th)
     {
-      if (th !=null && th.Count > 0)
+      string url = string.Empty;
+      if (th != null && th.Count > 0)
       {
         int with = 0;
-        string url = string.Empty;
         foreach (MediaThumbnail mediaThumbnail in th)
         {
           int w = 0;
@@ -232,19 +233,10 @@ namespace YouTubePlugin
             with = w;
           }
         }
-        return url;
       }
-      return "http://i2.ytimg.com/vi/hqdefault.jpg";
-    }
-
-    static public string GetLocalImageFileName(string strURL)
-    {
-      if (strURL == "")
-        return string.Empty;
-      if (strURL == "@")
-        return string.Empty;
-      string url = String.Format("youtubevideos-{0}.jpg", Utils.EncryptLine(strURL));
-      return Path.Combine(Youtube2MP._settings.CacheDir, url); ;
+      if (string.IsNullOrEmpty(url))
+        url = "http://i2.ytimg.com/vi/hqdefault.jpg";
+      return url;
     }
 
     public bool filterVideoContens(YouTubeEntry vid)
@@ -568,18 +560,7 @@ namespace YouTubePlugin
 
     #region download manager
 
-    protected void DownloadFile(string url,string localFile)
-    {
-      try
-      {
-        WebClient webClient = new WebClient();
-        webClient.DownloadFile(url, localFile);
-      }
-      catch (Exception exception)
-      {
-        Log.Error(exception);
-      }
-    }
+
 
 
     private string DownloadImage(string Url)
@@ -605,7 +586,7 @@ namespace YouTubePlugin
     {
       if (string.IsNullOrEmpty(Url))
         return string.Empty;
-      string localFile = GetLocalImageFileName(Url);
+      string localFile = Youtube2MP.GetLocalImageFileName(Url);
       if (!File.Exists(localFile) && !string.IsNullOrEmpty(Url))
       {
         downloaQueue.Enqueue(new DownloadFileObject(localFile, Url, listitem));
@@ -647,7 +628,7 @@ namespace YouTubePlugin
                   artistItem.Img_url = artist.GetImageURL(ImageSize.Huge);
                   ArtistManager.Instance.Save(artistItem);
                   curentDownlodingFile.Url = artistItem.Img_url;
-                  curentDownlodingFile.FileName = GetLocalImageFileName(curentDownlodingFile.Url);
+                  curentDownlodingFile.FileName = Youtube2MP.GetLocalImageFileName(curentDownlodingFile.Url);
                 }
                 catch
                 {
