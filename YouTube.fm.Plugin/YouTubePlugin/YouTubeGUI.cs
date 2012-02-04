@@ -1045,7 +1045,7 @@ namespace YouTubePlugin
       if (videoEntry == null)
         return;
 
-      artistName = GetArtistName(videoEntry);
+      artistName = ArtistManager.Instance.GetArtistName(videoEntry.Title.Text);
 
       ArtistItem artistItem = GetArtist(videoEntry);
 

@@ -167,9 +167,9 @@ namespace YouTubePlugin
 
     void playBeginWorker_DoWork(object sender, DoWorkEventArgs e)
     {
-      GUIPropertyManager.SetProperty("#Play.Current.Title",
-                                     GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Artist.Name"));
       GUIPropertyManager.SetProperty("#Play.Current.Artist",
+                                     GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Artist.Name"));
+      GUIPropertyManager.SetProperty("#Play.Current.Title",
                                      GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Video.Title"));
 
       GUIPropertyManager.SetProperty("#Play.Current.Thumb", Youtube2MP.GetLocalImageFileName(

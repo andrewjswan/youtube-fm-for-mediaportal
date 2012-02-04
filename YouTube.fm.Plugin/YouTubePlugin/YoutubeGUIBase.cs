@@ -136,7 +136,7 @@ namespace YouTubePlugin
 
       if (type != "Curent" || type != "Current")
       {
-        ArtistManager.Instance.SetSkinProperties(vid, "Info", false, false);
+        ArtistManager.Instance.SetSkinProperties(vid, type, false, false);
         //GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Artist.Name", GetArtistName(vid));
         //string imgurl =
         //  ArtistManager.Instance.GetArtistsImgUrl(GUIPropertyManager.GetProperty("#Youtube.fm." + type + ".Artist.Name"));
@@ -733,17 +733,17 @@ namespace YouTubePlugin
       return artistItem;
     }
 
-    protected string GetArtistName(YouTubeEntry entry)
-    {
-      ArtistItem artistItem = GetArtist(entry);
-      if (!string.IsNullOrEmpty(artistItem.Name))
-        return artistItem.Name;
-      if (entry.Title.Text.Contains("-"))
-      {
-        return entry.Title.Text.Split('-')[0].TrimEnd();
-      }
-      return "";
-    }
+    //protected string GetArtistName(YouTubeEntry entry)
+    //{
+    //  ArtistItem artistItem = GetArtist(entry);
+    //  if (!string.IsNullOrEmpty(artistItem.Name))
+    //    return artistItem.Name;
+    //  if (entry.Title.Text.Contains("-"))
+    //  {
+    //    return entry.Title.Text.Split('-')[0].TrimEnd();
+    //  }
+    //  return "";
+    //}
 
 
     #endregion

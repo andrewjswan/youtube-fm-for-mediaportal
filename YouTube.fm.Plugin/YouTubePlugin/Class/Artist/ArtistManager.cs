@@ -316,11 +316,11 @@ namespace YouTubePlugin.Class.Artist
 
     public bool SetSkinProperties(YouTubeEntry youTubeEntry, string prefix, bool grab, bool download)
     {
-      string videoId = Youtube2MP.GetVideoId(youTubeEntry);
       ArtistItem artistItem = DatabaseProvider.InstanInstance.GetArtist(youTubeEntry);
       if (artistItem == null)
       {
-
+        string art = GetArtistName(youTubeEntry.Title.Text);
+        artistItem = GetArtistsByName(art);
       }
       if (artistItem != null)
       {
@@ -348,6 +348,24 @@ namespace YouTubePlugin.Class.Artist
       if (string.IsNullOrEmpty(s))
         return " ";
       return s;
+    }
+
+    public string GetArtistName(string title)
+    {
+      string name = "";
+      if (title.Contains(" - "))
+      {
+        name = title.Substring(0, title.IndexOf(" - ", System.StringComparison.Ordinal));
+      }
+      else if (title.Contains("-"))
+      {
+        name = title.Substring(0, title.IndexOf("-", System.StringComparison.Ordinal));
+      }
+      else if (title.Contains(":"))
+      {
+        return title.Substring(0, title.IndexOf("-", System.StringComparison.Ordinal));
+      }
+      return name.Trim();
     }
   }
 }
