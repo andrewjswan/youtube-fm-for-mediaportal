@@ -708,6 +708,7 @@ namespace YouTubePlugin
       return query;
     }
 
+    [Obsolete("Use artist manager")]
     protected ArtistItem GetArtist(YouTubeEntry entry) 
     {
       ArtistItem artistItem = DatabaseProvider.InstanInstance.GetArtist(entry);

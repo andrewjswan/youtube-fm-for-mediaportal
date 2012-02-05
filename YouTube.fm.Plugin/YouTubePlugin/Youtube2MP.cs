@@ -431,6 +431,8 @@ namespace YouTubePlugin
 
     static public void DownloadFile(string url, string localFile)
     {
+      if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(localFile))
+        return;
       try
       {
         WebClient webClient = new WebClient();

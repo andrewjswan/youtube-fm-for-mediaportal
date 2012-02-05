@@ -142,11 +142,15 @@ namespace YouTubePlugin
         item.FileName = Youtube2MP.StreamPlaybackUrl(en, info);
         Youtube2MP.NowPlayingEntry = en;
         Youtube2MP.NextPlayingEntry = null;
+        ArtistManager.Instance.SetSkinProperties(Youtube2MP.NextPlayingEntry, "NowPlaying", false, false);
         if (playlit.GetNextItem() != null)
         {
           VideoInfo nextinfo = playlit.GetNextItem().MusicTag as VideoInfo;
           if (nextinfo != null)
+          {
             Youtube2MP.NextPlayingEntry = nextinfo.Entry;
+            ArtistManager.Instance.SetSkinProperties(Youtube2MP.NextPlayingEntry, "Next", false, false);
+          }
         }
         BackgroundWorker playBeginWorker = new BackgroundWorker();
         playBeginWorker.DoWork += playBeginWorker_DoWork;
@@ -172,14 +176,16 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty("#Play.Current.Title",
                                      GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Video.Title"));
 
-      GUIPropertyManager.SetProperty("#Play.Current.Thumb", Youtube2MP.GetLocalImageFileName(
-        GetBestUrl(Youtube2MP.NowPlayingEntry.Media.Thumbnails)));
+      if (Youtube2MP.NowPlayingEntry.Media != null)
+        GUIPropertyManager.SetProperty("#Play.Current.Thumb", Youtube2MP.GetLocalImageFileName(
+          GetBestUrl(Youtube2MP.NowPlayingEntry.Media.Thumbnails)));
 
       if (Youtube2MP.NowPlayingEntry.Rating != null)
         GUIPropertyManager.SetProperty("#Play.Current.Rating",
                                        (Youtube2MP.NowPlayingEntry.Rating.Average*2).ToString());
 
       SetLabels(Youtube2MP.NowPlayingEntry, "NowPlaying");
+      ArtistManager.Instance.SetSkinProperties(Youtube2MP.NowPlayingEntry, "NowPlaying", true, true);
       DatabaseProvider.InstanInstance.SavePlayData(Youtube2MP.NowPlayingEntry, DateTime.Now);
       relatated.Clear();
       similar.Clear();
@@ -205,6 +211,7 @@ namespace YouTubePlugin
       if (Youtube2MP.NextPlayingEntry != null)
       {
         SetLabels(Youtube2MP.NextPlayingEntry, "Next");
+        ArtistManager.Instance.SetSkinProperties(Youtube2MP.NextPlayingEntry, "Next", true, true);
       }
       else
       {

@@ -10,6 +10,7 @@ using MediaPortal.GUI.Library;
 using SQLite.NET;
 using Lastfm.Services;
 using YouTubePlugin.Class.Database;
+using YouTubePlugin.DataProvider;
 
 namespace YouTubePlugin.Class.Artist
 {
@@ -146,8 +147,13 @@ namespace YouTubePlugin.Class.Artist
 
     public ArtistItem GetArtistsByName(string name)
     {
+
       ArtistItem res = new ArtistItem();
-      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_NAME like \"{0}%\" order by ARTIST_NAME",
+      res = DatabaseProvider.InstanInstance.GetArtistsByName(name);
+      if (res != null)
+        return res;
+      res = new ArtistItem();
+      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_NAME like \"{0}\" order by ARTIST_NAME",
                                    DatabaseUtility.RemoveInvalidChars(name.Replace('"', '`')));
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
@@ -316,14 +322,38 @@ namespace YouTubePlugin.Class.Artist
 
     public bool SetSkinProperties(YouTubeEntry youTubeEntry, string prefix, bool grab, bool download)
     {
+      if (youTubeEntry == null)
+        return true;
       ArtistItem artistItem = DatabaseProvider.InstanInstance.GetArtist(youTubeEntry);
+      if (artistItem == null && grab)
+      {
+        string vidId = Youtube2MP.GetVideoId(youTubeEntry);
+        artistItem = SitesCache.GetByVideoId(vidId) != null
+                       ? Grabber.GetFromVideoSite(SitesCache.GetByVideoId(vidId).SIte)
+                       : Grabber.GetFromVideoId(vidId);
+      }
       if (artistItem == null)
       {
         string art = GetArtistName(youTubeEntry.Title.Text);
         artistItem = GetArtistsByName(art);
       }
+      if ((artistItem == null || string.IsNullOrEmpty(artistItem.Bio) || string.IsNullOrEmpty(artistItem.Img_url)) && grab)
+      {
+        if (artistItem == null || string.IsNullOrEmpty((artistItem.Name)))
+          artistItem = new ArtistItem() {Name = GetArtistName(youTubeEntry.Title.Text)};
+        AllMusic allMusic=new AllMusic();
+        if (allMusic.GetDetails(artistItem))
+        {
+          DatabaseProvider.InstanInstance.AddArtist(artistItem);
+        }
+        else
+        {
+          //artistItem = null;
+        }
+      }
       if (artistItem != null)
       {
+        
         if (download && !File.Exists(artistItem.LocalImage))
         {
           Youtube2MP.DownloadFile(artistItem.Img_url, artistItem.LocalImage);
@@ -335,11 +365,11 @@ namespace YouTubePlugin.Class.Artist
 
     public void SetSkinProperties(ArtistItem artistItem,string prefix)
     {
-      GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image", " ");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + prefix + ".Artist.Image", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + prefix + ".Artist.Name", Property(artistItem.Name));
       GUIPropertyManager.SetProperty("#Youtube.fm." + prefix + ".Artist.Bio", Property(artistItem.Bio));
       GUIPropertyManager.SetProperty("#Youtube.fm." + prefix + ".Artist.Tags", Property(artistItem.Tags));
-      GUIPropertyManager.SetProperty("#Youtube.fm.Info.Artist.Image",
+      GUIPropertyManager.SetProperty("#Youtube.fm." + prefix + ".Artist.Image",
                                      Property(artistItem.LocalImage));
     }
 

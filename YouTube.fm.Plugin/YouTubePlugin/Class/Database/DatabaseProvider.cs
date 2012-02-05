@@ -131,13 +131,21 @@ namespace YouTubePlugin.Class.Database
 
     public ArtistItem GetArtist(YouTubeEntry entry)
     {
+      ArtistItem artistItem = new ArtistItem();
       string lsSQL = string.Format("select distinct ARTIST_ID from VIDEOS WHERE VIDEO_ID=\"{0}\" ", Youtube2MP.GetVideoId(entry));
       SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
       {
-        return ArtistManager.Instance.GetArtistsById(DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"));
+        artistItem= ArtistManager.Instance.GetArtistsById(DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"));
+        break;
       }
-      return null;
+      ArtistItem artistItemLocal = GetArtistsByName(artistItem.Name);
+      if (artistItemLocal != null)
+      {
+        artistItem.Bio = artistItemLocal.Bio;
+        artistItem.Img_url = artistItem.Img_url;
+      }
+      return artistItem;
     }
 
     public void Save(YouTubeEntry entry, ArtistItem artistItem)
@@ -157,8 +165,8 @@ namespace YouTubePlugin.Class.Database
 
     public void Save(ArtistItem artistItem)
     {
-      if (string.IsNullOrEmpty(artistItem.Id))
-        return;
+      //if (string.IsNullOrEmpty(artistItem.Id))
+      //  return;
       //if (Youtube2MP.LastFmProfile.Session != null)
       //{
       //  Lastfm.Services.Artist artist = new Lastfm.Services.Artist(artistItem.Name, Youtube2MP.LastFmProfile.Session);
@@ -166,9 +174,9 @@ namespace YouTubePlugin.Class.Database
       //}
       string lsSQL =
         string.Format(
-          "UPDATE ARTISTS SET ARTIST_NAME =\"{1}\" ,ARTIST_IMG=\"{2}\", ARTIST_USER=\"{3}\", ARTIST_TAG=\"{4}\", ARTIST_BIO=\"{5}\"  WHERE ARTIST_ID=\"{0}\" ",
-          artistItem.Id, DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"', '`')),
-          artistItem.Img_url, artistItem.User, artistItem.Tags, artistItem.Bio);
+          "UPDATE ARTISTS SET ARTIST_NAME ='{1}' ,ARTIST_IMG='{2}', ARTIST_USER='{3}', ARTIST_TAG='{4}', ARTIST_BIO='{5}'  WHERE ARTIST_NAME like '{0}' ",
+          DatabaseUtility.RemoveInvalidChars(artistItem.Name), DatabaseUtility.RemoveInvalidChars(artistItem.Name),
+          artistItem.Img_url, artistItem.User, DatabaseUtility.RemoveInvalidChars(artistItem.Tags), DatabaseUtility.RemoveInvalidChars(artistItem.Bio));
       m_db.Execute(lsSQL);
     }
 
@@ -176,10 +184,10 @@ namespace YouTubePlugin.Class.Database
     {
       try
       {
-        if (string.IsNullOrEmpty(artistItem.Id))
+        if (string.IsNullOrEmpty(artistItem.Name))
           return;
 
-        string lsSQL = string.Format("select distinct ARTIST_ID,ARTIST_IMG from ARTISTS WHERE ARTIST_ID=\"{0}\"", artistItem.Id);
+        string lsSQL = string.Format("select distinct ARTIST_ID,ARTIST_IMG from ARTISTS WHERE ARTIST_NAME like '{0}'", artistItem.Name);
         SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
         if (loResultSet.Rows.Count > 0)
         {
@@ -188,14 +196,14 @@ namespace YouTubePlugin.Class.Database
         }
         lsSQL =
           string.Format(
-            "insert into ARTISTS (ARTIST_ID,ARTIST_NAME,ARTIST_IMG, ARTIST_USER, ARTIST_TAG, ARTIST_BIO) VALUES (\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\")",
+            "insert into ARTISTS (ARTIST_ID,ARTIST_NAME ,ARTIST_IMG, ARTIST_USER, ARTIST_TAG, ARTIST_BIO) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}')",
             artistItem.Id,
-            DatabaseUtility.RemoveInvalidChars(artistItem.Name.Replace('"', '`')), artistItem.Img_url, artistItem.User,
-            artistItem.Tags, artistItem.Bio);
+            DatabaseUtility.RemoveInvalidChars(artistItem.Name), artistItem.Img_url, artistItem.User,
+            DatabaseUtility.RemoveInvalidChars(artistItem.Tags), DatabaseUtility.RemoveInvalidChars(artistItem.Bio));
         m_db.Execute(lsSQL);
         artistItem.Db_id = m_db.LastInsertID();
       }
-      catch (Exception)
+      catch (Exception exception)
       {
       }
     }
@@ -439,5 +447,25 @@ namespace YouTubePlugin.Class.Database
       return res;
     }
 
+    public ArtistItem GetArtistsByName(string name)
+    {
+      if (string.IsNullOrEmpty(name))
+        return null;
+      ArtistItem res = new ArtistItem();
+      string lsSQL = string.Format("select * from ARTISTS WHERE ARTIST_NAME like \"{0}\" order by ARTIST_NAME",
+                                   DatabaseUtility.RemoveInvalidChars(name.Replace('"', '`')));
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        res.Id = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID");
+        res.Name = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_NAME").Replace("''", "'");
+        res.Img_url = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_IMG");
+        res.User = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_USER");
+        res.Tags = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_TAG");
+        res.Bio = DatabaseUtility.Get(loResultSet, iRow, "ARTIST_BIO");
+        return res;
+      }
+      return null;
+    }
   }
 }

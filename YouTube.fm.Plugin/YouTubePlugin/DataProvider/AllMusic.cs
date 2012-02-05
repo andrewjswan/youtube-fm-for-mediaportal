@@ -20,6 +20,8 @@ namespace YouTubePlugin.DataProvider
   {
     public bool GetDetails(ArtistItem artistItem)
     {
+      if (string.IsNullOrEmpty(artistItem.Name))
+        return false;
       string strArtistHTML;
       string strAlbumHTML;
       string strArtistURL;
@@ -32,7 +34,8 @@ namespace YouTubePlugin.DataProvider
           artistInfo.Artist = artist;
 
           artistItem.Bio = artistInfo.AMGBiography;
-          artistItem.AMImg_url = artistInfo.ImageURL;
+          if (!string.IsNullOrEmpty(artistInfo.ImageURL))
+            artistItem.Img_url = artistInfo.ImageURL;
           //setMusicVideoArtist(ref mv1, artistInfo, strArtistHTML);
           //GetArtistArt((DBArtistInfo)mv);
           return true;
@@ -210,8 +213,8 @@ namespace YouTubePlugin.DataProvider
                 continue;
 
               //logger.Debug("GetArtistURLAlternative: Years: {0}", m.Groups["years"].ToString().Trim());
-              if (string.IsNullOrEmpty(m.Groups["years"].ToString().Trim()))
-                continue;
+              //if (string.IsNullOrEmpty(m.Groups["years"].ToString().Trim()))
+              //  continue;
 
               strPotentialURL = m.Groups["artistURL"].ToString();
               numberOfMatchesWithYears++;
@@ -283,7 +286,6 @@ namespace YouTubePlugin.DataProvider
         x.ContentType = "text/html";
         x.Timeout = 30000;
         x.AllowAutoRedirect = false;
-
         using (var y = (HttpWebResponse)x.GetResponse())
         {
           using (var z = y.GetResponseStream())

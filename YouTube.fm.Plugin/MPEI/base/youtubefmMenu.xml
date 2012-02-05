@@ -100,11 +100,6 @@
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
-		<ConfigString />
-		<Title>Vevo Videos</Title>
-		<Provider>Vevo Videos</Provider>
-	</Items>
-	<Items>
 		<ConfigString>feed=Recently Featured|feedint=2|title=Recently Featured|ParentFolder=Standard feeds|</ConfigString>
 		<Title>Recently Featured</Title>
 		<Provider>Standard feed</Provider>
@@ -115,29 +110,14 @@
 		<Provider>Standard feed</Provider>
 	</Items>
 	<Items>
-		<ConfigString>title=Search for :full HD|term=full HD|sortint=0|ParentFolder=|</ConfigString>
-		<Title>Search for :full HD</Title>
-		<Provider>Search for videos</Provider>
+		<ConfigString>ParentFolder=|</ConfigString>
+		<Title>Vevo Videos</Title>
+		<Provider>Vevo Videos</Provider>
 	</Items>
 	<Items>
 		<ConfigString>title=Search History|items=5|flat=false|ParentFolder=|</ConfigString>
 		<Title>Search History</Title>
 		<Provider>Search History</Provider>
-	</Items>
-	<Items>
-		<ConfigString />
-		<Title>User videos</Title>
-		<Provider>User videos</Provider>
-	</Items>
-	<Items>
-		<ConfigString />
-		<Title>User favorites videos</Title>
-		<Provider>User favorites videos</Provider>
-	</Items>
-	<Items>
-		<ConfigString>title=Eurovision 2011|id=F86FEC6DA04B8859|ParentFolder=|</ConfigString>
-		<Title>Eurovision 2011</Title>
-		<Provider>Playlist</Provider>
 	</Items>
 	<Items>
 		<ConfigString>ParentFolder=Standard feeds|title=Most Linked|region=|time=|feed=Most Linked|feedint=5|</ConfigString>
@@ -153,6 +133,26 @@
 		<ConfigString>title=Most Responded|region=|time=|feed=Most Responded|feedint=6|ParentFolder=Standard feeds|</ConfigString>
 		<Title>Most Responded</Title>
 		<Provider>Standard feed</Provider>
+	</Items>
+	<Items>
+		<ConfigString>title=YouTube profile|ParentFolder=|</ConfigString>
+		<Title>YouTube profile</Title>
+		<Provider>Folder</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=User stuff|</ConfigString>
+		<Title>User videos</Title>
+		<Provider>User videos</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=User stuff|</ConfigString>
+		<Title>User favorites videos</Title>
+		<Provider>User favorites videos</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=User stuff|title=Playlists|id=Default|</ConfigString>
+		<Title>Playlists</Title>
+		<Provider>UserPlaylists</Provider>
 	</Items>
 	<Items>
 		<ConfigString>ParentFolder=|title=Last.Fm|</ConfigString>
@@ -228,5 +228,10 @@
 		<ConfigString>ParentFolder=|</ConfigString>
 		<Title>User Downloaded Videos</Title>
 		<Provider>UserDownloadedVideos</Provider>
+	</Items>
+	<Items>
+		<ConfigString>ParentFolder=|</ConfigString>
+		<Title>Featured</Title>
+		<Provider>Featured</Provider>
 	</Items>
 </SiteItemEnumerator>
