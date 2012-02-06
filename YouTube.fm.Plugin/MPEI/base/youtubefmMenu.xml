@@ -140,17 +140,17 @@
 		<Provider>Folder</Provider>
 	</Items>
 	<Items>
-		<ConfigString>ParentFolder=User stuff|</ConfigString>
+		<ConfigString>ParentFolder=YouTube profile|</ConfigString>
 		<Title>User videos</Title>
 		<Provider>User videos</Provider>
 	</Items>
 	<Items>
-		<ConfigString>ParentFolder=User stuff|</ConfigString>
+		<ConfigString>ParentFolder=YouTube profile|</ConfigString>
 		<Title>User favorites videos</Title>
 		<Provider>User favorites videos</Provider>
 	</Items>
 	<Items>
-		<ConfigString>ParentFolder=User stuff|title=Playlists|id=Default|</ConfigString>
+		<ConfigString>ParentFolder=YouTube profile|title=Playlists|id=Default|</ConfigString>
 		<Title>Playlists</Title>
 		<Provider>UserPlaylists</Provider>
 	</Items>

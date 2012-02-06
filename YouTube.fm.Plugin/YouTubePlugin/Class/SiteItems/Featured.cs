@@ -49,7 +49,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
-
+      res.Title = entry.Title;
       foreach (SiteItemEntry itemEntry in _menu.Items)
       {
         if (string.IsNullOrEmpty(itemEntry.ParentFolder))
@@ -61,7 +61,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections HomeGetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
-      entry.Title = Name;
+      //entry.Title = Name;
       GenericListItem listItem = new GenericListItem()
       {
         Title = entry.Title,

@@ -139,11 +139,17 @@ namespace YouTubePlugin.Class.Database
         artistItem= ArtistManager.Instance.GetArtistsById(DatabaseUtility.Get(loResultSet, iRow, "ARTIST_ID"));
         break;
       }
+      if (string.IsNullOrEmpty(artistItem.Name))
+        artistItem.Name = ArtistManager.Instance.GetArtistName(entry.Title.Text);
       ArtistItem artistItemLocal = GetArtistsByName(artistItem.Name);
       if (artistItemLocal != null)
       {
         artistItem.Bio = artistItemLocal.Bio;
-        artistItem.Img_url = artistItem.Img_url;
+        artistItem.Id = string.IsNullOrEmpty(artistItem.Id) ? artistItemLocal.Id : artistItem.Id;
+        artistItem.Img_url = !string.IsNullOrEmpty(artistItemLocal.Img_url) ? artistItemLocal.Img_url : artistItem.Img_url;
+        artistItem.Name = string.IsNullOrEmpty(artistItem.Name) ? artistItemLocal.Name : artistItem.Name;
+        artistItem.Tags = string.IsNullOrEmpty(artistItem.Tags) ? artistItemLocal.Tags : artistItem.Tags;
+        artistItem.User = string.IsNullOrEmpty(artistItem.User) ? artistItemLocal.User : artistItem.User;
       }
       return artistItem;
     }

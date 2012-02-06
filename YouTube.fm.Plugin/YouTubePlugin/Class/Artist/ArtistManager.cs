@@ -393,7 +393,7 @@ namespace YouTubePlugin.Class.Artist
       }
       else if (title.Contains(":"))
       {
-        return title.Substring(0, title.IndexOf("-", System.StringComparison.Ordinal));
+        return title.Substring(0, title.IndexOf(":", System.StringComparison.Ordinal));
       }
       return name.Trim();
     }

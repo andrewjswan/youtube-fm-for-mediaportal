@@ -140,6 +140,8 @@ namespace YouTubePlugin
 
         en.Title.Text = item.Description;
         item.FileName = Youtube2MP.StreamPlaybackUrl(en, info);
+        ClearLabels("NowPlaying",true);
+        ClearLabels("Next", true);
         Youtube2MP.NowPlayingEntry = en;
         Youtube2MP.NextPlayingEntry = null;
         ArtistManager.Instance.SetSkinProperties(Youtube2MP.NextPlayingEntry, "NowPlaying", false, false);

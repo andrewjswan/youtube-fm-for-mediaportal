@@ -31,10 +31,10 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
-      res.FolderType = 1;
-
+      res.Title = entry.Title;
       YouTubeQuery query = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(entry.GetValue("id")));
       PlaylistsFeed userPlaylists = Youtube2MP.service.GetPlaylists(query);
+      res.Title = userPlaylists.Title.Text;
       foreach (PlaylistsEntry playlistsEntry in userPlaylists.Entries)
       {
         Google.GData.Extensions.XmlExtension e = playlistsEntry.FindExtension("group", "http://search.yahoo.com/mrss/") as Google.GData.Extensions.XmlExtension;
@@ -49,7 +49,6 @@ namespace YouTubePlugin.Class.SiteItems
           
           
         }
-        
 
         PlayList playList = new PlayList();
        
@@ -61,7 +60,7 @@ namespace YouTubePlugin.Class.SiteItems
         {
           Title = title,
           IsFolder = false,
-          LogoUrl = img,
+          LogoUrl = img.Replace("default", "hqdefault"),
           //DefaultImage = "defaultArtistBig.png",
           Tag = itemEntry
         };

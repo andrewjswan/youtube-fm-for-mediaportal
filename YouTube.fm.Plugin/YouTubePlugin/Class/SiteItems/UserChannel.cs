@@ -23,6 +23,7 @@ namespace YouTubePlugin.Class.SiteItems
     public GenericListItemCollections GetList(SiteItemEntry entry)
     {
       GenericListItemCollections res = new GenericListItemCollections();
+      res.Title = entry.Title;
       {
         SiteItemEntry itemEntry = new SiteItemEntry();
         itemEntry.Provider = new UserPlaylists().Name;
