@@ -53,6 +53,7 @@ namespace YouTubePlugin
           if (translatedAction.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_SHOW_OSD)
           {
             GUIPropertyManager.SetProperty("#Youtube.fm.FullScreen.ShowTitle", "false");
+            GUIPropertyManager.SetProperty("#Youtube.fm.FullScreen.ShowNextTitle", "false");
             base.OnAction(translatedAction);
             if (GUIWindowManager.VisibleOsd == GUIWindow.Window.WINDOW_OSD)
             {

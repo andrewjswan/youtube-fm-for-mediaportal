@@ -48,9 +48,13 @@ namespace YouTubePlugin
 
     public void SetLabels(YouTubeEntry vid, string type)
     {
+      if (vid == null)
+      {
+        ClearLabels(type, false);
+        return;
+      }
       if (vid == label_last_entry && type == label_last_type)
         return;
-
       ClearLabels(type, false);
       label_last_entry = vid;
       label_last_type = type;

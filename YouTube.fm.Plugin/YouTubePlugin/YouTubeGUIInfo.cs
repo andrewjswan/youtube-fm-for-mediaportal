@@ -144,14 +144,14 @@ namespace YouTubePlugin
         ClearLabels("Next", true);
         Youtube2MP.NowPlayingEntry = en;
         Youtube2MP.NextPlayingEntry = null;
-        ArtistManager.Instance.SetSkinProperties(Youtube2MP.NextPlayingEntry, "NowPlaying", false, false);
+        //ArtistManager.Instance.SetSkinProperties(Youtube2MP.NextPlayingEntry, "NowPlaying", false, false);
         if (playlit.GetNextItem() != null)
         {
           VideoInfo nextinfo = playlit.GetNextItem().MusicTag as VideoInfo;
           if (nextinfo != null)
           {
             Youtube2MP.NextPlayingEntry = nextinfo.Entry;
-            ArtistManager.Instance.SetSkinProperties(Youtube2MP.NextPlayingEntry, "Next", false, false);
+            //ArtistManager.Instance.SetSkinProperties(Youtube2MP.NextPlayingEntry, "Next", false, false);
           }
         }
         BackgroundWorker playBeginWorker = new BackgroundWorker();
@@ -173,51 +173,51 @@ namespace YouTubePlugin
 
     void playBeginWorker_DoWork(object sender, DoWorkEventArgs e)
     {
-      GUIPropertyManager.SetProperty("#Play.Current.Artist",
-                                     GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Artist.Name"));
-      GUIPropertyManager.SetProperty("#Play.Current.Title",
-                                     GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Video.Title"));
-
-      if (Youtube2MP.NowPlayingEntry.Media != null)
-        GUIPropertyManager.SetProperty("#Play.Current.Thumb", Youtube2MP.GetLocalImageFileName(
-          GetBestUrl(Youtube2MP.NowPlayingEntry.Media.Thumbnails)));
-
-      if (Youtube2MP.NowPlayingEntry.Rating != null)
-        GUIPropertyManager.SetProperty("#Play.Current.Rating",
-                                       (Youtube2MP.NowPlayingEntry.Rating.Average*2).ToString());
-
-      SetLabels(Youtube2MP.NowPlayingEntry, "NowPlaying");
-      ArtistManager.Instance.SetSkinProperties(Youtube2MP.NowPlayingEntry, "NowPlaying", true, true);
-      DatabaseProvider.InstanInstance.SavePlayData(Youtube2MP.NowPlayingEntry, DateTime.Now);
-      relatated.Clear();
-      similar.Clear();
-      if (GUIWindowManager.ActiveWindow == (int) GetID)
+      try
       {
-        if (listControl != null)
-        {
-          GUIControl.ClearControl(GetID, listControl.GetID);
-        }
-        if (listsimilar != null)
-        {
-          GUIControl.ClearControl(GetID, listsimilar.GetID);
-        }
-      }
-      if (Youtube2MP._settings.LastFmNowPlay)
-      {
-        Youtube2MP.LastFmProfile.NowPlaying(Youtube2MP.NowPlayingEntry);
-      }
-      infoTimer.Enabled = true;
-      _lastFmTimer.Start();
+        GUIPropertyManager.SetProperty("#Play.Current.Artist",
+                                       GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Artist.Name"));
+        GUIPropertyManager.SetProperty("#Play.Current.Title",
+                                       GUIPropertyManager.GetProperty("#Youtube.fm.NowPlaying.Video.Title"));
 
+        if (Youtube2MP.NowPlayingEntry.Media != null)
+          GUIPropertyManager.SetProperty("#Play.Current.Thumb", Youtube2MP.GetLocalImageFileName(
+            GetBestUrl(Youtube2MP.NowPlayingEntry.Media.Thumbnails)));
 
-      if (Youtube2MP.NextPlayingEntry != null)
-      {
+        if (Youtube2MP.NowPlayingEntry.Rating != null)
+          GUIPropertyManager.SetProperty("#Play.Current.Rating",
+                                         (Youtube2MP.NowPlayingEntry.Rating.Average * 2).ToString());
+
+        SetLabels(Youtube2MP.NowPlayingEntry, "NowPlaying");
         SetLabels(Youtube2MP.NextPlayingEntry, "Next");
+        DatabaseProvider.InstanInstance.SavePlayData(Youtube2MP.NowPlayingEntry, DateTime.Now);
+        ArtistManager.Instance.SetSkinProperties(Youtube2MP.NowPlayingEntry, "NowPlaying", true, true);
         ArtistManager.Instance.SetSkinProperties(Youtube2MP.NextPlayingEntry, "Next", true, true);
+        relatated.Clear();
+        similar.Clear();
+        if (GUIWindowManager.ActiveWindow == (int)GetID)
+        {
+          if (listControl != null)
+          {
+            GUIControl.ClearControl(GetID, listControl.GetID);
+          }
+          if (listsimilar != null)
+          {
+            GUIControl.ClearControl(GetID, listsimilar.GetID);
+          }
+        }
+        if (Youtube2MP._settings.LastFmNowPlay)
+        {
+          Youtube2MP.LastFmProfile.NowPlaying(Youtube2MP.NowPlayingEntry);
+        }
+        infoTimer.Enabled = true;
+        _labelTimer.Stop();
+        _lastFmTimer.Start();
+
       }
-      else
+      catch (Exception exception)
       {
-        ClearLabels("Next");
+        Log.Error(exception);
       }
     }
 
