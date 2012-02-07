@@ -274,7 +274,7 @@ namespace YouTubePlugin
       {
         OldYouTubeEntry = YouTubeEntry;
         ClearInfoLabels();
-        GUIWaitCursor.Init();
+        //GUIWaitCursor.Init();
         GUIWaitCursor.Show();
         if (!Worker_Fast.IsBusy)
         {
@@ -283,7 +283,7 @@ namespace YouTubePlugin
         else
         {
           // not a really good method need some rework using Worker_Fast.CancelAsync();
-          System.Threading.Thread.Sleep(1000);
+          System.Threading.Thread.Sleep(2000);
           Worker_Fast.RunWorkerAsync();
         }
       }
