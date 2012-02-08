@@ -36,7 +36,7 @@ namespace YouTubePlugin.Class.SiteItems
       if (entry.StartItem > 1)
         res.Paged = true;
       YouTubeFeed videos = Youtube2MP.service.Query(query);
-      res.Title = videos.Title.Text;
+      res.Title = "Uploads by :" + videos.Authors[0].Name;
       foreach (YouTubeEntry youTubeEntry in videos.Entries)
       {
         res.Items.Add(Youtube2MP.YouTubeEntry2ListItem(youTubeEntry));

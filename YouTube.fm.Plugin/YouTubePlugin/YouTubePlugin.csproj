@@ -103,6 +103,17 @@
     <Compile Include="Class\Artist\ArtistManager.cs" />
     <Compile Include="Class\Database\DatabaseProvider.cs" />
     <Compile Include="Class\FileDownloader.cs" />
+    <Compile Include="Class\GaDotNet\Data\ConfigurationSettings.cs" />
+    <Compile Include="Class\GaDotNet\Data\GoogleEvent.cs" />
+    <Compile Include="Class\GaDotNet\Data\GooglePageView.cs" />
+    <Compile Include="Class\GaDotNet\Data\GoogleProduct.cs" />
+    <Compile Include="Class\GaDotNet\Data\GoogleShippingLocation.cs" />
+    <Compile Include="Class\GaDotNet\Data\GoogleTransaction.cs" />
+    <Compile Include="Class\GaDotNet\Data\TrackingRequest.cs" />
+    <Compile Include="Class\GaDotNet\Helpers\GoogleHashHelper.cs" />
+    <Compile Include="Class\GaDotNet\Helpers\RequestFactory.cs" />
+    <Compile Include="Class\GaDotNet\Track.cs" />
+    <Compile Include="Class\GaDotNet\Tracking\GoogleTracking.cs" />
     <Compile Include="Class\ItemType.cs" />
     <Compile Include="Class\LastProfile.cs" />
     <Compile Include="Class\GenericListItem.cs" />

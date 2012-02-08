@@ -640,26 +640,27 @@ namespace YouTubePlugin
               }
             }
           }
+
+          if (!string.IsNullOrEmpty(curentDownlodingFile.FileName) && !File.Exists(curentDownlodingFile.FileName))
+          {
+            try
+            {
+              Client.DownloadFileAsync(new Uri(curentDownlodingFile.Url), Path.GetTempPath() + @"\station.png");
+            }
+            catch
+            {
+              downloaQueue.Enqueue(curentDownlodingFile);
+            }
+
+          }
+          else
+          {
+            OnDownloadTimedEvent(null, null);
+          }
         }
         catch (Exception ex)
         {
           Log.Error(ex);
-        }
-        if (!string.IsNullOrEmpty(curentDownlodingFile.FileName) &&!File.Exists(curentDownlodingFile.FileName))
-        {
-          try
-          {
-            Client.DownloadFileAsync(new Uri(curentDownlodingFile.Url), Path.GetTempPath() + @"\station.png");
-          }
-          catch
-          {
-            downloaQueue.Enqueue(curentDownlodingFile);
-          }
-
-        }
-        else
-        {
-          OnDownloadTimedEvent(null, null);
         }
       }
     }

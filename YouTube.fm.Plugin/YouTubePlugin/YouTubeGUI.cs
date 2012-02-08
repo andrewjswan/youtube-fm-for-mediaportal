@@ -18,6 +18,7 @@ using Google.YouTube;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
 using YouTubePlugin.Class.Database;
+using YouTubePlugin.Class.GaDotNet;
 using YouTubePlugin.Class.SiteItems;
 using Action = MediaPortal.GUI.Library.Action;
 
@@ -495,6 +496,7 @@ namespace YouTubePlugin
       {
         if (NavigationStack.Count == 0)
         {
+          Track.TrackStartup();
           ClearLabels("Curent");
           ClearLabels("NowPlaying");
           ClearLabels("Next");

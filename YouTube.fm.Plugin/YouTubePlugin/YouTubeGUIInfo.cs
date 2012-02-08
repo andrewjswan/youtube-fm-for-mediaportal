@@ -16,6 +16,7 @@ using Google.GData.YouTube;
 using YouTubePlugin.Class;
 using YouTubePlugin.Class.Artist;
 using YouTubePlugin.Class.Database;
+using YouTubePlugin.Class.GaDotNet;
 using YouTubePlugin.DataProvider;
 using Action = MediaPortal.GUI.Library.Action;
 
@@ -211,9 +212,9 @@ namespace YouTubePlugin
           Youtube2MP.LastFmProfile.NowPlaying(Youtube2MP.NowPlayingEntry);
         }
         infoTimer.Enabled = true;
-        _labelTimer.Stop();
+        _lastFmTimer.Stop();
         _lastFmTimer.Start();
-
+        Track.TrackPlay();
       }
       catch (Exception exception)
       {

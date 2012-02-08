@@ -75,33 +75,49 @@ namespace YouTubePlugin
     {
       if (string.IsNullOrEmpty(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name").Trim()))
         return;
-
-      string file = GetFanArtImage(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
-
-      if (File.Exists(file) && imgFanArt != null)
+      try
       {
-        Log.Debug("Youtube.Fm local fanart {0} loaded ", file);
-        imgFanArt.Visible = true;
-        imgFanArt.FileName = file;
-        imgFanArt.DoUpdate();
-        return;
-      }
+        string file = GetFanArtImage(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
 
-      if (Youtube2MP._settings.LoadOnlineFanart && !Client.IsBusy)
-      {
-        HTBFanArt fanart = new HTBFanArt();
-        //file = GetFanArtImage(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
-        if (!File.Exists(file))
+        if (File.Exists(file) && imgFanArt != null)
         {
-          fanart.Search(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
-          Log.Debug("Youtube.Fm found {0} online fanarts for {1}", fanart.ImageUrls.Count,
-                   GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
-          if (fanart.ImageUrls.Count > 0)
+          Log.Debug("Youtube.Fm local fanart {0} loaded ", file);
+          imgFanArt.Visible = true;
+          imgFanArt.FileName = file;
+          imgFanArt.DoUpdate();
+          return;
+        }
+
+        if (Youtube2MP._settings.LoadOnlineFanart && !Client.IsBusy)
+        {
+          HTBFanArt fanart = new HTBFanArt();
+          //file = GetFanArtImage(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+          if (!File.Exists(file))
           {
-            Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
-            Youtube2MP.DownloadFile(fanart.ImageUrls[0].Url, file);
+            fanart.Search(GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+            Log.Debug("Youtube.Fm found {0} online fanarts for {1}", fanart.ImageUrls.Count,
+                     GUIPropertyManager.GetProperty("#Youtube.fm.Info.Artist.Name"));
+            if (fanart.ImageUrls.Count > 0)
+            {
+              Log.Debug("Youtube.Fm fanart download {0} to {1}  ", fanart.ImageUrls[0].Url, file);
+              Youtube2MP.DownloadFile(fanart.ImageUrls[0].Url, file);
+              GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.FanArt", file);
+              Log.Debug("Youtube.Fm fanart {0} loaded ", file);
+              if (imgFanArt != null)
+              {
+                imgFanArt.Visible = true;
+                imgFanArt.FileName = file;
+                imgFanArt.DoUpdate();
+              }
+            }
+            else
+            {
+              if (imgFanArt != null) imgFanArt.Visible = false;
+            }
+          }
+          else
+          {
             GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.FanArt", file);
-            Log.Debug("Youtube.Fm fanart {0} loaded ", file);
             if (imgFanArt != null)
             {
               imgFanArt.Visible = true;
@@ -109,25 +125,15 @@ namespace YouTubePlugin
               imgFanArt.DoUpdate();
             }
           }
-          else
-          {
-            if (imgFanArt != null) imgFanArt.Visible = false;
-          }
         }
         else
         {
-          GUIPropertyManager.SetProperty("#Youtube.fm.Info.Video.FanArt", file);
-          if (imgFanArt != null)
-          {
-            imgFanArt.Visible = true;
-            imgFanArt.FileName = file;
-            imgFanArt.DoUpdate();
-          }
+          if (imgFanArt != null) imgFanArt.Visible = false;
         }
       }
-      else
+      catch (Exception exception)
       {
-        if (imgFanArt != null) imgFanArt.Visible = false;
+        Log.Error(exception);
       }
     }
 
@@ -263,6 +269,7 @@ namespace YouTubePlugin
       }
       catch (Exception ex)
       {
+        Log.Error(ex);
       }
       GUIWaitCursor.Hide();
     }

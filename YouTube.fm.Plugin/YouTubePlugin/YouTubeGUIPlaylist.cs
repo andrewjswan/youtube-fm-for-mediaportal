@@ -156,21 +156,28 @@ namespace YouTubePlugin
 
     void scroblerBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
     {
-      if (!ScrobblerOn)
-        return;
-      switch (currentScrobbleMode)
+      try
       {
-        case ScrobbleMode.Youtube:
-          ScrobbleYoutube();
-          break;
-        case ScrobbleMode.Neighbours:
-          ScrobbleNeighbours();
-          break;
-        case ScrobbleMode.Recent:
-          ScrobbleRecent();
-          break;
+        if (!ScrobblerOn)
+          return;
+        switch (currentScrobbleMode)
+        {
+          case ScrobbleMode.Youtube:
+            ScrobbleYoutube();
+            break;
+          case ScrobbleMode.Neighbours:
+            ScrobbleNeighbours();
+            break;
+          case ScrobbleMode.Recent:
+            ScrobbleRecent();
+            break;
+        }
+        DoRefreshList();
       }
-      DoRefreshList();
+      catch (Exception exception)
+      {
+        Log.Error(exception);
+      }
     }
 
     bool CheckTitle(string title)
