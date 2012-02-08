@@ -6,37 +6,37 @@
                 <!--     *************************    Logos [List/Playlist/Album/ Views]   *************************  -->
                 <!--     *******************************************************************************************  -->		
                 <control>
-                  <description>UnWatched BG Logo</description>
+                  <description>Not Watched Logo</description>
                   <type>image</type>
                   <id>0</id>
-                  <posX>90</posX>
-                  <posY>122</posY>
-                  <width>28</width>
-                  <height>28</height>
+                  <posX>78</posX>
+                  <posY>381</posY>
+                  <width>70</width>
+                  <height>33</height>
                   <keepaspectratio>yes</keepaspectratio>                  
-                  <texture>overlayunwatched.png</texture>		  
+                  <texture>Logos\watched_no.png</texture> 		  
                   <visible>[facadeview.list|facadeview.album|facadeview.playlist]+!string.equals(#Youtube.fm.Curent.Video.Title,)+Control.HasFocus(50)+!string.equals(#selecteditem,..)</visible>                  	        
                 </control> 
                 <control>
                   <description>Watched Logo</description>
                   <type>image</type>
                   <id>0</id>
-                  <posX>90</posX>
-                  <posY>122</posY>
-                  <width>29</width>
-                  <height>29</height>
+                  <posX>78</posX>
+                  <posY>381</posY>
+                  <width>70</width>
+                  <height>33</height>
                   <keepaspectratio>yes</keepaspectratio>                  
-                  <texture>overlaywatched.png</texture>	  
+                  <texture>Logos\watched.png</texture>	  
                   <visible>[facadeview.list|facadeview.album|facadeview.playlist]+!string.equals(#Youtube.fm.Curent.Video.Title,)+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]+!string.equals(#selecteditem,..)</visible>                  	        
                 </control>
                 <control>
                   <description>HD Logo</description>
                   <type>image</type>
                   <id>0</id>
-                  <posX>130</posX>
-                  <posY>117</posY>
+                  <posX>138</posX>
+                  <posY>381</posY>
                   <width>70</width>
-                  <height>34</height>
+                  <height>33</height>
                   <keepaspectratio>yes</keepaspectratio>                            
                   <texture>Logos\hd.png</texture>	  
                   <visible>[facadeview.list|facadeview.album|facadeview.playlist]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsHD, false )]</visible>                  	        
@@ -45,39 +45,51 @@
                   <description>SD Logo</description>
                   <type>image</type>
                   <id>0</id>
-                  <posX>130</posX>
-                  <posY>117</posY>
+                  <posX>138</posX>
+                  <posY>381</posY>
                   <width>70</width>
-                  <height>34</height>
+                  <height>33</height>
                   <keepaspectratio>yes</keepaspectratio>                            
                   <texture>Logos\sd.png</texture>	  
                   <visible>[facadeview.list|facadeview.album|facadeview.playlist]+[Control.HasFocus(50)+string.equals(#Youtube.fm.Curent.Video.IsHD, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
                 </control>
                 <control>
+                  <description>Not Downloaded Logo</description>
+                  <type>image</type>
+                  <id>0</id>
+                  <posX>198</posX>
+                  <posY>381</posY>
+                  <width>70</width>
+                  <height>33</height>
+                  <keepaspectratio>yes</keepaspectratio>                            
+                  <texture>Logos\downloaded_no.png</texture>
+                  <visible>[facadeview.list|facadeview.album|facadeview.playlist]+!string.equals(#Youtube.fm.Curent.Video.Title,)+Control.HasFocus(50)+!string.equals(#selecteditem,..)</visible>                                    	        
+                </control>
+                <control>
                   <description>IsDownloaded Logo</description>
                   <type>image</type>
                   <id>0</id>
-                  <posX>199</posX>
-                  <posY>117</posY>
-                  <width>40</width>
+                  <posX>198</posX>
+                  <posY>381</posY>
+                  <width>70</width>
                   <height>33</height>
                   <keepaspectratio>yes</keepaspectratio>                            
-                  <texture>youtube.fm_isdownloaded.png</texture>
+                  <texture>Logos\downloaded.png</texture>
                   <visible>[facadeview.list|facadeview.album|facadeview.playlist]+!string.equals(#Youtube.fm.Curent.Video.Title,)+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsDownloaded, false )]+!string.equals(#selecteditem,..)</visible>                  	        
-                </control>
+                </control>                
                 <!--     *******************************************************************************************  -->
                 <!--     **************   Logos [Smallicons/Largeicons/Coverflow/Filmstrip/ Views]   ***************  -->
                 <!--     *******************************************************************************************  -->		
                 <control>
-                  <description>UnWatched BG Logo</description>
+                  <description>Not Watched Logo</description>
                   <type>image</type>
                   <id>0</id>
                   <posX>476</posX>
-                  <posY>677</posY>
-                  <width>29</width>
-                  <height>29</height>
+                  <posY>673</posY>
+                  <width>70</width>
+                  <height>35</height>
                   <keepaspectratio>yes</keepaspectratio>                            
-                  <texture>overlayunwatched.png</texture>	  
+                  <texture>Logos\watched_no.png</texture>	  
                   <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
                 </control> 
                 <control>
@@ -85,21 +97,22 @@
                   <type>image</type>
                   <id>0</id>
                   <posX>476</posX>
-                  <posY>677</posY>
-                  <width>29</width>
-                  <height>29</height>
+                  <posY>673</posY>
+                  <width>70</width>
+                  <height>35</height>
                   <keepaspectratio>yes</keepaspectratio>                             
-                  <texture>overlaywatched.png</texture>	  
+                  <texture>Logos\watched.png</texture>  
                   <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsWatched, false )]</visible>                  	        
                 </control>
                 <control>
                   <description>HD Logo</description>
                   <type>image</type>
                   <id>0</id>
-                  <posX>517</posX>
+                  <posX>539</posX>
                   <posY>673</posY>
                   <width>70</width>
-                  <height>35</height>                                             
+                  <height>35</height>
+                  <keepaspectratio>yes</keepaspectratio>                                               
                   <texture>Logos\hd.png</texture>	  
                   <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsHD, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
                 </control>
@@ -107,23 +120,38 @@
                   <description>SD Logo</description>
                   <type>image</type>
                   <id>0</id>
-                  <posX>517</posX>
+                  <posX>539</posX>
                   <posY>673</posY>
                   <width>70</width>
-                  <height>35</height>                                             
+                  <height>35</height>
+                  <keepaspectratio>yes</keepaspectratio>                                               
                   <texture>Logos\sd.png</texture>
                   <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+[Control.HasFocus(50)+string.equals(#Youtube.fm.Curent.Video.IsHD, false )]+!string.equals(#Youtube.fm.Curent.Video.Title,)+!string.equals(#selecteditem,..)</visible>                  	        
+                </control>                
+                <control>
+                  <description>Not Downloaded Logo</description>
+                  <type>image</type>
+                  <id>0</id>
+                  <posX>602</posX>
+                  <posY>673</posY>
+                  <width>70</width>
+                  <height>35</height>
+                  <keepaspectratio>yes</keepaspectratio>                                              
+                  <texture>Logos\downloaded_no.png</texture>                                      
+                  <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+!string.equals(#Youtube.fm.Curent.Video.Title,)+Control.HasFocus(50)+!string.equals(#selecteditem,..)</visible>                                     
+                  <animation effect="fade" time="70" reversible="false">visible</animation>	        
                 </control>
                 <control>
                   <description>IsDownloaded Logo</description>
                   <type>image</type>
                   <id>0</id>
                   <posX>602</posX>
-                  <posY>674</posY>
-                  <width>40</width>
-                  <height>35</height>                                             
-                  <texture>youtube.fm_isdownloaded.png</texture>
-                  <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+!string.equals(#Youtube.fm.Curent.Video.Title,)+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsDownloaded, false )]+!string.equals(#selecteditem,..)</visible>                  
+                  <posY>673</posY>
+                  <width>70</width>
+                  <height>35</height> 
+                  <keepaspectratio>yes</keepaspectratio> 
+                  <texture>Logos\downloaded.png</texture>
+                  <visible>[facadeview.coverflow|facadeview.filmstrip|facadeview.smallicons|facadeview.largeicons]+!string.equals(#Youtube.fm.Curent.Video.Title,)+[Control.HasFocus(50)+!string.equals(#Youtube.fm.Curent.Video.IsDownloaded, false )]+!string.equals(#selecteditem,..)</visible>                                                      
                   <animation effect="fade" time="70" reversible="false">visible</animation>	        
                 </control>
                 <!--     *******************************************************************************************  -->
@@ -134,7 +162,7 @@
                   <description>Downloading Notfication Logo</description>
                   <type>image</type>
                   <id>0</id>
-                  <posX>915</posX>
+                  <posX>917</posX>
                   <posY>676</posY>
                   <width>32</width>
                   <height>32</height>
@@ -147,7 +175,7 @@
                   <description>Downloading Progress Bar</description>
                   <type>progress</type>
                   <id>118</id>
-                  <posX>675</posX>
+                  <posX>677</posX>
                   <posY>680</posY>
                   <width>226</width>
                   <height>20</height>            

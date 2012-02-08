@@ -20,11 +20,11 @@
       <description>Youtube.fm Header Logo</description>      
       <type>image</type>
       <id>0</id>
-      <posX>36</posX>
-      <posY>25</posY>
-      <width>72</width>
-      <height>68</height>
-      <texture>hover_youtubefm.png</texture>
+      <posX>26</posX>
+      <posY>37</posY>
+      <width>80</width>
+      <height>56</height>
+      <texture>youtubefm_logo.png</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>      
     </control>
     <control>
@@ -154,7 +154,7 @@
       <id>1</id>
       <type>image</type>
       <posX>68</posX>
-      <posY>160</posY>
+      <posY>130</posY>
       <width>338</width>
       <height>250</height>
       <texture mask="Picturethumbmask.png">missing_Coverart.png</texture>
@@ -165,7 +165,7 @@
       <id>500</id>
       <type>image</type>
       <posX>68</posX>
-      <posY>160</posY>
+      <posY>130</posY>
       <width>338</width>
       <height>250</height>
       <keepaspectratio>yes</keepaspectratio>
@@ -178,7 +178,7 @@
       <type>image</type>
       <id>1</id>
       <posX>68</posX>
-      <posY>160</posY>
+      <posY>130</posY>
       <width>338</width>
       <height>250</height>
       <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>
@@ -190,10 +190,11 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>412</posY>
+      <posY>433</posY>
       <width>355</width>
       <label>Info:</label>
-      <font>font14</font>
+      <font>font13</font>
+      <textcolor>ffa9d0f7</textcolor> 
       <visible>[facadeview.list|facadeview.album]+[Control.HasFocus(50)]</visible>
       <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
@@ -202,7 +203,7 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>442</posY>
+      <posY>462</posY>
       <width>355</width>
       <label>#selecteditem</label>
       <font>font14</font>
@@ -214,7 +215,7 @@
       <type>fadelabel</type>
       <id>1</id>
       <posX>78</posX>
-      <posY>475</posY>
+      <posY>495</posY>
       <width>355</width>
       <label>#selecteditem2</label>
       <font>font14</font>

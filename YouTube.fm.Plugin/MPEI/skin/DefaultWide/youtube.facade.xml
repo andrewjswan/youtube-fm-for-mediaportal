@@ -19,7 +19,7 @@
           <id>50</id>
           <onleft>2</onleft>
           <onright>2</onright>
-          <scrollOffset>2</scrollOffset>
+          <scrollOffset>2</scrollOffset>          
           <unfocusedAlpha>160</unfocusedAlpha>
         </control>
         <control>

@@ -17,9 +17,43 @@
       <colordiffuse>eeffffff</colordiffuse>
       <visible>window.ispauseosdvisible|player.rewinding|player.forwarding</visible>
     </control>
-    <!-- ********************   Video / Artist Show Title   ************************ -->
+    <!-- ********************   Video / Artist View Info   ************************ -->
     <control>
-      <description>background</description>
+      <description>Background for Artist Image</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>60</posX>
+      <posY>320</posY>      
+      <width>200</width>
+      <height>138</height>
+      <texture>Picturethumbmask.png</texture>      
+      <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
+    </control>
+    <control>
+      <id>1</id>
+      <description>Artist Image</description>
+      <type>image</type>
+      <posX>60</posX>
+      <posY>320</posY>
+      <width>200</width>
+      <height>138</height>
+      <keepaspectratio>yes</keepaspectratio>
+      <centered>yes</centered>     
+      <texture mask="Picturethumbmask.png">#Youtube.fm.NowPlaying.Artist.Image</texture>
+      <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>      
+    </control>
+    <control>
+      <type>image</type>
+      <id>1</id>
+      <posX>60</posX>
+      <posY>320</posY>
+      <width>200</width>
+      <height>138</height>
+      <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>            
+      <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
+    </control>    
+    <control>
+      <description>Background for Text Info</description>
       <type>image</type>
       <id>117</id>
       <posX>-10</posX>
@@ -29,14 +63,14 @@
       <texture>blue.png</texture>
       <colordiffuse>90ffffff</colordiffuse>
       <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
-    </control>
+    </control>    
     <control>
       <id>171</id>
       <description>Now Playing Label</description>
       <type>fadelabel</type>
-      <posX>20</posX>
+      <posX>18</posX>
       <posY>493</posY>
-      <width>260</width>
+      <width>250</width>
       <font>font11</font>
       <textcolor>ffa9d0f7</textcolor>            
       <label>Now Playing:</label>
@@ -46,10 +80,10 @@
       <id>118</id>
       <description>Video Title Value</description>
       <type>fadelabel</type>
-      <posX>20</posX>
+      <posX>18</posX>
       <posY>520</posY>
-      <width>560</width>
-      <font>font14</font>
+      <width>500</width>
+      <font>font13</font>
       <textcolor>ffffffff</textcolor>            
       <label>#Youtube.fm.NowPlaying.Video.Title</label>
       <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
@@ -58,10 +92,10 @@
       <id>119</id>
       <description>Artist Title Value</description>
       <type>fadelabel</type>
-      <posX>20</posX>
+      <posX>18</posX>
       <posY>553</posY>
-      <width>560</width>
-      <font>font14</font>
+      <width>500</width>
+      <font>font13</font>
       <textcolor>ffffffff</textcolor>            
       <label>#Youtube.fm.NowPlaying.Artist.Name</label>
       <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
@@ -70,40 +104,40 @@
       <id>172</id>
       <description>Playing Next Label</description>
       <type>fadelabel</type>
-      <posX>1255</posX>
+      <posX>1260</posX>
       <posY>493</posY>
-      <width>260</width>
+      <width>250</width>
       <font>font11</font>
       <align>right</align>
       <textcolor>ffa9d0f7</textcolor>            
       <label>Playing Next:</label>
-      <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
+      <visible>string.equals(#Youtube.fm.FullScreen.ShowNextTitle, true )</visible>
     </control>
     <control>
       <id>118</id>
       <description>Next Video Title Value</description>
       <type>fadelabel</type>
-      <posX>1255</posX>
+      <posX>1260</posX>
       <posY>520</posY>
-      <width>550</width>
-      <font>font14</font>
+      <width>440</width>
+      <font>font13</font>
       <align>right</align>
       <textcolor>ffffffff</textcolor>            
       <label>#Youtube.fm.Next.Video.Title</label>
-      <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
+      <visible>string.equals(#Youtube.fm.FullScreen.ShowNextTitle, true )</visible>
     </control>
     <control>
       <id>119</id>
       <description>Next Artist Title Value</description>
       <type>fadelabel</type>
-      <posX>1255</posX>
+      <posX>1260</posX>
       <posY>553</posY>
-      <width>550</width>
-      <font>font14</font>
+      <width>440</width>
+      <font>font13</font>
       <align>right</align>
       <textcolor>ffffffff</textcolor>            
       <label>#Youtube.fm.Next.Artist.Name</label>
-      <visible>string.equals(#Youtube.fm.FullScreen.ShowTitle, true )</visible>
+      <visible>string.equals(#Youtube.fm.FullScreen.ShowNextTitle, true )</visible>
     </control>        
     <control>
       <description>background image when pause, forward, rewind</description>

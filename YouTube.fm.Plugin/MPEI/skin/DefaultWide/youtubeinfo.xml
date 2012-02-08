@@ -96,8 +96,8 @@
 	    <posY>326</posY>
 	    <width>80</width>
 	    <height>50</height>
-	    <textureFocus>minimize_enabled.png</textureFocus>
-	    <textureNoFocus>minimize_disabled.png</textureNoFocus>
+	    <textureFocus>fullscreen_focus.png</textureFocus>
+	    <textureNoFocus>fullscreen_nofocus.png</textureNoFocus>
 	    <label>-</label>
 	    <action>18</action>            	    
 	    <onright>166</onright>
@@ -112,8 +112,8 @@
 	    <posY>374</posY>
 	    <width>80</width>
 	    <height>50</height>
-            <textureFocus>nav_refresh_focus.png</textureFocus>
-	    <textureNoFocus>nav_refresh_nofocus.png</textureNoFocus>	    
+            <textureFocus>info_focus.png</textureFocus>
+	    <textureNoFocus>info_nofocus.png</textureNoFocus>	    
 	    <label>-</label>           	    
 	    <onright>166</onright>
 	    <onup>5555</onup>
@@ -146,14 +146,15 @@
             <texture>LCD.png</texture>            
             <animation effect="fade" time="70" reversible="false">visible</animation>
         </control>
+        <!--  **********  Logos **********  --> 
         <control>
             <description>Downloading Notification Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>1098</posX>
-            <posY>66</posY>
-            <width>33</width>
-            <height>33</height>
+            <posX>1085</posX>
+            <posY>64</posY>
+            <width>34</width>
+            <height>35</height>
             <keepaspectratio>yes</keepaspectratio>            
             <texture>isupdate.png</texture>	  
             <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
@@ -189,15 +190,29 @@
             <description>IsDownloaded Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>1140</posX>
-            <posY>65</posY>
-            <width>40</width>
-            <height>31</height>
+            <posX>1125</posX>
+            <posY>63</posY>
+            <width>70</width>
+            <height>33</height>
             <keepaspectratio>yes</keepaspectratio>                            
-            <texture>youtube.fm_isdownloaded.png</texture>
+            <texture>Logos\downloaded.png</texture>
             <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsDownloaded, True)</visible>                                 
             <animation effect="fade" time="70" reversible="false">visible</animation>	        
-        </control>			                                                                               
+        </control>
+        <control>
+            <description>Not Downloaded Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>1125</posX>
+            <posY>63</posY>
+            <width>70</width>
+            <height>33</height>
+            <keepaspectratio>yes</keepaspectratio>                            
+            <texture>Logos\downloaded_no.png</texture>
+            <visible>!string.equals(#Youtube.fm.NowPlaying.Video.IsDownloaded, True)</visible>                                 
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>
+        <!--  **********  END Logos **********  --> 					                                                                               
         <control>
             <id>0</id>
             <description>Artist Name Value</description>

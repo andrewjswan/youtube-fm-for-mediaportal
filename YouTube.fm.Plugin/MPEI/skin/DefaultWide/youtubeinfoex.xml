@@ -120,36 +120,38 @@
 	    <label>-</label>	    
 	    <onup>17</onup>	    
 	</control>
-        <control>
-            <description>UnWatched BG Logo</description>
-            <type>image</type>
-            <id>0</id>
-            <posX>65</posX>
-            <posY>338</posY>
-            <width>30</width>
-            <height>30</height>
-            <keepaspectratio>yes</keepaspectratio>                       
-            <texture>overlayunwatched.png</texture>            
-            <animation effect="fade" time="70" reversible="false">visible</animation>	        
-        </control>                 
+        <!--  ************  Logos ************  -->         
         <control>
             <description>Watched Logo</description>
             <type>image</type>
             <id>0</id>
             <posX>65</posX>
-            <posY>338</posY>
-            <width>30</width>
-            <height>30</height> 
+            <posY>335</posY>
+            <width>70</width>
+            <height>33</height> 
             <keepaspectratio>yes</keepaspectratio>         
-            <texture>overlaywatched.png</texture>	  
+            <texture>Logos\watched.png</texture>	  
             <visible>string.equals(#Youtube.fm.Info.Video.IsWatched, true)</visible>
             <animation effect="fade" time="70" reversible="false">visible</animation>	        
-        </control>         
+        </control>
+        <control>
+            <description>Not Watched Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>65</posX>
+            <posY>335</posY>
+            <width>70</width>
+            <height>33</height>
+            <keepaspectratio>yes</keepaspectratio>                       
+            <texture>Logos\watched_no.png</texture>
+            <visible>!string.equals(#Youtube.fm.Info.Video.IsWatched, true)</visible>            
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>                          
         <control>
             <description>HD Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>104</posX>
+            <posX>125</posX>
             <posY>335</posY>
             <width>70</width>
             <height>33</height>
@@ -162,7 +164,7 @@
             <description>SD Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>104</posX>
+            <posX>125</posX>
             <posY>335</posY>
             <width>70</width>
             <height>33</height>
@@ -175,15 +177,29 @@
             <description>IsDownloaded Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>169</posX>
-            <posY>337</posY>
-            <width>40</width>
-            <height>31</height>
+            <posX>185</posX>
+            <posY>335</posY>
+            <width>70</width>
+            <height>33</height>
             <keepaspectratio>yes</keepaspectratio>                            
-            <texture>youtube.fm_isdownloaded.png</texture>
+            <texture>Logos\downloaded.png</texture>
             <visible>string.equals(#Youtube.fm.Info.Video.IsDownloaded, True)</visible>                                 
             <animation effect="fade" time="70" reversible="false">visible</animation>	        
-        </control>           			                          
+        </control>
+        <control>
+            <description>Not Downloaded Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>185</posX>
+            <posY>335</posY>
+            <width>70</width>
+            <height>33</height>
+            <keepaspectratio>yes</keepaspectratio>                            
+            <texture>Logos\downloaded_no.png</texture>
+            <visible>!string.equals(#Youtube.fm.Info.Video.IsDownloaded, True)</visible>                                 
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>
+        <!--  **********  END Logos **********  -->            		           			                          
         <control>
             <id>0</id>
             <description>Video Title Value</description>
@@ -416,9 +432,9 @@
             <id>0</id>
             <description>Artist Tags</description>
             <type>label</type>
-            <posX>383</posX>
+            <posX>390</posX>
             <posY>457</posY>
-            <width>630</width>         
+            <width>750</width>         
             <font>font12</font>
             <textcolor>ffa9d0f7</textcolor>            
             <label>#Youtube.fm.Info.Artist.Tags</label>
@@ -429,8 +445,8 @@
 	    <type>textboxscrollup</type>
 	    <posX>390</posX>
 	    <posY>500</posY>
-	    <width>800</width>
-	    <height>160</height>
+	    <width>850</width>
+	    <height>170</height>
 	    <label>#Youtube.fm.Info.Artist.Bio</label>
 	    <seperator>-----------------------------------------------------------------------------------</seperator>
 	    <font>font11</font>

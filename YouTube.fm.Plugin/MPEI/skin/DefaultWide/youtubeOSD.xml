@@ -7,7 +7,7 @@
     	
     <!-- ***************  THIS IS THE EXPANDING OSD BACKGROUND  **************** -->
     <control>
-      <description>background top</description>
+      <description>Background Top</description>
       <type>image</type>
       <id>0</id>
       <posX>0</posX>
@@ -102,9 +102,9 @@
       <type>textboxscrollup</type>
       <id>1</id>
       <posX>70</posX>
-      <posY>442</posY>
+      <posY>450</posY>
       <width>930</width>
-      <height>203</height>
+      <height>180</height>
       <align>left</align>
       <label>#Play.Current.Plot</label>
       <seperator>&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;	&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;	&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;</seperator>
@@ -135,7 +135,7 @@
       <posX>1038</posX>
       <posY>445</posY>
       <width>210</width>      
-      <height>150</height>
+      <height>148</height>
       <keepaspectratio>yes</keepaspectratio>
       <centered>yes</centered>         
       <texture mask="Picturethumbmask.png">#Youtube.fm.NowPlaying.Artist.Image</texture>
@@ -147,7 +147,7 @@
       <posX>1038</posX>
       <posY>445</posY>
       <width>210</width>
-      <height>150</height>
+      <height>148</height>
       <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>
       <visible>control.hasfocus(1237)</visible>      
     </control>        
@@ -177,7 +177,7 @@
     </control>	
     <!-- ***************   THIS IS THE OSD BACKGROUND   *************** -->
     <control>
-      <description>background top</description>
+      <description>Background Top</description>
       <type>image</type>
       <id>0</id>
       <posX>0</posX>
@@ -305,23 +305,47 @@
       <colordiffuse>ffffffff</colordiffuse>
       <visible>!control.hasfocus(1237)</visible>
     </control>
+    <control>
+      <id>172</id>
+      <description>Playing Next Label</description>
+      <type>fadelabel</type>
+      <posX>70</posX>
+      <posY>630</posY>
+      <width>155</width>
+      <font>font11</font>      
+      <textcolor>ffa9d0f7</textcolor>            
+      <label>Playing Next:</label>
+      <visible>!control.hasfocus(1237)</visible>      
+    </control>
+    <control>
+      <id>118</id>
+      <description>Next Video Title / Artist Title Value</description>
+      <type>fadelabel</type>
+      <posX>235</posX>
+      <posY>630</posY>
+      <width>670</width>
+      <font>font12</font>      
+      <textcolor>ffffffff</textcolor>            
+      <label>#Youtube.fm.Next.Artist.Name - #Youtube.fm.Next.Video.Title</label>
+      <visible>!control.hasfocus(1237)</visible>      
+    </control>
     <!-- ***************   Logo / Media Info   *************** -->    
     <control>
       <description>Youtube.fm Logo</description>
       <type>image</type>
       <id>1</id>
-      <posX>1178</posX>
-      <posY>645</posY>
-      <height>67</height>
+      <posX>1172</posX>
+      <posY>664</posY>
+      <height>48</height>
       <width>80</width>
-      <texture>hover_youtubefm.png</texture>      
+      <texture>youtubefm_logo.png</texture>      
     </control>
     <control>
       <id>1</id>
       <description>Star Rating Value</description>
       <type>imagelist</type>
-      <posX>1045</posX>
-      <posY>686</posY>
+      <posX>1042</posX>
+      <posY>687</posY>
       <width>140</width>
       <height>36</height>
       <textureHeight>22</textureHeight>
@@ -340,9 +364,10 @@
       <type>image</type>
       <id>0</id>
       <posX>70</posX>
-      <posY>663</posY>
+      <posY>670</posY>
       <width>70</width>
-      <height>42</height>                  
+      <height>35</height> 
+      <keepaspectratio>yes</keepaspectratio>                    
       <texture>Logos\hd.png</texture>	  
       <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>      	        
     </control>
@@ -351,9 +376,10 @@
       <type>image</type>
       <id>0</id>
       <posX>70</posX>
-      <posY>663</posY>
+      <posY>670</posY>
       <width>70</width>
-      <height>42</height>                 
+      <height>35</height>
+      <keepaspectratio>yes</keepaspectratio>                    
       <texture>Logos\sd.png</texture>	  
       <visible>!string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>      	        
     </control>
@@ -361,23 +387,36 @@
       <description>IsDownloaded Logo</description>
       <type>image</type>
       <id>0</id>
-      <posX>150</posX>
-      <posY>663</posY>
-      <width>60</width>
-      <height>42</height>                                 
-      <texture>youtube.fm_isdownloaded.png</texture>
+      <posX>133</posX>
+      <posY>670</posY>
+      <width>70</width>
+      <height>35</height>
+      <keepaspectratio>yes</keepaspectratio>                                    
+      <texture>Logos\downloaded.png</texture>
       <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsDownloaded, True)</visible>      	        
+    </control>
+    <control>
+      <description>IsDownloaded Logo</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>133</posX>
+      <posY>670</posY>
+      <width>70</width>
+      <height>35</height>
+      <keepaspectratio>yes</keepaspectratio>                                    
+      <texture>Logos\downloaded_no.png</texture>
+      <visible>!string.equals(#Youtube.fm.NowPlaying.Video.IsDownloaded, True)</visible>      	        
     </control>
     <control>
       <description>Downloading Notification Logo</description>
       <type>image</type>
       <id>0</id>
-      <posX>218</posX>
-      <posY>665</posY>
-      <width>40</width>
-      <height>40</height>                       
+      <posX>195</posX>
+      <posY>671</posY>
+      <width>34</width>
+      <height>34</height>                       
       <texture>isupdate.png</texture>	  
-      <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>              
+      <visible>!string.equals(#Youtube.fm.IsDownloading, true )</visible>              
     </control>                  
     <import>common.osd.buttons.xml</import>    
   </controls>
