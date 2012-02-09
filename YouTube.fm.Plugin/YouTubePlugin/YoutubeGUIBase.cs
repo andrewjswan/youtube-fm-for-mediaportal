@@ -82,7 +82,7 @@ namespace YouTubePlugin
         if (vid.Rating != null)
         {
           GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", (vid.Rating.Average*2).ToString());
-          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.RatingText", (vid.Rating.Average * 2).ToString()+"/10");
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.RatingText", (vid.Rating.Average * 2).ToString("0.0")+"/10");
         }
         if (vid.Statistics != null)
         {
@@ -203,6 +203,7 @@ namespace YouTubePlugin
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.FavoriteCount", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Comments", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", "0");
+      GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.RatingText", "0");
 
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumLike", " ");
       GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.NumDisLike", " ");
