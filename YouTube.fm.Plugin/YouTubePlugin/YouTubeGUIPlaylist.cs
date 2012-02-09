@@ -848,6 +848,18 @@ namespace YouTubePlugin
       PlayListPlayer.SingletonPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
       Youtube2MP.temp_player.CurrentPlaylistType = PlayListType.PLAYLIST_NONE;
       playlistPlayer.Play(iItem);
+      if (g_Player.Playing)
+      {
+        if (_setting.ShowNowPlaying)
+        {
+          if (GUIWindowManager.ActiveWindow != 29052)
+            GUIWindowManager.ActivateWindow(29052);
+        }
+        else
+        {
+          g_Player.ShowFullScreenWindow();
+        }
+      }
       SelectCurrentPlayingSong();
       UpdateButtonStates();
     }

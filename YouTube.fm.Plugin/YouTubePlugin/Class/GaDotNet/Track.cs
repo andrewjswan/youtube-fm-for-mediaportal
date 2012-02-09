@@ -20,7 +20,7 @@ namespace YouTubePlugin.Class.GaDotNet
                                    "youtube.fm",
                                    "/default.html");
         TrackingRequest request = new RequestFactory().BuildRequest(pageView);
-        request.AnalyticsAccountCode = "";
+        request.AnalyticsAccountCode = "UA-29014752-1";
         GoogleTracking.FireTrackingEvent(request);
       }
       catch (Exception exception)

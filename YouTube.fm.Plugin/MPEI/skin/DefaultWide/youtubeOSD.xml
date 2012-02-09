@@ -315,7 +315,7 @@
       <font>font11</font>      
       <textcolor>ffa9d0f7</textcolor>            
       <label>Playing Next:</label>
-      <visible>!control.hasfocus(1237)</visible>      
+      <visible>!control.hasfocus(1237)</visible>     
     </control>
     <control>
       <id>118</id>
@@ -324,10 +324,10 @@
       <posX>235</posX>
       <posY>630</posY>
       <width>670</width>
-      <font>font12</font>      
+      <font>font11</font>      
       <textcolor>ffffffff</textcolor>            
       <label>#Youtube.fm.Next.Artist.Name - #Youtube.fm.Next.Video.Title</label>
-      <visible>!control.hasfocus(1237)</visible>      
+      <visible>!control.hasfocus(1237)</visible>     
     </control>
     <!-- ***************   Logo / Media Info   *************** -->    
     <control>
@@ -335,7 +335,7 @@
       <type>image</type>
       <id>1</id>
       <posX>1172</posX>
-      <posY>664</posY>
+      <posY>661</posY>
       <height>48</height>
       <width>80</width>
       <texture>youtubefm_logo.png</texture>      
@@ -344,12 +344,12 @@
       <id>1</id>
       <description>Star Rating Value</description>
       <type>imagelist</type>
-      <posX>1042</posX>
-      <posY>687</posY>
+      <posX>1033</posX>
+      <posY>686</posY>
       <width>140</width>
-      <height>36</height>
-      <textureHeight>22</textureHeight>
-      <textureWidth>22</textureWidth>
+      <height>35</height>
+      <textureHeight>24</textureHeight>
+      <textureWidth>24</textureWidth>
       <percentage>#Youtube.fm.NowPlaying.Video.Rating</percentage>
       <imagesToDraw>5</imagesToDraw>
       <orientation>HORIZONTAL</orientation>
@@ -364,7 +364,7 @@
       <type>image</type>
       <id>0</id>
       <posX>70</posX>
-      <posY>670</posY>
+      <posY>672</posY>
       <width>70</width>
       <height>35</height> 
       <keepaspectratio>yes</keepaspectratio>                    
@@ -376,7 +376,7 @@
       <type>image</type>
       <id>0</id>
       <posX>70</posX>
-      <posY>670</posY>
+      <posY>672</posY>
       <width>70</width>
       <height>35</height>
       <keepaspectratio>yes</keepaspectratio>                    
@@ -388,7 +388,7 @@
       <type>image</type>
       <id>0</id>
       <posX>133</posX>
-      <posY>670</posY>
+      <posY>672</posY>
       <width>70</width>
       <height>35</height>
       <keepaspectratio>yes</keepaspectratio>                                    
@@ -400,7 +400,7 @@
       <type>image</type>
       <id>0</id>
       <posX>133</posX>
-      <posY>670</posY>
+      <posY>672</posY>
       <width>70</width>
       <height>35</height>
       <keepaspectratio>yes</keepaspectratio>                                    
@@ -412,11 +412,11 @@
       <type>image</type>
       <id>0</id>
       <posX>195</posX>
-      <posY>671</posY>
+      <posY>673</posY>
       <width>34</width>
       <height>34</height>                       
       <texture>isupdate.png</texture>	  
-      <visible>!string.equals(#Youtube.fm.IsDownloading, true )</visible>              
+      <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>              
     </control>                  
     <import>common.osd.buttons.xml</import>    
   </controls>

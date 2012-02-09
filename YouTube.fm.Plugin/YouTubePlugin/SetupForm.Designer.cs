@@ -38,19 +38,6 @@ namespace YouTubePlugin
       this.textBox_pluginname = new System.Windows.Forms.TextBox();
       this.label3 = new System.Windows.Forms.Label();
       this.tabControl1 = new System.Windows.Forms.TabControl();
-      this.tabPage6 = new System.Windows.Forms.TabPage();
-      this.cmb_folder = new System.Windows.Forms.ComboBox();
-      this.treeV = new System.Windows.Forms.TreeView();
-      this.button7 = new System.Windows.Forms.Button();
-      this.btn_down = new System.Windows.Forms.Button();
-      this.btn_up = new System.Windows.Forms.Button();
-      this.btn_del_provider = new System.Windows.Forms.Button();
-      this.btn_add_provider = new System.Windows.Forms.Button();
-      this.cmb_providers = new System.Windows.Forms.ComboBox();
-      this.panel1 = new System.Windows.Forms.Panel();
-      this.list_startpage = new System.Windows.Forms.ListView();
-      this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-      this.label6 = new System.Windows.Forms.Label();
       this.tabPage1 = new System.Windows.Forms.TabPage();
       this.groupBox12 = new System.Windows.Forms.GroupBox();
       this.label20 = new System.Windows.Forms.Label();
@@ -72,6 +59,19 @@ namespace YouTubePlugin
       this.comboBox_videoquality = new System.Windows.Forms.ComboBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
       this.comboBox_startup = new System.Windows.Forms.ComboBox();
+      this.tabPage6 = new System.Windows.Forms.TabPage();
+      this.cmb_folder = new System.Windows.Forms.ComboBox();
+      this.treeV = new System.Windows.Forms.TreeView();
+      this.button7 = new System.Windows.Forms.Button();
+      this.btn_down = new System.Windows.Forms.Button();
+      this.btn_up = new System.Windows.Forms.Button();
+      this.btn_del_provider = new System.Windows.Forms.Button();
+      this.btn_add_provider = new System.Windows.Forms.Button();
+      this.cmb_providers = new System.Windows.Forms.ComboBox();
+      this.panel1 = new System.Windows.Forms.Panel();
+      this.list_startpage = new System.Windows.Forms.ListView();
+      this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.label6 = new System.Windows.Forms.Label();
       this.tabPage2 = new System.Windows.Forms.TabPage();
       this.button5 = new System.Windows.Forms.Button();
       this.button4 = new System.Windows.Forms.Button();
@@ -126,15 +126,17 @@ namespace YouTubePlugin
       this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+      this.label21 = new System.Windows.Forms.Label();
+      this.label22 = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.tabControl1.SuspendLayout();
-      this.tabPage6.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.groupBox12.SuspendLayout();
       this.groupBox11.SuspendLayout();
       this.groupBox10.SuspendLayout();
       this.groupBox9.SuspendLayout();
       this.groupBox2.SuspendLayout();
+      this.tabPage6.SuspendLayout();
       this.tabPage2.SuspendLayout();
       this.tabPage3.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -245,137 +247,6 @@ namespace YouTubePlugin
       this.tabControl1.SelectedIndex = 0;
       this.tabControl1.Size = new System.Drawing.Size(832, 379);
       this.tabControl1.TabIndex = 5;
-      // 
-      // tabPage6
-      // 
-      this.tabPage6.Controls.Add(this.cmb_folder);
-      this.tabPage6.Controls.Add(this.treeV);
-      this.tabPage6.Controls.Add(this.button7);
-      this.tabPage6.Controls.Add(this.btn_down);
-      this.tabPage6.Controls.Add(this.btn_up);
-      this.tabPage6.Controls.Add(this.btn_del_provider);
-      this.tabPage6.Controls.Add(this.btn_add_provider);
-      this.tabPage6.Controls.Add(this.cmb_providers);
-      this.tabPage6.Controls.Add(this.panel1);
-      this.tabPage6.Controls.Add(this.list_startpage);
-      this.tabPage6.Controls.Add(this.label6);
-      this.tabPage6.Location = new System.Drawing.Point(4, 22);
-      this.tabPage6.Name = "tabPage6";
-      this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage6.Size = new System.Drawing.Size(824, 353);
-      this.tabPage6.TabIndex = 5;
-      this.tabPage6.Text = "Start Page";
-      this.tabPage6.UseVisualStyleBackColor = true;
-      // 
-      // cmb_folder
-      // 
-      this.cmb_folder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.cmb_folder.FormattingEnabled = true;
-      this.cmb_folder.Location = new System.Drawing.Point(518, 84);
-      this.cmb_folder.Name = "cmb_folder";
-      this.cmb_folder.Size = new System.Drawing.Size(300, 21);
-      this.cmb_folder.TabIndex = 9;
-      // 
-      // treeV
-      // 
-      this.treeV.Location = new System.Drawing.Point(7, 3);
-      this.treeV.Name = "treeV";
-      this.treeV.Size = new System.Drawing.Size(225, 344);
-      this.treeV.TabIndex = 8;
-      // 
-      // button7
-      // 
-      this.button7.Location = new System.Drawing.Point(474, 279);
-      this.button7.Name = "button7";
-      this.button7.Size = new System.Drawing.Size(38, 42);
-      this.button7.TabIndex = 7;
-      this.button7.Text = "Test";
-      this.button7.UseVisualStyleBackColor = true;
-      this.button7.Click += new System.EventHandler(this.button7_Click);
-      // 
-      // btn_down
-      // 
-      this.btn_down.Location = new System.Drawing.Point(474, 177);
-      this.btn_down.Name = "btn_down";
-      this.btn_down.Size = new System.Drawing.Size(38, 36);
-      this.btn_down.TabIndex = 6;
-      this.btn_down.Text = "Down";
-      this.btn_down.UseVisualStyleBackColor = true;
-      this.btn_down.Click += new System.EventHandler(this.btn_down_Click);
-      // 
-      // btn_up
-      // 
-      this.btn_up.Location = new System.Drawing.Point(474, 137);
-      this.btn_up.Name = "btn_up";
-      this.btn_up.Size = new System.Drawing.Size(38, 34);
-      this.btn_up.TabIndex = 5;
-      this.btn_up.Text = "Up";
-      this.btn_up.UseVisualStyleBackColor = true;
-      this.btn_up.Click += new System.EventHandler(this.btn_up_Click);
-      // 
-      // btn_del_provider
-      // 
-      this.btn_del_provider.Location = new System.Drawing.Point(518, 33);
-      this.btn_del_provider.Name = "btn_del_provider";
-      this.btn_del_provider.Size = new System.Drawing.Size(75, 23);
-      this.btn_del_provider.TabIndex = 4;
-      this.btn_del_provider.Text = "Delete";
-      this.btn_del_provider.UseVisualStyleBackColor = true;
-      this.btn_del_provider.Click += new System.EventHandler(this.btn_del_provider_Click);
-      // 
-      // btn_add_provider
-      // 
-      this.btn_add_provider.Location = new System.Drawing.Point(743, 33);
-      this.btn_add_provider.Name = "btn_add_provider";
-      this.btn_add_provider.Size = new System.Drawing.Size(75, 23);
-      this.btn_add_provider.TabIndex = 3;
-      this.btn_add_provider.Text = "Add";
-      this.btn_add_provider.UseVisualStyleBackColor = true;
-      this.btn_add_provider.Click += new System.EventHandler(this.btn_add_provider_Click);
-      // 
-      // cmb_providers
-      // 
-      this.cmb_providers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.cmb_providers.FormattingEnabled = true;
-      this.cmb_providers.Location = new System.Drawing.Point(518, 6);
-      this.cmb_providers.Name = "cmb_providers";
-      this.cmb_providers.Size = new System.Drawing.Size(300, 21);
-      this.cmb_providers.TabIndex = 2;
-      // 
-      // panel1
-      // 
-      this.panel1.Location = new System.Drawing.Point(518, 111);
-      this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(300, 236);
-      this.panel1.TabIndex = 1;
-      // 
-      // list_startpage
-      // 
-      this.list_startpage.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-      this.list_startpage.HideSelection = false;
-      this.list_startpage.Location = new System.Drawing.Point(238, 6);
-      this.list_startpage.MultiSelect = false;
-      this.list_startpage.Name = "list_startpage";
-      this.list_startpage.Size = new System.Drawing.Size(230, 341);
-      this.list_startpage.TabIndex = 0;
-      this.list_startpage.UseCompatibleStateImageBehavior = false;
-      this.list_startpage.View = System.Windows.Forms.View.Details;
-      this.list_startpage.SelectedIndexChanged += new System.EventHandler(this.list_startpage_SelectedIndexChanged);
-      // 
-      // columnHeader1
-      // 
-      this.columnHeader1.Text = "Title";
-      this.columnHeader1.Width = 220;
-      // 
-      // label6
-      // 
-      this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(515, 68);
-      this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(67, 13);
-      this.label6.TabIndex = 10;
-      this.label6.Text = "Parent folder";
       // 
       // tabPage1
       // 
@@ -625,6 +496,137 @@ namespace YouTubePlugin
       this.comboBox_startup.Name = "comboBox_startup";
       this.comboBox_startup.Size = new System.Drawing.Size(239, 21);
       this.comboBox_startup.TabIndex = 4;
+      // 
+      // tabPage6
+      // 
+      this.tabPage6.Controls.Add(this.cmb_folder);
+      this.tabPage6.Controls.Add(this.treeV);
+      this.tabPage6.Controls.Add(this.button7);
+      this.tabPage6.Controls.Add(this.btn_down);
+      this.tabPage6.Controls.Add(this.btn_up);
+      this.tabPage6.Controls.Add(this.btn_del_provider);
+      this.tabPage6.Controls.Add(this.btn_add_provider);
+      this.tabPage6.Controls.Add(this.cmb_providers);
+      this.tabPage6.Controls.Add(this.panel1);
+      this.tabPage6.Controls.Add(this.list_startpage);
+      this.tabPage6.Controls.Add(this.label6);
+      this.tabPage6.Location = new System.Drawing.Point(4, 22);
+      this.tabPage6.Name = "tabPage6";
+      this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPage6.Size = new System.Drawing.Size(824, 353);
+      this.tabPage6.TabIndex = 5;
+      this.tabPage6.Text = "Start Page";
+      this.tabPage6.UseVisualStyleBackColor = true;
+      // 
+      // cmb_folder
+      // 
+      this.cmb_folder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cmb_folder.FormattingEnabled = true;
+      this.cmb_folder.Location = new System.Drawing.Point(518, 84);
+      this.cmb_folder.Name = "cmb_folder";
+      this.cmb_folder.Size = new System.Drawing.Size(300, 21);
+      this.cmb_folder.TabIndex = 9;
+      // 
+      // treeV
+      // 
+      this.treeV.Location = new System.Drawing.Point(7, 3);
+      this.treeV.Name = "treeV";
+      this.treeV.Size = new System.Drawing.Size(225, 344);
+      this.treeV.TabIndex = 8;
+      // 
+      // button7
+      // 
+      this.button7.Location = new System.Drawing.Point(474, 279);
+      this.button7.Name = "button7";
+      this.button7.Size = new System.Drawing.Size(38, 42);
+      this.button7.TabIndex = 7;
+      this.button7.Text = "Test";
+      this.button7.UseVisualStyleBackColor = true;
+      this.button7.Click += new System.EventHandler(this.button7_Click);
+      // 
+      // btn_down
+      // 
+      this.btn_down.Location = new System.Drawing.Point(474, 177);
+      this.btn_down.Name = "btn_down";
+      this.btn_down.Size = new System.Drawing.Size(38, 36);
+      this.btn_down.TabIndex = 6;
+      this.btn_down.Text = "Down";
+      this.btn_down.UseVisualStyleBackColor = true;
+      this.btn_down.Click += new System.EventHandler(this.btn_down_Click);
+      // 
+      // btn_up
+      // 
+      this.btn_up.Location = new System.Drawing.Point(474, 137);
+      this.btn_up.Name = "btn_up";
+      this.btn_up.Size = new System.Drawing.Size(38, 34);
+      this.btn_up.TabIndex = 5;
+      this.btn_up.Text = "Up";
+      this.btn_up.UseVisualStyleBackColor = true;
+      this.btn_up.Click += new System.EventHandler(this.btn_up_Click);
+      // 
+      // btn_del_provider
+      // 
+      this.btn_del_provider.Location = new System.Drawing.Point(518, 33);
+      this.btn_del_provider.Name = "btn_del_provider";
+      this.btn_del_provider.Size = new System.Drawing.Size(75, 23);
+      this.btn_del_provider.TabIndex = 4;
+      this.btn_del_provider.Text = "Delete";
+      this.btn_del_provider.UseVisualStyleBackColor = true;
+      this.btn_del_provider.Click += new System.EventHandler(this.btn_del_provider_Click);
+      // 
+      // btn_add_provider
+      // 
+      this.btn_add_provider.Location = new System.Drawing.Point(743, 33);
+      this.btn_add_provider.Name = "btn_add_provider";
+      this.btn_add_provider.Size = new System.Drawing.Size(75, 23);
+      this.btn_add_provider.TabIndex = 3;
+      this.btn_add_provider.Text = "Add";
+      this.btn_add_provider.UseVisualStyleBackColor = true;
+      this.btn_add_provider.Click += new System.EventHandler(this.btn_add_provider_Click);
+      // 
+      // cmb_providers
+      // 
+      this.cmb_providers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cmb_providers.FormattingEnabled = true;
+      this.cmb_providers.Location = new System.Drawing.Point(518, 6);
+      this.cmb_providers.Name = "cmb_providers";
+      this.cmb_providers.Size = new System.Drawing.Size(300, 21);
+      this.cmb_providers.TabIndex = 2;
+      // 
+      // panel1
+      // 
+      this.panel1.Location = new System.Drawing.Point(518, 111);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(300, 236);
+      this.panel1.TabIndex = 1;
+      // 
+      // list_startpage
+      // 
+      this.list_startpage.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+      this.list_startpage.HideSelection = false;
+      this.list_startpage.Location = new System.Drawing.Point(238, 6);
+      this.list_startpage.MultiSelect = false;
+      this.list_startpage.Name = "list_startpage";
+      this.list_startpage.Size = new System.Drawing.Size(230, 341);
+      this.list_startpage.TabIndex = 0;
+      this.list_startpage.UseCompatibleStateImageBehavior = false;
+      this.list_startpage.View = System.Windows.Forms.View.Details;
+      this.list_startpage.SelectedIndexChanged += new System.EventHandler(this.list_startpage_SelectedIndexChanged);
+      // 
+      // columnHeader1
+      // 
+      this.columnHeader1.Text = "Title";
+      this.columnHeader1.Width = 220;
+      // 
+      // label6
+      // 
+      this.label6.AutoSize = true;
+      this.label6.Location = new System.Drawing.Point(515, 68);
+      this.label6.Name = "label6";
+      this.label6.Size = new System.Drawing.Size(67, 13);
+      this.label6.TabIndex = 10;
+      this.label6.Text = "Parent folder";
       // 
       // tabPage2
       // 
@@ -1094,6 +1096,8 @@ namespace YouTubePlugin
       // 
       // groupBox5
       // 
+      this.groupBox5.Controls.Add(this.label22);
+      this.groupBox5.Controls.Add(this.label21);
       this.groupBox5.Controls.Add(this.label16);
       this.groupBox5.Controls.Add(this.label15);
       this.groupBox5.Controls.Add(this.label14);
@@ -1162,6 +1166,25 @@ namespace YouTubePlugin
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
       // 
+      // label21
+      // 
+      this.label21.AutoSize = true;
+      this.label21.Location = new System.Drawing.Point(336, 39);
+      this.label21.Name = "label21";
+      this.label21.Size = new System.Drawing.Size(45, 13);
+      this.label21.TabIndex = 5;
+      this.label21.Text = "M3rcury";
+      // 
+      // label22
+      // 
+      this.label22.AutoSize = true;
+      this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label22.Location = new System.Drawing.Point(264, 39);
+      this.label22.Name = "label22";
+      this.label22.Size = new System.Drawing.Size(66, 13);
+      this.label22.TabIndex = 6;
+      this.label22.Text = "Logos by :";
+      // 
       // SetupForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1176,8 +1199,6 @@ namespace YouTubePlugin
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
       this.tabControl1.ResumeLayout(false);
-      this.tabPage6.ResumeLayout(false);
-      this.tabPage6.PerformLayout();
       this.tabPage1.ResumeLayout(false);
       this.tabPage1.PerformLayout();
       this.groupBox12.ResumeLayout(false);
@@ -1188,6 +1209,8 @@ namespace YouTubePlugin
       this.groupBox10.PerformLayout();
       this.groupBox9.ResumeLayout(false);
       this.groupBox2.ResumeLayout(false);
+      this.tabPage6.ResumeLayout(false);
+      this.tabPage6.PerformLayout();
       this.tabPage2.ResumeLayout(false);
       this.tabPage2.PerformLayout();
       this.tabPage3.ResumeLayout(false);
@@ -1314,5 +1337,7 @@ namespace YouTubePlugin
     private System.Windows.Forms.TextBox txt_port;
     private System.Windows.Forms.CheckBox chk_server;
     private System.Windows.Forms.CheckBox chk_defaultOSD;
+    private System.Windows.Forms.Label label22;
+    private System.Windows.Forms.Label label21;
   }
 }
