@@ -80,7 +80,10 @@ namespace YouTubePlugin
         if (vid.Authors != null && vid.Authors.Count > 0)
           GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Autor", vid.Authors[0].Name);
         if (vid.Rating != null)
+        {
           GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.Rating", (vid.Rating.Average*2).ToString());
+          GUIPropertyManager.SetProperty("#Youtube.fm." + type + ".Video.RatingText", (vid.Rating.Average * 2).ToString()+"/10");
+        }
         if (vid.Statistics != null)
         {
           if (vid.Statistics.ViewCount != null)
