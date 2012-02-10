@@ -120,34 +120,38 @@
 	    <label>-</label>	    
 	    <onup>17</onup>	    
 	</control>
-        <control>
-            <description>UnWatched BG Logo</description>
-            <type>image</type>
-            <id>0</id>
-            <posX>46</posX>
-            <posY>260</posY>
-            <width>22</width>
-            <height>22</height>                       
-            <texture>overlayunwatched.png</texture>            
-            <animation effect="fade" time="150" reversible="false">visible</animation>	        
-        </control>                 
+        <!--  ************  Logos ************  -->
         <control>
             <description>Watched Logo</description>
             <type>image</type>
             <id>0</id>
             <posX>46</posX>
             <posY>260</posY>
-            <width>22</width>
-            <height>22</height>                      
-            <texture>overlaywatched.png</texture>	  
-            <visible>string.equals(#Youtube.fm.Info.Video.IsWatched, true)</visible>
+            <width>50</width>
+            <height>25</height>
+            <keepaspectratio>yes</keepaspectratio>                        
+            <texture>Logos\watched.png</texture>
+            <visible>string.equals(#Youtube.fm.Info.Video.IsWatched, true)</visible>         
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
+        </control>                 
+        <control>
+            <description>Not Watched Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>46</posX>
+            <posY>260</posY>
+            <width>50</width>
+            <height>25</height>
+            <keepaspectratio>yes</keepaspectratio>                      
+            <texture>Logos\watched_no.png</texture>	  
+            <visible>!string.equals(#Youtube.fm.Info.Video.IsWatched, true)</visible>
             <animation effect="fade" time="150" reversible="false">visible</animation>	        
         </control>         
         <control>
             <description>HD Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>75</posX>
+            <posX>86</posX>
             <posY>260</posY>
             <width>50</width>
             <height>25</height>
@@ -160,7 +164,7 @@
             <description>SD Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>75</posX>
+            <posX>86</posX>
             <posY>260</posY>
             <width>50</width>
             <height>25</height>
@@ -173,15 +177,29 @@
             <description>IsDownloaded Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>118</posX>
+            <posX>126</posX>
             <posY>260</posY>
-            <width>30</width>
+            <width>50</width>
             <height>25</height>
             <keepaspectratio>yes</keepaspectratio>                            
-            <texture>youtube.fm_isdownloaded.png</texture>
+            <texture>Logos\downloaded.png</texture>
             <visible>string.equals(#Youtube.fm.Info.Video.IsDownloaded, True)</visible>                                 
             <animation effect="fade" time="150" reversible="false">visible</animation>	        
-        </control>           	                      
+        </control>
+        <control>
+            <description>Not Downloaded Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>126</posX>
+            <posY>260</posY>
+            <width>50</width>
+            <height>25</height>
+            <keepaspectratio>yes</keepaspectratio>                            
+            <texture>Logos\downloaded_no.png</texture>
+            <visible>!string.equals(#Youtube.fm.Info.Video.IsDownloaded, True)</visible>                                 
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>
+        <!--  **********  END Logos **********  -->            	                      
         <control>
             <id>0</id>
             <description>Video Title Value</description>
@@ -191,8 +209,8 @@
             <width>450</width>
             <font>font14</font>
             <textcolor>ffffffff</textcolor>            
-            <label>#Youtube.fm.Info.Video.Title</label>
-        </control>        
+            <label>#Youtube.fm.Info.Video.Title</label>            
+        </control>            
         <control>
             <id>1</id>
             <description>Star Rating Value</description>
@@ -201,8 +219,8 @@
             <posY>110</posY>
             <width>100</width>
             <height>25</height>
-            <textureHeight>23</textureHeight>
-            <textureWidth>23</textureWidth>
+            <textureHeight>21</textureHeight>
+            <textureWidth>21</textureWidth>
             <percentage>#Youtube.fm.Info.Video.Rating</percentage>
             <imagesToDraw>5</imagesToDraw>
             <orientation>HORIZONTAL</orientation>
@@ -212,14 +230,25 @@
                 <subitem>starbest.png</subitem>
             </subitems>
             <animation effect="fade" time="150" reversible="false">visible</animation>
-        </control>        
+        </control>
+        <control>
+            <id>173</id>
+            <description>Text Rating</description>
+            <type>label</type>
+            <posX>360</posX>
+            <posY>110</posY>
+            <width>80</width>
+            <font>font12</font>      
+            <textcolor>ffffffff</textcolor>            
+            <label>(#Youtube.fm.Curent.Video.RatingText)</label>                
+        </control>                        
         <control>
             <description>Progress Bar Like/Dislike Percent</description>
             <type>progress</type>
             <id>20</id>
-            <posX>500</posX>
+            <posX>450</posX>
             <posY>110</posY>
-            <width>191</width>
+            <width>241</width>
             <height>20</height>
             <texturebg>osd_progress_mid_red.png</texturebg>
             <label>#Youtube.fm.Info.Video.PercentLike</label>            
@@ -235,9 +264,9 @@
             <id>0</id>
             <description>Like /Dislike Value</description>
             <type>fadelabel</type>
-            <posX>500</posX>
+            <posX>450</posX>
             <posY>132</posY>
-            <width>191</width>         
+            <width>241</width>         
             <font>font11</font>
             <textcolor>90ffffff</textcolor>            
             <label>#Youtube.fm.Info.Video.NumLike/#Youtube.fm.Translation.Like.Label . #Youtube.fm.Info.Video.NumDisLike/#Youtube.fm.Translation.Dislike.Label</label>

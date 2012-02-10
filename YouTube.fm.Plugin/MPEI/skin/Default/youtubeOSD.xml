@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
   <id>29055</id>
   <defaultcontrol>213</defaultcontrol>
   <allowoverlay>no</allowoverlay>
-  <controls>
-    	
+  <controls>    
     <!-- ***************  THIS IS THE EXPANDING OSD BACKGROUND  **************** -->
     <control>
       <description>Background Top</description>
       <type>image</type>
       <id>0</id>
       <posX>0</posX>
-      <posY>313</posY>
-      <width>1290</width>
-      <height>500</height>
+      <posY>250</posY>
+      <width>725</width>
+      <height>400</height>
       <texture>blue.png</texture>
       <visible>Control.HasFocus(1237)</visible>
       <colordiffuse>eeffffff</colordiffuse>
@@ -24,8 +23,8 @@
       <description>Current Time Info</description>
       <type>label</type>
       <id>1</id>
-      <posX>70</posX>
-      <posY>370</posY>
+      <posX>39</posX>
+      <posY>296</posY>
       <label>#currentplaytime</label>
       <align>left</align>
       <font>font14</font>
@@ -36,10 +35,10 @@
       <description>background</description>
       <type>image</type>
       <id>1</id>
-      <posX>190</posX>
-      <posY>376</posY>
-      <width>595</width>
-      <height>27</height>
+      <posX>106</posX>
+      <posY>297</posY>
+      <width>334</width>
+      <height>21</height>
       <texture>osd_progress_background.png</texture>
       <visible>control.hasfocus(1237)</visible>
     </control>
@@ -47,12 +46,12 @@
       <description>TV Progress Bar</description>
       <type>tvprogress</type>
       <id>1</id>
-      <posX>192</posX>
-      <posY>380</posY>
-      <width>585</width>
-      <height>20</height>
+      <posX>105</posX>
+      <posY>300</posY>
+      <width>330</width>
+      <height>16</height>
       <toptexture>-</toptexture>
-      <TextureOffsetY>22</TextureOffsetY>
+      <TextureOffsetY>20</TextureOffsetY>
       <bottomtexture>-</bottomtexture>
       <texturetick>-</texturetick>
       <lefttexture>-</lefttexture>
@@ -65,7 +64,7 @@
       <filltexture1>osd_progress_mid.png</filltexture1>
       <filltexture2>osd_progress_mid_red.png</filltexture2>
       <filltexture3>osd_progress_mid_orange.png</filltexture3>
-      <fillheight>20</fillheight>
+      <fillheight>16</fillheight>
       <label>#percentage</label><!-- #TV.Record.percent1 -->
       <label1>#percentage</label1><!-- #TV.Record.percent2 -->
       <!-- <label2>#TV.Record.percent3</label2> -->
@@ -77,8 +76,8 @@
       <description>Current Time Info</description>
       <type>label</type>
       <id>1</id>
-      <posX>810</posX>
-      <posY>370</posY>
+      <posX>455</posX>
+      <posY>296</posY>
       <label>#currentremaining</label>
       <align>left</align>
       <font>font14</font>
@@ -89,10 +88,10 @@
       <description>horizontal divider</description>
       <type>image</type>
       <id>1</id>
-      <posX>70</posX>
-      <posY>420</posY>
-      <height>1</height>
-      <width>1175</width>
+      <posX>39</posX>
+      <posY>336</posY>
+      <height>0</height>
+      <width>661</width>
       <texture>hbar1white.png</texture>
       <colordiffuse>ffffffff</colordiffuse>
       <visible>control.hasfocus(1237)</visible>
@@ -101,27 +100,27 @@
       <description>Video Summary</description>
       <type>textboxscrollup</type>
       <id>1</id>
-      <posX>70</posX>
-      <posY>450</posY>
-      <width>930</width>
-      <height>180</height>
+      <posX>39</posX>
+      <posY>350</posY>
+      <width>510</width>
+      <height>155</height>
       <align>left</align>
       <label>#Play.Current.Plot</label>
-      <seperator>&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;	&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;	&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;</seperator>
+      <seperator>⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅	⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅	⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅</seperator>
       <font>font11</font>
       <textcolor>white</textcolor>      
       <shadowAngle>0</shadowAngle>
-      <shadowDistance>0</shadowDistance>      
+      <shadowDistance>0</shadowDistance>
       <visible>control.hasfocus(1237)</visible>
     </control>
     <control>
       <description>Artist / Video Title</description>
       <id>1</id>
       <type>fadelabel</type>
-      <width>770</width>
-      <height>30</height>
-      <posX>70</posX>
-      <posY>324</posY>
+      <width>433</width>
+      <height>24</height>
+      <posX>39</posX>
+      <posY>259</posY>
       <align>left</align>
       <label>#Play.Current.Title</label>
       <font>font14</font>
@@ -132,10 +131,10 @@
       <description>Artist Image</description>
       <type>image</type>
       <id>1</id>
-      <posX>1038</posX>
-      <posY>445</posY>
-      <width>210</width>      
-      <height>148</height>
+      <posX>570</posX>
+      <posY>348</posY>
+      <width>136</width>      
+      <height>106</height>
       <keepaspectratio>yes</keepaspectratio>
       <centered>yes</centered>         
       <texture mask="Picturethumbmask.png">#Youtube.fm.NowPlaying.Artist.Image</texture>
@@ -144,10 +143,10 @@
     <control>
       <type>image</type>
       <id>1</id>
-      <posX>1038</posX>
-      <posY>445</posY>
-      <width>210</width>
-      <height>148</height>
+      <posX>570</posX>
+      <posY>348</posY>
+      <width>136</width>
+      <height>106</height>
       <texture mask="Picturethumbmask.png">Picturethumbframe.png</texture>
       <visible>control.hasfocus(1237)</visible>      
     </control>        
@@ -155,10 +154,10 @@
       <description>vertical divider</description>
       <type>image</type>
       <id>1</id>
-      <posX>940</posX>
-      <posY>325</posY>
-      <height>80</height>
-      <width>1</width>
+      <posX>528</posX>
+      <posY>260</posY>
+      <height>64</height>
+      <width>0</width>
       <texture>slider_vertical.png</texture>
       <colordiffuse>90ffffff</colordiffuse>
       <visible>control.hasfocus(1237)</visible>
@@ -167,23 +166,23 @@
       <description>Time Info</description>
       <type>label</type>
       <id>110</id>
-      <posX>1250</posX>
-      <posY>324</posY>
+      <posX>703</posX>
+      <posY>259</posY>
       <label>#time</label>
       <align>right</align>
       <font>font14</font>
       <textcolor>ivory</textcolor>
       <visible>control.hasfocus(1237)</visible>
-    </control>	
-    <!-- ***************   THIS IS THE OSD BACKGROUND   *************** -->
+    </control>
+    <!-- ***************  THIS IS THE OSD BACKGROUND  **************** -->
     <control>
-      <description>Background Top</description>
+      <description>background top</description>
       <type>image</type>
       <id>0</id>
       <posX>0</posX>
-      <posY>512</posY>
-      <width>1290</width>
-      <height>300</height>
+      <posY>409</posY>
+      <width>725</width>
+      <height>240</height>
       <texture>blue.png</texture>
       <colordiffuse>eeffffff</colordiffuse>
       <visible>!Control.HasFocus(1237)</visible>
@@ -193,10 +192,10 @@
       <description>vertical divider</description>
       <type>image</type>
       <id>1</id>
-      <posX>930</posX>
-      <posY>525</posY>
-      <height>175</height>
-      <width>1</width>
+      <posX>523</posX>
+      <posY>420</posY>
+      <height>140</height>
+      <width>0</width>
       <texture>slider_vertical.png</texture>
       <colordiffuse>90ffffff</colordiffuse>
       <visible>!control.hasfocus(1237)</visible>
@@ -205,8 +204,8 @@
       <description>Time Info</description>
       <type>label</type>
       <id>110</id>
-      <posX>1250</posX>
-      <posY>520</posY>
+      <posX>703</posX>
+      <posY>416</posY>
       <label>#time</label>
       <align>right</align>
       <font>font14</font>
@@ -217,10 +216,10 @@
       <description>background</description>
       <type>image</type>
       <id>104</id>
-      <posX>190</posX>
-      <posY>572</posY>
-      <width>595</width>
-      <height>27</height>
+      <posX>106</posX>
+      <posY>454</posY>
+      <width>334</width>
+      <height>21</height>
       <texture>osd_progress_background.png</texture>
       <visible>!control.hasfocus(1237)</visible>
     </control>
@@ -228,12 +227,12 @@
       <description>TV Progress Bar</description>
       <type>tvprogress</type>
       <id>105</id>
-      <posX>192</posX>
-      <posY>576</posY>
-      <width>585</width>
-      <height>20</height>
+      <posX>105</posX>
+      <posY>457</posY>
+      <width>330</width>
+      <height>16</height>
       <toptexture>-</toptexture>
-      <TextureOffsetY>22</TextureOffsetY>
+      <TextureOffsetY>20</TextureOffsetY>
       <bottomtexture>-</bottomtexture>
       <texturetick>-</texturetick>
       <lefttexture>-</lefttexture>
@@ -246,7 +245,7 @@
       <filltexture1>osd_progress_mid.png</filltexture1>
       <filltexture2>osd_progress_mid_red.png</filltexture2>
       <filltexture3>osd_progress_mid_orange.png</filltexture3>
-      <fillheight>20</fillheight>
+      <fillheight>16</fillheight>
       <label>#percentage</label><!-- #TV.Record.percent1 -->
       <label1>#percentage</label1><!-- #TV.Record.percent2 -->
       <!-- <label2>#TV.Record.percent3</label2> -->
@@ -258,8 +257,8 @@
       <description>End Time Info</description>
       <type>label</type>
       <id>101</id>
-      <posX>798</posX>
-      <posY>567</posY>
+      <posX>448</posX>
+      <posY>453</posY>
       <label>#currentremaining</label>
       <align>left</align>
       <font>font14</font>
@@ -270,8 +269,8 @@
       <description>Start Time Info</description>
       <type>label</type>
       <id>101</id>
-      <posX>70</posX>
-      <posY>567</posY>
+      <posX>39</posX>
+      <posY>453</posY>
       <label>#currentplaytime</label>
       <align>left</align>
       <font>font14</font>
@@ -282,10 +281,10 @@
       <description>Artist / Video Title</description>
       <id>36</id>
       <type>fadelabel</type>
-      <posX>70</posX>
-      <posY>520</posY>
-      <width>770</width>
-      <height>40</height>
+      <posX>39</posX>
+      <posY>416</posY>
+      <width>433</width>
+      <height>32</height>
       <label>-</label>
       <align>left</align>
       <textcolor>ffffffff</textcolor>
@@ -297,10 +296,10 @@
       <description>horizontal divider</description>
       <type>image</type>
       <id>1</id>
-      <posX>70</posX>
-      <posY>620</posY>
-      <height>1</height>
-      <width>840</width>
+      <posX>39</posX>
+      <posY>496</posY>
+      <height>0</height>
+      <width>472</width>
       <texture>hbar1white.png</texture>
       <colordiffuse>ffffffff</colordiffuse>
       <visible>!control.hasfocus(1237)</visible>
@@ -309,10 +308,10 @@
       <id>172</id>
       <description>Playing Next Label</description>
       <type>fadelabel</type>
-      <posX>70</posX>
-      <posY>630</posY>
-      <width>155</width>
-      <font>font11</font>      
+      <posX>39</posX>
+      <posY>506</posY>
+      <width>75</width>
+      <font>font13</font>      
       <textcolor>ffa9d0f7</textcolor>            
       <label>Playing Next:</label>
       <visible>!control.hasfocus(1237)</visible>     
@@ -321,64 +320,34 @@
       <id>118</id>
       <description>Next Video Title / Artist Title Value</description>
       <type>fadelabel</type>
-      <posX>235</posX>
-      <posY>630</posY>
-      <width>670</width>
-      <font>font11</font>      
+      <posX>150</posX>
+      <posY>506</posY>
+      <width>450</width>
+      <font>font13</font>      
       <textcolor>ffffffff</textcolor>            
       <label>#Youtube.fm.Next.Artist.Name - #Youtube.fm.Next.Video.Title</label>
       <visible>!control.hasfocus(1237)</visible>     
-    </control>
+    </control>    
     <!-- ***************   Logo / Media Info   *************** -->    
     <control>
       <description>Youtube.fm Logo</description>
       <type>image</type>
       <id>1</id>
-      <posX>1172</posX>
-      <posY>661</posY>
-      <height>48</height>
-      <width>80</width>
-      <texture>youtubefm_logo.png</texture>      
-    </control>
-    <control>
-      <id>1</id>
-      <description>Star Rating Value</description>
-      <type>imagelist</type>
-      <posX>945</posX>
-      <posY>686</posY>
-      <width>120</width>
-      <height>35</height>
-      <textureHeight>24</textureHeight>
-      <textureWidth>24</textureWidth>
-      <percentage>#Youtube.fm.NowPlaying.Video.Rating</percentage>
-      <imagesToDraw>5</imagesToDraw>
-      <orientation>HORIZONTAL</orientation>
-      <align>left</align>
-      <subitems>
-          <subitem>greystar.png</subitem>
-          <subitem>starbest.png</subitem>
-      </subitems>            
-    </control>
-    <control>
-      <id>173</id>
-      <description>Text Rating</description>
-      <type>label</type>
-      <posX>1070</posX>
-      <posY>683</posY>
-      <width>100</width>
-      <font>font10</font>      
-      <textcolor>ffffffff</textcolor>            
-      <label>(#Youtube.fm.Curent.Video.RatingText)</label>          
-    </control>        
+      <posX>610</posX>
+      <posY>519</posY>
+      <height>46</height>
+      <width>55</width>
+      <texture>hover_youtubefm.png</texture>      
+    </control>     
     <control>
       <description>HD Logo</description>
       <type>image</type>
       <id>0</id>
-      <posX>70</posX>
-      <posY>672</posY>
-      <width>70</width>
-      <height>35</height> 
-      <keepaspectratio>yes</keepaspectratio>                    
+      <posX>39</posX>
+      <posY>534</posY>
+      <width>50</width>
+      <height>25</height>
+      <keepaspectratio>yes</keepaspectratio>                   
       <texture>Logos\hd.png</texture>	  
       <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>      	        
     </control>
@@ -386,11 +355,11 @@
       <description>SD Logo</description>
       <type>image</type>
       <id>0</id>
-      <posX>70</posX>
-      <posY>672</posY>
-      <width>70</width>
-      <height>35</height>
-      <keepaspectratio>yes</keepaspectratio>                    
+      <posX>39</posX>
+      <posY>534</posY>
+      <width>50</width>
+      <height>25</height>
+      <keepaspectratio>yes</keepaspectratio>                  
       <texture>Logos\sd.png</texture>	  
       <visible>!string.equals(#Youtube.fm.NowPlaying.Video.IsHD, True)</visible>      	        
     </control>
@@ -398,34 +367,37 @@
       <description>IsDownloaded Logo</description>
       <type>image</type>
       <id>0</id>
-      <posX>133</posX>
-      <posY>672</posY>
-      <width>70</width>
-      <height>35</height>
-      <keepaspectratio>yes</keepaspectratio>                                    
+      <posX>79</posX>
+      <posY>534</posY>
+      <width>50</width>
+      <height>25</height>
+      <keepaspectratio>yes</keepaspectratio>                            
       <texture>Logos\downloaded.png</texture>
-      <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsDownloaded, True)</visible>      	        
+      <visible>string.equals(#Youtube.fm.Info.Video.IsDownloaded, True)</visible>                                 
+      <animation effect="fade" time="70" reversible="false">visible</animation>	        
     </control>
     <control>
-      <description>IsDownloaded Logo</description>
+      <description>Not Downloaded Logo</description>
       <type>image</type>
       <id>0</id>
-      <posX>133</posX>
-      <posY>672</posY>
-      <width>70</width>
-      <height>35</height>
-      <keepaspectratio>yes</keepaspectratio>                                    
+      <posX>79</posX>
+      <posY>534</posY>
+      <width>50</width>
+      <height>25</height>
+      <keepaspectratio>yes</keepaspectratio>                            
       <texture>Logos\downloaded_no.png</texture>
-      <visible>!string.equals(#Youtube.fm.NowPlaying.Video.IsDownloaded, True)</visible>      	        
+      <visible>!string.equals(#Youtube.fm.Info.Video.IsDownloaded, True)</visible>                                 
+      <animation effect="fade" time="70" reversible="false">visible</animation>	        
     </control>
     <control>
       <description>Downloading Notification Logo</description>
       <type>image</type>
       <id>0</id>
-      <posX>195</posX>
-      <posY>673</posY>
-      <width>34</width>
-      <height>34</height>                       
+      <posX>119</posX>
+      <posY>535</posY>
+      <width>25</width>
+      <height>25</height>
+      <keepaspectratio>yes</keepaspectratio>                       
       <texture>isupdate.png</texture>	  
       <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>              
     </control>                  

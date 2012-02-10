@@ -96,8 +96,8 @@
 	    <posY>230</posY>
 	    <width>60</width>
 	    <height>40</height>
-	    <textureFocus>minimize_enabled.png</textureFocus>
-	    <textureNoFocus>minimize_disabled.png</textureNoFocus>
+	    <textureFocus>fullscreen_focus.png</textureFocus>
+	    <textureNoFocus>fullscreen_nofocus.png</textureNoFocus>
 	    <label>-</label>
 	    <action>18</action>            	    
 	    <onright>166</onright>
@@ -112,8 +112,8 @@
 	    <posY>270</posY>
 	    <width>60</width>
 	    <height>40</height>
-            <textureFocus>nav_refresh_focus.png</textureFocus>
-	    <textureNoFocus>nav_refresh_nofocus.png</textureNoFocus>	    
+            <textureFocus>info_focus.png</textureFocus>
+	     <textureNoFocus>info_nofocus.png</textureNoFocus>	    
 	    <label>-</label>           	    
 	    <onright>166</onright>
 	    <onup>5555</onup>
@@ -146,19 +146,7 @@
             <texture>LCD.png</texture>            
             <animation effect="fade" time="150" reversible="false">visible</animation>
         </control>
-        <control>
-            <description>Downloading Notification Logo</description>
-            <type>image</type>
-            <id>0</id>
-            <posX>248</posX>
-            <posY>533</posY>
-            <width>24</width>
-            <height>24</height>
-            <keepaspectratio>yes</keepaspectratio>            
-            <texture>isupdate.png</texture>	  
-            <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
-            <animation effect="fade" time="150" reversible="false">visible</animation>	        
-        </control>                                  
+        <!--  ************  Logos ************  -->            
         <control>
             <description>HD Logo</description>
             <type>image</type>
@@ -189,15 +177,42 @@
             <description>IsDownloaded Logo</description>
             <type>image</type>
             <id>0</id>
-            <posX>216</posX>
-            <posY>533</posY>
-            <width>30</width>
-            <height>24</height>
+            <posX>210</posX>
+            <posY>532</posY>
+            <width>50</width>
+            <height>25</height>
             <keepaspectratio>yes</keepaspectratio>                            
             <texture>youtube.fm_isdownloaded.png</texture>
             <visible>string.equals(#Youtube.fm.NowPlaying.Video.IsDownloaded, True)</visible>                                 
             <animation effect="fade" time="150" reversible="false">visible</animation>	        
-        </control>		                                                                       
+        </control>
+        <control>
+            <description>Not Downloaded Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>210</posX>
+            <posY>532</posY>
+            <width>50</width>
+            <height>25</height>
+            <keepaspectratio>yes</keepaspectratio>                            
+            <texture>Logos\downloaded_no.png</texture>
+            <visible>!string.equals(#Youtube.fm.Info.Video.IsDownloaded, True)</visible>                                 
+            <animation effect="fade" time="70" reversible="false">visible</animation>	        
+        </control>
+        <control>
+            <description>Downloading Notification Logo</description>
+            <type>image</type>
+            <id>0</id>
+            <posX>250</posX>
+            <posY>533</posY>
+            <width>25</width>
+            <height>25</height>
+            <keepaspectratio>yes</keepaspectratio>            
+            <texture>isupdate.png</texture>	  
+            <visible>string.equals(#Youtube.fm.IsDownloading, true )</visible>
+            <animation effect="fade" time="150" reversible="false">visible</animation>	        
+        </control>                                 
+        <!--  **********  END Logos **********  -->            	              		                                                                       
         <control>
             <id>0</id>
             <description>Artist Name Value</description>

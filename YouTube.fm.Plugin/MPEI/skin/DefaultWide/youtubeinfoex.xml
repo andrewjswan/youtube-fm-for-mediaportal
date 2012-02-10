@@ -230,7 +230,18 @@
                 <subitem>starbest.png</subitem>
             </subitems>
             <animation effect="fade" time="70" reversible="false">visible</animation>
-        </control>        
+        </control>
+        <control>
+            <id>173</id>
+            <description>Text Rating</description>
+            <type>label</type>
+            <posX>530</posX>
+            <posY>140</posY>
+            <width>100</width>
+            <font>font11</font>      
+            <textcolor>ffffffff</textcolor>            
+            <label>(#Youtube.fm.Curent.Video.RatingText)</label>                
+        </control>                
         <control>
             <description>Progress Bar Like/Dislike Percent</description>
             <type>progress</type>

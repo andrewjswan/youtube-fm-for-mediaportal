@@ -33,8 +33,8 @@ using MediaPortal.Common.Utils;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.8.2.284")]
-[assembly: AssemblyFileVersion("0.8.2.284")]
+[assembly: AssemblyVersion("0.8.3.304")]
+[assembly: AssemblyFileVersion("0.8.3.304")]
 [assembly: NeutralResourcesLanguageAttribute("")]
 
 [assembly: CompatibleVersion("1.1.7.0")]
