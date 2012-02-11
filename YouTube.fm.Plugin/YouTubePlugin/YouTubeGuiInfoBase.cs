@@ -384,7 +384,7 @@ namespace YouTubePlugin
     {
       if (control == listControl && actionType == Action.ActionType.ACTION_SELECT_ITEM && listControl.SelectedListItem != null)
       {
-        DoPlay(listControl.SelectedListItem.MusicTag as YouTubeEntry, true, null);
+        DoPlay(listControl.SelectedListItem.MusicTag as YouTubeEntry, true, listControl);
       }
       else if (control == listsimilar && actionType == Action.ActionType.ACTION_SELECT_ITEM && listsimilar.SelectedListItem != null)
       {
