@@ -23,7 +23,7 @@ namespace YouTubePlugin.Class.Artist
 
       try
       {
-        Regex regexObj = new Regex(@"/artist\?a=(?<id>.*?)&amp;.*?Artist: <span class=.link-like.>(?<name>.*?)</span>", RegexOptions.Singleline);
+        Regex regexObj = new Regex(@"<a href=""/artist/(?<id>.*?)\?.*?Artist: <span class=.link-like.>(?<name>.*?)</span>", RegexOptions.Singleline);
         Match matchResult = regexObj.Match(site);
         while (matchResult.Success)
         {
@@ -70,12 +70,13 @@ namespace YouTubePlugin.Class.Artist
 
     private string DownloadArtistInfo(string artist_id)
     {
+      ArtistItem item = ArtistManager.Instance.GetArtistsById(artist_id);
       string site = "";
       WebClient client = new WebClient();
       client.CachePolicy = new System.Net.Cache.RequestCachePolicy();
       client.UseDefaultCredentials = true;
       client.Proxy.Credentials = CredentialCache.DefaultCredentials;
-      string url = string.Format("http://www.youtube.com/artist?a={0}", artist_id);
+      string url = string.Format("http://www.youtube.com/artist/{0}", item.Name.Replace(" ","_"));
       if (ArtistManager.Instance.SitesCache.GetByUrl(url) == null)
       {
         client.Encoding = System.Text.Encoding.UTF8;
@@ -168,7 +169,7 @@ namespace YouTubePlugin.Class.Artist
       try
       {
         Regex regexObj =
-          new Regex("similar-artist\"><a href=\"/artist.a=(?<id>.*?)&amp;feature=artist\">(?<name>.*?)</a>",
+          new Regex(@"similar-artist""><a href=""/artist/(?<id>.*?)\?feature=artist"">(?<name>.*?)</a>",
                     RegexOptions.Singleline);
         Match matchResult = regexObj.Match(site);
         while (matchResult.Success)

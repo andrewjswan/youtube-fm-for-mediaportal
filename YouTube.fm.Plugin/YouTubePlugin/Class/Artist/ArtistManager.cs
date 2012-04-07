@@ -147,6 +147,29 @@ namespace YouTubePlugin.Class.Artist
       return res;
     }
 
+    public List<string> GetArtistsLetters(string letter)
+    {
+      List<string> res = new List<string>();
+      string lsSQL =
+        string.Format(
+          "select distinct upper(substr(ARTIST_NAME,1,{0})) AS LETTER from ARTISTS WHERE ARTIST_NAME like '{1}%' order by upper(ARTIST_NAME)",
+          letter.Length + 1, letter);
+      SQLiteResultSet loResultSet = m_db.Execute(lsSQL);
+      string oldvalue = "";
+      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
+      {
+        string l = DatabaseUtility.Get(loResultSet, iRow, "LETTER");
+        if (l.Length == 1)
+        {
+          l += " ";
+        }
+        if (l != oldvalue)
+          res.Add(l);
+        oldvalue = l;
+      }
+      return res;
+    }
+
     public ArtistItem GetArtistsByName(string name)
     {
 

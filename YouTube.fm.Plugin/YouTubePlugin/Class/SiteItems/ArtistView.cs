@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Google.GData.Client;
 using Google.GData.YouTube;
 using Google.YouTube;
+using MediaPortal.GUI.Library;
 using YouTubePlugin.Class.Artist;
 using YouTubePlugin.Class.Database;
 
@@ -81,24 +82,46 @@ namespace YouTubePlugin.Class.SiteItems
       if (entry.GetValue("letter") == "true" && entry.GetValue("special") == "false")
       {
         res.Title = "Artists/Letter/" + entry.Title;
-        foreach (ArtistItem artistItem in ArtistManager.Instance.GetArtists(entry.Title))
+        List<ArtistItem> list = ArtistManager.Instance.GetArtists(entry.Title);
+        if (list.Count > 500)
         {
-          SiteItemEntry newentry = new SiteItemEntry();
-          newentry.Provider = this.Name;
-          newentry.SetValue("letter", "false");
-          newentry.SetValue("id", artistItem.Id);
-          newentry.SetValue("name", artistItem.Name);
-          res.ItemType = ItemType.Artist;
-          GenericListItem listItem = new GenericListItem()
-                                       {
-                                         Title = artistItem.Name,
-                                         LogoUrl =
-                                           string.IsNullOrEmpty(artistItem.Img_url.Trim()) ? "@" : artistItem.Img_url,
-                                         IsFolder = true,
-                                         DefaultImage = "defaultArtistBig.png",
-                                         Tag = newentry
-                                       };
-          res.Items.Add(listItem);
+          foreach (string letter in ArtistManager.Instance.GetArtistsLetters(entry.Title))
+          {
+            SiteItemEntry newentry = new SiteItemEntry();
+            newentry.Provider = this.Name;
+            newentry.SetValue("letter", "true");
+            newentry.SetValue("special", "false");
+            newentry.Title = letter;
+            GenericListItem listItem = new GenericListItem()
+            {
+              Title = letter,
+              IsFolder = true,
+              Tag = newentry
+            };
+            res.Items.Add(listItem);
+          }
+        }
+        else
+        {
+          foreach (ArtistItem artistItem in list)
+          {
+            SiteItemEntry newentry = new SiteItemEntry();
+            newentry.Provider = this.Name;
+            newentry.SetValue("letter", "false");
+            newentry.SetValue("id", artistItem.Id);
+            newentry.SetValue("name", artistItem.Name);
+            res.ItemType = ItemType.Artist;
+            GenericListItem listItem = new GenericListItem()
+                                         {
+                                           Title = artistItem.Name,
+                                           LogoUrl =
+                                             string.IsNullOrEmpty(artistItem.Img_url.Trim()) ? "@" : artistItem.Img_url,
+                                           IsFolder = true,
+                                           DefaultImage = "defaultArtistBig.png",
+                                           Tag = newentry
+                                         };
+            res.Items.Add(listItem);
+          }
         }
       }
       if (entry.GetValue("special") == "1")
@@ -181,14 +204,20 @@ namespace YouTubePlugin.Class.SiteItems
         string user = ArtistManager.Instance.Grabber.GetArtistUser(entry.GetValue("id"));
         GenericListItemCollections resart = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
         YouTubeFeed videos = null;
-        if (!string.IsNullOrEmpty(user))
+        try
         {
-          YouTubeQuery query =
-            new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", user));
-          query.NumberToRetrieve = 50;
-          videos = Youtube2MP.service.Query(query);
+          if (!string.IsNullOrEmpty(user))
+          {
+            YouTubeQuery query =
+              new YouTubeQuery(string.Format("http://gdata.youtube.com/feeds/api/users/{0}/uploads", user));
+            query.NumberToRetrieve = 50;
+            videos = Youtube2MP.service.Query(query);
+          }
         }
-
+        catch (Exception exception)
+        {
+          Log.Error(exception);
+        }
         foreach (GenericListItem genericListItem in resart.Items)
         {
           YouTubeEntry tubeEntry = genericListItem.Tag as YouTubeEntry;
