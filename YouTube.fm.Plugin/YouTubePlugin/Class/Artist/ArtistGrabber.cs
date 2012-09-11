@@ -98,6 +98,8 @@ namespace YouTubePlugin.Class.Artist
 
     private string DownloadArtistInfo(string artistName)
     {
+      if (string.IsNullOrEmpty(artistName))
+        return "";
       //ArtistItem item = ArtistManager.Instance.GetArtistsById(artist_id);
       string url = string.Format("http://www.youtube.com/artist/{0}", artistName.Replace(" ", "_"));
       return DownloadString(url);

@@ -167,7 +167,14 @@ namespace YouTubePlugin
               NameValueCollection qscoll = HttpUtility.ParseQueryString(HttpUtility.HtmlDecode(result));
               foreach (string s in qscoll.AllKeys)
               {
-                Items.Add(s, qscoll[s]);
+                if(Items.ContainsKey(s))
+                {
+                  
+                }
+                else
+                {
+                  Items.Add(s, qscoll[s]);                  
+                }
               }
 
             }

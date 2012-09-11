@@ -243,7 +243,7 @@ namespace YouTubePlugin
         }
       }
       if (string.IsNullOrEmpty(url))
-        url = "http://i2.ytimg.com/vi/hqdefault.jpg";
+        url = "http://i2.ytimg.com/vi/mqdefault.jpg";
       return url;
     }
 
