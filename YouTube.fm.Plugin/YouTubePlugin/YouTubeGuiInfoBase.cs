@@ -155,11 +155,11 @@ namespace YouTubePlugin
       //if (listsimilar != null)
       //{
       similar.Clear();
-      ArtistItem artistItem = GetArtist(entry);
-
-      if (!string.IsNullOrEmpty(artistItem.Id))
+      ArtistItem artistItem =GetArtist(entry);
+      string artistname = ArtistManager.Instance.GetArtistName(entry);
+      if (!string.IsNullOrEmpty(artistname))
       {
-        List<ArtistItem> items = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
+        List<ArtistItem> items = ArtistManager.Instance.Grabber.GetSimilarArtists(artistname);
         foreach (ArtistItem aitem in items)
         {
           GUIListItem item = new GUIListItem();

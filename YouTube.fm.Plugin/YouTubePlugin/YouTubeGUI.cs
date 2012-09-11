@@ -1237,7 +1237,8 @@ namespace YouTubePlugin
       }
       else if (dlg.SelectedLabelText == string.Format(Translation.AllMusicVideosFrom, artistName))
       {
-        addVideos(ArtistManager.Instance.Grabber.GetArtistVideosIds(artistItem.Id), true);
+        addVideos(ArtistManager.Instance.Grabber.GetArtistVideosIds(ArtistManager.Instance.GetArtistName(videoEntry)),
+                  true);
       }
       else if (dlg.SelectedLabelText == Translation.Info)
       {
@@ -1256,7 +1257,8 @@ namespace YouTubePlugin
       else if (dlg.SelectedLabelText == Translation.SimilarArtists)
       {
         List<ArtistItem> similarartist = new List<ArtistItem>();
-        similarartist = ArtistManager.Instance.Grabber.GetSimilarArtists(artistItem.Id);
+        similarartist =
+          ArtistManager.Instance.Grabber.GetSimilarArtists(ArtistManager.Instance.GetArtistName(videoEntry));
         GenericListItemCollections res = new GenericListItemCollections();
         foreach (ArtistItem item in similarartist)
         {

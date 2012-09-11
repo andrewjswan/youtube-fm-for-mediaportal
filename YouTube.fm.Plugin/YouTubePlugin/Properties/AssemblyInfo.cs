@@ -37,7 +37,7 @@ using MediaPortal.Common.Utils;
 [assembly: AssemblyFileVersion("0.8.3.305")]
 [assembly: NeutralResourcesLanguageAttribute("")]
 
-[assembly: CompatibleVersion("1.1.7.0")]
+[assembly: CompatibleVersion("1.2.100.0", "1.1.6.27644")]
 [assembly: UsesSubsystem("MP.SkinEngine")]
 [assembly: UsesSubsystem("MP.Players.Video")]
 [assembly: UsesSubsystem("MP.Players.Music")]

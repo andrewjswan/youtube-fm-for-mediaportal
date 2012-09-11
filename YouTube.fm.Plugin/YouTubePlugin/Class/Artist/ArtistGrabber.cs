@@ -10,6 +10,7 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.Extensions.MediaRss;
 using Google.GData.YouTube;
+using MediaPortal.GUI.Library;
 using HttpUtility = Google.GData.Client.HttpUtility;
 using MediaGroup = Google.GData.YouTube.MediaGroup;
 
@@ -68,26 +69,38 @@ namespace YouTubePlugin.Class.Artist
       return GetFromVideoSite(site);
     }
 
-    private string DownloadArtistInfo(string artist_id)
+    private string DownloadString(string url)
     {
-      ArtistItem item = ArtistManager.Instance.GetArtistsById(artist_id);
       string site = "";
-      WebClient client = new WebClient();
-      client.CachePolicy = new System.Net.Cache.RequestCachePolicy();
-      client.UseDefaultCredentials = true;
-      client.Proxy.Credentials = CredentialCache.DefaultCredentials;
-      string url = string.Format("http://www.youtube.com/artist/{0}", item.Name.Replace(" ","_"));
-      if (ArtistManager.Instance.SitesCache.GetByUrl(url) == null)
+      try
       {
-        client.Encoding = System.Text.Encoding.UTF8;
-        site = client.DownloadString(url);
-        ArtistManager.Instance.SitesCache.Add(new SiteContent() { SIte = site, ArtistId = artist_id, Url = url });
+        WebClient client = new WebClient();
+        client.CachePolicy = new System.Net.Cache.RequestCachePolicy();
+        client.UseDefaultCredentials = true;
+        client.Proxy.Credentials = CredentialCache.DefaultCredentials;
+        if (ArtistManager.Instance.SitesCache.GetByUrl(url) == null)
+        {
+          client.Encoding = System.Text.Encoding.UTF8;
+          site = client.DownloadString(url);
+          ArtistManager.Instance.SitesCache.Add(new SiteContent() { SIte = site, ArtistId = "", Url = url });
+        }
+        else
+        {
+          site = ArtistManager.Instance.SitesCache.GetByUrl(url).SIte;
+        }
       }
-      else
+      catch (Exception exception)
       {
-        site = ArtistManager.Instance.SitesCache.GetByUrl(url).SIte;
+        Log.Error(exception);
       }
       return site;
+    }
+
+    private string DownloadArtistInfo(string artistName)
+    {
+      //ArtistItem item = ArtistManager.Instance.GetArtistsById(artist_id);
+      string url = string.Format("http://www.youtube.com/artist/{0}", artistName.Replace(" ", "_"));
+      return DownloadString(url);
     }
 
     public string GetArtistUser(string artist_id)
@@ -108,22 +121,35 @@ namespace YouTubePlugin.Class.Artist
       }
     }
 
-    public GenericListItemCollections GetArtistVideosIds(string artist_id)
+    public GenericListItemCollections GetArtistVideosIds(string artist_name)
     {
-      string site = DownloadArtistInfo(artist_id);
+      string site = DownloadArtistInfo(artist_name);
+      GetSimilarArtistsSite(site);
+      string playlist_id = null;
+      try
+      {
+        Regex regexObj = new Regex("data-list_id=\"(?<name>.*?)\"", RegexOptions.Singleline);
+        playlist_id = regexObj.Match(site).Groups["name"].Value;
+      }
+      catch (ArgumentException ex)
+      {
+        // Syntax error in the regular expression
+      }
+      site = DownloadString(string.Format("http://www.youtube.com/playlist?list={0}", playlist_id));
 
       GenericListItemCollections res = new GenericListItemCollections();
       try
       {
-        GetSimilarArtistsSite(site);
         //------------------------------
         //string img = Regex.Match(site, "<img class=\"artist-image\" src=\"(?<url>.*?)\" />", RegexOptions.Singleline).Groups["url"].Value;
-        ArtistItem artistItem = ArtistManager.Instance.GetArtistsById(artist_id);
+        //ArtistItem artistItem = ArtistManager.Instance.GetArtistsById(artist_id);
         //artistItem.Img_url = img;
         //ArtistManager.Instance.Save(artistItem);
         //----------------------------
+        //@"<li class=""playlist-video-item.*?<a href=""/watch\?v=(?<vid_id>.*?)&.*?data-thumb=""(?<thumb>.*?)"".*?<span class=""video-time"">(?<duration>.*?)</span>"
+
         //Regex regexObj = new Regex("album-row.*?data-video-ids=\"(?<vid_id>.*?)\".*?<span class=\"clip\"><img src=\"(?<thumb>.*?)\".*?album-track-name\">(?<title>.*?)</span>", RegexOptions.Singleline);
-        Regex regexObj = new Regex("album-row.*?data-video-ids=\"(?<vid_id>.*?)\".*?<span class=\"clip\"><span class=\"clip-inner\"><img src=\"(?<thumb>.*?)\".*?album-track-duration\">(?<duration>.*?)</span>.*?album-track-name\">(?<title>.*?)</span>", RegexOptions.Singleline);
+        Regex regexObj = new Regex(@"playlist-video-item.*?<a href=""/watch\?v=(?<vid_id>.*?)&.*?data-thumb=""(?<thumb>.*?)"".*?<span class=""video-time"">(?<duration>.*?)</span>.*?video-title ""  dir=""ltr"">(?<title>.*?)</span>", RegexOptions.Singleline);
         Match matchResult = regexObj.Match(site);
         while (matchResult.Success)
         {
@@ -131,7 +157,7 @@ namespace YouTubePlugin.Class.Artist
           
           youTubeEntry.AlternateUri = new AtomUri("http://www.youtube.com/watch?v=" + matchResult.Groups["vid_id"].Value);
           youTubeEntry.Title = new AtomTextConstruct();
-          youTubeEntry.Title.Text = artistItem.Name + " - " + HttpUtility.HtmlDecode(matchResult.Groups["title"].Value);
+          youTubeEntry.Title.Text =HttpUtility.HtmlDecode(matchResult.Groups["title"].Value);
           youTubeEntry.Media = new MediaGroup();
           youTubeEntry.Media.Description = new MediaDescription("");
           youTubeEntry.Id = new AtomId(youTubeEntry.AlternateUri.Content);
@@ -142,7 +168,7 @@ namespace YouTubePlugin.Class.Artist
                                          LogoUrl = "http:" + matchResult.Groups["thumb"].Value.Replace("default.jpg", "hqdefault.jpg"),
                                          Tag = youTubeEntry,
                                          Title2 = matchResult.Groups["duration"].Value,
-                                         ParentTag = artistItem
+                                         //ParentTag = artistItem
                                        };
           res.Items.Add(listItem);
           //resultList.Add(matchResult.Groups["groupname"].Value);
@@ -157,9 +183,9 @@ namespace YouTubePlugin.Class.Artist
       return res;
     }
 
-    public List<ArtistItem> GetSimilarArtists(string artistId)
+    public List<ArtistItem> GetSimilarArtists(string artistname)
     {
-      return GetSimilarArtistsSite(DownloadArtistInfo(artistId));
+      return GetSimilarArtistsSite(DownloadArtistInfo(artistname));
     }
 
     public List<ArtistItem> GetSimilarArtistsSite(string site)
@@ -169,7 +195,7 @@ namespace YouTubePlugin.Class.Artist
       try
       {
         Regex regexObj =
-          new Regex(@"similar-artist""><a href=""/artist/(?<id>.*?)\?feature=artist"">(?<name>.*?)</a>",
+          new Regex("<h3 class=\"channel-summary-title\">.*?<a href=\"/artist/(?<id>.*?)\" class=\"yt-uix-tile-link\">YouTube - (?<name>.*?)</a>",
                     RegexOptions.Singleline);
         Match matchResult = regexObj.Match(site);
         while (matchResult.Success)

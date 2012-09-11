@@ -442,6 +442,11 @@ namespace YouTubePlugin.Class.Artist
       return s;
     }
 
+    public string GetArtistName(YouTubeEntry entry)
+    {
+      return GetArtistName(entry.Title.Text);
+    }
+
     public string GetArtistName(string title)
     {
       string name = "";

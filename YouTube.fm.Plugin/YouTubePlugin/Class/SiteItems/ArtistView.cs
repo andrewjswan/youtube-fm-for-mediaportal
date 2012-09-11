@@ -202,7 +202,7 @@ namespace YouTubePlugin.Class.SiteItems
         //res = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
         res.ItemType = ItemType.Video;
         string user = ArtistManager.Instance.Grabber.GetArtistUser(entry.GetValue("id"));
-        GenericListItemCollections resart = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("id"));
+        GenericListItemCollections resart = ArtistManager.Instance.Grabber.GetArtistVideosIds(entry.GetValue("name"));
         YouTubeFeed videos = null;
         try
         {
